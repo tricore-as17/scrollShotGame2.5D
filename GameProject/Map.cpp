@@ -30,12 +30,14 @@ void Map::Init(){}
 
 void Map::Update(const VECTOR& playerVec)
 {
-	if (pos.x - playerVec.x < 0)
-	{
-		//マップをスクロールさせる
-		pos.x = pos.x - playerVec.x;
+	//FIXME
+	//マップをスクロールする際に使用もうスクロール際に使用するのでもう使わない
+	//if (pos.x - playerVec.x < 0)
+	//{
+	//	//マップをスクロールさせる
+	//	pos.x = pos.x - playerVec.x;
 
-	}
+	//}
 }
 
 void Map::Draw()

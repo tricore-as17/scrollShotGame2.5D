@@ -15,10 +15,19 @@ public:
 	static constexpr float W = 64.0f;			//幅
 	static constexpr float H = 64.0f;			//高さ
 	//メソッド
-	EasyEnemy(int inFirstX);//コンストラクタ	
-	~EasyEnemy();			//デストラクタ
-	void Init(VECTOR initPos);				//初期化
-	void Update(const Map& map,const VECTOR& playerVec);	//更新
+	EasyEnemy(int inFirstX);			//コンストラクタ	
+	~EasyEnemy();						//デストラクタ
+	/// <summary>
+	/// ゲーム開始時の初期化
+	/// </summary>
+	/// <param name="initPos">初期化用の座標</param>
+	void Init(VECTOR initPos);				
+	/// <summary>
+	/// 更新処理
+	/// </summary>
+	/// <param name="map">マップの情報が入ったインスタンス</param>
+	/// <param name="playerVec"></param>
+	void Update(const Map& map,const VECTOR& playerVec);	
 	void Draw();							//描画
 
 };

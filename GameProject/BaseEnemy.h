@@ -9,7 +9,7 @@ public:
 	BaseEnemy();
 	virtual ~BaseEnemy();
 	//エネミーに共通するスクロールの処理
-	virtual void ScrollProcess(const VECTOR& playerVec);
+	virtual void ScrollProcess();
 	//ゲッターセッター
 	virtual VECTOR GetPos()const { return pos; }				//座標の取得
 	virtual void SetPos(const VECTOR inPos) { pos = inPos; }	//座標を設定

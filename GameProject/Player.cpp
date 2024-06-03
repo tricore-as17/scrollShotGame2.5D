@@ -101,11 +101,13 @@ void Player::Update(bool keyStop,const Map &map)
 
 	// 当たり判定をして、壁にめり込まないようにvelocityを操作する
 	velocity = PlayerColision::CheckPlayerHitWithMap(*this, map, velocity);
+	
+	//FIXME:マップをスクロールするために使用しているがその使用は辞めたので
 	//出た値を保存する
 	keepVelocity = velocity;
 
 	// 移動
-	pos = VAdd(pos, VGet(0,velocity.y,0));
+	pos = VAdd(pos, velocity);
 	//3Dモデルを描画させるために位置を調整する
 	drawPos = VGet(pos.x+10,pos.y+60,0.7f);
 	pos3D = ConvScreenPosToWorldPos(drawPos);
