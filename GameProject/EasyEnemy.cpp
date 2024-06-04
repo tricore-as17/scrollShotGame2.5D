@@ -49,7 +49,7 @@ void EasyEnemy::Init(VECTOR initPos)
 void EasyEnemy::Update(const Map& map,const VECTOR& playerVec)
 {
 	//エネミー共通のスクロール処理
-	ScrollProcess(playerVec);
+	ScrollProcess();
 	//移動開始フラグがたっていたら移動させる
 	if (moveStartFlag)
 	{
