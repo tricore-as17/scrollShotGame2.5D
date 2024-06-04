@@ -1,7 +1,7 @@
-#pragma once
+ï»¿#pragma once
 #include<vector>
 
-//ƒNƒ‰ƒX‚Ìƒvƒƒgƒ^ƒCƒvéŒ¾
+//ã‚¯ãƒ©ã‚¹ã®ãƒ—ãƒ­ãƒˆã‚¿ã‚¤ãƒ—å®£è¨€
 class Player;
 class Map;
 class Gimmick;
@@ -21,18 +21,18 @@ class Game
 {
 public:
 
-	//’è”
-	static constexpr int CLEAR_EFFECT_NUM = 4;		//ƒNƒŠƒA‚ÌƒGƒtƒFƒNƒg‚Ì”
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^EƒfƒXƒgƒ‰ƒNƒ^
+	//å®šæ•°
+	static constexpr int CLEAR_EFFECT_NUM = 4;		//ã‚¯ãƒªã‚¢æ™‚ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®æ•°
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ»ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Game();
 	~Game();
-	void GameStateChange();		//ƒQ[ƒ€ƒXƒe[ƒ^ƒX‚ğˆÚs‚·‚éÛ‚Ìˆ—
-	void Initialize();			//‰Šú‰»
-	//ƒƒCƒ“•`‰æ‚ÌŒã‚ÉƒTƒu‚Ìˆ—‚ğ‚·‚é•K—v‚ª‚ ‚é‚Ì‚Å•ÊX‚É‚·‚é
-	void Update();				//ƒƒCƒ“‰æ–Ê‚ÌXVˆ—
-	void Draw();				//ƒƒCƒ“‰æ–Ê‚Ì•`‰æ
+	void GameStateChange();		//ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’ç§»è¡Œã™ã‚‹éš›ã®å‡¦ç†
+	void Initialize();			//åˆæœŸåŒ–
+	//ãƒ¡ã‚¤ãƒ³æç”»ã®å¾Œã«ã‚µãƒ–ã®å‡¦ç†ã‚’ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã®ã§åˆ¥ã€…ã«ã™ã‚‹
+	void Update();				//ãƒ¡ã‚¤ãƒ³ç”»é¢ã®æ›´æ–°å‡¦ç†
+	void Draw();				//ãƒ¡ã‚¤ãƒ³ç”»é¢ã®æç”»
 private:
-	//ƒvƒŒƒCƒ„[‚âƒ}ƒbƒv‚È‚Ç‚ÌƒNƒ‰ƒX‚ğ‚Ü‚Æ‚ß‚é
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚„ãƒãƒƒãƒ—ãªã©ã®ã‚¯ãƒ©ã‚¹ã‚’ã¾ã¨ã‚ã‚‹
 	Player* player;
 	Utility* utility;
 	UI* ui;
@@ -50,7 +50,7 @@ private:
 	std::vector<Cloud*> cloud;
 	std::vector<Gimmick*> gimmick;
 	std::vector<Effect*>clearEffect;
-	//ƒQ[ƒ€‚ÌƒXƒe[ƒ^ƒXŠÖ˜AiƒXƒNƒ[ƒ‹ƒXƒs[ƒh‚È‚Ç)
+	//ã‚²ãƒ¼ãƒ ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹é–¢é€£ï¼ˆã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚¹ãƒ”ãƒ¼ãƒ‰ãªã©)
 	
 	bool keyRelease = false;
 	bool keyOn = false;

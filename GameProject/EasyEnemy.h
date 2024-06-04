@@ -1,24 +1,24 @@
-#pragma once
+ï»¿#pragma once
 #include"DxLib.h"
 #include"BaseEnemy.h"
 
 class Map;
 
 /// <summary>
-/// ˆê”ÔÅ‰‚É“oê‚·‚éG‹›“G‰¡‚ÉˆÚ“®‚µ‚Ä‚­‚é‚¾‚¯
+/// ä¸€ç•ªæœ€åˆã«ç™»å ´ã™ã‚‹é›‘é­šæ•µæ¨ªã«ç§»å‹•ã—ã¦ãã‚‹ã ã‘
 /// </summary>
 class EasyEnemy :public BaseEnemy
 {
 public:
-	//’è”ŒQ
-	static constexpr float SPEED = 2.5f;		//ƒXƒs[ƒh
-	static constexpr float W = 64.0f;			//•
-	static constexpr float H = 64.0f;			//‚‚³
-	//ƒƒ\ƒbƒh
-	EasyEnemy(int inFirstX);//ƒRƒ“ƒXƒgƒ‰ƒNƒ^	
-	~EasyEnemy();			//ƒfƒXƒgƒ‰ƒNƒ^
-	void Init(VECTOR initPos);				//‰Šú‰»
-	void Update(const Map& map,const VECTOR& playerVec);	//XV
-	void Draw();							//•`‰æ
+	//å®šæ•°ç¾¤
+	static constexpr float SPEED = 2.5f;		//ã‚¹ãƒ”ãƒ¼ãƒ‰
+	static constexpr float W = 64.0f;			//å¹…
+	static constexpr float H = 64.0f;			//é«˜ã•
+	//ãƒ¡ã‚½ãƒƒãƒ‰
+	EasyEnemy(int inFirstX);//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿	
+	~EasyEnemy();			//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	void Init(VECTOR initPos);				//åˆæœŸåŒ–
+	void Update(const Map& map,const VECTOR& playerVec);	//æ›´æ–°
+	void Draw();							//æç”»
 
 };

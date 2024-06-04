@@ -1,45 +1,45 @@
-#include"Utility.h"
+ï»¿#include"Utility.h"
 #include"DxLib.h"
 
-//static•Ï”‚Ì‰Šú‰»
+//staticå¤‰æ•°ã®åˆæœŸåŒ–
 float Utility::fps = 0;
 int Utility::startTime = GetNowCount();
 int Utility::roopCount = 0;
 
-//‰Šú‰»
+//åˆæœŸåŒ–
 void Utility::FpsInit()
 {
-    //ƒQ[ƒ€ŠJŽnŽž“_‚ÌŽžŠÔ‚ðŽæ“¾
+    //ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ç‚¹ã®æ™‚é–“ã‚’å–å¾—
     startTime = GetNowCount();
     roopCount = 0;
     fps = 0;
 }
-//XVˆ—
+//æ›´æ–°å‡¦ç†
 void Utility::FpsUpdate()
 {
-    //1ƒtƒŒ[ƒ€–Ú‚È‚ç
+    //1ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ãªã‚‰
     if (roopCount == 0)
     {
         startTime = GetNowCount();
     }
-    //60ƒtƒŒ[ƒ€–Ú‚È‚ç
+    //60ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ãªã‚‰
     if (roopCount == AVERAGE_FLAME)
     {
-        //Œ»Ý‚Ì’l‚ð‘ã“ü
+        //ç¾åœ¨ã®å€¤ã‚’ä»£å…¥
         int tmp = GetNowCount();
-        //•\Ž¦‚·‚éFPS‚Ì’l‚ð‘ã“ü
+        //è¡¨ç¤ºã™ã‚‹FPSã®å€¤ã‚’ä»£å…¥
         fps = 1000.f / ((tmp - startTime) / (float)AVERAGE_FLAME);
-        //ƒ‹[ƒvƒJƒEƒ“ƒg‚Ì‰Šú‰»
+        //ãƒ«ãƒ¼ãƒ—ã‚«ã‚¦ãƒ³ãƒˆã®åˆæœŸåŒ–
         roopCount = 0;
         startTime = tmp;
     }
     roopCount++;
 }
-//ƒRƒ“ƒgƒ[ƒ‹
+//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«
 void Utility::FpsControll()
 {
-    int tookTime = GetNowCount() - startTime;                   //Œ»Ý‚ÌƒtƒŒ[ƒ€‚ÌŒo‰ß‚©‚ç1ƒtƒŒ[ƒ€–Ú‚ÅŒvŽZ‚µ‚½’l‚ðˆø‚­
-    int waitTime = roopCount * 1000 / 60 - tookTime;            //tookTime‚Ì’l‚ª‘å‚«‚¢‚Æ‚PƒtƒŒ[ƒ€•Ó‚è‚É‚©‚©‚éŽžŠÔ‚ª’·‚¢‚Ì‚Åˆ—‚ª’x‚¢‚±‚Æ‚É‚È‚é
+    int tookTime = GetNowCount() - startTime;                   //ç¾åœ¨ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã®çµŒéŽã‹ã‚‰1ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ã§è¨ˆç®—ã—ãŸå€¤ã‚’å¼•ã
+    int waitTime = roopCount * 1000 / 60 - tookTime;            //tookTimeã®å€¤ãŒå¤§ãã„ã¨ï¼‘ãƒ•ãƒ¬ãƒ¼ãƒ è¾ºã‚Šã«ã‹ã‹ã‚‹æ™‚é–“ãŒé•·ã„ã®ã§å‡¦ç†ãŒé…ã„ã“ã¨ã«ãªã‚‹
 
     if (waitTime > 0)
     {
@@ -47,10 +47,10 @@ void Utility::FpsControll()
     }
 }
 
-//ƒQ[ƒ€ŠJŽnŽž‚²‚Æ‚Ì‰Šú‰»
+//ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ã”ã¨ã®åˆæœŸåŒ–
 void Utility::StartInit()
 {
-    //ƒQ[ƒ€ŠJŽnŽžŠÔ‚ð‹L˜^
+    //ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚é–“ã‚’è¨˜éŒ²
     gameStartTime = GetNowCount();
     elapsedTime = 0;
     scrollSpeed = FIRST_SCROLL_SPEED;
@@ -58,11 +58,11 @@ void Utility::StartInit()
     loadFlag = false;
 }
 
-//XVˆ—
+//æ›´æ–°å‡¦ç†
 void Utility::Update()
 {
     int nowTime = GetNowCount();
-    //Œ»Ý‚ÌŽžŠÔ‚©‚çƒQ[ƒ€ƒXƒ^[ƒgŽž‚ÌŽžŠÔ‚ðˆø‚¢‚ÄŒo‰ßŽžŠÔ‚ðo‚·
+    //ç¾åœ¨ã®æ™‚é–“ã‹ã‚‰ã‚²ãƒ¼ãƒ ã‚¹ã‚¿ãƒ¼ãƒˆæ™‚ã®æ™‚é–“ã‚’å¼•ã„ã¦çµŒéŽæ™‚é–“ã‚’å‡ºã™
     elapsedTime = nowTime - gameStartTime;   
     if (elapsedTime > 20000 && elapsedTime <=40000)
     {

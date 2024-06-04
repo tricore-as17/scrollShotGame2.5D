@@ -1,45 +1,45 @@
-#include"EffekseerForDXLib.h"
+﻿#include"EffekseerForDXLib.h"
 #include"Effect.h"
 
-//�R���X�g���N�^
+//コンストラクタ
 Effect::Effect(const char* fileName) :playTime(0), pos(VGet(0.0f, 0.0f, 0.0f)), playFlag(false), playHandle(-1)
 {
-	//�n���h���̓ǂݍ���
+	//ハンドルの読み込み
 	handle = LoadEffekseerEffect(fileName, 1.5f);
 }
-//�f�X�g���N�^
+//デストラクタ
 Effect::~Effect()
 {
-	//�G�t�F�N�g���\�[�X�̍폜
+	//エフェクトリソースの削除
 	DeleteEffekseerEffect(handle);
 }
-//�G�t�F�N�g��\�����鎞�̏����ݒ�
+//エフェクトを表示する時の初期設定
 int Effect::Setting()
 {
-	//Effekseer�����悤����ۂ�DirectX11���g����悤�ɂ���K�v������
+	//Effekseerをしようする際にDirectX11を使えるようにする必要がある
 	SetUseDirect3DVersion(DX_DIRECT3D_11);
 
-	//Effekseer�̏�����
+	//Effekseerの初期化
 	if (Effekseer_Init(8000) == -1)
 	{
 		return -1;
 	}
 
-	// �t���X�N���[���E�C���h�E�̐؂�ւ��Ń��\�[�X��������̂�h���B
-	// Effekseer���g�p����ꍇ�͕K���ݒ肷��B
+	// フルスクリーンウインドウの切り替えでリソースが消えるのを防ぐ。
+	// Effekseerを使用する場合は必ず設定する。
 	SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
 
-	// DX���C�u�����̃f�o�C�X���X�g�������̃R�[���o�b�N��ݒ肷��B
-	// �E�C���h�E�ƃt���X�N���[���̐؂�ւ�����������ꍇ�͕K�����s����B
-	// �؂�ւ��͍s��Ȃ����ꉞ�Z�b�e�B���O
-	// �������ADirectX11���g�p����ꍇ�͎��s����K�v�͂Ȃ��B
+	// DXライブラリのデバイスロストした時のコールバックを設定する。
+	// ウインドウとフルスクリーンの切り替えが発生する場合は必ず実行する。
+	// 切り替えは行わないが一応セッティング
+	// ただし、DirectX11を使用する場合は実行する必要はない。
 	//Effekseer_SetGraphicsDeviceLostCallbackFunctions();
 
-	// Z�o�b�t�@��L���ɂ���B
-	// Effekseer���g�p����ꍇ�A2D�Q�[���ł�Z�o�b�t�@���g�p����B
+	// Zバッファを有効にする。
+	// Effekseerを使用する場合、2DゲームでもZバッファを使用する。
 	SetUseZBuffer3D(TRUE);
-	// Z�o�b�t�@�ւ̏������݂�L���ɂ���B
-	// Effekseer���g�p����ꍇ�A2D�Q�[���ł�Z�o�b�t�@���g�p����B
+	// Zバッファへの書き込みを有効にする。
+	// Effekseerを使用する場合、2DゲームでもZバッファを使用する。
 	SetWriteZBuffer3D(TRUE);
 	return 0;
 }

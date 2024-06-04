@@ -1,43 +1,43 @@
-#include"Player.h"
+ï»¿#include"Player.h"
 #include"Colision.h"
 #include"Utility.h"
 
-//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 Player::Player():isHitTop(false),isGround(false)
 {
-	//À•W‚Ì‰Šú‰»
+	//åº§æ¨™ã®åˆæœŸåŒ–
 	pos = VGet(FIRST_X, FIRST_Y, 0);
 	dir = VGet(0, 0, 0);
 	fallSpeed = 0;
 	playTime = 0.0f;
-	//ƒ‚ƒfƒ‹ƒnƒ“ƒhƒ‹‚É‘ã“ü
+	//ãƒ¢ãƒ‡ãƒ«ãƒãƒ³ãƒ‰ãƒ«ã«ä»£å…¥
 	modelHandle = MV1LoadModel("mv1/Player/playerModel.mv1");
-	//ƒ‚ƒfƒ‹‚ÌƒTƒCƒY‚ğİ’è
+	//ãƒ¢ãƒ‡ãƒ«ã®ã‚µã‚¤ã‚ºã‚’è¨­å®š
 	MV1SetScale(modelHandle, VGet(0.02f, 0.02f, 0.02f));
-	//ƒ‚ƒfƒ‹‚Ì‰ñ“]’l‚ğİ’è(y²‚É90“x‰ñ“]‚³‚¹‚é);
+	//ãƒ¢ãƒ‡ãƒ«ã®å›è»¢å€¤ã‚’è¨­å®š(yè»¸ã«90åº¦å›è»¢ã•ã›ã‚‹);
 	MV1SetRotationXYZ(modelHandle, VGet(0.0f, -110.0f * DX_PI_F / 180.0f, 0.0f));
-	//3Dƒ‚ƒfƒ‹‚Ì1”Ô–Ú‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğƒAƒ^ƒbƒ`‚·‚é
+	//3Dãƒ¢ãƒ‡ãƒ«ã®1ç•ªç›®ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã‚¢ã‚¿ãƒƒãƒã™ã‚‹
 	attachIndex = MV1AttachAnim(modelHandle, IDLE, -1, FALSE);
-	//ƒAƒ^ƒbƒ`‚µ‚½ƒAƒjƒƒVƒ‡ƒ“‚Ì‘Ä¶ŠÔ‚ğæ“¾
+	//ã‚¢ã‚¿ãƒƒãƒã—ãŸã‚¢ãƒ‹ãƒ¡ã‚·ãƒ§ãƒ³ã®ç·å†ç”Ÿæ™‚é–“ã‚’å–å¾—
 	totalAnimeTime = MV1GetAttachAnimTotalTime(modelHandle, attachIndex);
 }
-//ƒfƒXƒgƒ‰ƒNƒ^
+//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 Player::~Player()
 {
 	MV1DeleteModel(modelHandle);
 }
 
 /// <summary>
-/// ƒQ[ƒ€ŠJn‚Ì‰Šú‰»
+/// ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ã®åˆæœŸåŒ–
 /// </summary>
 void Player::Init()
 {
-	//À•W‚Ì‰Šú‰»‚ÆˆÚ“®•ûŒü‚Ì‰Šú‰»
+	//åº§æ¨™ã®åˆæœŸåŒ–ã¨ç§»å‹•æ–¹å‘ã®åˆæœŸåŒ–
 	pos = VGet(FIRST_X, FIRST_Y, 0);
 	dir = VGet(0, 0, 0);
 	fallSpeed = 0;
 	isHitTop, isGround = false;
-	//ƒAƒjƒ[ƒVƒ‡ƒ“ŠÖ˜A‚Ì‰Šú‰»
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é–¢é€£ã®åˆæœŸåŒ–
 	playTime = 0.0f;
 	for (int i = 0; i < ANIME_STATE_SUM; i++)
 	{
@@ -51,16 +51,16 @@ void Player::Init()
 }
 
 /// <summary>
-/// XVˆ—
+/// æ›´æ–°å‡¦ç†
 /// </summary>
 void Player::Update(bool keyStop,const Map &map)
 {
-	// “ü—Íó‘Ô‚ğXV
-// ƒpƒbƒh‚P‚ÆƒL[ƒ{[ƒh‚©‚ç“ü—Í‚ğ“¾‚é
+	// å…¥åŠ›çŠ¶æ…‹ã‚’æ›´æ–°
+// ãƒ‘ãƒƒãƒ‰ï¼‘ã¨ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã‹ã‚‰å…¥åŠ›ã‚’å¾—ã‚‹
 	auto input = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 
-	// ƒvƒŒƒCƒ„[‚ÌˆÚ“®ˆ—
-	// ¶‰E‚ÌˆÚ“®•ûŒü‚ğo‚·
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•å‡¦ç†
+	// å·¦å³ã®ç§»å‹•æ–¹å‘ã‚’å‡ºã™
 	dir = VGet(0, 0, 0);
 	if (input & PAD_INPUT_LEFT && keyStop == false)
 	{
@@ -71,67 +71,67 @@ void Player::Update(bool keyStop,const Map &map)
 		dir = VAdd(dir, VGet(1, 0, 0));
 	}
 
-	// ³‹K‰»
-	if (VSquareSize(dir) > 0)		//dir‚ÌƒTƒCƒY‚ğ2æ‚É‚µ‚Ä•Ô‚·(“ñæ‚É‚·‚é‚±‚Æ‚Ådir‚É’l‚ª“ü‚Á‚Ä‚¢‚ê‚Îif‚É“ü‚é
+	// æ­£è¦åŒ–
+	if (VSquareSize(dir) > 0)		//dirã®ã‚µã‚¤ã‚ºã‚’2ä¹—ã«ã—ã¦è¿”ã™(äºŒä¹—ã«ã™ã‚‹ã“ã¨ã§dirã«å€¤ãŒå…¥ã£ã¦ã„ã‚Œã°ifã«å…¥ã‚‹
 	{
-		dir = VNorm(dir);			//Še¬•ª‚ÌƒTƒCƒY‚ğ‚P‚É‚·‚é
+		dir = VNorm(dir);			//å„æˆåˆ†ã®ã‚µã‚¤ã‚ºã‚’ï¼‘ã«ã™ã‚‹
 	}
 
-	// ˆÚ“®—Ê‚ğo‚·
-	auto velocity = VScale(dir, SPEED);		//dir‚ÌŠe¬•ª‚Éspeed‚ğŠ|‚¯‚é
+	// ç§»å‹•é‡ã‚’å‡ºã™
+	auto velocity = VScale(dir, SPEED);		//dirã®å„æˆåˆ†ã«speedã‚’æ›ã‘ã‚‹
 
 	fallSpeed += Utility::GRAVITY;
 
-	// HACK: æ‚Éİ’è”»’è‚ğ‚·‚é‚±‚Æ‚ÅfallSpeedC³{Ú’nƒtƒ‰ƒOXV
+	// HACK: å…ˆã«è¨­å®šåˆ¤å®šã‚’ã™ã‚‹ã“ã¨ã§fallSpeedä¿®æ­£ï¼‹æ¥åœ°ãƒ•ãƒ©ã‚°æ›´æ–°
 	PlayerColision::CheckIsGround(*this, map);
 	PlayerColision::CheckIsTopHit(*this, map);
 
-	// —‰º‘¬“x‚ğXV
+	// è½ä¸‹é€Ÿåº¦ã‚’æ›´æ–°
 
-	// ’n‚É‘«‚ª’…‚¢‚Ä‚¢‚éê‡‚Ì‚İƒWƒƒƒ“ƒvƒ{ƒ^ƒ“(ƒ{ƒ^ƒ“‚P or ‚yƒL[)‚ğŒ©‚é
+	// åœ°ã«è¶³ãŒç€ã„ã¦ã„ã‚‹å ´åˆã®ã¿ã‚¸ãƒ£ãƒ³ãƒ—ãƒœã‚¿ãƒ³(ãƒœã‚¿ãƒ³ï¼‘ or ï¼ºã‚­ãƒ¼)ã‚’è¦‹ã‚‹
 	if (((isGround && !isHitTop)) && (input & PAD_INPUT_A) && keyStop == false)
 	{
-		fallSpeed = -JUMP_POWER;	// ƒWƒƒƒ“ƒvƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚ç‘¦À‚Éã•ûŒü‚Ì—Í‚É‘ã‚í‚é
-		isGround = false;			//Ú’n”»’è‚ğØ‚é
+		fallSpeed = -JUMP_POWER;	// ã‚¸ãƒ£ãƒ³ãƒ—ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰å³åº§ã«ä¸Šæ–¹å‘ã®åŠ›ã«ä»£ã‚ã‚‹
+		isGround = false;			//æ¥åœ°åˆ¤å®šã‚’åˆ‡ã‚‹
 	}
 
-	// —‰º‘¬“x‚ğˆÚ“®—Ê‚É‰Á‚¦‚é
-	auto fallVelocity = VGet(0, fallSpeed, 0);	// —‰º‚ğƒxƒNƒgƒ‹‚ÉByÀ•W‚µ‚©•Ï‰»‚µ‚È‚¢‚Ì‚ÅÅŒã‚ÉƒxƒNƒgƒ‹‚É‚·‚é
+	// è½ä¸‹é€Ÿåº¦ã‚’ç§»å‹•é‡ã«åŠ ãˆã‚‹
+	auto fallVelocity = VGet(0, fallSpeed, 0);	// è½ä¸‹ã‚’ãƒ™ã‚¯ãƒˆãƒ«ã«ã€‚yåº§æ¨™ã—ã‹å¤‰åŒ–ã—ãªã„ã®ã§æœ€å¾Œã«ãƒ™ã‚¯ãƒˆãƒ«ã«ã™ã‚‹
 	velocity = VAdd(velocity, fallVelocity);
 
-	// “–‚½‚è”»’è‚ğ‚µ‚ÄA•Ç‚É‚ß‚è‚Ü‚È‚¢‚æ‚¤‚Évelocity‚ğ‘€ì‚·‚é
+	// å½“ãŸã‚Šåˆ¤å®šã‚’ã—ã¦ã€å£ã«ã‚ã‚Šè¾¼ã¾ãªã„ã‚ˆã†ã«velocityã‚’æ“ä½œã™ã‚‹
 	velocity = PlayerColision::CheckPlayerHitWithMap(*this, map, velocity);
-	//o‚½’l‚ğ•Û‘¶‚·‚é
+	//å‡ºãŸå€¤ã‚’ä¿å­˜ã™ã‚‹
 	keepVelocity = velocity;
 
-	// ˆÚ“®
+	// ç§»å‹•
 	pos = VAdd(pos, VGet(0,velocity.y,0));
-	//3Dƒ‚ƒfƒ‹‚ğ•`‰æ‚³‚¹‚é‚½‚ß‚ÉˆÊ’u‚ğ’²®‚·‚é
+	//3Dãƒ¢ãƒ‡ãƒ«ã‚’æç”»ã•ã›ã‚‹ãŸã‚ã«ä½ç½®ã‚’èª¿æ•´ã™ã‚‹
 	drawPos = VGet(pos.x+10,pos.y+60,0.7f);
 	pos3D = ConvScreenPosToWorldPos(drawPos);
 	MV1SetPosition(modelHandle, pos3D);
 
 
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìİ’è
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®è¨­å®š
 	if (velocity.x != 0)
 	{
 		AnimeSet(RUN);
 	}
 	else
 	{
-		//‘Ò‹@ó‘Ô‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚É‚·‚é
+		//å¾…æ©ŸçŠ¶æ…‹ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã«ã™ã‚‹
 		AnimeSet(IDLE);
 
 	}
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“ƒJƒEƒ“ƒg‚ÌXV(1‰ñ‚ÌÄ¶ŠÔ‚ğ’´‚¦‚½‚çƒŠƒZƒbƒg)
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚«ã‚¦ãƒ³ãƒˆã®æ›´æ–°(1å›ã®å†ç”Ÿæ™‚é–“ã‚’è¶…ãˆãŸã‚‰ãƒªã‚»ãƒƒãƒˆ)
 	playTime += 0.7f;
 	if (playTime >= totalAnimeTime)
 	{
 		playTime = 0.0f;
 	}
-	//Ä¶ŠÔ‚ÌƒZƒbƒg
+	//å†ç”Ÿæ™‚é–“ã®ã‚»ãƒƒãƒˆ
 	MV1SetAttachAnimTime(modelHandle, attachIndex, playTime);
 
 
@@ -140,7 +140,7 @@ void Player::Update(bool keyStop,const Map &map)
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void Player::Draw()
 {
@@ -151,7 +151,7 @@ void Player::Draw()
 }
 
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒtƒ‰ƒO‚ğ‘S‚Äfalse‚É
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ©ã‚°ã‚’å…¨ã¦falseã«
 /// </summary>
 void Player::ResetAnimeFlag()
 {
@@ -162,21 +162,21 @@ void Player::ResetAnimeFlag()
 }
 
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒZƒbƒg
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚»ãƒƒãƒˆ
 /// </summary>
-/// <param name="setState">ƒZƒbƒg‚·‚éƒXƒe[ƒg</param>
+/// <param name="setState">ã‚»ãƒƒãƒˆã™ã‚‹ã‚¹ãƒ†ãƒ¼ãƒˆ</param>
 void Player::AnimeSet(int setState)
 {
-	//Œ»İ‚»‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ªÄ¶‚³‚ê‚Ä‚¢‚È‚¯‚ê‚ÎƒZƒbƒg
+	//ç¾åœ¨ãã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒå†ç”Ÿã•ã‚Œã¦ã„ãªã‘ã‚Œã°ã‚»ãƒƒãƒˆ
 	if (animeState[setState]!= true)
 	{
 		MV1DetachAnim(modelHandle, attachIndex);
-		//3Dƒ‚ƒfƒ‹‚Ì1”Ô–Ú‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğƒAƒ^ƒbƒ`‚·‚é
+		//3Dãƒ¢ãƒ‡ãƒ«ã®1ç•ªç›®ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã‚¢ã‚¿ãƒƒãƒã™ã‚‹
 		attachIndex = MV1AttachAnim(modelHandle, setState, -1, FALSE);
-		//ƒAƒ^ƒbƒ`‚µ‚½ƒAƒjƒƒVƒ‡ƒ“‚Ì‘Ä¶ŠÔ‚ğæ“¾
+		//ã‚¢ã‚¿ãƒƒãƒã—ãŸã‚¢ãƒ‹ãƒ¡ã‚·ãƒ§ãƒ³ã®ç·å†ç”Ÿæ™‚é–“ã‚’å–å¾—
 		totalAnimeTime = MV1GetAttachAnimTotalTime(modelHandle, attachIndex);
 		playTime = 0.0f;
-		//ˆê“xƒAƒjƒ[ƒVƒ‡ƒ“ƒtƒ‰ƒO‚ğƒŠƒZƒbƒg
+		//ä¸€åº¦ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ©ã‚°ã‚’ãƒªã‚»ãƒƒãƒˆ
 		ResetAnimeFlag();
 		animeState[setState] = true;
 	}
