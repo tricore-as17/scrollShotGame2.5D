@@ -1,13 +1,13 @@
-#pragma once
+ï»¿#pragma once
 #include"DxLib.h"
 
 class GameObject
 {
 protected:
-	//g—p‚·‚éÀ•W‚È‚Ç‚Ì•Ï”
-	VECTOR pos;				//À•W
-	VECTOR dir;				//ˆÚ“®•ûŒü
-	float w;				//•
-	float h;				//‚‚³
-	float fallSpeed;		//—‰º‘¬“x
+	//ä½¿ç”¨ã™ã‚‹åº§æ¨™ãªã©ã®å¤‰æ•°
+	VECTOR pos;				//åº§æ¨™
+	VECTOR dir;				//ç§»å‹•æ–¹å‘
+	float w;				//å¹…
+	float h;				//é«˜ã•
+	float fallSpeed;		//è½ä¸‹é€Ÿåº¦
 };

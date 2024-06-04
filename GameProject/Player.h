@@ -1,15 +1,15 @@
-#pragma once
+ï»¿#pragma once
 #include<vector>
 #include"DxLib.h"
 #include"GameObject.h"
 
-const int PLAYER_X = 150;					//ƒvƒŒƒCƒ„[‚ÌXÀ•W(“®‚©‚È‚¢‚Ì‚Å’è”)
-const int PLAYER_STATE_NUM = 4;				//ƒvƒŒƒCƒ„[‚Ìó‘Ô‚Ì”
-const int PLAYER_CHIP_SIZE = 64;			//ƒvƒŒƒCƒ„[ƒ`ƒbƒv‚ÌƒTƒCƒY
-const int PLAYER_CHIP_DIV_YNUM = 1;			//ƒvƒŒƒCƒ„[ƒ`ƒbƒv‚Ìc•ûŒü‚Ì•ªŠ„”
-const int STATE_RUN_DIV_NUM = 12;			//‘–‚Á‚Ä‚¢‚é‚Ì•ªŠ„”
-const int STATE_JUMP_DIV_NUM = 1;			//ƒWƒƒƒ“ƒv‚Ì‚Ì•ªŠ„”
-const int STATE_FALL_DIV_NUM = 1;			//—‰º’†‚Ì‚Ì•ªŠ„”
+const int PLAYER_X = 150;					//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®Xåº§æ¨™(å‹•ã‹ãªã„ã®ã§å®šæ•°)
+const int PLAYER_STATE_NUM = 4;				//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹ã®æ•°
+const int PLAYER_CHIP_SIZE = 64;			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒãƒƒãƒ—ã®ã‚µã‚¤ã‚º
+const int PLAYER_CHIP_DIV_YNUM = 1;			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒãƒƒãƒ—ã®ç¸¦æ–¹å‘ã®åˆ†å‰²æ•°
+const int STATE_RUN_DIV_NUM = 12;			//èµ°ã£ã¦ã„ã‚‹æ™‚ã®åˆ†å‰²æ•°
+const int STATE_JUMP_DIV_NUM = 1;			//ã‚¸ãƒ£ãƒ³ãƒ—ã®æ™‚ã®åˆ†å‰²æ•°
+const int STATE_FALL_DIV_NUM = 1;			//è½ä¸‹ä¸­ã®æ™‚ã®åˆ†å‰²æ•°
 const int STATE_HIT_DIV_NUM = 7;
 
 
@@ -24,52 +24,52 @@ class Player:public GameObject
 public:
 	Player();
 	~Player();
-	//Šî–{ƒƒ\ƒbƒh
-	void Init();								//‰Šú‰»
-	void Update(bool keyStop,const Map& map);	//XV
-	void Draw();								//•`‰æ
-	//ƒQƒbƒ^[ƒZƒbƒ^[
-	VECTOR GetPos()const { return pos; }			//À•W‚ğ•Ô‚·
-	VECTOR GetDrawPos()const { return drawPos; }	//drawÀ•W‚ğ•Ô‚·
+	//åŸºæœ¬ãƒ¡ã‚½ãƒƒãƒ‰
+	void Init();								//åˆæœŸåŒ–
+	void Update(bool keyStop,const Map& map);	//æ›´æ–°
+	void Draw();								//æç”»
+	//ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
+	VECTOR GetPos()const { return pos; }			//åº§æ¨™ã‚’è¿”ã™
+	VECTOR GetDrawPos()const { return drawPos; }	//drawåº§æ¨™ã‚’è¿”ã™
 	VECTOR GetKeepVelocity()const { return keepVelocity; }
-	bool GetIsHitTop()const { return isHitTop; }	//“Vˆä‚Ö“–‚½‚Á‚Ä‚¢‚é‚©‚Ìƒtƒ‰ƒO‚ğ•Ô‚·
-	void SetIsHitTop(const bool inIsHitTop) { isHitTop = inIsHitTop; }		//“Vˆä‚Ö“–‚½‚Á‚Ä‚¢‚é‚©‚ÌƒZƒbƒg
-	void SetFallSpeed(const float inFallSpeed) { fallSpeed = inFallSpeed; }	//—‰ºƒXƒs[ƒh‚ÌƒZƒbƒg
-	void SetIsGround(const bool inIsGround) { isGround = inIsGround; }		//Ú’n”»’è‚Ìİ’è
-	void SetPos(const VECTOR inPos) { pos = inPos; }						//À•W‚ÌƒZƒbƒg
+	bool GetIsHitTop()const { return isHitTop; }	//å¤©äº•ã¸å½“ãŸã£ã¦ã„ã‚‹ã‹ã®ãƒ•ãƒ©ã‚°ã‚’è¿”ã™
+	void SetIsHitTop(const bool inIsHitTop) { isHitTop = inIsHitTop; }		//å¤©äº•ã¸å½“ãŸã£ã¦ã„ã‚‹ã‹ã®ã‚»ãƒƒãƒˆ
+	void SetFallSpeed(const float inFallSpeed) { fallSpeed = inFallSpeed; }	//è½ä¸‹ã‚¹ãƒ”ãƒ¼ãƒ‰ã®ã‚»ãƒƒãƒˆ
+	void SetIsGround(const bool inIsGround) { isGround = inIsGround; }		//æ¥åœ°åˆ¤å®šã®è¨­å®š
+	void SetPos(const VECTOR inPos) { pos = inPos; }						//åº§æ¨™ã®ã‚»ãƒƒãƒˆ
 	
-	//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìó‘Ô‚Ì’è”
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®çŠ¶æ…‹ã®å®šæ•°
 	static enum ANIME_STATE
 	{
-		//1‚©‚çŠJn
+		//1ã‹ã‚‰é–‹å§‹
 		IDLE = 1, MAGIC, RUN
 	};
-	//’è”ŒQ
-	static constexpr int FIRST_X = 100;			//‰ŠúXÀ•W
-	static constexpr int FIRST_Y = 450;			//‰ŠúYÀ•W
-	static constexpr int PLAYER_W = 32;			//ƒvƒŒƒCƒ„[‰¡ƒTƒCƒY
-	static constexpr int PLAYER_H = 96;			//ƒvƒŒƒCƒ„[‚ÌcƒTƒCƒY
-	static constexpr float JUMP_POWER = 15.0f;  //ƒLƒƒƒ‰‚ÌƒWƒƒƒ“ƒv—Í
-	static constexpr float SPEED = 5.0f;		//ƒLƒƒƒ‰‚ÌˆÚ“®ƒXƒs[ƒh
-	static constexpr int ANIME_STATE_SUM = 4;	//‡ŒvƒAƒjƒ[ƒVƒ‡ƒ“‚Ì”
+	//å®šæ•°ç¾¤
+	static constexpr int FIRST_X = 100;			//åˆæœŸXåº§æ¨™
+	static constexpr int FIRST_Y = 450;			//åˆæœŸYåº§æ¨™
+	static constexpr int PLAYER_W = 32;			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ¨ªã‚µã‚¤ã‚º
+	static constexpr int PLAYER_H = 96;			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç¸¦ã‚µã‚¤ã‚º
+	static constexpr float JUMP_POWER = 15.0f;  //ã‚­ãƒ£ãƒ©ã®ã‚¸ãƒ£ãƒ³ãƒ—åŠ›
+	static constexpr float SPEED = 5.0f;		//ã‚­ãƒ£ãƒ©ã®ç§»å‹•ã‚¹ãƒ”ãƒ¼ãƒ‰
+	static constexpr int ANIME_STATE_SUM = 4;	//åˆè¨ˆã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®æ•°
 
 private:
-	//ƒAƒjƒ[ƒVƒ‡ƒ“ƒtƒ‰ƒO‚ğ‘S‚ÄƒŠƒZƒbƒg
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ©ã‚°ã‚’å…¨ã¦ãƒªã‚»ãƒƒãƒˆ
 	void ResetAnimeFlag();
-	//ƒAƒjƒƒVƒ‡ƒ“‚ÌƒZƒbƒg
+	//ã‚¢ãƒ‹ãƒ¡ã‚·ãƒ§ãƒ³ã®ã‚»ãƒƒãƒˆ
 	void AnimeSet(int setState);
-	int modelHandle;					//ƒLƒƒƒ‰‚Ìƒ‚ƒfƒ‹ƒnƒ“ƒhƒ‹
-	int attachIndex;					//ƒAƒjƒ[ƒVƒ‡ƒ“ƒAƒ^ƒbƒ`—pƒCƒ“ƒfƒbƒNƒX
-	float totalAnimeTime;				//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒg[ƒ^ƒ‹Ä¶ŠÔ
-	float playTime;						//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌŒ»İ‚ÌÄ¶ŠÔ
-	bool animeState[ANIME_STATE_SUM];	//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìó‘Ô
-	VECTOR pos3D;						//3Dƒ‚ƒfƒ‹‚ÌÀ•W
+	int modelHandle;					//ã‚­ãƒ£ãƒ©ã®ãƒ¢ãƒ‡ãƒ«ãƒãƒ³ãƒ‰ãƒ«
+	int attachIndex;					//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¢ã‚¿ãƒƒãƒç”¨ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
+	float totalAnimeTime;				//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒˆãƒ¼ã‚¿ãƒ«å†ç”Ÿæ™‚é–“
+	float playTime;						//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ç¾åœ¨ã®å†ç”Ÿæ™‚é–“
+	bool animeState[ANIME_STATE_SUM];	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®çŠ¶æ…‹
+	VECTOR pos3D;						//3Dãƒ¢ãƒ‡ãƒ«ã®åº§æ¨™
 	VECTOR drawPos;
-	VECTOR keepVelocity;				//ƒvƒŒƒCƒ„[‚ÌˆÚ“®—Ê‚Ì•Û‘¶—p
+	VECTOR keepVelocity;				//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•é‡ã®ä¿å­˜ç”¨
 
 	bool hitFlag;
-	bool isGround;						//Ú’n”»’è
-	bool isHitTop;						//“Vˆä‚É“–‚½‚Á‚Ä‚¢‚é‚©‚Ì”»’è
+	bool isGround;						//æ¥åœ°åˆ¤å®š
+	bool isHitTop;						//å¤©äº•ã«å½“ãŸã£ã¦ã„ã‚‹ã‹ã®åˆ¤å®š
 
 
 	

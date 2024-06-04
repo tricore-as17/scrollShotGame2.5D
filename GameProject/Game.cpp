@@ -1,4 +1,4 @@
-#include<vector>
+ï»¿#include<vector>
 #include"DxLib.h"
 #include"Player.h"
 #include"Map.h"
@@ -8,10 +8,10 @@
 #include"EnemyManager.h"
 #include"Game.h"
 
-//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 Game::Game()
 {
-	//ƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ìì¬
+	//ã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ä½œæˆ
 	player = new Player();
 	utility = new Utility();
 	camera = new Camera();
@@ -22,7 +22,7 @@ Game::Game()
 
 \
 
-	//ƒGƒtƒFƒNƒg‚Ì“®“IŠm•Û
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å‹•çš„ç¢ºä¿
 	for (int i = 0; i < CLEAR_EFFECT_NUM; i++)
 	{
 		clearEffect.emplace_back(new Effect("Effect/hitEffect.efkefc"));
@@ -31,10 +31,10 @@ Game::Game()
 	
 	
 }
-//ƒfƒXƒgƒ‰ƒNƒ^
+//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 Game::~Game()
 {
-	//‰ğ•ú
+	//è§£æ”¾
 	delete player,utility,ui,bgModel,camera,bg,player3D,gameOverEffect,clearCharaEffect,map
 		,enemyManager;
 	player ,utility,ui,bgModel,camera,bg,player3D = nullptr;
@@ -43,16 +43,16 @@ Game::~Game()
 	clearEffect.clear();
 }
 
-//‚»‚ê‚¼‚ê‚ÌƒXƒe[ƒ^ƒX‚ÉˆÚs‚·‚éÛ‚Ì
+//ãã‚Œãã‚Œã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã«ç§»è¡Œã™ã‚‹éš›ã®
 void Game::GameStateChange()
 {
-	//ƒQ[ƒ€ƒXƒe[ƒ^ƒX‚Ìæ“¾
+	//ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã®å–å¾—
 	int inGameState = utility->getGameState();
-	//ƒvƒŒƒCƒ„[À•W‚Ìæ“¾
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åº§æ¨™ã®å–å¾—
 	switch (inGameState)
 	{
 	case STATE_TITLE:
-		//ƒvƒŒƒCƒ„[‚ÆƒMƒ~ƒbƒN‚ÌˆÊ’u‚Í–ˆ‰ñƒŠƒZƒbƒg
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã‚®ãƒŸãƒƒã‚¯ã®ä½ç½®ã¯æ¯å›ãƒªã‚»ãƒƒãƒˆ
 		//player->Init();
 		utility->StartInit();
 		break;
@@ -65,7 +65,7 @@ void Game::GameStateChange()
 
 		break;
 	case STATE_GAMEOVER:
-		//ƒvƒŒƒCƒ„[‚ÆƒMƒ~ƒbƒN‚ÌˆÊ’u‚Í–ˆ‰ñƒŠƒZƒbƒg
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã‚®ãƒŸãƒƒã‚¯ã®ä½ç½®ã¯æ¯å›ãƒªã‚»ãƒƒãƒˆ
 		player->Init();
 		break;
 	default:
@@ -86,12 +86,12 @@ void Game::Initialize()
 
 void Game::Update()
 {
-	//ƒQ[ƒ€ƒXƒe[ƒ^ƒX‚Ìæ“¾
+	//ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã®å–å¾—
 	int inGameState = utility->getGameState();
-	//ƒ[ƒJƒ‹•Ï”‚ÌéŒ¾
-	bool inGameOverFlag = false;//ƒQ[ƒ€ƒI[ƒo[ƒtƒ‰ƒO
-	bool inGameClearFlag = false;//ƒQ[ƒ€ƒNƒŠƒAƒtƒ‰ƒO
-	//ƒL[“ü—Í
+	//ãƒ­ãƒ¼ã‚«ãƒ«å¤‰æ•°ã®å®£è¨€
+	bool inGameOverFlag = false;//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ãƒ•ãƒ©ã‚°
+	bool inGameClearFlag = false;//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ãƒ•ãƒ©ã‚°
+	//ã‚­ãƒ¼å…¥åŠ›
 	auto input = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 	bool inEffectPlayFlag = gameOverEffect->GetPlayFlag();
 	int scrollSpeed = utility->getScrollSpeed();
@@ -99,7 +99,7 @@ void Game::Update()
 
 
 	keyRelease = false;
-		// ƒL[—£‚µ‚½uŠÔ‚ğæ‚é.
+		// ã‚­ãƒ¼é›¢ã—ãŸç¬é–“ã‚’å–ã‚‹.
 		if (keyOn)
 		{
 			//
@@ -109,12 +109,12 @@ void Game::Update()
 				keyRelease = true;
 			}
 		}
-		else if (prevKeyOn == false && (input & PAD_INPUT_10))	//ƒL[‚ªÅ‰‚É‰Ÿ‚³‚ê‚½ƒ^ƒCƒ~ƒ“ƒO
+		else if (prevKeyOn == false && (input & PAD_INPUT_10))	//ã‚­ãƒ¼ãŒæœ€åˆã«æŠ¼ã•ã‚ŒãŸã‚¿ã‚¤ãƒŸãƒ³ã‚°
 		{
 			keyRelease = false;
 			keyOn = true;
 		}
-		if ((input & PAD_INPUT_10))	//‰Ÿ‚µ‘±‚¯‚ç‚ê‚Ä‚¢‚é‚Ìˆ—
+		if ((input & PAD_INPUT_10))	//æŠ¼ã—ç¶šã‘ã‚‰ã‚Œã¦ã„ã‚‹æ™‚ã®å‡¦ç†
 		{
 			prevKeyOn = true;
 		}
@@ -151,7 +151,7 @@ void Game::Update()
 void Game::Draw()
 {
 
-	//ƒQ[ƒ€ƒXƒe[ƒ^ƒX‚Ìæ“¾
+	//ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã®å–å¾—
 	int inGameState = utility->getGameState();
 	int inElapsedTime = utility->getElapsedTime();
 	switch (inGameState)

@@ -1,37 +1,37 @@
-#pragma once
+ï»¿#pragma once
 #include"DxLib.h"
 
 class Map;
 class Player;
 class BaseEnemy;
 
-//ƒvƒŒƒCƒ„[‚Ì“–‚½‚è”»’è
+//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å½“ãŸã‚Šåˆ¤å®š
 class PlayerColision
 {
 public:
-	//ƒvƒŒƒCƒ„[‚ª•Ç‚É‚ß‚è‚Ü‚È‚¢ˆÊ’u‚É‚·‚é‚½‚ß‚ÌÀ•WC³—p
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå£ã«ã‚ã‚Šè¾¼ã¾ãªã„ä½ç½®ã«ã™ã‚‹ãŸã‚ã®åº§æ¨™ä¿®æ­£ç”¨
 	static VECTOR CheckPlayerHitWithMap(Player& player, const Map& map, const VECTOR& velocity);
-	//“–‚½‚Á‚½‚©‚Ìƒ`ƒFƒbƒN
+	//å½“ãŸã£ãŸã‹ã®ãƒã‚§ãƒƒã‚¯
 	static bool IsHitPlayerWithMapChip(const Player& player, const  VECTOR& futurePos,int mapData,VECTOR mapChipPos);
-	//Ú’n”»’è‚Ìƒ`ƒFƒbƒN
+	//æ¥åœ°åˆ¤å®šã®ãƒã‚§ãƒƒã‚¯
 	static void CheckIsGround(Player& player, const  Map& map);
-	//“ªã”»’è‚Ìƒ`ƒFƒbƒN
+	//é ­ä¸Šåˆ¤å®šã®ãƒã‚§ãƒƒã‚¯
 	static void CheckIsTopHit(Player& player, const  Map& map);
 
 };
 
-//ƒGƒlƒ~[‚Ì“–‚½‚è”»’è
+//ã‚¨ãƒãƒŸãƒ¼ã®å½“ãŸã‚Šåˆ¤å®š
 class EnemyColision
 {
 public:
 	static VECTOR CheckEnemyHitWithMap(BaseEnemy& enemy, const Map& map, const VECTOR& velocity);
-	//“–‚½‚Á‚½‚©‚Ìƒ`ƒFƒbƒN
+	//å½“ãŸã£ãŸã‹ã®ãƒã‚§ãƒƒã‚¯
 	static bool IsHitEnemyWithMapChip(const BaseEnemy& enemy, const  VECTOR& futurePos, int mapData, VECTOR mapChipPos);
-	//Ú’n”»’è‚Ìƒ`ƒFƒbƒN
+	//æ¥åœ°åˆ¤å®šã®ãƒã‚§ãƒƒã‚¯
 	static void CheckIsGround(BaseEnemy& enemy, const  Map& map);
-	//“ªã”»’è‚Ìƒ`ƒFƒbƒN
+	//é ­ä¸Šåˆ¤å®šã®ãƒã‚§ãƒƒã‚¯
 	static void CheckIsTopHit(BaseEnemy&enemy, const  Map& map);
-	//ƒvƒŒƒCƒ„[‚Æ‚Ì“–‚½‚è”»’è
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã®å½“ãŸã‚Šåˆ¤å®š
 	static bool IsHitPlayerWithEnemy(const BaseEnemy& enemy, const Player& player, const VECTOR& futurePos);
 };
 

@@ -1,7 +1,7 @@
-#pragma once
+ï»¿#pragma once
 #include"DxLib.h"
 
-//ƒJƒƒ‰
+//ã‚«ãƒ¡ãƒ©
 class Camera
 {
 public:

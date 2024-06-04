@@ -1,4 +1,4 @@
-#include"Camera.h"
+ï»¿#include"Camera.h"
 
 void Camera::Init(const VECTOR& modelPos)
 {
@@ -6,7 +6,7 @@ void Camera::Init(const VECTOR& modelPos)
 
     SetCameraPositionAndTarget_UpVecY(pos, VGet(0, 0, 0));
 
-    ////ƒ‚ƒfƒ‹À•W‚Ìã‚Ì•”•ª‚ğƒJƒƒ‰‚ªŒ©‚é‚±‚Æ‚É‚·‚é‚Ì‚ÅÀ•W‚ğC³
+    ////ãƒ¢ãƒ‡ãƒ«åº§æ¨™ã®ä¸Šã®éƒ¨åˆ†ã‚’ã‚«ãƒ¡ãƒ©ãŒè¦‹ã‚‹ã“ã¨ã«ã™ã‚‹ã®ã§åº§æ¨™ã‚’ä¿®æ­£
     //VECTOR drawPos = VGet(modelPos.x, modelPos.y , 0.1f);
     //VECTOR modifyModelPos = ConvScreenPosToWorldPos(drawPos);
     //SetCameraPositionAndTarget_UpVecY(modifyModelPos,pos );
@@ -17,7 +17,7 @@ void Camera::Init(const VECTOR& modelPos)
 
 void Camera::Update(const VECTOR& modelPos)
 {
-    ////ƒ‚ƒfƒ‹À•W‚Ìã‚Ì•”•ª‚ğƒJƒƒ‰‚ªŒ©‚é‚±‚Æ‚É‚·‚é‚Ì‚ÅÀ•W‚ğC³
+    ////ãƒ¢ãƒ‡ãƒ«åº§æ¨™ã®ä¸Šã®éƒ¨åˆ†ã‚’ã‚«ãƒ¡ãƒ©ãŒè¦‹ã‚‹ã“ã¨ã«ã™ã‚‹ã®ã§åº§æ¨™ã‚’ä¿®æ­£
 
     
 }

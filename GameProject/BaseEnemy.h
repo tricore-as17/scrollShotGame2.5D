@@ -1,35 +1,35 @@
-#pragma once
+ï»¿#pragma once
 #include"DxLib.h"
 #include"GameObject.h"
 
 class BaseEnemy:public GameObject
 {
 public:
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^ƒfƒXƒgƒ‰ƒNƒ^
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	BaseEnemy();
 	virtual ~BaseEnemy();
-	//ƒGƒlƒ~[‚É‹¤’Ê‚·‚éƒXƒNƒ[ƒ‹‚Ìˆ—
+	//ã‚¨ãƒãƒŸãƒ¼ã«å…±é€šã™ã‚‹ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã®å‡¦ç†
 	virtual void ScrollProcess(const VECTOR& playerVec);
-	//ƒQƒbƒ^[ƒZƒbƒ^[
-	virtual VECTOR GetPos()const { return pos; }				//À•W‚Ìæ“¾
-	virtual void SetPos(const VECTOR inPos) { pos = inPos; }	//À•W‚ğİ’è
-	virtual float GetW()const { return w; }						//•‚Ìæ“¾
-	virtual float GetH()const { return h; }						//‚‚³‚Ìæ“¾
-	virtual float GetFallSpeed()const { return fallSpeed; }		//—‰º‘¬“x‚Ìæ“¾
-	virtual void SetFallSpeed(const float inFallSpeed) { fallSpeed = inFallSpeed; }	//—‰º‘¬“x‚Ìİ’è
-	virtual bool GetIsGround()const { return isGround; }		//Ú’n”»’è‚Ìæ“¾
-	virtual void SetIsGround(const bool inIsGroound) { isGround = inIsGroound; }	//Ú’n”»’è‚Ìİ’è
-	virtual bool GetIsHitTop()const { return isHitTop; }		//“ªã”»’è‚Ìæ“¾
-	virtual void SetIsHitTop(const bool inIsHitTop) { isHitTop = inIsHitTop; }	//“ªã”»’è‚Ìİ’è
+	//ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
+	virtual VECTOR GetPos()const { return pos; }				//åº§æ¨™ã®å–å¾—
+	virtual void SetPos(const VECTOR inPos) { pos = inPos; }	//åº§æ¨™ã‚’è¨­å®š
+	virtual float GetW()const { return w; }						//å¹…ã®å–å¾—
+	virtual float GetH()const { return h; }						//é«˜ã•ã®å–å¾—
+	virtual float GetFallSpeed()const { return fallSpeed; }		//è½ä¸‹é€Ÿåº¦ã®å–å¾—
+	virtual void SetFallSpeed(const float inFallSpeed) { fallSpeed = inFallSpeed; }	//è½ä¸‹é€Ÿåº¦ã®è¨­å®š
+	virtual bool GetIsGround()const { return isGround; }		//æ¥åœ°åˆ¤å®šã®å–å¾—
+	virtual void SetIsGround(const bool inIsGroound) { isGround = inIsGroound; }	//æ¥åœ°åˆ¤å®šã®è¨­å®š
+	virtual bool GetIsHitTop()const { return isHitTop; }		//é ­ä¸Šåˆ¤å®šã®å–å¾—
+	virtual void SetIsHitTop(const bool inIsHitTop) { isHitTop = inIsHitTop; }	//é ­ä¸Šåˆ¤å®šã®è¨­å®š
 
 
 
 protected:
-	int** graph;		//‰æ‘œ
-	bool moveStartFlag;	//ˆÚ“®‚ğŠJn‚³‚¹‚éƒtƒ‰ƒO
-	bool isGround;		//Ú’n‚µ‚Ä‚¢‚é‚©
-	bool isHitTop;		//“Vˆä‚É‚Ô‚Â‚©‚Á‚Ä‚¢‚é‚©
-	int firstX;			//‰ŠúXÀ•W
+	int** graph;		//ç”»åƒ
+	bool moveStartFlag;	//ç§»å‹•ã‚’é–‹å§‹ã•ã›ã‚‹ãƒ•ãƒ©ã‚°
+	bool isGround;		//æ¥åœ°ã—ã¦ã„ã‚‹ã‹
+	bool isHitTop;		//å¤©äº•ã«ã¶ã¤ã‹ã£ã¦ã„ã‚‹ã‹
+	int firstX;			//åˆæœŸXåº§æ¨™
 
 
 };

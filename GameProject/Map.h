@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"DxLib.h"
 //#include"GameObject.h"
 
@@ -10,29 +10,29 @@ class Map : public GameObject
 public:
 	Map(VECTOR initPos);
 	~Map();
-	//ƒQƒbƒgƒZƒbƒg
-	int getMapXNum() const{ return mapXNum; }		//‰¡ƒ`ƒbƒv‚Ì”‚ğ•Ô‚·
-	int getMapYNum() const { return mapYNum; }		//cƒ`ƒbƒv‚Ì”‚ğ•Ô‚·
-	int** getMapData() const{ return mapData; }		//ƒ}ƒbƒvƒf[ƒ^‚ğ•Ô‚·
-	VECTOR getMapPos() const{ return pos; }			//À•W‚ğ•Ô‚·
+	//ã‚²ãƒƒãƒˆã‚»ãƒƒãƒˆ
+	int getMapXNum() const{ return mapXNum; }		//æ¨ªãƒãƒƒãƒ—ã®æ•°ã‚’è¿”ã™
+	int getMapYNum() const { return mapYNum; }		//ç¸¦ãƒãƒƒãƒ—ã®æ•°ã‚’è¿”ã™
+	int** getMapData() const{ return mapData; }		//ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã‚’è¿”ã™
+	VECTOR getMapPos() const{ return pos; }			//åº§æ¨™ã‚’è¿”ã™
 
 	void Init();
 	void Update(const VECTOR& playerVec);
 	void Draw();
 
-	void LoadMapChip(const char* mapCSVFileName);		//ƒ}ƒbƒvƒ`ƒbƒv‚Ì“Ç‚İ‚İŠÖ”
+	void LoadMapChip(const char* mapCSVFileName);		//ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®èª­ã¿è¾¼ã¿é–¢æ•°
 
-	//’è”ŒQ
-	static constexpr int CHIP_SIZE = 32;		//ƒ}ƒbƒvƒ`ƒbƒvˆê‚Â‚ÌƒTƒCƒY
-	static constexpr int TILE_DIV_W = 22;		//ƒ}ƒbƒvƒ^ƒCƒ‹‚Ì‰¡•ûŒü•ªŠ„”
-	static constexpr int TILE_DIV_H = 11;		//ƒ}ƒbƒvƒ^ƒCƒ‹‚Ìc•ûŒü•ªŠ„”
+	//å®šæ•°ç¾¤
+	static constexpr int CHIP_SIZE = 32;		//ãƒãƒƒãƒ—ãƒãƒƒãƒ—ä¸€ã¤ã®ã‚µã‚¤ã‚º
+	static constexpr int TILE_DIV_W = 22;		//ãƒãƒƒãƒ—ã‚¿ã‚¤ãƒ«ã®æ¨ªæ–¹å‘åˆ†å‰²æ•°
+	static constexpr int TILE_DIV_H = 11;		//ãƒãƒƒãƒ—ã‚¿ã‚¤ãƒ«ã®ç¸¦æ–¹å‘åˆ†å‰²æ•°
 
 
 private:
-	int tileGraph[TILE_DIV_W * TILE_DIV_H];			//ƒ}ƒbƒvƒ`ƒbƒv‰æ‘œ
-	int **mapData;										//ƒ}ƒbƒvƒf[ƒ^(CSV‚ÅŠÇ—)
-	int mapXNum;									//‰¡•ûŒü‚Ìƒ}ƒbƒvƒ`ƒbƒv‚Ì”
-	int mapYNum;									//c•ûŒü‚Ìƒ}ƒbƒvƒ`ƒbƒv‚Ì”
+	int tileGraph[TILE_DIV_W * TILE_DIV_H];			//ãƒãƒƒãƒ—ãƒãƒƒãƒ—ç”»åƒ
+	int **mapData;										//ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿(CSVã§ç®¡ç†)
+	int mapXNum;									//æ¨ªæ–¹å‘ã®ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®æ•°
+	int mapYNum;									//ç¸¦æ–¹å‘ã®ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®æ•°
 
 
 };
