@@ -1,46 +1,46 @@
-#include"EasyEnemy.h"
+ï»¿#include"EasyEnemy.h"
 #include"EnemyManager.h"
 #include"Map.h"
 #include"Player.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 EnemyManager::EnemyManager()
 {
-	//ˆê”Ôã‚¢“G‚ğƒCƒ“ƒXƒ^ƒ“ƒX‰»
-	easyEnemy.emplace_back(new EasyEnemy(EAZY1_FIRST_X));	//1‘Ì–Ú
+	//ä¸€ç•ªå¼±ã„æ•µã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
+	easyEnemy.emplace_back(new EasyEnemy(EAZY1_FIRST_X));	//1ä½“ç›®
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 EnemyManager::~EnemyManager()
 {
-	//ƒƒ‚ƒŠ‚ÌŠJ•ú
+	//ãƒ¡ãƒ¢ãƒªã®é–‹æ”¾
 	easyEnemy.clear();
 }
 
 /// <summary>
-/// ƒQ[ƒ€ŠJn‚Ì‰Šú‰»
+/// ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ã®åˆæœŸåŒ–
 /// </summary>
 void EnemyManager::Init()
 {
 	easyEnemy[0]->Init(VGet(EAZY1_FIRST_X, EAZY1_FIRST_Y, 0));
 }
 /// <summary>
-/// XVˆ—
+/// æ›´æ–°å‡¦ç†
 /// </summary>
-/// <param name="map">ƒ}ƒbƒv‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</param>
-/// <param name="player">ƒvƒŒƒCƒ„[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</param>
+/// <param name="map">ãƒãƒƒãƒ—ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</param>
+/// <param name="player">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</param>
 void EnemyManager::Update(const Map& map, const Player& player)
 {
-	//ƒvƒŒƒCƒ„[‚ÌˆÚ“®•ûŒü‚Ìæ“¾
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•æ–¹å‘ã®å–å¾—
 	VECTOR playerVec = player.GetKeepVelocity();
 	easyEnemy[0]->Update(map, playerVec);
 }
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void EnemyManager::Draw()
 {

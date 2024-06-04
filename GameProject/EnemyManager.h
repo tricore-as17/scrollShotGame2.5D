@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<vector>
 #include"DxLib.h"
 
@@ -12,15 +12,15 @@ class BaseEnemy;
 class EnemyManager
 {
 public:
-	//’è”ŒQ
-	//‰ŠúÀ•W
+	//å®šæ•°ç¾¤
+	//åˆæœŸåº§æ¨™
 	static constexpr int EAZY1_FIRST_X = 1440;	
 	static constexpr int EAZY1_FIRST_Y = 352;
-	EnemyManager();		//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	~EnemyManager();	//ƒfƒXƒgƒ‰ƒNƒ^
+	EnemyManager();		//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	~EnemyManager();	//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	void Init();
 	void Update(const Map&map,const Player&player);
 	void Draw();
 private:
-	vector<EasyEnemy*> easyEnemy;	//ˆê”Ôã‚¢“G
+	vector<EasyEnemy*> easyEnemy;	//ä¸€ç•ªå¼±ã„æ•µ
 };

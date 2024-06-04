@@ -1,22 +1,22 @@
-#pragma once
+ï»¿#pragma once
 
 
 class Font
 {
 public:
-	//’è”
-	static constexpr int TITLE_GAMELOGO_SIZE = 150;		//ƒ^ƒCƒgƒ‹ƒƒS‚ÌƒTƒCƒY
-	static constexpr int TITLE_EXPLANETION_SIZE = 50;	//ƒ^ƒCƒgƒ‹‰æ–Ê‚Å‚Ìƒ{ƒ^ƒ“à–¾ƒTƒCƒY
-	static constexpr int GAME_DISTANCE_SIZE = 70;		//ƒQ[ƒ€’†‚ÌŒo‰ß‹——£‚ÌƒTƒCƒY
-	static constexpr int GAME_ANNOUNCE_SIZE = 50;		//ƒQ[ƒ€ƒAƒiƒEƒ“ƒX‚ÌƒTƒCƒY
-	static constexpr int COMPLIMENT_SIZE = 30;			//áŠQ•¨‚ğ”ò‚Ñ‰z‚¦‚½‚Ì—_‚ßŒ¾—t
-	static constexpr int CLEAREND_TITLE_SIZE = 150;		//ƒQ[ƒ€ƒNƒŠƒA‚ÆƒQ[ƒ€ƒI[ƒo[‰æ–Ê‚Ìƒ^ƒCƒgƒ‹ƒTƒCƒY
-	static constexpr int END_TIME_SIZE = 100;			//ƒQ[ƒ€ƒI[ƒo[‚É•\¦‚·‚éŒo‰ßŠÔ‚ÌƒTƒCƒY
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^EƒfƒXƒgƒ‰ƒNƒ^
+	//å®šæ•°
+	static constexpr int TITLE_GAMELOGO_SIZE = 150;		//ã‚¿ã‚¤ãƒˆãƒ«ãƒ­ã‚´ã®ã‚µã‚¤ã‚º
+	static constexpr int TITLE_EXPLANETION_SIZE = 50;	//ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ã§ã®ãƒœã‚¿ãƒ³èª¬æ˜ã‚µã‚¤ã‚º
+	static constexpr int GAME_DISTANCE_SIZE = 70;		//ã‚²ãƒ¼ãƒ ä¸­ã®çµŒéè·é›¢ã®ã‚µã‚¤ã‚º
+	static constexpr int GAME_ANNOUNCE_SIZE = 50;		//ã‚²ãƒ¼ãƒ ã‚¢ãƒŠã‚¦ãƒ³ã‚¹ã®ã‚µã‚¤ã‚º
+	static constexpr int COMPLIMENT_SIZE = 30;			//éšœå®³ç‰©ã‚’é£›ã³è¶ŠãˆãŸæ™‚ã®èª‰ã‚è¨€è‘‰
+	static constexpr int CLEAREND_TITLE_SIZE = 150;		//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ã¨ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ç”»é¢ã®ã‚¿ã‚¤ãƒˆãƒ«ã‚µã‚¤ã‚º
+	static constexpr int END_TIME_SIZE = 100;			//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã«è¡¨ç¤ºã™ã‚‹çµŒéæ™‚é–“ã®ã‚µã‚¤ã‚º
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ»ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Font();
 	virtual ~Font();
-	//•`‰æ
-	//‚»‚ê‚¼‚ê‚Ìƒnƒ“ƒhƒ‹‚ğƒQƒbƒ^[
+	//æç”»
+	//ãã‚Œãã‚Œã®ãƒãƒ³ãƒ‰ãƒ«ã‚’ã‚²ãƒƒã‚¿ãƒ¼
 	int GetTitleLogoHandle()const { return titleLogoHandle; }
 	int GetTitleExplanetionHandle()const { return titleExplanetionHandle; }
 	int GetgameDistanceHandle()const { return gameDistanceHandle; }
@@ -26,7 +26,7 @@ public:
 	int GetEndTimeHandle() const { return endTimeHandle; }
 
 private:
-	//ƒnƒ“ƒhƒ‹ƒf[ƒ^
+	//ãƒãƒ³ãƒ‰ãƒ«ãƒ‡ãƒ¼ã‚¿
 	int titleLogoHandle;
 	int titleExplanetionHandle;
 	int gameDistanceHandle;

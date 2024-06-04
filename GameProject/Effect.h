@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"DxLib.h"
 
 class Player;
@@ -6,11 +6,11 @@ class Player;
 class Effect
 {
 public:
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^EƒfƒXƒgƒ‰ƒNƒ^
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ»ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Effect(const char* fileName);
 	virtual ~Effect();
-	//ƒQƒbƒ^[
-	bool GetPlayFlag()const { return playFlag; }	//Ä¶’†‚©‚Ìƒtƒ‰ƒO‚ğ•Ô‚·
+	//ã‚²ãƒƒã‚¿ãƒ¼
+	bool GetPlayFlag()const { return playFlag; }	//å†ç”Ÿä¸­ã‹ã®ãƒ•ãƒ©ã‚°ã‚’è¿”ã™
 	static int Setting();
 	//void Init();
 	//bool Update(Player* player, const VECTOR playerPos);
@@ -18,10 +18,10 @@ public:
 	//bool ClearUpdate(Player* player, const VECTOR playerPos);
 	//void Draw();
 private:
-	int handle;		//ƒGƒtƒFƒNƒg‚Ìƒnƒ“ƒhƒ‹
-	int playHandle;	//ƒvƒŒƒC’†‚ÌƒGƒtƒFƒNƒgƒnƒ“ƒhƒ‹
-	int playTime;			//Ä¶ŠÔ
-	bool playFlag;			//Ä¶’†‚©Šm”F‚·‚éƒtƒ‰ƒO
-	bool playEndFlag;		//Ä¶I—¹‚Ìƒtƒ‰ƒO
-	VECTOR pos;				//À•W
+	int handle;		//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒãƒ³ãƒ‰ãƒ«
+	int playHandle;	//ãƒ—ãƒ¬ã‚¤ä¸­ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒãƒ³ãƒ‰ãƒ«
+	int playTime;			//å†ç”Ÿæ™‚é–“
+	bool playFlag;			//å†ç”Ÿä¸­ã‹ç¢ºèªã™ã‚‹ãƒ•ãƒ©ã‚°
+	bool playEndFlag;		//å†ç”Ÿçµ‚äº†ã®ãƒ•ãƒ©ã‚°
+	VECTOR pos;				//åº§æ¨™
 };
