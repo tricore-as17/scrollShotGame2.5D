@@ -22,7 +22,6 @@ public:
 	void Draw();								//描画
 	//ゲッターセッター
 	VECTOR GetPos()const { return pos; }			//座標を返す
-	VECTOR GetDrawPos()const { return drawPos; }	//draw座標を返す
 	VECTOR GetKeepVelocity()const { return keepVelocity; }
 	bool GetIsHitTop()const { return isHitTop; }	//天井へ当たっているかのフラグを返す
 	void SetIsHitTop(const bool inIsHitTop) { isHitTop = inIsHitTop; }		//天井へ当たっているかのセット
@@ -38,7 +37,7 @@ public:
 	};
 	//定数群	
 	static constexpr float PLAYER_W = 0.725f;			//プレイヤー横サイズ
-	static constexpr float PLAYER_H = 2.175f;			//プレイヤーの縦サイズ
+	static constexpr float PLAYER_H = 1.450f;			//プレイヤーの縦サイズ
 	static constexpr float JUMP_POWER = 0.25f;  //キャラのジャンプ力
 	static constexpr int ANIME_STATE_SUM = 4;	//合計アニメーションの数
 
@@ -53,8 +52,7 @@ private:
 	float totalAnimeTime;				//アニメーションのトータル再生時間
 	float playTime;						//アニメーションの現在の再生時間
 	bool animeState[ANIME_STATE_SUM];	//アニメーションの状態
-	VECTOR pos3D;						//3Dモデルの座標
-	VECTOR drawPos;
+
 	VECTOR velocity;					//移動量
 	VECTOR keepVelocity;				//プレイヤーの移動量の保存用
 

@@ -42,23 +42,16 @@ VECTOR PlayerColision::CheckPlayerHitWithMap(Player& player, const Map& map, con
 			bool isHit = false;
 			for (int wIndex = 0; wIndex < mapXNum; wIndex++)
 			{
+				VECTOR chipHalfOffset = VGet(-Map::CHIP_SIZE * 0.5f, -Map::CHIP_SIZE * 0.5f, 0);					// マップチップの半分サイズ左下にずらすオフセット
 				//マップチップそれぞれの座標を取得
-				VECTOR mapChipPos = VGet(Map::CHIP_SIZE * wIndex+mapLeftPos.x, Map::CHIP_SIZE * (-hIndex -1)  + mapLeftPos.y, 0);
+				VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex+mapLeftPos .x, Map::CHIP_SIZE * (-hIndex -1)  + mapLeftPos.y, 0), chipHalfOffset);
 				//マップチップとプレイヤーの当たり判定をみる
 				isHit = IsHitPlayerWithMapChip(player, futurePos, mapData[hIndex][wIndex],mapChipPos);
 
 				// 初回に当たったとき
 				if (isHit && isFirstHit)
 				{
-					// 今後当たり判定でポジションやvelocityの補正をするとき、小数点以下の誤差が産まれる
-					// 雑に1ドットずつ減らす、数学計算をしないマッシブ当たり判定には邪魔なので初回に丸めてしまい、
-					// 以降改めて当たり判定
-					// posもVelocityも丸める
-					//playerPos.x = floorf(playerPos.x);		//floorfは小数点を丸める
-					//playerPos.y = floorf(playerPos.y);
-					player.SetPos(playerPos);
-					//ret.x = floorf(ret.x);
-					//ret.y = floorf(ret.y);
+		
 					isFirstHit = false;
 					loop = true;	// ループ継続
 				}
@@ -187,8 +180,9 @@ void PlayerColision::CheckIsGround(Player& player, const  Map& map)
 	{
 		for (int wIndex = 0; wIndex < mapXnum; wIndex++)
 		{
+			VECTOR chipHalfOffset = VGet(-Map::CHIP_SIZE * 0.5f, -Map::CHIP_SIZE * 0.5f, 0);					// マップチップの半分サイズ左下にずらすオフセット
 			//マップチップそれぞれの座標を取得
-			VECTOR mapChipPos = VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * (-hIndex - 1) + mapLeftPos.y, 0);
+			VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * (-hIndex - 1) + mapLeftPos.y, 0), chipHalfOffset);
 			//if (isHit == false)
 			//{
 			isHit = IsHitPlayerWithMapChip(player, checkPos, mapData[hIndex][wIndex],mapChipPos);
@@ -243,8 +237,9 @@ void PlayerColision::CheckIsTopHit(Player& player, const  Map& map)
 	{
 		for (int wIndex = 0; wIndex < mapXnum; wIndex++)
 		{
+			VECTOR chipHalfOffset = VGet(-Map::CHIP_SIZE * 0.5f, -Map::CHIP_SIZE * 0.5f, 0);					// マップチップの半分サイズ左下にずらすオフセット
 			//マップチップそれぞれの座標を取得
-			VECTOR mapChipPos = VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * (-hIndex - 1) + mapLeftPos.y, 0);
+			VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * (-hIndex - 1) + mapLeftPos.y, 0), chipHalfOffset);
 			isHit = IsHitPlayerWithMapChip(player, checkPos, mapData[hIndex][wIndex], mapChipPos);
 			if (isHit)
 			{

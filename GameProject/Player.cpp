@@ -11,7 +11,7 @@ const float Player::SPEED = static_cast<float>(10000.0 / 60.0 / 60.0 / 60.0);
 Player::Player():isHitTop(false),isGround(false)
 {
 	//座標の初期化
-	pos = VGet(10, 20, 0);
+	pos = VGet(10, 8, 0);
 	dir = VGet(0, 0, 1);
 	fallSpeed = 0;
 	playTime = 0.0f;
@@ -87,6 +87,7 @@ void Player::Update(bool keyStop,const Map &map)
 
 	fallSpeed -= Utility::GRAVITY;
 
+
 	// HACK: 先に設定判定をすることでfallSpeed修正＋接地フラグ更新
 	PlayerColision::CheckIsGround(*this, map);
 	PlayerColision::CheckIsTopHit(*this, map);
@@ -113,55 +114,14 @@ void Player::Update(bool keyStop,const Map &map)
 
 	// 移動
 	pos = VAdd(pos, velocity);
-	////3Dモデルを描画させるために位置を調整する
-	//drawPos = VGet(pos.x+10,pos.y+60,0.7f);
-	//pos3D = ConvScreenPosToWorldPos(drawPos);
-	//MV1SetPosition(modelHandle, pos3D);
 
 
+	//VECTOR playerOffset = VGet(0, -PLAYER_H, 0);
+	//pos = VAdd(pos, playerOffset);
 
-	////アニメーションの設定
-	//if (velocity.x != 0)
-	//{
-	//	AnimeSet(RUN);
-	//}
-	//else
-	//{
-	//	//待機状態のアニメーションにする
-	//	AnimeSet(IDLE);
-
-	//}
-
-	////アニメーションカウントの更新(1回の再生時間を超えたらリセット)
-	//playTime += 0.7f;
-	//if (playTime >= totalAnimeTime)
-	//{
-	//	playTime = 0.0f;
-	//}
-	////再生時間のセット
-	//MV1SetAttachAnimTime(modelHandle, attachIndex, playTime);
-		// キー入力取得
-
-	// ゼロ除算避け
-	//if (VSquareSize(dir) > 0)
-	//{
-	//	 正規化
-	//	dir = VNorm(dir);
-	//}
-
-	// ポジションを更新.
-	//velocity = VScale(dir, SPEED);
-	//pos = VAdd(pos, velocity);
-
-	// 力をかけ終わったベロシティの方向にディレクションを調整.
-	//if (VSize(velocity) != 0)
-	//{
-	//	dir = VNorm(velocity);
-	//}
-
-	//printfDx("%f %f %f\n", dir.x, dir.y, dir.z);
 	// ３Dモデルのポジション設定
 	MV1SetPosition(modelHandle, pos);
+	//pos = VSub(pos, playerOffset);
 
 
 
@@ -173,6 +133,9 @@ void Player::Update(bool keyStop,const Map &map)
 /// </summary>
 void Player::Draw()
 {
+
+
+
 
 	//DrawBox(pos.x, pos.y, pos.x + PLAYER_W, pos.y + PLAYER_H, GetColor(255, 255, 255), FALSE);
 	MV1DrawModel(modelHandle);
