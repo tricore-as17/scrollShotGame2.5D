@@ -1,22 +1,22 @@
-#include"BaseEnemy.h"
+ï»¿#include"BaseEnemy.h"
 #include"Utility.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-BaseEnemy::BaseEnemy() :moveStartFlag(false) {}	//ƒtƒ‰ƒO‚Ì‰Šú‰»
+BaseEnemy::BaseEnemy() :moveStartFlag(false) {}	//ãƒ•ãƒ©ã‚°ã®åˆæœŸåŒ–
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-BaseEnemy::~BaseEnemy() {/*ˆ—‚È‚µ*/ }
+BaseEnemy::~BaseEnemy() {/*å‡¦ç†ãªã—*/ }
 
 /// <summary>
-/// ƒGƒlƒ~[‚Ì‹¤’Ê‚·‚éƒXƒNƒ[ƒ‹ˆ—(ƒ}ƒbƒv‚ÌƒXƒNƒ[ƒ‹‚É‡‚í‚¹‚ÄƒGƒlƒ~[‚àˆÚ“®)
+/// ã‚¨ãƒãƒŸãƒ¼ã®å…±é€šã™ã‚‹ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å‡¦ç†(ãƒãƒƒãƒ—ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã«åˆã‚ã›ã¦ã‚¨ãƒãƒŸãƒ¼ã‚‚ç§»å‹•)
 /// </summary>
 void BaseEnemy::ScrollProcess()
 {
-	//ƒGƒlƒ~[‚ª‰æ–Ê“à‚É“ü‚Á‚½‚çƒXƒNƒ[ƒ‹ƒtƒ‰ƒO‚ğ—§‚Ä‚é
+	//ã‚¨ãƒãƒŸãƒ¼ãŒç”»é¢å†…ã«å…¥ã£ãŸã‚‰ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
 	if (pos.x <= SCREEN_W)
 	{
 		moveStartFlag = true;

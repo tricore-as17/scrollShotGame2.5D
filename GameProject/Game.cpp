@@ -17,7 +17,7 @@ Game::Game()
 	camera = new Camera();
 	gameOverEffect = new Effect("Effect/BreakChara.efkefc");
 	clearCharaEffect = new Effect("Effect/clearChara.efkefc");
-	map = new Map(VGet(0,0,0));
+	map = new Map();
 	enemyManager = new EnemyManager();
 
 \
@@ -59,6 +59,7 @@ void Game::GameStateChange()
 	case STATE_GAME:
 		utility->StartInit();
 		player->Init();
+		map->Init();
 		enemyManager->Init();
 		break;
 	case STATE_GAMECLEAR:
@@ -80,7 +81,8 @@ void Game::GameStateChange()
 void Game::Initialize()
 {
 	player->Init();
-	camera->Init(player->GetPos());
+	map->Init();
+	camera->Init();
 	enemyManager->Init();
 }
 
@@ -131,10 +133,10 @@ void Game::Update()
 
 		break;
 	case STATE_GAME:
+		map->Update(player->GetKeepVelocity());
 		player->Update(keyStop, *map);
 		enemyManager->Update(*map, *player);
-		map->Update(player->GetKeepVelocity());
-		camera->Update(player->GetPos());
+		camera->Update(*map,*player);
 		break;
 	case STATE_GAMEOVER:
 
@@ -159,9 +161,9 @@ void Game::Draw()
 	case STATE_TITLE:
 		break;
 	case STATE_GAME:
+		map->Draw();
 		player->Draw();
 		enemyManager->Draw();
-		map->Draw();
 
 		break;
 	case STATE_GAMECLEAR:

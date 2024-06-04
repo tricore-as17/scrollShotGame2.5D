@@ -3,15 +3,7 @@
 #include"DxLib.h"
 #include"GameObject.h"
 
-const int PLAYER_X = 150;					//プレイヤーのX座標(動かないので定数)
 const int PLAYER_STATE_NUM = 4;				//プレイヤーの状態の数
-const int PLAYER_CHIP_SIZE = 64;			//プレイヤーチップのサイズ
-const int PLAYER_CHIP_DIV_YNUM = 1;			//プレイヤーチップの縦方向の分割数
-const int STATE_RUN_DIV_NUM = 12;			//走っている時の分割数
-const int STATE_JUMP_DIV_NUM = 1;			//ジャンプの時の分割数
-const int STATE_FALL_DIV_NUM = 1;			//落下中の時の分割数
-const int STATE_HIT_DIV_NUM = 7;
-
 
 
 
@@ -44,16 +36,14 @@ public:
 		//1から開始
 		IDLE = 1, MAGIC, RUN
 	};
-	//定数群
-	static constexpr int FIRST_X = 100;			//初期X座標
-	static constexpr int FIRST_Y = 450;			//初期Y座標
-	static constexpr int PLAYER_W = 32;			//プレイヤー横サイズ
-	static constexpr int PLAYER_H = 96;			//プレイヤーの縦サイズ
-	static constexpr float JUMP_POWER = 15.0f;  //キャラのジャンプ力
-	static constexpr float SPEED = 5.0f;		//キャラの移動スピード
+	//定数群	
+	static constexpr float PLAYER_W = 0.725f;			//プレイヤー横サイズ
+	static constexpr float PLAYER_H = 2.175f;			//プレイヤーの縦サイズ
+	static constexpr float JUMP_POWER = 0.25f;  //キャラのジャンプ力
 	static constexpr int ANIME_STATE_SUM = 4;	//合計アニメーションの数
 
 private:
+
 	//アニメーションフラグを全てリセット
 	void ResetAnimeFlag();
 	//アニメションのセット
@@ -65,11 +55,16 @@ private:
 	bool animeState[ANIME_STATE_SUM];	//アニメーションの状態
 	VECTOR pos3D;						//3Dモデルの座標
 	VECTOR drawPos;
+	VECTOR velocity;					//移動量
 	VECTOR keepVelocity;				//プレイヤーの移動量の保存用
 
 	bool hitFlag;
 	bool isGround;						//接地判定
 	bool isHitTop;						//天井に当たっているかの判定
+
+	//静的定数
+	static constexpr float SCALE = 0.01f;	//プレイヤーの大きさ
+	static const float SPEED;				//プレイヤーの速度
 
 
 	

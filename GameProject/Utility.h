@@ -35,7 +35,7 @@ class Utility
 {
 public:
 	//定数群
-	static constexpr float GRAVITY = 0.5f;			//重力の値
+	static constexpr float GRAVITY = 0.005f;			//重力の値
 
 	//ゲッターセッター
 	//経過時間のゲッター

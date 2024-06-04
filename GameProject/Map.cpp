@@ -3,14 +3,18 @@
 #include"WorldSprite.h"
 #include"Utility.h"
 #pragma warning(disable:4996)
+
+//静的変数
+//ワールド座標での32ピクセルのサイズから1ピクセルを計算して出す
+const float Map::ONE_PIXEL_SIZE = Map::CHIP_PIXEL_SIZE / 32;
+
 //コンストラクタ
-Map::Map(VECTOR initPos)
+Map::Map()
 {
 	//マップタイルと配置のcsvファイルの読み込み
 
-	LoadGraph("img/MapTile/Terrain (32x32).png");
+	tileGraph =LoadGraph("img/MapTile/Terrain (32x32).png");
 	LoadMapChip("Map/stage1.csv");
-	pos = initPos;
 }
 //デストラクタ
 Map::~Map()
@@ -27,7 +31,7 @@ Map::~Map()
 void Map::Init()
 {
 	//ワールドスプライトの左上座標を設定
-	VECTOR chipLeftTopPos = VGet(0, mapYNum * CHIP_SIZE,0);
+	chipLeftTopPos = VGet(0, mapYNum * CHIP_SIZE,0);
 	for (int yIndex = 0; yIndex < mapYNum; yIndex++)
 	{
 		for (int xIndex = 0; xIndex < mapXNum; xIndex++)

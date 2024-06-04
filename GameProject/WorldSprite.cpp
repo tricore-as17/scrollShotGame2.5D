@@ -19,22 +19,24 @@ void WorldSprite::Initialize(int textureGraph, int chipPixelSize, int spriteNo)
     GetGraphTextureSize(textureGraph, &texW, &texH);
     //幅から一つのサイズを割って数を出す
     //幅と高さは同じなので一つに
-    int chipNum = texW / chipPixelSize;
+    int chipXNum = texW / chipPixelSize;
+    int chipYNum = texH / chipPixelSize;
     //ここでdivgraphを手動で行っているみたいな感じ
-    int chipNoX = spriteNo % chipNum;       //列の指定
-    int chipNoY = spriteNo / chipNum;       //行の指定
-    float oneChipUVRate = 1.0f / (float)chipNum;   // テクスチャ全部を1.0とした時のcihp一個に対するuvのサイズ
+    int chipNoX = spriteNo % chipXNum;       //列の指定
+    int chipNoY = spriteNo / chipXNum;       //行の指定
+    float oneChipUVXRate = 1.0f / (float)chipXNum;   // テクスチャ全部を1.0とした時のcihp一個に対するuvのサイズ
+    float oneChipUVYRate = 1.0f / (float)chipYNum;
     //テクスチャの座標の設定
     // 0.0ならx1もしくはy1　//1.0ならx2もしくはy2
     //テクスチャを張る4つの座標＝この座標の列or行数+
-    Vertex[0].u = (chipNoX + 0.0f) * oneChipUVRate;     //チップの左上のx座標
-    Vertex[0].v = (chipNoY + 0.0f) * oneChipUVRate;     //チップの左上のY座標
-    Vertex[1].u = (chipNoX + 1.0f) * oneChipUVRate;     //チップの右上のx座標
-    Vertex[1].v = (chipNoY + 0.0f) * oneChipUVRate;     //チップの右上のy座標
-    Vertex[2].u = (chipNoX + 0.0f) * oneChipUVRate;     //チップの左下のx座標
-    Vertex[2].v = (chipNoY + 1.0f) * oneChipUVRate;     //チップの右上のy座標
-    Vertex[3].u = (chipNoX + 1.0f) * oneChipUVRate;     //チップの右下のx座標
-    Vertex[3].v = (chipNoY + 1.0f) * oneChipUVRate;     //チップの右下のy座標
+    Vertex[0].u = (chipNoX + 0.0f) * oneChipUVXRate;     //チップの左上のx座標
+    Vertex[0].v = (chipNoY + 0.0f) * oneChipUVYRate;     //チップの左上のY座標
+    Vertex[1].u = (chipNoX + 1.0f) * oneChipUVXRate;     //チップの右上のx座標
+    Vertex[1].v = (chipNoY + 0.0f) * oneChipUVYRate;     //チップの右上のy座標
+    Vertex[2].u = (chipNoX + 0.0f) * oneChipUVXRate;     //チップの左下のx座標
+    Vertex[2].v = (chipNoY + 1.0f) * oneChipUVYRate;     //チップの右上のy座標
+    Vertex[3].u = (chipNoX + 1.0f) * oneChipUVXRate;     //チップの右下のx座標
+    Vertex[3].v = (chipNoY + 1.0f) * oneChipUVYRate;     //チップの右下のy座標
 
     // ディフューズ、スペキュラは初期化時に固定(ここは気にしない)
     for (int i = 0; i < 4; i++)
@@ -85,5 +87,5 @@ void WorldSprite::Draw()
 {
     // ２ポリゴンの描画
     //4は頂点の数2がポリゴンの数
-    DrawPolygonIndexed3D(Vertex, 4, Index, 2, textureGraph, FALSE);
+    DrawPolygonIndexed3D(Vertex, 4, Index, 2, textureGraph, TRUE);
 }

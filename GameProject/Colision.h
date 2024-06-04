@@ -5,6 +5,7 @@ class Map;
 class Player;
 class BaseEnemy;
 
+
 //ƒvƒŒƒCƒ„[‚Ì“–‚½‚è”»’è
 class PlayerColision
 {

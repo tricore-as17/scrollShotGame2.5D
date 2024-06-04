@@ -1,7 +1,7 @@
 #pragma once
 #include<vector>
 #include"DxLib.h"
-//#include"GameObject.h"
+#include"GameObject.h"
 
 
 using namespace std;
@@ -12,13 +12,13 @@ class WorldSprite;
 class Map : public GameObject
 {
 public:
-	Map(VECTOR initPos);
+	Map();
 	~Map();
 	//ゲットセット
-	int getMapXNum() const{ return mapXNum; }		//横チップの数を返す
-	int getMapYNum() const { return mapYNum; }		//縦チップの数を返す
-	int** getMapData() const{ return mapData; }		//マップデータを返す
-	VECTOR getMapPos() const{ return pos; }			//座標を返す
+	const int getMapXNum() const{ return mapXNum; }					//横チップの数を返す
+	const int getMapYNum() const { return mapYNum; }				//縦チップの数を返す
+	int** getMapData()const{ return  mapData; }				//マップデータを返す
+	const VECTOR GetChipLeftPos() const { return chipLeftTopPos; }	//マップの左上の座標
 
 	void Init();
 	/// <summary>
@@ -39,9 +39,10 @@ public:
 
 	//定数群
 	static constexpr int CHIP_PIXEL_SIZE = 32;		//マップチップ一つのサイズ
-	static constexpr float CHIP_SIZE = 0.725f;		//ワールド座標でのチップのサイズ
-	static constexpr int TILE_DIV_W = 22;		//マップタイルの横方向分割数
-	static constexpr int TILE_DIV_H = 11;		//マップタイルの縦方向分割数
+	static constexpr float CHIP_SIZE = 0.725f;		//ワールド座標での32ピクセルのサイズ
+	static const float ONE_PIXEL_SIZE;				//ワールド座標での1ピクセルのサイズ
+	static constexpr int TILE_DIV_W = 22;			//マップタイルの横方向分割数
+	static constexpr int TILE_DIV_H = 11;			//マップタイルの縦方向分割数
 
 
 private:
@@ -49,6 +50,7 @@ private:
 	int **mapData;									//マップデータ(CSVで管理)
 	int mapXNum;									//横方向のマップチップの数
 	int mapYNum;									//縦方向のマップチップの数
+	VECTOR chipLeftTopPos;							//ワールドスプライトの左上座標
 	vector<WorldSprite*> sprites;					//ワールドスプライトのインスタンス
 
 

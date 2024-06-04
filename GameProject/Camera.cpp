@@ -46,7 +46,7 @@ void Camera::Update(const Map& map, const Player& player)
     VECTOR playerPos = player.GetPos();
     //
     int mapYNum = map.getMapYNum();
-    VECTOR cameraPos = VGet(playerPos.x, Map::CHIP_SIZE * (mapYNum - 2) * 0.5f, playerPos.z - 10.0f);
+    VECTOR cameraPos = VGet(playerPos.x, Map::CHIP_SIZE * (mapYNum - 2) * 0.5f, playerPos.z - 15.0f);
 
     ////モデル座標の上の部分をカメラが見ることにするので座標を修正
     //VECTOR drawPos = VGet(modelPos.x, modelPos.y , 0.1f);
