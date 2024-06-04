@@ -58,6 +58,22 @@ void Utility::StartInit()
     loadFlag = false;
 }
 
+/// <summary>
+/// 配列へのポインタをもらってベクタを作成する
+/// </summary>
+/// <param name="targetData">ベクタ内に入れる配列のデータ</param>
+/// <param name="num">作成するベクタの数</param>
+/// <returns></returns>
+vector<int> Utility::CreateArrayVector(const int targetData[], int num)
+{
+    std::vector<int> newVector;
+    for (int i = 0; i < num; i++)
+    {
+        newVector.push_back(targetData[i]);
+    }
+    return newVector;
+}
+
 //更新処理
 void Utility::Update()
 {

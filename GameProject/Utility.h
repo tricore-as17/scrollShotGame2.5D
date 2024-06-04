@@ -1,6 +1,8 @@
 #pragma once
+#include<vector>
 #include"DxLib.h"
 
+using namespace std;
 
 //スクリーンサイズ
 const int SCREEN_W = 1280;
@@ -58,6 +60,13 @@ public:
 	static void FpsControll();
 	//ゲーム開始時ごとの初期化処理
 	void StartInit();
+	/// <summary>
+	/// 配列へのポインタをもらってベクタを作成する
+	/// </summary>
+	/// <param name="targetData">ベクタ内に入れる配列のデータ</param>
+	/// <param name="num">作成するベクタの数</param>
+	/// <returns></returns>
+	vector<int> CreateArrayVector(const int targetData[], int num);
 	//更新処理
 	void Update();
 private:

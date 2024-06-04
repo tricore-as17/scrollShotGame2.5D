@@ -75,6 +75,9 @@
     <ClCompile Include="EnemyManager.cpp">
       <Filter>ソース ファイル\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="WorldSprite.cpp">
+      <Filter>ソース ファイル\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility.h">
@@ -112,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="Colision.h">
       <Filter>ソース ファイル\Colision</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldSprite.h">
+      <Filter>ソース ファイル\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 #include"GameObject.h"
 #include"Map.h"
+#include"WorldSprite.h"
 #include"Utility.h"
 #pragma warning(disable:4996)
 //コンストラクタ
@@ -7,12 +8,8 @@ Map::Map(VECTOR initPos)
 {
 	//マップタイルと配置のcsvファイルの読み込み
 
-	//テスト用
-	///////////////////////////////////////////////////
-	LoadDivGraph("img/MapTile/Terrain (32x32).png", TILE_DIV_W * TILE_DIV_H, TILE_DIV_W, TILE_DIV_H
-		, CHIP_SIZE, CHIP_SIZE, tileGraph);
+	LoadGraph("img/MapTile/Terrain (32x32).png");
 	LoadMapChip("Map/stage1.csv");
-	///////////////////////////////////////////////////
 	pos = initPos;
 }
 //デストラクタ
@@ -24,42 +21,57 @@ Map::~Map()
 		delete[] mapData[i];
 	}
 }
-void Map::Init(){}
-
-
-
-void Map::Update(const VECTOR& playerVec)
+/// <summary>
+/// マップの位置の初期化
+/// </summary>
+void Map::Init()
 {
-	//FIXME
-	//マップをスクロールする際に使用もうスクロール際に使用するのでもう使わない
-	//if (pos.x - playerVec.x < 0)
-	//{
-	//	//マップをスクロールさせる
-	//	pos.x = pos.x - playerVec.x;
+	//ワールドスプライトの左上座標を設定
+	VECTOR chipLeftTopPos = VGet(0, mapYNum * CHIP_SIZE,0);
+	for (int yIndex = 0; yIndex < mapYNum; yIndex++)
+	{
+		for (int xIndex = 0; xIndex < mapXNum; xIndex++)
+		{
+			auto sprite = new WorldSprite();
+			//画像、チップのサイズ32,現在の配列データ
+			sprite->Initialize(tileGraph, CHIP_PIXEL_SIZE, mapData[yIndex][xIndex]);
+			//chipHalfOffsetはチップを左下にずらす
+			VECTOR chipHalfOffset = VGet(-CHIP_SIZE * 0.5f, -CHIP_SIZE * 0.5f, 0);					// マップチップの半分サイズ左下にずらすオフセット
+			VECTOR chipPos = VAdd(VGet(xIndex * CHIP_SIZE, (-yIndex - 1) * CHIP_SIZE, 0), chipHalfOffset);	// 真ん中ピボットなのでマップチップ半分サイズずらす+地面なので一つ下に
+			chipPos = VAdd(chipPos, chipLeftTopPos);	//行の数だけ座標を上にもってくる
+			sprite->SetTransform(chipPos, CHIP_SIZE);
+			sprites.push_back(sprite);
+		}
+	}
 
-	//}
 }
 
+
+/// <summary>
+/// 座標移動などの更新処理
+/// </summary>
+/// <param name="playerVec"></param>
+void Map::Update(const VECTOR& playerVec)
+{
+
+}
+
+/// <summary>
+/// ワールドスプライトを使った描画
+/// </summary>
 void Map::Draw()
 {
-	for (int  y= 0; y < mapYNum; y++)
+	for (const auto& sprite : sprites)
 	{
-		for (int x = 0; x < mapXNum; x++)
-		{
-				if (mapData[y][x] == -1)
-				{
-					continue;
-				}
-				int graphHandle = tileGraph[mapData[y][x]];
-				DrawGraph((x * CHIP_SIZE) + pos.x, y * CHIP_SIZE, graphHandle, TRUE);
-
-
-		}
+		sprite->Draw();
 	}
 }
 
 
-
+/// <summary>
+/// csvファイルからマップチップのデータを読み込み
+/// </summary>
+/// <param name="mapCSVFileName">csvファイルネーム</param>
 void Map::LoadMapChip(const char* mapCSVFileName)
 {
 	mapData = NULL;

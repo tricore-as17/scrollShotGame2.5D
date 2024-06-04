@@ -22,7 +22,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	ChangeWindowMode(TRUE);
 	////////////////////////////
 
-	SetCameraNearFar(0.0f, 500.0f);	//near‚Æfar‚Ìİ’è
+
 
 		// ‚c‚wƒ‰ƒCƒuƒ‰ƒŠ‰Šú‰»ˆ—
 	if (DxLib_Init() == -1)
