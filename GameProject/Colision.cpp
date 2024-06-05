@@ -144,6 +144,8 @@ bool PlayerColision::IsHitPlayerWithMapChip(const Player& player, const  VECTOR&
 	float targetRight = mapChipPos.x + Map::CHIP_SIZE * 0.5f;
 	float targetTop = mapChipPos.y - Map::CHIP_SIZE * 0.5f;
 	float targetBottom = mapChipPos.y + Map::CHIP_SIZE * 0.5f;
+	//Šm”F—p‚É•`‰æ
+	
 	// ‹éŒ`“¯Žm‚Ì“–‚½‚è”»’è
 	if (((targetLeft <= futurePosLeft && futurePosLeft < targetRight) ||
 		(targetLeft > futurePosLeft && targetLeft < futurePosRight)) &&

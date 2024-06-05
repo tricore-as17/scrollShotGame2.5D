@@ -115,13 +115,15 @@ void Player::Update(bool keyStop,const Map &map)
 	// 移動
 	pos = VAdd(pos, velocity);
 
-
-	//VECTOR playerOffset = VGet(0, -PLAYER_H, 0);
-	//pos = VAdd(pos, playerOffset);
+	//そのまま位置を設定するとモデルの位置がぶれるので微調整
+	VECTOR playerOffset = VGet(0, -PLAYER_H*0.5, 0);
+	pos = VAdd(pos, playerOffset);
 
 	// ３Dモデルのポジション設定
 	MV1SetPosition(modelHandle, pos);
-	//pos = VSub(pos, playerOffset);
+
+	//微調整した後はポジションを戻す
+	pos = VSub(pos, playerOffset);
 
 
 
@@ -133,11 +135,7 @@ void Player::Update(bool keyStop,const Map &map)
 /// </summary>
 void Player::Draw()
 {
-
-
-
-
-	//DrawBox(pos.x, pos.y, pos.x + PLAYER_W, pos.y + PLAYER_H, GetColor(255, 255, 255), FALSE);
+	//プレイヤーモデルの描画
 	MV1DrawModel(modelHandle);
 
 }

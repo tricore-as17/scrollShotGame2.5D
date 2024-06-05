@@ -6,7 +6,7 @@
 
 //静的変数
 //ワールド座標での32ピクセルのサイズから1ピクセルを計算して出す
-const float Map::ONE_PIXEL_SIZE = Map::CHIP_PIXEL_SIZE / 32;
+const float Map::ONE_PIXEL_SIZE = Map::CHIP_SIZE / 32;
 
 //コンストラクタ
 Map::Map()
