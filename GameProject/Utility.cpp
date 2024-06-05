@@ -1,45 +1,51 @@
-ï»¿#include"Utility.h"
+#include"Utility.h"
 #include"DxLib.h"
 
-//staticå¤‰æ•°ã®åˆæœŸåŒ–
+//static•Ï”‚Ì‰Šú‰»
 float Utility::fps = 0;
 int Utility::startTime = GetNowCount();
 int Utility::roopCount = 0;
 
-//åˆæœŸåŒ–
+/// <summary>
+/// ƒtƒŒ[ƒ€ƒŒ[ƒg‚Ì’²®‚ğ‚·‚é•Ï”‚È‚Ç‚Ì‰Šú‰»
+/// </summary>
 void Utility::FpsInit()
 {
-    //ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ç‚¹ã®æ™‚é–“ã‚’å–å¾—
+    //ƒQ[ƒ€ŠJn“_‚ÌŠÔ‚ğæ“¾
     startTime = GetNowCount();
     roopCount = 0;
     fps = 0;
 }
-//æ›´æ–°å‡¦ç†
+/// <summary>
+/// ƒtƒŒ[ƒ€ƒŒ[ƒg‚ÌŒvZ‚Ì‚½‚ß‚ÉƒJƒEƒ“ƒg‚È‚Ç‚ğæ“¾
+/// </summary>
 void Utility::FpsUpdate()
 {
-    //1ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ãªã‚‰
+    //1ƒtƒŒ[ƒ€–Ú‚È‚ç
     if (roopCount == 0)
     {
         startTime = GetNowCount();
     }
-    //60ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ãªã‚‰
+    //60ƒtƒŒ[ƒ€–Ú‚È‚ç
     if (roopCount == AVERAGE_FLAME)
     {
-        //ç¾åœ¨ã®å€¤ã‚’ä»£å…¥
+        //Œ»İ‚Ì’l‚ğ‘ã“ü
         int tmp = GetNowCount();
-        //è¡¨ç¤ºã™ã‚‹FPSã®å€¤ã‚’ä»£å…¥
+        //•\¦‚·‚éFPS‚Ì’l‚ğ‘ã“ü
         fps = 1000.f / ((tmp - startTime) / (float)AVERAGE_FLAME);
-        //ãƒ«ãƒ¼ãƒ—ã‚«ã‚¦ãƒ³ãƒˆã®åˆæœŸåŒ–
+        //ƒ‹[ƒvƒJƒEƒ“ƒg‚Ì‰Šú‰»
         roopCount = 0;
         startTime = tmp;
     }
     roopCount++;
 }
-//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«
+/// <summary>
+/// æ“¾‚µ‚½ƒJƒEƒ“ƒg‚ğg—p‚µÀÛ‚ÉƒtƒŒ[ƒ€ƒŒ[ƒg‚ğ’²ß‚·‚é
+/// </summary>
 void Utility::FpsControll()
 {
-    int tookTime = GetNowCount() - startTime;                   //ç¾åœ¨ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã®çµŒéã‹ã‚‰1ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ã§è¨ˆç®—ã—ãŸå€¤ã‚’å¼•ã
-    int waitTime = roopCount * 1000 / 60 - tookTime;            //tookTimeã®å€¤ãŒå¤§ãã„ã¨ï¼‘ãƒ•ãƒ¬ãƒ¼ãƒ è¾ºã‚Šã«ã‹ã‹ã‚‹æ™‚é–“ãŒé•·ã„ã®ã§å‡¦ç†ãŒé…ã„ã“ã¨ã«ãªã‚‹
+    int tookTime = GetNowCount() - startTime;                   //Œ»İ‚ÌƒtƒŒ[ƒ€‚ÌŒo‰ß‚©‚ç1ƒtƒŒ[ƒ€–Ú‚ÅŒvZ‚µ‚½’l‚ğˆø‚­
+    int waitTime = roopCount * 1000 / 60 - tookTime;            //tookTime‚Ì’l‚ª‘å‚«‚¢‚Æ‚PƒtƒŒ[ƒ€•Ó‚è‚É‚©‚©‚éŠÔ‚ª’·‚¢‚Ì‚Åˆ—‚ª’x‚¢‚±‚Æ‚É‚È‚é
 
     if (waitTime > 0)
     {
@@ -47,10 +53,12 @@ void Utility::FpsControll()
     }
 }
 
-//ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ã”ã¨ã®åˆæœŸåŒ–
+/// <summary>
+/// ƒQ[ƒ€‚Ég—p‚·‚éƒXƒNƒ[ƒ‹ƒXƒs[ƒh‚âƒJƒEƒ“ƒg‚È‚Ç‚ğ‰Šú‰»
+/// </summary>
 void Utility::StartInit()
 {
-    //ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚é–“ã‚’è¨˜éŒ²
+    //ƒQ[ƒ€ŠJnŠÔ‚ğ‹L˜^
     gameStartTime = GetNowCount();
     elapsedTime = 0;
     scrollSpeed = FIRST_SCROLL_SPEED;
@@ -58,26 +66,26 @@ void Utility::StartInit()
     loadFlag = false;
 }
 
-//æ›´æ–°å‡¦ç†
+/// <summary>
+/// ”z—ñ‚Ö‚Ìƒ|ƒCƒ“ƒ^‚ğ‚à‚ç‚Á‚ÄƒxƒNƒ^‚ğì¬‚·‚é
+/// </summary>
+/// <param name="targetData">ƒxƒNƒ^“à‚É“ü‚ê‚é”z—ñ‚Ìƒf[ƒ^</param>
+/// <param name="num">ì¬‚·‚éƒxƒNƒ^‚Ì”</param>
+/// <returns></returns>
+vector<int> Utility::CreateArrayVector(const int targetData[], int num)
+{
+    std::vector<int> newVector;
+    for (int i = 0; i < num; i++)
+    {
+        newVector.push_back(targetData[i]);
+    }
+    return newVector;
+}
+
+/// <summary>
+/// ƒJƒEƒ“ƒg‚È‚Ç‚ÌXVˆ—
+/// </summary>
 void Utility::Update()
 {
-    int nowTime = GetNowCount();
-    //ç¾åœ¨ã®æ™‚é–“ã‹ã‚‰ã‚²ãƒ¼ãƒ ã‚¹ã‚¿ãƒ¼ãƒˆæ™‚ã®æ™‚é–“ã‚’å¼•ã„ã¦çµŒéæ™‚é–“ã‚’å‡ºã™
-    elapsedTime = nowTime - gameStartTime;   
-    if (elapsedTime > 20000 && elapsedTime <=40000)
-    {
-        scrollSpeed = SECOND_SCROLL_SPEED;
-    }
-    else if (elapsedTime >40000 && elapsedTime <=60000)
-    {
-        scrollSpeed = THIRD_SCROLL_SPEED;
-    }
-    else if (elapsedTime > 60000 && elapsedTime <= 80000)
-    {
-        scrollSpeed = FORCE_SCROLL_SPEED;
-    }
-    else if (elapsedTime > 80000 && elapsedTime <= 90000)
-    {
-        scrollSpeed = FIFTH_SCROLL_SPEED;
-    }
+    //ˆ—‚È‚µ
 }

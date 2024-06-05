@@ -1,37 +1,61 @@
-ï»¿#pragma once
+#pragma once
 #include"DxLib.h"
 
+//ƒNƒ‰ƒX‚Ìƒvƒƒgƒ^ƒCƒvéŒ¾
 class Map;
 class Player;
 class BaseEnemy;
 
-//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å½“ãŸã‚Šåˆ¤å®š
+
+/// <summary>
+/// ƒvƒŒƒCƒ„[‚Ì“–‚½‚è”»’èƒƒ\ƒbƒh‚ğ‚Ü‚Æ‚ß‚½ƒNƒ‰ƒX
+/// </summary>
 class PlayerColision
 {
 public:
-	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå£ã«ã‚ã‚Šè¾¼ã¾ãªã„ä½ç½®ã«ã™ã‚‹ãŸã‚ã®åº§æ¨™ä¿®æ­£ç”¨
+	/// <summary>
+	/// ƒvƒŒƒCƒ„[‚Æƒ}ƒbƒv‚Ì“–‚½‚è”»’è‚ğ‚Æ‚Á‚Ä“–‚½‚ç‚È‚¢ˆÊ’u‚Ü‚ÅC³
+	/// </summary>
+	/// <param name="player">ƒvƒŒƒCƒ„[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</param>
+	/// <param name="map">ƒ}ƒbƒv‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</param>
+	/// <param name="velocity">¡‰ñ‚Ìƒ‹[ƒv‚Å“ü—Í‚³‚ê‚½ƒvƒŒƒCƒ„[ƒxƒNƒgƒ‹‚Ì’l</param>
+	/// <returns>C³‚µ‚½ƒxƒNƒgƒ‹</returns>
 	static VECTOR CheckPlayerHitWithMap(Player& player, const Map& map, const VECTOR& velocity);
-	//å½“ãŸã£ãŸã‹ã®ãƒã‚§ãƒƒã‚¯
+	/// <summary>
+	/// ƒvƒŒƒCƒ„[‚Æƒ}ƒbƒv‚ª“–‚½‚Á‚½‚©‚Ìƒ`ƒFƒbƒN
+	/// </summary>
+	/// <param name="player">ƒvƒŒƒCƒ„[</param>
+	/// <param name="futurePos">ˆÚ“®Œã‚ğŒvZ‚µ‚½Œã‚ÌÀ•W</param>
+	/// <param name="mapData">‚Ç‚ñ‚Èƒ}ƒbƒvƒ`ƒbƒv‚©</param>
+	/// <returns>“–‚½‚Á‚½‚©‚Ìƒtƒ‰ƒO</returns>
 	static bool IsHitPlayerWithMapChip(const Player& player, const  VECTOR& futurePos,int mapData,VECTOR mapChipPos);
-	//æ¥åœ°åˆ¤å®šã®ãƒã‚§ãƒƒã‚¯
+	/// <summary>
+	/// Ú’n‚¢‚½ê‡‚Ìˆ—
+	/// </summary>
+	/// <param name="player">ƒvƒŒƒCƒ„[</param>
+	/// <param name="map">ƒ}ƒbƒv</param>
 	static void CheckIsGround(Player& player, const  Map& map);
-	//é ­ä¸Šåˆ¤å®šã®ãƒã‚§ãƒƒã‚¯
+	/// <summary>
+	/// “Vˆä‚É“–‚½‚Á‚Ä‚¢‚½ê‡‚Ìˆ—
+	/// </summary>
+	/// <param name="player">ƒvƒŒƒCƒ„[</param>
+	/// <param name="map">ƒ}ƒbƒv</param>
 	static void CheckIsTopHit(Player& player, const  Map& map);
 
 };
 
-//ã‚¨ãƒãƒŸãƒ¼ã®å½“ãŸã‚Šåˆ¤å®š
+//ƒGƒlƒ~[‚Ì“–‚½‚è”»’è
 class EnemyColision
 {
 public:
 	static VECTOR CheckEnemyHitWithMap(BaseEnemy& enemy, const Map& map, const VECTOR& velocity);
-	//å½“ãŸã£ãŸã‹ã®ãƒã‚§ãƒƒã‚¯
+	//“–‚½‚Á‚½‚©‚Ìƒ`ƒFƒbƒN
 	static bool IsHitEnemyWithMapChip(const BaseEnemy& enemy, const  VECTOR& futurePos, int mapData, VECTOR mapChipPos);
-	//æ¥åœ°åˆ¤å®šã®ãƒã‚§ãƒƒã‚¯
+	//Ú’n”»’è‚Ìƒ`ƒFƒbƒN
 	static void CheckIsGround(BaseEnemy& enemy, const  Map& map);
-	//é ­ä¸Šåˆ¤å®šã®ãƒã‚§ãƒƒã‚¯
+	//“ªã”»’è‚Ìƒ`ƒFƒbƒN
 	static void CheckIsTopHit(BaseEnemy&enemy, const  Map& map);
-	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã®å½“ãŸã‚Šåˆ¤å®š
+	//ƒvƒŒƒCƒ„[‚Æ‚Ì“–‚½‚è”»’è
 	static bool IsHitPlayerWithEnemy(const BaseEnemy& enemy, const Player& player, const VECTOR& futurePos);
 };
 

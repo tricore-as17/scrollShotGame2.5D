@@ -1,80 +1,91 @@
-ï»¿#pragma once
+#pragma once
+#include<vector>
 #include"DxLib.h"
 
+using namespace std;
 
-//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚µã‚¤ã‚º
+//ƒXƒNƒŠ[ƒ“ƒTƒCƒY
 const int SCREEN_W = 1280;
 const int SCREEN_H = 800;
 
-//è‰²
+//F
 const int WHITE = GetColor(255, 255, 255);
 
 
-const int AVERAGE_FLAME = 60;			//ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
-const int SETTING_FPS = 60;				//ç›®æ¨™FPSå€¤
-const int FIRST_SCROLL_SPEED = -5;		//æœ€åˆã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚¹ãƒ”ãƒ¼ãƒ‰
-const int SECOND_SCROLL_SPEED = -6;		//äºŒå›ç›®ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚¹ãƒ”ãƒ¼ãƒ‰
-const int THIRD_SCROLL_SPEED = -7;		//ï¼“å›ç›®ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚¹ãƒ”ãƒ¼ãƒ‰
-const int FORCE_SCROLL_SPEED = -8;		//4å›ç›®ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚¹ãƒ”ãƒ¼ãƒ‰
-const int FIFTH_SCROLL_SPEED = -9;		//5å›ç›®ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚¹ãƒ”ãƒ¼ãƒ‰
+const int AVERAGE_FLAME = 60;			//ƒJƒEƒ“ƒg‚·‚éƒtƒŒ[ƒ€”
+const int SETTING_FPS = 60;				//–Ú•WFPS’l
+const int FIRST_SCROLL_SPEED = -5;		//Å‰‚ÌƒXƒNƒ[ƒ‹ƒXƒs[ƒh
+const int SECOND_SCROLL_SPEED = -6;		//“ñ‰ñ–Ú‚ÌƒXƒNƒ[ƒ‹ƒXƒs[ƒh
+const int THIRD_SCROLL_SPEED = -7;		//‚R‰ñ–Ú‚ÌƒXƒNƒ[ƒ‹ƒXƒs[ƒh
+const int FORCE_SCROLL_SPEED = -8;		//4‰ñ–Ú‚ÌƒXƒNƒ[ƒ‹ƒXƒs[ƒh
+const int FIFTH_SCROLL_SPEED = -9;		//5‰ñ–Ú‚ÌƒXƒNƒ[ƒ‹ƒXƒs[ƒh
 
 
-// ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹.
+// ƒQ[ƒ€‚Ìó‘Ô.
 enum STATE
 {
-	STATE_TITLE,		// ã‚¿ã‚¤ãƒˆãƒ«
-	STATE_GAME,			// ã‚²ãƒ¼ãƒ ä¸­
-	STATE_GAMECLEAR,	//ã‚¯ãƒªã‚¢
-	STATE_GAMEOVER,		// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼
+	STATE_TITLE,		// ƒ^ƒCƒgƒ‹
+	STATE_GAME,			// ƒQ[ƒ€’†
+	STATE_GAMECLEAR,	//ƒNƒŠƒA
+	STATE_GAMEOVER,		// ƒQ[ƒ€ƒI[ƒo[
 };
 
-
+/// <summary>
+/// ƒQ[ƒ€‚ÌƒXƒNƒ[ƒX‚Ò[‚Ç‚â
+/// </summary>
 class Utility
 {
 public:
-	//å®šæ•°ç¾¤
-	static constexpr float GRAVITY = 0.5f;			//é‡åŠ›ã®å€¤
+	//’è”ŒQ
+	static constexpr float GRAVITY = 0.005f;			//d—Í‚Ì’l
 
-	//ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
-	//çµŒéæ™‚é–“ã®ã‚²ãƒƒã‚¿ãƒ¼
+	//ƒQƒbƒ^[ƒZƒbƒ^[
+	//Œo‰ßŠÔ‚ÌƒQƒbƒ^[
 	int getElapsedTime()const { return elapsedTime; }
 	int getEndElapsedTime()const { return endElapsedTime; }
 	void setEndElapsedTime(int inEndElapsedTime) { endElapsedTime = inEndElapsedTime; }
 	bool GetLoadFlag() const { return loadFlag; }
 	void SetLoadFlag(const bool inLoadFlag) { loadFlag = inLoadFlag; }
-	//ã‚²ãƒ¼ãƒ ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã®ã’ã£ãŸãƒ¼ã›ã£ãŸãƒ¼
+	//ƒQ[ƒ€‚ÌƒXƒe[ƒ^ƒX‚Ì‚°‚Á‚½[‚¹‚Á‚½[
 	int getGameState() { return gameState; }
 	int getScrollSpeed() { return scrollSpeed; }
 	void setGameState(int inputState) { gameState = inputState; }
-	int GetNowScreenX()const { return nowScreenX; }		//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³Xåº§æ¨™ã®å–å¾—
-	int GetNowScreenY()const { return nowScreenY; }		//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³Yåº§æ¨™ã®å–å¾—
-	int SetNowScreenX(int inX) { nowScreenX = inX; }	//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³Xåº§æ¨™ã®æ›´æ–°
-	int SetNowScreenY(int inY) { nowScreenY = inY; }	//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³Yåº§æ¨™ã®æ›´æ–°
-	//ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆé–¢é€£ã®åˆæœŸåŒ–
+	int GetNowScreenX()const { return nowScreenX; }		//ƒXƒNƒŠ[ƒ“XÀ•W‚Ìæ“¾
+	int GetNowScreenY()const { return nowScreenY; }		//ƒXƒNƒŠ[ƒ“YÀ•W‚Ìæ“¾
+	int SetNowScreenX(int inX) { nowScreenX = inX; }	//ƒXƒNƒŠ[ƒ“XÀ•W‚ÌXV
+	int SetNowScreenY(int inY) { nowScreenY = inY; }	//ƒXƒNƒŠ[ƒ“YÀ•W‚ÌXV
+	//ƒtƒŒ[ƒ€ƒŒ[ƒgŠÖ˜A‚Ì‰Šú‰»
 	static void FpsInit();
-	//1ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ã¨60ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ã§æ›´æ–°
+	//1ƒtƒŒ[ƒ€–Ú‚Æ60ƒtƒŒ[ƒ€–Ú‚ÅXV
 	static void FpsUpdate();
-	//è¨ˆç®—ã—ãŸå€¤ã§ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã‚’èª¿ç¯€
+	//ŒvZ‚µ‚½’l‚ÅƒtƒŒ[ƒ€ƒŒ[ƒg‚ğ’²ß
 	static void FpsControll();
-	//ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ã”ã¨ã®åˆæœŸåŒ–å‡¦ç†
+	//ƒQ[ƒ€ŠJn‚²‚Æ‚Ì‰Šú‰»ˆ—
 	void StartInit();
-	//æ›´æ–°å‡¦ç†
+	/// <summary>
+	/// ”z—ñ‚Ö‚Ìƒ|ƒCƒ“ƒ^‚ğ‚à‚ç‚Á‚ÄƒxƒNƒ^‚ğì¬‚·‚é
+	/// </summary>
+	/// <param name="targetData">ƒxƒNƒ^“à‚É“ü‚ê‚é”z—ñ‚Ìƒf[ƒ^</param>
+	/// <param name="num">ì¬‚·‚éƒxƒNƒ^‚Ì”</param>
+	/// <returns></returns>
+	vector<int> CreateArrayVector(const int targetData[], int num);
+	//XVˆ—
 	void Update();
 private:
-	//fpså‡¦ç†ã«é–¢ã™ã‚‹å¤‰æ•°
-	static int startTime;			//ãƒ«ãƒ¼ãƒ—é–‹å§‹æ™‚ç‚¹ã®æ™‚é–“
-	static int roopCount;			//ä½•å›ç›®ã®ãƒ«ãƒ¼ãƒ—ã‹60ã«ãªã£ãŸã‚‰0ã«æˆ»ã‚‹
-	static float fps;				//è¡¨ç¤ºã™ã‚‹fpså€¤
-	//ã‚²ãƒ¼ãƒ ã®çµŒéæ™‚é–“é–¢é€£
-	int gameStartTime = 0;				//ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ã®æ™‚é–“ã‚’ä¿å­˜
-	int elapsedTime = 0;				//ã‚²ãƒ¼ãƒ ã®çµŒéæ™‚é–“
+	//fpsˆ—‚ÉŠÖ‚·‚é•Ï”
+	static int startTime;			//ƒ‹[ƒvŠJn“_‚ÌŠÔ
+	static int roopCount;			//‰½‰ñ–Ú‚Ìƒ‹[ƒv‚©60‚É‚È‚Á‚½‚ç0‚É–ß‚é
+	static float fps;				//•\¦‚·‚éfps’l
+	//ƒQ[ƒ€‚ÌŒo‰ßŠÔŠÖ˜A
+	int gameStartTime = 0;				//ƒQ[ƒ€ŠJn‚ÌŠÔ‚ğ•Û‘¶
+	int elapsedTime = 0;				//ƒQ[ƒ€‚ÌŒo‰ßŠÔ
 	int endElapsedTime;
-	bool loadFlag;						//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®çµŒéæ™‚é–“ã‚’æ—¢ã«èª­ã¿è¾¼ã‚“ã ã‹ã®ãƒ•ãƒ©ã‚°
-	//ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹
+	bool loadFlag;						//ƒQ[ƒ€ƒI[ƒo[‚ÌŒo‰ßŠÔ‚ğŠù‚É“Ç‚İ‚ñ‚¾‚©‚Ìƒtƒ‰ƒO
+	//ƒQ[ƒ€‚Ìó‘Ô
 	int gameState = STATE_GAME;
 	int scrollSpeed = FIRST_SCROLL_SPEED;
-	int nowScreenX = 0;		//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã®ç¾åœ¨ã®åº§æ¨™
-	int nowScreenY = 0;		//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã®ç¾åœ¨ã®åº§æ¨™
+	int nowScreenX = 0;		//ƒXƒNƒŠ[ƒ“‚ÌŒ»İ‚ÌÀ•W
+	int nowScreenY = 0;		//ƒXƒNƒŠ[ƒ“‚ÌŒ»İ‚ÌÀ•W
 
 
 

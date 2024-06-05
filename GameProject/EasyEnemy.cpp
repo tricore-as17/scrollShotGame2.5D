@@ -1,97 +1,87 @@
-﻿#include"EasyEnemy.h"
+#include"EasyEnemy.h"
 #include"Colision.h"
 #include"Map.h"
 #include"Utility.h"
 
 
 /// <summary>
-/// コンストラクタ
+/// �R���X�g���N�^
 /// </summary>
 EasyEnemy::EasyEnemy(int inFirstX)
 {
 	firstX = inFirstX;
-	//座標の初期化
+	//���W�̏�����
 	pos = VGet(0, 0, 0);
-	//幅と高さの取得
+	//���ƍ����̎擾
 	w = W;
-	h = H;
-	//画像の読み込み
-	//LoadDivGraph();
-	
+	h = H;	
 
 }
 /// <summary>
-/// デストラクタ
+/// �f�X�g���N�^
 /// </summary>
 EasyEnemy::~EasyEnemy()
 {
-	//処理なし
+	//�����Ȃ�
 }
 
 /// <summary>
-/// 初期化
+/// ������
 /// </summary>
-/// <param name="initPos">初期化用の座標</param>
+/// <param name="initPos">�������p�̍��W</param>
 void EasyEnemy::Init(VECTOR initPos)
 {
-	//座標の代入
+	//���W�̑��
 	pos = initPos;
-	//移動を開始するフラグの初期化
+	//�ړ����J�n����t���O�̏�����
 	moveStartFlag = false;
-	//画像の読み込み
-	//LoadDivGraph()
+
 	
 }
 
 /// <summary>
-/// 更新処理
+/// �X�V����
 /// </summary>
 void EasyEnemy::Update(const Map& map,const VECTOR& playerVec)
 {
-	//エネミー共通のスクロール処理
-	ScrollProcess(playerVec);
-	//移動開始フラグがたっていたら移動させる
+	//�G�l�~�[���ʂ̃X�N���[������
+	ScrollProcess();
+	//�ړ��J�n�t���O�������Ă�����ړ�������
 	if (moveStartFlag)
 	{
 		dir = VAdd(dir, VGet(-1, 0, 0));
 	}
-	// 正規化
-	if (VSquareSize(dir) > 0)		//dirのサイズを2乗にして返す(二乗にすることでdirに値が入っていればifに入る
+	// ���K��
+	if (VSquareSize(dir) > 0)		//dir�̃T�C�Y��2��ɂ��ĕԂ�(���ɂ��邱�Ƃ�dir�ɒl�������Ă����if�ɓ���
 	{
-		dir = VNorm(dir);			//各成分のサイズを１にする
+		dir = VNorm(dir);			//�e�����̃T�C�Y���P�ɂ���
 	}
 
-	//移動量を出す
+	//�ړ��ʂ��o��
 	VECTOR velocity = VScale(dir, SPEED);
 
-	//落下させる
+	//����������
 	fallSpeed += Utility::GRAVITY;
 
-	// HACK: 先に設定判定をすることでfallSpeed修正＋接地フラグ更新
+	// HACK: ��ɐݒ蔻������邱�Ƃ�fallSpeed�C���{�ڒn�t���O�X�V
 	EnemyColision::CheckIsGround(*this, map);
 	EnemyColision::CheckIsTopHit(*this, map);
 
-	// 落下速度を移動量に加える
-	VECTOR fallVelocity = VGet(0, fallSpeed, 0);	// 落下をベクトルに。y座標しか変化しないので最後にベクトルにする
+	// �������x���ړ��ʂɉ�����
+	VECTOR fallVelocity = VGet(0, fallSpeed, 0);	// �������x�N�g���ɁBy���W�����ω����Ȃ��̂ōŌ�Ƀx�N�g���ɂ���
 	velocity = VAdd(velocity, fallVelocity);
 
-	// 当たり判定をして、壁にめり込まないようにvelocityを操作する
+	// �����蔻������āA�ǂɂ߂荞�܂Ȃ��悤��velocity�𑀍삷��
 	velocity = EnemyColision::CheckEnemyHitWithMap(*this, map, velocity);
 
-	// 移動
+	// �ړ�
 	pos = VAdd(pos, velocity);
 }
 
 /// <summary>
-/// 描画
+/// �`��
 /// </summary>
 void EasyEnemy::Draw()
 {
-	//スクリーン内に入ったら描画する
-	//if (pos.x <= SCREEN_W + w)
-	//{
-		//テスト用の描画
-		DrawBox(pos.x - w*0.5, pos.y - h*0.5, pos.x + w*0.5, pos.y + h*0.5, WHITE, TRUE);
-
-	//}
+	//���ݏ����Ȃ�
 }

@@ -1,23 +1,60 @@
-ï»¿#include"Camera.h"
+#include"Camera.h"
+#include"Map.h"
+#include"Player.h"
 
-void Camera::Init(const VECTOR& modelPos)
+/// <summary>
+/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// </summary>
+Camera::Camera()
 {
-    pos = VGet(0, 0, -10);
+    //‰œs0.1`1000‚Ü‚Å‚ğƒJƒƒ‰‚Ì•`‰æ”ÍˆÍ‚Æ‚·‚é
+    SetCameraNearFar(0.1f, 1000.0f);
+    //À•W‚Ì‰Šú‰»
+    pos = VGet(0, 0, 0);
+}
 
-    SetCameraPositionAndTarget_UpVecY(pos, VGet(0, 0, 0));
+/// <summary>
+/// ƒfƒXƒgƒ‰ƒNƒ^
+/// </summary>
+Camera::~Camera()
+{
+    //ˆ—‚È‚µ
+}
 
-    ////ãƒ¢ãƒ‡ãƒ«åº§æ¨™ã®ä¸Šã®éƒ¨åˆ†ã‚’ã‚«ãƒ¡ãƒ©ãŒè¦‹ã‚‹ã“ã¨ã«ã™ã‚‹ã®ã§åº§æ¨™ã‚’ä¿®æ­£
-    //VECTOR drawPos = VGet(modelPos.x, modelPos.y , 0.1f);
-    //VECTOR modifyModelPos = ConvScreenPosToWorldPos(drawPos);
-    //SetCameraPositionAndTarget_UpVecY(modifyModelPos,pos );
-
-    yRota = MGetRotY(DX_PI_F / -10000.0f);
+/// <summary>
+/// ƒQ[ƒ€ŠJn‚²‚Æ‚Ì‰Šú‰»
+/// </summary>
+void Camera::Init()
+{
+    //À•W‚Ì‰Šú‰»
+    pos = VGet(0, 0, 0);
 
 }
 
-void Camera::Update(const VECTOR& modelPos)
+/// <summary>
+/// ƒJƒƒ‰‚ğƒvƒŒƒCƒ„[‚ÌˆÊ’u‚âƒ}ƒbƒv‚ÌˆÊ’u‚É‡‚í‚¹‚ÄXV‚·‚é
+/// </summary>
+/// <param name="map">ƒ}ƒbƒv‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</param>
+/// <param name="player">ƒvƒŒƒCƒ„‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</param>
+void Camera::Update(const Map& map, const Player& player)
 {
-    ////ãƒ¢ãƒ‡ãƒ«åº§æ¨™ã®ä¸Šã®éƒ¨åˆ†ã‚’ã‚«ãƒ¡ãƒ©ãŒè¦‹ã‚‹ã“ã¨ã«ã™ã‚‹ã®ã§åº§æ¨™ã‚’ä¿®æ­£
+    //ƒvƒŒƒCƒ„[‚Æƒ}ƒbƒv‚ÌÀ•W‚ğ‚Á‚Ä‚­‚é
+    VECTOR playerPos = player.GetPos();
+    int mapYNum = map.getMapYNum();
 
+    // ‘å‚«‚³0.5‚Ìƒ}ƒbƒvƒ`ƒbƒv‚ğAƒ}ƒbƒvY‚Ì”‚¾‚¯”z’u‚·‚é
+    // ƒvƒŒƒCƒ„[‚Ì’n–Ê‚ÌYˆÊ’u‚ğ0‚Æ‚µ‚½‚¢‚Ì‚ÅA’nã•”‚Ìƒ}ƒbƒvƒ`ƒbƒv‚Ì”‚Í“ñ‚ÂŒ¸‚ç‚µ‚½ˆÊ’u‚Å’²®
+    // ‚»‚Ì^‚ñ’†‚É•\¦‚·‚é‚Ì‚Å”¼•ª‚ğŒvZ‚Åo‚·
+    // ƒvƒŒƒCƒ„[‚ÌXÀ•W‚É‚Í’Ç]‚µ‚½‚¢‚Ì‚Åplayer‚ÌX‚ğg‚¤
+    VECTOR cameraPos = VGet(playerPos.x, Map::CHIP_SIZE * (mapYNum - 2) * 0.5f, playerPos.z - 15.0f);
+
+
+    // ’‹‚·‚é‹“_‚ÍAƒJƒƒ‰‚Æ•½s‚É‚Ü‚Á‚·‚®z=0’n“_
+    VECTOR lookPos = VGet(cameraPos.x, cameraPos.y, 0.0f);
+
+    pos = cameraPos;
+
+    // ƒJƒƒ‰‚ÉˆÊ’u‚ğ”½‰f.
+    SetCameraPositionAndTarget_UpVecY(pos, lookPos);
     
 }

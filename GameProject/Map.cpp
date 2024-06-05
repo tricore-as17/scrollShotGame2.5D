@@ -1,77 +1,103 @@
-ï»¿#include"GameObject.h"
+#include"GameObject.h"
 #include"Map.h"
+#include"WorldSprite.h"
 #include"Utility.h"
 #pragma warning(disable:4996)
-//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
-Map::Map(VECTOR initPos)
-{
-	//ãƒãƒƒãƒ—ã‚¿ã‚¤ãƒ«ã¨é…ç½®ã®csvãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 
-	//ãƒ†ã‚¹ãƒˆç”¨
-	///////////////////////////////////////////////////
-	LoadDivGraph("img/MapTile/Terrain (32x32).png", TILE_DIV_W * TILE_DIV_H, TILE_DIV_W, TILE_DIV_H
-		, CHIP_SIZE, CHIP_SIZE, tileGraph);
+//Ã“I•Ï”
+//ƒ[ƒ‹ƒhÀ•W‚Å‚Ì32ƒsƒNƒZƒ‹‚ÌƒTƒCƒY‚©‚ç1ƒsƒNƒZƒ‹‚ğŒvZ‚µ‚Äo‚·
+const float Map::ONE_PIXEL_SIZE = Map::CHIP_SIZE / 32;
+
+//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+Map::Map()
+{
+	//ƒ}ƒbƒvƒ^ƒCƒ‹‚Æ”z’u‚Ìcsvƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+
+	tileGraph =LoadGraph("img/MapTile/Terrain (32x32).png");
 	LoadMapChip("Map/stage1.csv");
-	///////////////////////////////////////////////////
-	pos = initPos;
 }
-//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//ƒfƒXƒgƒ‰ƒNƒ^
 Map::~Map()
 {
-	//ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã®ãƒ¡ãƒ¢ãƒªè§£æ”¾
+	//ƒ}ƒbƒvƒf[ƒ^‚Ìƒƒ‚ƒŠ‰ğ•ú
 	for (int i = 0; i < mapXNum; i++)
 	{
 		delete[] mapData[i];
 	}
+	
+	//‰ğ•ú
+	sprites.clear();
 }
-void Map::Init(){}
-
-
-
-void Map::Update(const VECTOR& playerVec)
+/// <summary>
+/// ƒ}ƒbƒv‚ÌˆÊ’u‚Ì‰Šú‰»
+/// </summary>
+void Map::Init()
 {
-	if (pos.x - playerVec.x < 0)
+	//ƒ`ƒbƒvƒTƒCƒY”¼•ª¶‰º‚É‚¸‚ç‚·Û‚É‚µ‚æ‚¤‚·‚é‘å‚«‚³
+	float halfMinusChipSize = -CHIP_SIZE * 0.5f;
+	//chipHalfOffset‚Íƒ`ƒbƒv‚ğ¶‰º‚É‚¸‚ç‚·
+	VECTOR chipHalfOffset = VGet(halfMinusChipSize, halfMinusChipSize, 0);		
+	//ƒ[ƒ‹ƒhƒXƒvƒ‰ƒCƒg‚Ì¶ãÀ•W‚ğİ’è
+	chipLeftTopPos = VGet(0, mapYNum * CHIP_SIZE,0);
+	for (int yIndex = 0; yIndex < mapYNum; yIndex++)
 	{
-		//ãƒãƒƒãƒ—ã‚’ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã•ã›ã‚‹
-		pos.x = pos.x - playerVec.x;
-
-	}
-}
-
-void Map::Draw()
-{
-	for (int  y= 0; y < mapYNum; y++)
-	{
-		for (int x = 0; x < mapXNum; x++)
+		for (int xIndex = 0; xIndex < mapXNum; xIndex++)
 		{
-				if (mapData[y][x] == -1)
-				{
-					continue;
-				}
-				int graphHandle = tileGraph[mapData[y][x]];
-				DrawGraph((x * CHIP_SIZE) + pos.x, y * CHIP_SIZE, graphHandle, TRUE);
+			auto sprite = new WorldSprite();
+			//‰æ‘œAƒ`ƒbƒv‚ÌƒTƒCƒY32,Œ»İ‚Ì”z—ñƒf[ƒ^
+			sprite->Initialize(tileGraph, CHIP_PIXEL_SIZE, mapData[yIndex][xIndex]);
 
-
+			
+			VECTOR chipPos = VAdd(VGet(xIndex * CHIP_SIZE, (-yIndex - 1) * CHIP_SIZE, 0), chipHalfOffset);	// ^‚ñ’†ƒsƒ{ƒbƒg‚È‚Ì‚Åƒ}ƒbƒvƒ`ƒbƒv”¼•ªƒTƒCƒY‚¸‚ç‚·+’n–Ê‚È‚Ì‚Åˆê‚Â‰º‚É
+			chipPos = VAdd(chipPos, chipLeftTopPos);	//s‚Ì”‚¾‚¯À•W‚ğã‚É‚à‚Á‚Ä‚­‚é
+			sprite->SetTransform(chipPos, CHIP_SIZE);
+			sprites.push_back(sprite);
 		}
 	}
+
 }
 
 
+/// <summary>
+/// À•WˆÚ“®‚È‚Ç‚ÌXVˆ—
+/// </summary>
+/// <param name="playerVec"></param>
+void Map::Update(const VECTOR& playerVec)
+{
 
+}
+
+/// <summary>
+/// ƒ[ƒ‹ƒhƒXƒvƒ‰ƒCƒg‚ğg‚Á‚½•`‰æ
+/// </summary>
+void Map::Draw()
+{
+	//ƒXƒvƒ‰ƒCƒg‚Ìƒ|ƒŠƒSƒ“•`‰æ‚ğŒÄ‚Ño‚·
+	for (const auto& sprite : sprites)
+	{
+		sprite->Draw();
+	}
+}
+
+
+/// <summary>
+/// csvƒtƒ@ƒCƒ‹‚©‚çƒ}ƒbƒvƒ`ƒbƒv‚Ìƒf[ƒ^‚ğ“Ç‚İ‚İ
+/// </summary>
+/// <param name="mapCSVFileName">csvƒtƒ@ƒCƒ‹ƒl[ƒ€</param>
 void Map::LoadMapChip(const char* mapCSVFileName)
 {
 	mapData = NULL;
 	mapXNum = 0;
 	mapYNum = 0;
-	//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
+	//ƒtƒ@ƒCƒ‹‚ğŠJ‚­
 	FILE* fp;
 	fp = fopen(mapCSVFileName, "rt");
-	//èª­ã¿è¾¼ã‚ãªã‹ã£ãŸå ´åˆã®å‡¦ç†
+	//“Ç‚İ‚ß‚È‚©‚Á‚½ê‡‚Ìˆ—
 	if (!fp)
 	{
 		DebugBreak();
 	}
-	//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ï¼‘è¡Œåˆ†ã‹ã‚‰èª­ã¿ã—ã€ï¼‘è¡Œã®ãƒ‡ãƒ¼ã‚¿ã‚’æ•°ãˆã‚‹
+	//ƒtƒ@ƒCƒ‹‚ğ‚Ps•ª‚©‚ç“Ç‚İ‚µA‚Ps‚Ìƒf[ƒ^‚ğ”‚¦‚é
 	char c = 0;
 	while (c != '\n')
 	{
@@ -82,53 +108,53 @@ void Map::LoadMapChip(const char* mapCSVFileName)
 		}
 	}
 	mapXNum++;
-	//ï¼‘ãƒ‡ãƒ¼ã‚¿ 16bitæœ€å¤§å€¤ "65535,"(6æ–‡å­—)ã¨ã—ã¦æ–‡å­—åˆ—å…¥ã£ã¦ããŸã¨ãã®ï¼‘è¡Œã‚µã‚¤ã‚º
+	//‚Pƒf[ƒ^ 16bitÅ‘å’l "65535,"(6•¶š)‚Æ‚µ‚Ä•¶š—ñ“ü‚Á‚Ä‚«‚½‚Æ‚«‚Ì‚PsƒTƒCƒY
 	int bufferLen = mapXNum * 6 + 1;
-	//ä¸€è¡Œåˆ†ã®ãƒãƒƒãƒ•ã‚¡ã‚’ç¢ºä¿
+	//ˆês•ª‚Ìƒoƒbƒtƒ@‚ğŠm•Û
 	char* buf = new char[bufferLen];
 	char* ptmp = buf;
-	//ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚’å…ˆé ­ã«æˆ»ã—è¡Œæ•°ã‚’èª­ã‚€
+	//ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^‚ğæ“ª‚É–ß‚µs”‚ğ“Ç‚Ş
 	fseek(fp, 0, SEEK_SET);
 	bool firstRow = true;
 	while (fgets(buf, bufferLen - 1, fp) != NULL)
 	{
 		mapYNum++;
 	}
-	//ï¼’æ¬¡å…ƒé…åˆ—ã‚’å‹•çš„ç¢ºä¿ã™ã‚‹ map[row][col]ã¨ã—ã¦å‹•çš„ç¢ºä¿ã™ã‚‹
+	//‚QŸŒ³”z—ñ‚ğ“®“IŠm•Û‚·‚é map[row][col]‚Æ‚µ‚Ä“®“IŠm•Û‚·‚é
 	mapData = new int * [mapYNum];
 	int ix, iy;
 	for (iy = 0; iy < mapYNum; iy++)
 	{
 		mapData[iy] = new int[mapXNum];
 	}
-	//ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚’å…ˆé ­ã«æˆ»ã™
+	//ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^‚ğæ“ª‚É–ß‚·
 	fseek(fp, 0, SEEK_SET);
-	//ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’é…åˆ—ã«ç§»ã™
-	char* readPoint;		//èª­ã¿è¾¼ã¿ä¸­ã®ãƒã‚¤ãƒ³ãƒˆ
-	char* firstPoint;		//æœ€åˆã®èª­ã¿è¾¼ã¿ãƒã‚¤ãƒ³ãƒˆ
+	//ƒtƒ@ƒCƒ‹‚©‚çƒf[ƒ^‚ğ”z—ñ‚ÉˆÚ‚·
+	char* readPoint;		//“Ç‚İ‚İ’†‚Ìƒ|ƒCƒ“ƒg
+	char* firstPoint;		//Å‰‚Ì“Ç‚İ‚İƒ|ƒCƒ“ƒg
 	for (iy = 0; iy < mapYNum; iy++)
 	{
-		//ï¼‘è¡Œå–ã‚Šè¾¼ã¿
+		//‚Psæ‚è‚İ
 		fgets(buf, bufferLen - 1, fp);
 		readPoint = firstPoint = buf;
 		for (ix = 0; ix < mapXNum; ix++)
 		{
-			//ã‚«ãƒ³ãƒã¾ã§readPointã®ä½ç½®ã‚’é€²ã‚ã‚‹
+			//ƒJƒ“ƒ}‚Ü‚ÅreadPoint‚ÌˆÊ’u‚ği‚ß‚é
 			while (',' != *readPoint && '\n' != *readPoint)
 			{
 				readPoint++;
 			}
-			//ã‚«ãƒ³ãƒã‚’NULLæ–‡å­—ã«ç½®ãæ›ãˆ
+			//ƒJƒ“ƒ}‚ğNULL•¶š‚É’u‚«Š·‚¦
 			*readPoint = '\0';
-			//ã“ã®æ™‚ç‚¹ã§firstPoint -readPointé–“ã§æ–‡å­—åˆ—ãŒå®Œæˆã™ã‚‹ã®ã§æ•°å€¤ã«å¤‰æ›
+			//‚±‚Ì“_‚ÅfirstPoint -readPointŠÔ‚Å•¶š—ñ‚ªŠ®¬‚·‚é‚Ì‚Å”’l‚É•ÏŠ·
 			mapData[iy][ix] = atoi(firstPoint);
-			//æ¬¡ã®ãƒ‡ãƒ¼ã‚¿èª­ã¿å–ã‚Šä½ç½®ã¾ã§é€²ã‚ã‚‹
+			//Ÿ‚Ìƒf[ƒ^“Ç‚İæ‚èˆÊ’u‚Ü‚Åi‚ß‚é
 			readPoint++;
 			firstPoint = readPoint;
 		}
 	}
 	fclose(fp);
-	//ãƒãƒƒãƒ•ã‚¡é–‹æ”¾
+	//ƒoƒbƒtƒ@ŠJ•ú
 	delete[]buf;
 
 }

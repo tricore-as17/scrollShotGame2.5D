@@ -1,4 +1,4 @@
-﻿#include"DxLib.h"
+#include"DxLib.h"
 #include"Utility.h"
 #include"Camera.h"
 #include"Effect.h"
@@ -6,31 +6,31 @@
 #include"EffekseerForDXLib.h"
 
 //----------------------------//
-// WinMain関数.
+// WinMain�֐�.
 //----------------------------//
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
-	// 画面モードの設定
-	SetGraphMode(SCREEN_W, SCREEN_H, 16);		// 解像度をSCREEN_W*SCREEN_H、colorを16bitに設定.
+	// ��ʃ��[�h�̐ݒ�
+	SetGraphMode(SCREEN_W, SCREEN_H, 16);		// �𑜓x��SCREEN_W*SCREEN_H�Acolor��16bit�ɐݒ�.
 
 
 
 
 	/////////////////////////////////
-	// ウインドウモードに(コメントアウトしたらフルスクリーン).
+	// �E�C���h�E���[�h��(�R�����g�A�E�g������t���X�N���[��).
 	ChangeWindowMode(TRUE);
 	////////////////////////////
 
-	SetCameraNearFar(0.0f, 500.0f);	//nearとfarの設定
 
-		// ＤＸライブラリ初期化処理
+
+		// �c�w���C�u��������������
 	if (DxLib_Init() == -1)
 	{
 		return -1;
 	}
 	SetDrawScreen(DX_SCREEN_BACK);
-	//エフェクトの初期設定
+	//�G�t�F�N�g�̏����ݒ�
 	if (Effect::Setting() == -1)
 	{
 		DxLib_End();
@@ -39,10 +39,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	
 
-	// 背景のスクロールをするためにテクスチャモードをラッピングに修正.
+	// �w�i�̃X�N���[�������邽�߂Ƀe�N�X�`�����[�h�����b�s���O�ɏC��.
 	//SetTextureAddressMode(DX_TEXADDRESS_WRAP);
 
-	// グラフィックの描画先を裏画面にセット
+	// �O���t�B�b�N�̕`���𗠉�ʂɃZ�b�g
 
 
 	Utility::FpsInit();
@@ -54,12 +54,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 
 
-	// ゲームループ.
+	// �Q�[�����[�v.
 	while (1)
 	{
 		Utility::FpsUpdate();
-		// 画面を初期化(真っ黒にする)
-		SetCameraNearFar(10.0f, 500.0f);	//nearとfarの設定
+		// ��ʂ�������(�^�����ɂ���)
+		SetCameraNearFar(10.0f, 500.0f);	//near��far�̐ݒ�
 		ClearDrawScreen();
 		game->Update();
 		game->Draw();
@@ -71,29 +71,29 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		/*int nowTime = GetNowCount();
 		DrawFormatString(600, 400, GetColor(255, 255, 255), "%d", nowTime);*/
 
-		// 裏画面の内容を表画面にコピーする（描画の確定）.
+		// ����ʂ̓��e��\��ʂɃR�s�[����i�`��̊m��j.
 		ScreenFlip();
 
-		// Windows 特有の面倒な処理をＤＸライブラリにやらせる
-		// マイナスの値（エラー値）が返ってきたらループを抜ける
+		// Windows ���L�̖ʓ|�ȏ������c�w���C�u�����ɂ�点��
+		// �}�C�i�X�̒l�i�G���[�l�j���Ԃ��Ă����烋�[�v�𔲂���
 		if (ProcessMessage() < 0)
 		{
 			break;
 		}
-		// もしＥＳＣキーが押されていたらループから抜ける
+		// �����d�r�b�L�[��������Ă����烋�[�v���甲����
 		else if ( CheckHitKey(KEY_INPUT_ESCAPE) == 1)
 		{
 			break;
 		}
-		//ここでFPSの調整
+		//������FPS�̒���
 		Utility::FpsControll();
 		
 	};
 	//gameFinalize(game);
-	// Effekseerを終了する。
+	// Effekseer���I������B
 	Effkseer_End();
 
-	DxLib_End();				// ＤＸライブラリ使用の終了処理
+	DxLib_End();				// �c�w���C�u�����g�p�̏I������
 
-	return 0;					// ソフトの終了
+	return 0;					// �\�t�g�̏I��
 }

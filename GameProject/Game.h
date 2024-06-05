@@ -16,7 +16,9 @@ class GroundDraw3D;
 class Effect;
 class EnemyManager;
 
-
+/// <summary>
+/// ゲーム全体のインスタンスなどをまとめたクラス
+/// </summary>
 class Game
 {
 public:

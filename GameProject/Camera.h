@@ -1,15 +1,32 @@
-ï»¿#pragma once
+#pragma once
 #include"DxLib.h"
 
-//ã‚«ãƒ¡ãƒ©
+//ƒNƒ‰ƒX‚Ìƒvƒƒgƒ^ƒCƒvéŒ¾
+class Map;
+class Player;
+
+/// <summary>
+/// ƒJƒƒ‰
+/// </summary>
 class Camera
 {
 public:
-    void Init(const VECTOR &inModelPos);
-    void Update(const VECTOR &inModelPos);
-private:
-    VECTOR firstPos;
-    VECTOR pos;
-    VECTOR modelVector;
-    MATRIX yRota;
+    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    //ƒfƒXƒgƒ‰ƒNƒ^
+    Camera();
+    ~Camera();
+    /// <summary>
+    /// ƒQ[ƒ€ŠJn‚²‚Æ‚Ì‰Šú‰»
+    /// </summary>
+    void Init();
+    /// <summary>
+    /// ƒJƒƒ‰‚Ìƒ|ƒWƒVƒ‡ƒ“‚È‚Ç‚ÌXV(ƒvƒŒƒCƒ„[‚ğ’Ç]
+    /// </summary>
+    /// <param name="map">ƒ}ƒbƒv‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</param>
+    /// <param name="player">ƒvƒŒƒCƒ„[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</param>
+    void Update(const Map& map, const Player& player);
+    //ƒ|ƒWƒVƒ‡ƒ“‚Ìgetter/setter
+    const VECTOR& GetPos() const { return pos; }
+private:   
+    VECTOR pos;         //À•W
 };
