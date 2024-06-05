@@ -6,7 +6,9 @@ float Utility::fps = 0;
 int Utility::startTime = GetNowCount();
 int Utility::roopCount = 0;
 
-//初期化
+/// <summary>
+/// フレームレートの調整をする変数などの初期化
+/// </summary>
 void Utility::FpsInit()
 {
     //ゲーム開始時点の時間を取得
@@ -14,7 +16,9 @@ void Utility::FpsInit()
     roopCount = 0;
     fps = 0;
 }
-//更新処理
+/// <summary>
+/// フレームレートの計算のためにカウントなどを取得
+/// </summary>
 void Utility::FpsUpdate()
 {
     //1フレーム目なら
@@ -35,7 +39,9 @@ void Utility::FpsUpdate()
     }
     roopCount++;
 }
-//コントロール
+/// <summary>
+/// 取得したカウントを使用し実際にフレームレートを調節する
+/// </summary>
 void Utility::FpsControll()
 {
     int tookTime = GetNowCount() - startTime;                   //現在のフレームの経過から1フレーム目で計算した値を引く
@@ -47,7 +53,9 @@ void Utility::FpsControll()
     }
 }
 
-//ゲーム開始時ごとの初期化
+/// <summary>
+/// ゲームに使用するスクロールスピードやカウントなどを初期化
+/// </summary>
 void Utility::StartInit()
 {
     //ゲーム開始時間を記録
@@ -74,26 +82,10 @@ vector<int> Utility::CreateArrayVector(const int targetData[], int num)
     return newVector;
 }
 
-//更新処理
+/// <summary>
+/// カウントなどの更新処理
+/// </summary>
 void Utility::Update()
 {
-    int nowTime = GetNowCount();
-    //現在の時間からゲームスタート時の時間を引いて経過時間を出す
-    elapsedTime = nowTime - gameStartTime;   
-    if (elapsedTime > 20000 && elapsedTime <=40000)
-    {
-        scrollSpeed = SECOND_SCROLL_SPEED;
-    }
-    else if (elapsedTime >40000 && elapsedTime <=60000)
-    {
-        scrollSpeed = THIRD_SCROLL_SPEED;
-    }
-    else if (elapsedTime > 60000 && elapsedTime <= 80000)
-    {
-        scrollSpeed = FORCE_SCROLL_SPEED;
-    }
-    else if (elapsedTime > 80000 && elapsedTime <= 90000)
-    {
-        scrollSpeed = FIFTH_SCROLL_SPEED;
-    }
+    //処理なし
 }

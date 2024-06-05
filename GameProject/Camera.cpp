@@ -34,8 +34,8 @@ void Camera::Init()
 /// <summary>
 /// カメラをプレイヤーの位置やマップの位置に合わせて更新する
 /// </summary>
-/// <param name="map"></param>
-/// <param name="player"></param>
+/// <param name="map">マップのインスタンス</param>
+/// <param name="player">プレイヤのインスタンス</param>
 void Camera::Update(const Map& map, const Player& player)
 {
     //プレイヤーとマップの座標を持ってくる

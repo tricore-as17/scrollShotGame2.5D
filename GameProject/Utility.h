@@ -30,7 +30,9 @@ enum STATE
 	STATE_GAMEOVER,		// ゲームオーバー
 };
 
-
+/// <summary>
+/// ゲームのスクロースぴーどや
+/// </summary>
 class Utility
 {
 public:

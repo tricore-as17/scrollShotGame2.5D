@@ -43,7 +43,9 @@ Game::~Game()
 	clearEffect.clear();
 }
 
-//それぞれのステータスに移行する際の
+/// <summary>
+/// タイトルからゲームなどの以降の際に行う処理のまとめ
+/// </summary>
 void Game::GameStateChange()
 {
 	//ゲームステータスの取得
@@ -78,6 +80,9 @@ void Game::GameStateChange()
 
 }
 
+/// <summary>
+/// プログラムが始まる際に行う初期化
+/// </summary>
 void Game::Initialize()
 {
 	player->Init();
@@ -86,6 +91,9 @@ void Game::Initialize()
 	enemyManager->Init();
 }
 
+/// <summary>
+/// ゲーム全体の更新処理をまとめたもの
+/// </summary>
 void Game::Update()
 {
 	//ゲームステータスの取得
@@ -149,7 +157,9 @@ void Game::Update()
 	}
 
 }
-
+/// <summary>
+/// ゲーム中の描画処理をまとめたもの
+/// </summary>
 void Game::Draw()
 {
 

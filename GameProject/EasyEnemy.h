@@ -27,8 +27,11 @@ public:
 	/// 更新処理
 	/// </summary>
 	/// <param name="map">マップの情報が入ったインスタンス</param>
-	/// <param name="playerVec"></param>
+	/// <param name="playerVec">プレイヤーのベクトルをもってくる</param>
 	void Update(const Map& map,const VECTOR& playerVec);	
-	void Draw();							//描画
+	/// <summary>
+	/// 描画
+	/// </summary>
+	void Draw();							
 
 };
