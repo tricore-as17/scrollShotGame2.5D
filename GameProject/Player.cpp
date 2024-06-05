@@ -125,6 +125,17 @@ void Player::Update(bool keyStop,const Map &map)
 	//微調整した後はポジションを戻す
 	pos = VSub(pos, playerOffset);
 
+	if (velocity.x > 0)
+	{
+		//モデルの回転値を設定(右側を向かせる);
+		MV1SetRotationXYZ(modelHandle, VGet(0.0f, -90.0f * DX_PI_F / 180.0f, 0.0f));
+	}
+	else if (velocity.x < 0)
+	{
+		//左側を向かせる
+		MV1SetRotationXYZ(modelHandle, VGet(0.0f, 90.0f * DX_PI_F / 180.0f, 0.0f));
+	}
+
 	//アニメーションの更新
 	//左右どちらかに動いていたら走りのアニメーションを有効にする
 	if (velocity.x != 0.0f)
