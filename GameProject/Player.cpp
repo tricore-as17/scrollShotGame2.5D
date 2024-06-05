@@ -20,7 +20,7 @@ Player::Player():isHitTop(false),isGround(false)
 	//モデルのサイズを設定
 	MV1SetScale(modelHandle, VGet(SCALE, SCALE, SCALE));
 	//モデルの回転値を設定(y軸に90度回転させる);
-	MV1SetRotationXYZ(modelHandle, VGet(0.0f, -110.0f * DX_PI_F / 180.0f, 0.0f));
+	MV1SetRotationXYZ(modelHandle, VGet(0.0f, -90.0f * DX_PI_F / 180.0f, 0.0f));
 	//3Dモデルの1番目のアニメーションをアタッチする
 	attachIndex = MV1AttachAnim(modelHandle, IDLE, -1, FALSE);
 	//アタッチしたアニメションの総再生時間を取得
@@ -124,6 +124,28 @@ void Player::Update(bool keyStop,const Map &map)
 
 	//微調整した後はポジションを戻す
 	pos = VSub(pos, playerOffset);
+
+	//アニメーションの更新
+	//左右どちらかに動いていたら走りのアニメーションを有効にする
+	if (velocity.x != 0.0f)
+	{
+		AnimeSet(RUN);
+	}
+	//動いていないので待機アニメーションを有効にする
+	else
+	{
+		AnimeSet(IDLE);
+	}
+
+	//アニメーションカウントの更新(１回の再生時間を超えたらリセット)
+	playTime += 0.7f;
+	if (playTime >= totalAnimeTime)
+	{
+		playTime = 0.0f;
+	}
+	//再生時間のセット
+	MV1SetAttachAnimTime(modelHandle, attachIndex, playTime);
+
 
 
 
