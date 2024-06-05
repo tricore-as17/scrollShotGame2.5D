@@ -14,10 +14,7 @@ EasyEnemy::EasyEnemy(int inFirstX)
 	pos = VGet(0, 0, 0);
 	//幅と高さの取得
 	w = W;
-	h = H;
-	//画像の読み込み
-	//LoadDivGraph();
-	
+	h = H;	
 
 }
 /// <summary>
@@ -38,8 +35,7 @@ void EasyEnemy::Init(VECTOR initPos)
 	pos = initPos;
 	//移動を開始するフラグの初期化
 	moveStartFlag = false;
-	//画像の読み込み
-	//LoadDivGraph()
+
 	
 }
 
@@ -87,11 +83,5 @@ void EasyEnemy::Update(const Map& map,const VECTOR& playerVec)
 /// </summary>
 void EasyEnemy::Draw()
 {
-	//スクリーン内に入ったら描画する
-	//if (pos.x <= SCREEN_W + w)
-	//{
-		//テスト用の描画
-		DrawBox(pos.x - w*0.5, pos.y - h*0.5, pos.x + w*0.5, pos.y + h*0.5, WHITE, TRUE);
-
-	//}
+	//現在処理なし
 }

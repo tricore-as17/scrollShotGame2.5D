@@ -1,6 +1,8 @@
 ﻿#pragma once
 
-
+/// <summary>
+/// フォントのに関するクラス
+/// </summary>
 class Font
 {
 public:
@@ -27,7 +29,7 @@ public:
 
 private:
 	//ハンドルデータ
-	int titleLogoHandle;
+	int titleLogoHandle;				
 	int titleExplanetionHandle;
 	int gameDistanceHandle;
 	int gameAnnounceHandle;

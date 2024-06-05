@@ -5,6 +5,13 @@
 #include"EasyEnemy.h"
 #include"Map.h"
 
+/// <summary>
+/// プレイヤーとマップの当たり判定をとって当たらない位置まで修正
+/// </summary>
+/// <param name="player">プレイヤーのインスタンス</param>
+/// <param name="map">マップのインスタンス</param>
+/// <param name="velocity">今回のループで入力されたプレイヤーベクトルの値</param>
+/// <returns>修正したベクトル</returns>
 VECTOR PlayerColision::CheckPlayerHitWithMap(Player& player, const Map& map, const VECTOR& velocity)
 {
 	// サイズが最初から0なら動かさず早期return
@@ -42,7 +49,8 @@ VECTOR PlayerColision::CheckPlayerHitWithMap(Player& player, const Map& map, con
 			bool isHit = false;
 			for (int wIndex = 0; wIndex < mapXNum; wIndex++)
 			{
-				VECTOR chipHalfOffset = VGet(-Map::CHIP_SIZE * 0.5f, -Map::CHIP_SIZE * 0.5f, 0);					// マップチップの半分サイズ左下にずらすオフセット
+				//マップチップ設定時に左下にずらしているのであわせてこちらでも設定
+				VECTOR chipHalfOffset = VGet(-Map::CHIP_SIZE * 0.5f, -Map::CHIP_SIZE * 0.5f, 0);					
 				//マップチップそれぞれの座標を取得
 				VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex+mapLeftPos .x, Map::CHIP_SIZE * (-hIndex -1)  + mapLeftPos.y, 0), chipHalfOffset);
 				//マップチップとプレイヤーの当たり判定をみる
@@ -174,7 +182,7 @@ void PlayerColision::CheckIsGround(Player& player, const  Map& map)
 	VECTOR mapLeftPos = map.GetChipLeftPos();
 
 
-	// 1ドット下にずらして当たれば地面に足がぶつかっている （小数点無視）
+	// ワールド座標での1ピクセル下にずらして当たれば地面に足がぶつかっている 
 	auto checkPos = VGet(playerPos.x, playerPos.y - Map::ONE_PIXEL_SIZE, playerPos.z);
 	bool isHit;
 	// 全マップチップ分繰り返す
@@ -182,13 +190,13 @@ void PlayerColision::CheckIsGround(Player& player, const  Map& map)
 	{
 		for (int wIndex = 0; wIndex < mapXnum; wIndex++)
 		{
-			VECTOR chipHalfOffset = VGet(-Map::CHIP_SIZE * 0.5f, -Map::CHIP_SIZE * 0.5f, 0);					// マップチップの半分サイズ左下にずらすオフセット
+			//マップチップ設定時に左下にずらしているのであわせてこちらでも設定
+			VECTOR chipHalfOffset = VGet(-Map::CHIP_SIZE * 0.5f, -Map::CHIP_SIZE * 0.5f, 0);
 			//マップチップそれぞれの座標を取得
 			VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * (-hIndex - 1) + mapLeftPos.y, 0), chipHalfOffset);
-			//if (isHit == false)
-			//{
+			//設定した座標同士の当たり判定を確認する
 			isHit = IsHitPlayerWithMapChip(player, checkPos, mapData[hIndex][wIndex],mapChipPos);
-			//}
+			//当たっていたら処理から抜ける
 			if (isHit)
 			{
 				break;
@@ -205,8 +213,6 @@ void PlayerColision::CheckIsGround(Player& player, const  Map& map)
 		player.SetIsGround(true);
 		// fallSpeedをゼロにし、急激な落下を防ぐ
 		player.SetFallSpeed(0.0f);
-
-	
 	}
 	else
 	{
@@ -231,18 +237,19 @@ void PlayerColision::CheckIsTopHit(Player& player, const  Map& map)
 	VECTOR mapLeftPos = map.GetChipLeftPos();
 
 
-	// 1ドット上にずらして当たれば頭上がぶつかっている （小数点無視）
+	// ワールド座標での1ピクセル上にずらして当たれば天井にぶつかっている 
 	auto checkPos = VGet(playerPos.x, playerPos.y + Map::ONE_PIXEL_SIZE, playerPos.z);
 	bool isHit;
-	//マップのx座標を
 	for (int hIndex = 0; hIndex < mapYNum; hIndex++)
 	{
 		for (int wIndex = 0; wIndex < mapXnum; wIndex++)
 		{
-			VECTOR chipHalfOffset = VGet(-Map::CHIP_SIZE * 0.5f, -Map::CHIP_SIZE * 0.5f, 0);					// マップチップの半分サイズ左下にずらすオフセット
-			//マップチップそれぞれの座標を取得
+			//マップチップ設定時に左下にずらしているのであわせてこちらでも設定
+			VECTOR chipHalfOffset = VGet(-Map::CHIP_SIZE * 0.5f, -Map::CHIP_SIZE * 0.5f, 0);					
 			VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * (-hIndex - 1) + mapLeftPos.y, 0), chipHalfOffset);
+			//設定した座標同士で当たり判定を調べる
 			isHit = IsHitPlayerWithMapChip(player, checkPos, mapData[hIndex][wIndex], mapChipPos);
+			//当たっていたら即ループから抜ける
 			if (isHit)
 			{
 				break;

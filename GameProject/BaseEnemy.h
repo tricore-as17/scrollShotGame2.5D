@@ -2,13 +2,18 @@
 #include"DxLib.h"
 #include"GameObject.h"
 
+/// <summary>
+/// エネミーの共通する部分をまとめた基底クラス
+/// </summary>
 class BaseEnemy:public GameObject
 {
 public:
 	//コンストラクタデストラクタ
 	BaseEnemy();
 	virtual ~BaseEnemy();
-	//エネミーに共通するスクロールの処理
+	/// <summary>
+	/// エネミーの共通するスクロール処理(マップのスクロールに合わせてエネミーも移動)
+	/// </summary>
 	virtual void ScrollProcess();
 	//ゲッターセッター
 	virtual VECTOR GetPos()const { return pos; }				//座標の取得

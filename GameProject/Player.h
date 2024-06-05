@@ -3,17 +3,20 @@
 #include"DxLib.h"
 #include"GameObject.h"
 
+
 const int PLAYER_STATE_NUM = 4;				//プレイヤーの状態の数
 
-
-
+//クラスのプロトタイプ宣言
 class Map;
 class Gimmick;
 
-
+/// <summary>
+/// プレイヤークラス
+/// </summary>
 class Player:public GameObject
 {
 public:
+	//コンストラクタデストラクタ
 	Player();
 	~Player();
 	//基本メソッド
@@ -21,9 +24,9 @@ public:
 	void Update(bool keyStop,const Map& map);	//更新
 	void Draw();								//描画
 	//ゲッターセッター
-	VECTOR GetPos()const { return pos; }				//座標を返す
-	VECTOR GetKeepVelocity()const { return keepVelocity; }
-	bool GetIsHitTop()const { return isHitTop; }		//天井へ当たっているかのフラグを返す
+	VECTOR GetPos()const { return pos; }									//座標を返す
+	VECTOR GetKeepVelocity()const { return keepVelocity; }					//プレイヤーの移動方向を保存
+	bool GetIsHitTop()const { return isHitTop; }							//天井へ当たっているかのフラグを返す
 	void SetIsHitTop(const bool inIsHitTop) { isHitTop = inIsHitTop; }		//天井へ当たっているかのセット
 	void SetFallSpeed(const float inFallSpeed) { fallSpeed = inFallSpeed; }	//落下スピードのセット
 	void SetIsGround(const bool inIsGround) { isGround = inIsGround; }		//接地判定の設定
@@ -38,8 +41,8 @@ public:
 	//定数群	
 	static constexpr float PLAYER_W = 0.725f;			//プレイヤー横サイズ
 	static constexpr float PLAYER_H = 2.175f;			//プレイヤーの縦サイズ
-	static constexpr float JUMP_POWER = 0.25f;  //キャラのジャンプ力
-	static constexpr int ANIME_STATE_SUM = 4;	//合計アニメーションの数
+	static constexpr float JUMP_POWER = 0.25f;			//キャラのジャンプ力
+	static constexpr int ANIME_STATE_SUM = 4;			//合計アニメーションの数
 
 private:
 

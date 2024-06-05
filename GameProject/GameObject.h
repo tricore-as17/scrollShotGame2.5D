@@ -1,6 +1,9 @@
 ﻿#pragma once
 #include"DxLib.h"
 
+/// <summary>
+/// 座標などをまとめたゲームのオブジェクトに使用する基底クラス
+/// </summary>
 class GameObject
 {
 protected:

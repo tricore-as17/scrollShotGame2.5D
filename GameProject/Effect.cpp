@@ -13,7 +13,11 @@ Effect::~Effect()
 	//エフェクトリソースの削除
 	DeleteEffekseerEffect(handle);
 }
-//エフェクトを表示する時の初期設定
+
+/// <summary>
+/// エフェクトを表示する時の初期設定
+/// </summary>
+/// <returns>初期化が成功したかの判定</returns>
 int Effect::Setting()
 {
 	//Effekseerをしようする際にDirectX11を使えるようにする必要がある

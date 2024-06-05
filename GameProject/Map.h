@@ -9,6 +9,9 @@ using namespace std;
 class GameObject;
 class WorldSprite;
 
+/// <summary>
+/// ゲームマップのクラスワールドスプライトを使用して作成
+/// </summary>
 class Map : public GameObject
 {
 public:

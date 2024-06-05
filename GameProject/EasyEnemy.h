@@ -2,6 +2,7 @@
 #include"DxLib.h"
 #include"BaseEnemy.h"
 
+//クラスのプロトタイプ宣言
 class Map;
 
 /// <summary>

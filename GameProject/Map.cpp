@@ -24,6 +24,8 @@ Map::~Map()
 	{
 		delete[] mapData[i];
 	}
+	
+	sprites.clear();
 }
 /// <summary>
 /// マップの位置の初期化
@@ -65,6 +67,7 @@ void Map::Update(const VECTOR& playerVec)
 /// </summary>
 void Map::Draw()
 {
+	//スプライトのポリゴン描画を呼び出す
 	for (const auto& sprite : sprites)
 	{
 		sprite->Draw();
