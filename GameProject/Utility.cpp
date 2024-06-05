@@ -61,7 +61,6 @@ void Utility::StartInit()
     //ゲーム開始時間を記録
     gameStartTime = GetNowCount();
     elapsedTime = 0;
-    scrollSpeed = FIRST_SCROLL_SPEED;
     endElapsedTime = 0;
     loadFlag = false;
 }

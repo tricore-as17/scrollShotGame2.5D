@@ -5,7 +5,7 @@
 // 静的定数
 // 速度（1=1m、60fps固定として、時速10km）
 // 10000m ÷ 時間 ÷ 分 ÷ 秒 ÷ フレーム
-const float Player::SPEED = static_cast<float>(10000.0 / 60.0 / 60.0 / 60.0);
+const float Player::SPEED = static_cast<float>(17000.0 / 60.0 / 60.0 / 60.0);
 
 //コンストラクタ
 Player::Player():isHitTop(false),isGround(false)

@@ -104,7 +104,6 @@ void Game::Update()
 	//キー入力
 	auto input = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 	bool inEffectPlayFlag = gameOverEffect->GetPlayFlag();
-	int scrollSpeed = utility->getScrollSpeed();
 	int elapsedTime = utility->getElapsedTime();
 
 
