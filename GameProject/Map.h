@@ -1,60 +1,60 @@
-#pragma once
+ï»¿#pragma once
 #include<vector>
 #include"DxLib.h"
 #include"GameObject.h"
 
 
 using namespace std;
-//ƒNƒ‰ƒX‚Ìƒvƒƒgƒ^ƒCƒvéŒ¾
+//ã‚¯ãƒ©ã‚¹ã®ãƒ—ãƒ­ãƒˆã‚¿ã‚¤ãƒ—å®£è¨€
 class GameObject;
 class WorldSprite;
 
 /// <summary>
-/// ƒQ[ƒ€ƒ}ƒbƒv‚ÌƒNƒ‰ƒXƒ[ƒ‹ƒhƒXƒvƒ‰ƒCƒg‚ğg—p‚µ‚Äì¬
+/// ã‚²ãƒ¼ãƒ ãƒãƒƒãƒ—ã®ã‚¯ãƒ©ã‚¹ãƒ¯ãƒ¼ãƒ«ãƒ‰ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’ä½¿ç”¨ã—ã¦ä½œæˆ
 /// </summary>
 class Map : public GameObject
 {
 public:
 	Map();
 	~Map();
-	//ƒQƒbƒgƒZƒbƒg
-	const int getMapXNum() const{ return mapXNum; }					//‰¡ƒ`ƒbƒv‚Ì”‚ğ•Ô‚·
-	const int getMapYNum() const { return mapYNum; }				//cƒ`ƒbƒv‚Ì”‚ğ•Ô‚·
-	int** getMapData()const{ return  mapData; }				//ƒ}ƒbƒvƒf[ƒ^‚ğ•Ô‚·
-	const VECTOR GetChipLeftPos() const { return chipLeftTopPos; }	//ƒ}ƒbƒv‚Ì¶ã‚ÌÀ•W
+	//ã‚²ãƒƒãƒˆã‚»ãƒƒãƒˆ
+	const int getMapXNum() const{ return mapXNum; }					//æ¨ªãƒãƒƒãƒ—ã®æ•°ã‚’è¿”ã™
+	const int getMapYNum() const { return mapYNum; }				//ç¸¦ãƒãƒƒãƒ—ã®æ•°ã‚’è¿”ã™
+	int** getMapData()const{ return  mapData; }				//ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã‚’è¿”ã™
+	const VECTOR GetChipLeftPos() const { return chipLeftTopPos; }	//ãƒãƒƒãƒ—ã®å·¦ä¸Šã®åº§æ¨™
 
 	void Init();
 	/// <summary>
-	/// À•WˆÚ“®‚È‚Ç‚ÌXVˆ—
+	/// åº§æ¨™ç§»å‹•ãªã©ã®æ›´æ–°å‡¦ç†
 	/// </summary>
 	/// <param name="playerVec"></param>
 	void Update(const VECTOR& playerVec);
 	/// <summary>
-	/// ƒ[ƒ‹ƒhƒXƒvƒ‰ƒCƒg‚ğg‚Á‚½•`‰æ
+	/// ãƒ¯ãƒ¼ãƒ«ãƒ‰ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’ä½¿ã£ãŸæç”»
 	/// </summary>
 	void Draw();
 	/// <summary>
-	/// csvƒtƒ@ƒCƒ‹‚©‚çƒ}ƒbƒvƒ`ƒbƒv‚Ìƒf[ƒ^‚ğ“Ç‚İ‚İ
+	/// csvãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã¿
 	/// </summary>
-	/// <param name="mapCSVFileName">csvƒtƒ@ƒCƒ‹ƒl[ƒ€</param>
+	/// <param name="mapCSVFileName">csvãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒ¼ãƒ </param>
 	void LoadMapChip(const char* mapCSVFileName);		
 
 
-	//’è”ŒQ
-	static constexpr int CHIP_PIXEL_SIZE = 32;		//ƒ}ƒbƒvƒ`ƒbƒvˆê‚Â‚ÌƒTƒCƒY
-	static constexpr float CHIP_SIZE = 0.725f;		//ƒ[ƒ‹ƒhÀ•W‚Å‚Ì32ƒsƒNƒZƒ‹‚ÌƒTƒCƒY
-	static const float ONE_PIXEL_SIZE;				//ƒ[ƒ‹ƒhÀ•W‚Å‚Ì1ƒsƒNƒZƒ‹‚ÌƒTƒCƒY
-	static constexpr int TILE_DIV_W = 22;			//ƒ}ƒbƒvƒ^ƒCƒ‹‚Ì‰¡•ûŒü•ªŠ„”
-	static constexpr int TILE_DIV_H = 11;			//ƒ}ƒbƒvƒ^ƒCƒ‹‚Ìc•ûŒü•ªŠ„”
+	//å®šæ•°ç¾¤
+	static constexpr int CHIP_PIXEL_SIZE = 32;		//ãƒãƒƒãƒ—ãƒãƒƒãƒ—ä¸€ã¤ã®ã‚µã‚¤ã‚º
+	static constexpr float CHIP_SIZE = 0.725f;		//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã§ã®32ãƒ”ã‚¯ã‚»ãƒ«ã®ã‚µã‚¤ã‚º
+	static const float ONE_PIXEL_SIZE;				//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã§ã®1ãƒ”ã‚¯ã‚»ãƒ«ã®ã‚µã‚¤ã‚º
+	static constexpr int TILE_DIV_W = 22;			//ãƒãƒƒãƒ—ã‚¿ã‚¤ãƒ«ã®æ¨ªæ–¹å‘åˆ†å‰²æ•°
+	static constexpr int TILE_DIV_H = 11;			//ãƒãƒƒãƒ—ã‚¿ã‚¤ãƒ«ã®ç¸¦æ–¹å‘åˆ†å‰²æ•°
 
 
 private:
-	int tileGraph = -1;								//ƒ}ƒbƒvƒ`ƒbƒvƒf[ƒ^‚Ì‰æ‘œ
-	int **mapData;									//ƒ}ƒbƒvƒf[ƒ^(CSV‚ÅŠÇ—)
-	int mapXNum;									//‰¡•ûŒü‚Ìƒ}ƒbƒvƒ`ƒbƒv‚Ì”
-	int mapYNum;									//c•ûŒü‚Ìƒ}ƒbƒvƒ`ƒbƒv‚Ì”
-	VECTOR chipLeftTopPos;							//ƒ[ƒ‹ƒhƒXƒvƒ‰ƒCƒg‚Ì¶ãÀ•W
-	vector<WorldSprite*> sprites;					//ƒ[ƒ‹ƒhƒXƒvƒ‰ƒCƒg‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+	int tileGraph = -1;								//ãƒãƒƒãƒ—ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã®ç”»åƒ
+	int **mapData;									//ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿(CSVã§ç®¡ç†)
+	int mapXNum;									//æ¨ªæ–¹å‘ã®ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®æ•°
+	int mapYNum;									//ç¸¦æ–¹å‘ã®ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®æ•°
+	VECTOR chipLeftTopPos;							//ãƒ¯ãƒ¼ãƒ«ãƒ‰ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®å·¦ä¸Šåº§æ¨™
+	vector<WorldSprite*> sprites;					//ãƒ¯ãƒ¼ãƒ«ãƒ‰ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 
 
 };

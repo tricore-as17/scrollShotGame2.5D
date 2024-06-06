@@ -1,61 +1,61 @@
-#pragma once
+ï»¿#pragma once
 #include"DxLib.h"
 
-//ƒNƒ‰ƒX‚Ìƒvƒƒgƒ^ƒCƒvéŒ¾
+//ã‚¯ãƒ©ã‚¹ã®ãƒ—ãƒ­ãƒˆã‚¿ã‚¤ãƒ—å®£è¨€
 class Map;
 class Player;
 class BaseEnemy;
 
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚Ì“–‚½‚è”»’èƒƒ\ƒbƒh‚ğ‚Ü‚Æ‚ß‚½ƒNƒ‰ƒX
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å½“ãŸã‚Šåˆ¤å®šãƒ¡ã‚½ãƒƒãƒ‰ã‚’ã¾ã¨ã‚ãŸã‚¯ãƒ©ã‚¹
 /// </summary>
 class PlayerColision
 {
 public:
 	/// <summary>
-	/// ƒvƒŒƒCƒ„[‚Æƒ}ƒbƒv‚Ì“–‚½‚è”»’è‚ğ‚Æ‚Á‚Ä“–‚½‚ç‚È‚¢ˆÊ’u‚Ü‚ÅC³
+	/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ãƒãƒƒãƒ—ã®å½“ãŸã‚Šåˆ¤å®šã‚’ã¨ã£ã¦å½“ãŸã‚‰ãªã„ä½ç½®ã¾ã§ä¿®æ­£
 	/// </summary>
-	/// <param name="player">ƒvƒŒƒCƒ„[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</param>
-	/// <param name="map">ƒ}ƒbƒv‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</param>
-	/// <param name="velocity">¡‰ñ‚Ìƒ‹[ƒv‚Å“ü—Í‚³‚ê‚½ƒvƒŒƒCƒ„[ƒxƒNƒgƒ‹‚Ì’l</param>
-	/// <returns>C³‚µ‚½ƒxƒNƒgƒ‹</returns>
+	/// <param name="player">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</param>
+	/// <param name="map">ãƒãƒƒãƒ—ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</param>
+	/// <param name="velocity">ä»Šå›ã®ãƒ«ãƒ¼ãƒ—ã§å…¥åŠ›ã•ã‚ŒãŸãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ™ã‚¯ãƒˆãƒ«ã®å€¤</param>
+	/// <returns>ä¿®æ­£ã—ãŸãƒ™ã‚¯ãƒˆãƒ«</returns>
 	static VECTOR CheckPlayerHitWithMap(Player& player, const Map& map, const VECTOR& velocity);
 	/// <summary>
-	/// ƒvƒŒƒCƒ„[‚Æƒ}ƒbƒv‚ª“–‚½‚Á‚½‚©‚Ìƒ`ƒFƒbƒN
+	/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ãƒãƒƒãƒ—ãŒå½“ãŸã£ãŸã‹ã®ãƒã‚§ãƒƒã‚¯
 	/// </summary>
-	/// <param name="player">ƒvƒŒƒCƒ„[</param>
-	/// <param name="futurePos">ˆÚ“®Œã‚ğŒvZ‚µ‚½Œã‚ÌÀ•W</param>
-	/// <param name="mapData">‚Ç‚ñ‚Èƒ}ƒbƒvƒ`ƒbƒv‚©</param>
-	/// <returns>“–‚½‚Á‚½‚©‚Ìƒtƒ‰ƒO</returns>
+	/// <param name="player">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼</param>
+	/// <param name="futurePos">ç§»å‹•å¾Œã‚’è¨ˆç®—ã—ãŸå¾Œã®åº§æ¨™</param>
+	/// <param name="mapData">ã©ã‚“ãªãƒãƒƒãƒ—ãƒãƒƒãƒ—ã‹</param>
+	/// <returns>å½“ãŸã£ãŸã‹ã®ãƒ•ãƒ©ã‚°</returns>
 	static bool IsHitPlayerWithMapChip(const Player& player, const  VECTOR& futurePos,int mapData,VECTOR mapChipPos);
 	/// <summary>
-	/// Ú’n‚¢‚½ê‡‚Ìˆ—
+	/// æ¥åœ°ã„ãŸå ´åˆã®å‡¦ç†
 	/// </summary>
-	/// <param name="player">ƒvƒŒƒCƒ„[</param>
-	/// <param name="map">ƒ}ƒbƒv</param>
+	/// <param name="player">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼</param>
+	/// <param name="map">ãƒãƒƒãƒ—</param>
 	static void CheckIsGround(Player& player, const  Map& map);
 	/// <summary>
-	/// “Vˆä‚É“–‚½‚Á‚Ä‚¢‚½ê‡‚Ìˆ—
+	/// å¤©äº•ã«å½“ãŸã£ã¦ã„ãŸå ´åˆã®å‡¦ç†
 	/// </summary>
-	/// <param name="player">ƒvƒŒƒCƒ„[</param>
-	/// <param name="map">ƒ}ƒbƒv</param>
+	/// <param name="player">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼</param>
+	/// <param name="map">ãƒãƒƒãƒ—</param>
 	static void CheckIsTopHit(Player& player, const  Map& map);
 
 };
 
-//ƒGƒlƒ~[‚Ì“–‚½‚è”»’è
+//ã‚¨ãƒãƒŸãƒ¼ã®å½“ãŸã‚Šåˆ¤å®š
 class EnemyColision
 {
 public:
 	static VECTOR CheckEnemyHitWithMap(BaseEnemy& enemy, const Map& map, const VECTOR& velocity);
-	//“–‚½‚Á‚½‚©‚Ìƒ`ƒFƒbƒN
+	//å½“ãŸã£ãŸã‹ã®ãƒã‚§ãƒƒã‚¯
 	static bool IsHitEnemyWithMapChip(const BaseEnemy& enemy, const  VECTOR& futurePos, int mapData, VECTOR mapChipPos);
-	//Ú’n”»’è‚Ìƒ`ƒFƒbƒN
+	//æ¥åœ°åˆ¤å®šã®ãƒã‚§ãƒƒã‚¯
 	static void CheckIsGround(BaseEnemy& enemy, const  Map& map);
-	//“ªã”»’è‚Ìƒ`ƒFƒbƒN
+	//é ­ä¸Šåˆ¤å®šã®ãƒã‚§ãƒƒã‚¯
 	static void CheckIsTopHit(BaseEnemy&enemy, const  Map& map);
-	//ƒvƒŒƒCƒ„[‚Æ‚Ì“–‚½‚è”»’è
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã®å½“ãŸã‚Šåˆ¤å®š
 	static bool IsHitPlayerWithEnemy(const BaseEnemy& enemy, const Player& player, const VECTOR& futurePos);
 };
 

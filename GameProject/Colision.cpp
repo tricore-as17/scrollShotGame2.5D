@@ -1,4 +1,4 @@
-#include"DxLib.h"
+ï»¿#include"DxLib.h"
 #include"Colision.h"
 #include"GameObject.h"
 #include"Player.h"
@@ -6,26 +6,26 @@
 #include"Map.h"
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚Æƒ}ƒbƒv‚Ì“–‚½‚è”»’è‚ğ‚Æ‚Á‚Ä“–‚½‚ç‚È‚¢ˆÊ’u‚Ü‚ÅC³
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ãƒãƒƒãƒ—ã®å½“ãŸã‚Šåˆ¤å®šã‚’ã¨ã£ã¦å½“ãŸã‚‰ãªã„ä½ç½®ã¾ã§ä¿®æ­£
 /// </summary>
-/// <param name="player">ƒvƒŒƒCƒ„[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</param>
-/// <param name="map">ƒ}ƒbƒv‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</param>
-/// <param name="velocity">¡‰ñ‚Ìƒ‹[ƒv‚Å“ü—Í‚³‚ê‚½ƒvƒŒƒCƒ„[ƒxƒNƒgƒ‹‚Ì’l</param>
-/// <returns>C³‚µ‚½ƒxƒNƒgƒ‹</returns>
+/// <param name="player">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</param>
+/// <param name="map">ãƒãƒƒãƒ—ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</param>
+/// <param name="velocity">ä»Šå›ã®ãƒ«ãƒ¼ãƒ—ã§å…¥åŠ›ã•ã‚ŒãŸãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ™ã‚¯ãƒˆãƒ«ã®å€¤</param>
+/// <returns>ä¿®æ­£ã—ãŸãƒ™ã‚¯ãƒˆãƒ«</returns>
 VECTOR PlayerColision::CheckPlayerHitWithMap(Player& player, const Map& map, const VECTOR& velocity)
 {
-	// ƒTƒCƒY‚ªÅ‰‚©‚ç0‚È‚ç“®‚©‚³‚¸‘Šúreturn
-	if (VSize(velocity) == 0)		//VSize‚ÅƒxƒNƒgƒ‹‚ÌƒTƒCƒY‚ğ‚Æ‚Á‚Ä‚¢‚é0‚È‚ç“®‚¢‚Ä‚È‚¢‚È‚Ì‚Å‚±‚±‚Å•Ô‚·
+	// ã‚µã‚¤ã‚ºãŒæœ€åˆã‹ã‚‰0ãªã‚‰å‹•ã‹ã•ãšæ—©æœŸreturn
+	if (VSize(velocity) == 0)		//VSizeã§ãƒ™ã‚¯ãƒˆãƒ«ã®ã‚µã‚¤ã‚ºã‚’ã¨ã£ã¦ã„ã‚‹0ãªã‚‰å‹•ã„ã¦ãªã„ãªã®ã§ã“ã“ã§è¿”ã™
 	{
 		return velocity;
 	}
-	//ƒQƒbƒ^[‚Å”’l‚ğ•Ï”‚É‘ã“ü
-	//‰¡‚Æc‚Ìƒ}ƒbƒvƒ`ƒbƒv‚Ì”‚ğ‚Á‚Ä‚­‚é
+	//ã‚²ãƒƒã‚¿ãƒ¼ã§æ•°å€¤ã‚’å¤‰æ•°ã«ä»£å…¥
+	//æ¨ªã¨ç¸¦ã®ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®æ•°ã‚’æŒã£ã¦ãã‚‹
 	int mapXNum = map.getMapXNum();
 	int mapYNum = map.getMapYNum();
-	//ƒvƒŒƒCƒ„[‚ÌÀ•W‚ğ‚Á‚Ä‚­‚é
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åº§æ¨™ã‚’æŒã£ã¦ãã‚‹
 	VECTOR playerPos = player.GetPos();
-	//ƒ}ƒbƒvƒf[ƒ^‚ğ‚Á‚Ä‚­‚é
+	//ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã‚’æŒã£ã¦ãã‚‹
 	int** mapData = map.getMapData();
 	VECTOR mapLeftPos = map.GetChipLeftPos();
 
@@ -33,49 +33,49 @@ VECTOR PlayerColision::CheckPlayerHitWithMap(Player& player, const Map& map, con
 
 	VECTOR ret = velocity;
 
-	// “–‚½‚ç‚È‚­‚È‚é‚Ü‚ÅŒJ‚è•Ô‚·
+	// å½“ãŸã‚‰ãªããªã‚‹ã¾ã§ç¹°ã‚Šè¿”ã™
 	bool loop = true;
-	bool isFirstHit = true;	// ‰‰ñ‚Å“–‚½‚Á‚½‚©
+	bool isFirstHit = true;	// åˆå›ã§å½“ãŸã£ãŸã‹
 	while (loop)
 	{
 		loop = false;
 
-		// –¢—ˆ‚ÌƒvƒŒƒCƒ„[‚Ìƒ|ƒWƒVƒ‡ƒ“‚ğ‚Ü‚¸o‚·
+		// æœªæ¥ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’ã¾ãšå‡ºã™
 		VECTOR futurePos = VAdd(playerPos, ret);
 
-		// ‘Sƒ}ƒbƒvƒ`ƒbƒv•ªŒJ‚è•Ô‚·
+		// å…¨ãƒãƒƒãƒ—ãƒãƒƒãƒ—åˆ†ç¹°ã‚Šè¿”ã™
 		for (int hIndex = 0; hIndex <mapYNum; hIndex++)
 		{
 			bool isHit = false;
 			for (int wIndex = 0; wIndex < mapXNum; wIndex++)
 			{
-				//ƒ}ƒbƒvƒ`ƒbƒvİ’è‚É¶‰º‚É‚¸‚ç‚µ‚Ä‚¢‚é‚Ì‚Å‚ ‚í‚¹‚Ä‚±‚¿‚ç‚Å‚àİ’è
+				//ãƒãƒƒãƒ—ãƒãƒƒãƒ—è¨­å®šæ™‚ã«å·¦ä¸‹ã«ãšã‚‰ã—ã¦ã„ã‚‹ã®ã§ã‚ã‚ã›ã¦ã“ã¡ã‚‰ã§ã‚‚è¨­å®š
 				VECTOR chipHalfOffset = VGet(-Map::CHIP_SIZE * 0.5f, -Map::CHIP_SIZE * 0.5f, 0);					
-				//ƒ}ƒbƒvƒ`ƒbƒv‚»‚ê‚¼‚ê‚ÌÀ•W‚ğæ“¾
+				//ãƒãƒƒãƒ—ãƒãƒƒãƒ—ãã‚Œãã‚Œã®åº§æ¨™ã‚’å–å¾—
 				VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex+mapLeftPos .x, Map::CHIP_SIZE * (-hIndex -1)  + mapLeftPos.y, 0), chipHalfOffset);
-				//ƒ}ƒbƒvƒ`ƒbƒv‚ÆƒvƒŒƒCƒ„[‚Ì“–‚½‚è”»’è‚ğ‚İ‚é
+				//ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å½“ãŸã‚Šåˆ¤å®šã‚’ã¿ã‚‹
 				isHit = IsHitPlayerWithMapChip(player, futurePos, mapData[hIndex][wIndex],mapChipPos);
 
-				// ‰‰ñ‚É“–‚½‚Á‚½‚Æ‚«
+				// åˆå›ã«å½“ãŸã£ãŸã¨ã
 				if (isHit && isFirstHit)
 				{
 		
 					isFirstHit = false;
-					loop = true;	// ƒ‹[ƒvŒp‘±
+					loop = true;	// ãƒ«ãƒ¼ãƒ—ç¶™ç¶š
 				}
 
-				// “–‚½‚Á‚½“_‚Åƒ}ƒbƒvƒ`ƒbƒv‚Ìƒ‹[ƒv‚©‚ç‚Ê‚¯‚é‚ªA“–‚½‚ç‚È‚­‚È‚é‚Ü‚ÅŒJ‚è•Ô‚·ƒ‹[ƒv‚ÍŒp‘±
+				// å½“ãŸã£ãŸæ™‚ç‚¹ã§ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®ãƒ«ãƒ¼ãƒ—ã‹ã‚‰ã¬ã‘ã‚‹ãŒã€å½“ãŸã‚‰ãªããªã‚‹ã¾ã§ç¹°ã‚Šè¿”ã™ãƒ«ãƒ¼ãƒ—ã¯ç¶™ç¶š
 				if (isHit && !isFirstHit)
 				{
-					// HACK: “–‚½‚Á‚Ä‚¢‚½ê‡‚Évelocity‚ğ1ƒhƒbƒg‚¸‚Âk‚ß‚Ä‚¢‚«A“–‚½‚ç‚È‚­‚È‚é‚Ü‚ÅŒJ‚è•Ô‚·
-					// ‚»‚Ì‚Ü‚Ük‚ß‚Ä‚µ‚Ü‚¤‚ÆAÎ‚ß‚ÌƒxƒNƒgƒ‹‚Ì‚Æ‚«i—á‚¦‚Î•Ç‚ÉŒü‚©‚Á‚ÄƒWƒƒƒ“ƒv‚µ‚½‚Æ‚«j‚ÉƒWƒƒƒ“ƒv‚Ì¨‚¢‚àk‚ß‚Ä‚µ‚Ü‚¤
-					// ‚±‚ê‚ğ–h‚®‚½‚ß‚ÉA
-					// ‰¡¬•ª‚©‚çk‚ß‚Ä‚¢‚­‚±‚Æ‚ÅA–â‘è‚ğ‰ñ”ğ‚·‚é
-					float absX = fabsf(ret.x);	// velocity‚Ìx¬•ª‚Ìâ‘Î’l
-					float absY = fabsf(ret.y);	// velocity‚Ìy¬•ª‚Ìâ‘Î’l
+					// HACK: å½“ãŸã£ã¦ã„ãŸå ´åˆã«velocityã‚’1ãƒ‰ãƒƒãƒˆãšã¤ç¸®ã‚ã¦ã„ãã€å½“ãŸã‚‰ãªããªã‚‹ã¾ã§ç¹°ã‚Šè¿”ã™
+					// ãã®ã¾ã¾ç¸®ã‚ã¦ã—ã¾ã†ã¨ã€æ–œã‚ã®ãƒ™ã‚¯ãƒˆãƒ«ã®ã¨ãï¼ˆä¾‹ãˆã°å£ã«å‘ã‹ã£ã¦ã‚¸ãƒ£ãƒ³ãƒ—ã—ãŸã¨ãï¼‰ã«ã‚¸ãƒ£ãƒ³ãƒ—ã®å‹¢ã„ã‚‚ç¸®ã‚ã¦ã—ã¾ã†
+					// ã“ã‚Œã‚’é˜²ããŸã‚ã«ã€
+					// æ¨ªæˆåˆ†ã‹ã‚‰ç¸®ã‚ã¦ã„ãã“ã¨ã§ã€å•é¡Œã‚’å›é¿ã™ã‚‹
+					float absX = fabsf(ret.x);	// velocityã®xæˆåˆ†ã®çµ¶å¯¾å€¤
+					float absY = fabsf(ret.y);	// velocityã®yæˆåˆ†ã®çµ¶å¯¾å€¤
 
-					// x¬•ª‚ğk‚ßØ‚Á‚Ä‚¢‚È‚¯‚ê‚Îx¬•ª‚ğk‚ß‚é
-					bool shrinkX = (absX != 0.0f);	// x¬•ª‚ğk‚ß‚é‚©‚Ç‚¤‚©
+					// xæˆåˆ†ã‚’ç¸®ã‚åˆ‡ã£ã¦ã„ãªã‘ã‚Œã°xæˆåˆ†ã‚’ç¸®ã‚ã‚‹
+					bool shrinkX = (absX != 0.0f);	// xæˆåˆ†ã‚’ç¸®ã‚ã‚‹ã‹ã©ã†ã‹
 
 					if (shrinkX)
 					{
@@ -88,7 +88,7 @@ VECTOR PlayerColision::CheckPlayerHitWithMap(Player& player, const Map& map, con
 							ret.x += Map::ONE_PIXEL_SIZE;
 						}
 
-						// k‚ßØ‚Á‚½‚çÁ‚·
+						// ç¸®ã‚åˆ‡ã£ãŸã‚‰æ¶ˆã™
 						if (fabs(ret.x) < Map::ONE_PIXEL_SIZE)
 						{
 							ret.x = 0.0f;
@@ -106,7 +106,7 @@ VECTOR PlayerColision::CheckPlayerHitWithMap(Player& player, const Map& map, con
 							ret.y += Map::ONE_PIXEL_SIZE;
 						}
 
-						// k‚ßØ‚Á‚½‚çÁ‚·
+						// ç¸®ã‚åˆ‡ã£ãŸã‚‰æ¶ˆã™
 						if (fabs(ret.y) < Map::ONE_PIXEL_SIZE)
 						{
 							ret.y = 0.0f;
@@ -123,27 +123,27 @@ VECTOR PlayerColision::CheckPlayerHitWithMap(Player& player, const Map& map, con
 		}
 	}
 
-	// MEMO: ’´‚‘¬‚ÅˆÚ“®‚µ‚Äƒ}ƒbƒv“Ë‚«”²‚¯‚½ê‡‚Íl—¶‚µ‚Ä‚¢‚È‚¢
-	// MEMO: ˆ—•‰‰×‚ğ­‚µ‚Å‚àŒ¸‚ç‚·‚½‚ß‚ÉAƒ}ƒbƒvƒ`ƒbƒv‚ÆƒvƒŒƒCƒ„[‚Ì‹——£‚Å‚¢‚Á‚½‚ñŒvZœŠO‚·‚é‚Æ‚©AFX‚·‚é‚Ì‚ÍƒAƒŠ
+	// MEMO: è¶…é«˜é€Ÿã§ç§»å‹•ã—ã¦ãƒãƒƒãƒ—çªãæŠœã‘ãŸå ´åˆã¯è€ƒæ…®ã—ã¦ã„ãªã„
+	// MEMO: å‡¦ç†è² è·ã‚’å°‘ã—ã§ã‚‚æ¸›ã‚‰ã™ãŸã‚ã«ã€ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è·é›¢ã§ã„ã£ãŸã‚“è¨ˆç®—é™¤å¤–ã™ã‚‹ã¨ã‹ã€è‰²ã€…ã™ã‚‹ã®ã¯ã‚¢ãƒª
 
 	return ret;
 }
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚Æƒ}ƒbƒv‚ª“–‚½‚Á‚½‚©‚Ìƒ`ƒFƒbƒN
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ãƒãƒƒãƒ—ãŒå½“ãŸã£ãŸã‹ã®ãƒã‚§ãƒƒã‚¯
 /// </summary>
-/// <param name="player">ƒvƒŒƒCƒ„[</param>
-/// <param name="futurePos">ˆÚ“®Œã‚ğŒvZ‚µ‚½Œã‚ÌÀ•W</param>
-/// <param name="mapData">‚Ç‚ñ‚Èƒ}ƒbƒvƒ`ƒbƒv‚©</param>
-/// <returns>“–‚½‚Á‚½‚©‚Ìƒtƒ‰ƒO</returns>
+/// <param name="player">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼</param>
+/// <param name="futurePos">ç§»å‹•å¾Œã‚’è¨ˆç®—ã—ãŸå¾Œã®åº§æ¨™</param>
+/// <param name="mapData">ã©ã‚“ãªãƒãƒƒãƒ—ãƒãƒƒãƒ—ã‹</param>
+/// <returns>å½“ãŸã£ãŸã‹ã®ãƒ•ãƒ©ã‚°</returns>
 bool PlayerColision::IsHitPlayerWithMapChip(const Player& player, const  VECTOR& futurePos, int mapData,VECTOR mapChipPos)
 {
-	// ƒ}ƒbƒvƒ`ƒbƒv‚ª“–‚½‚ç‚È‚¢í—Ş‚È‚ç‘Šúreturn
+	// ãƒãƒƒãƒ—ãƒãƒƒãƒ—ãŒå½“ãŸã‚‰ãªã„ç¨®é¡ãªã‚‰æ—©æœŸreturn
 	if (mapData == 48)
 	{
 		return false;
 	}	
-	//•‚Æ‚‚³‚ğ”¼•ª‚É‚µ‚Ä’†SÀ•W‚ğ‹‚ß‚é
+	//å¹…ã¨é«˜ã•ã‚’åŠåˆ†ã«ã—ã¦ä¸­å¿ƒåº§æ¨™ã‚’æ±‚ã‚ã‚‹
 	float futurePosLeft = futurePos.x - Player::PLAYER_W * 0.5f;
 	float futurePosRight = futurePos.x + Player::PLAYER_W * 0.5f;
 	float futurePosTop = futurePos.y - Player::PLAYER_H * 0.5f;
@@ -152,9 +152,9 @@ bool PlayerColision::IsHitPlayerWithMapChip(const Player& player, const  VECTOR&
 	float targetRight = mapChipPos.x + Map::CHIP_SIZE * 0.5f;
 	float targetTop = mapChipPos.y - Map::CHIP_SIZE * 0.5f;
 	float targetBottom = mapChipPos.y + Map::CHIP_SIZE * 0.5f;
-	//Šm”F—p‚É•`‰æ
+	//ç¢ºèªç”¨ã«æç”»
 	
-	// ‹éŒ`“¯m‚Ì“–‚½‚è”»’è
+	// çŸ©å½¢åŒå£«ã®å½“ãŸã‚Šåˆ¤å®š
 	if (((targetLeft <= futurePosLeft && futurePosLeft < targetRight) ||
 		(targetLeft > futurePosLeft && targetLeft < futurePosRight)) &&
 		((targetTop <= futurePosTop && futurePosTop < targetBottom) ||
@@ -166,37 +166,37 @@ bool PlayerColision::IsHitPlayerWithMapChip(const Player& player, const  VECTOR&
 }
 
 /// <summary>
-/// Ú’n‚¢‚½ê‡‚Ìˆ—
+/// æ¥åœ°ã„ãŸå ´åˆã®å‡¦ç†
 /// </summary>
-/// <param name="player">ƒvƒŒƒCƒ„[</param>
-/// <param name="map">ƒ}ƒbƒv</param>
+/// <param name="player">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼</param>
+/// <param name="map">ãƒãƒƒãƒ—</param>
 void PlayerColision::CheckIsGround(Player& player, const  Map& map)
 {
-	//ƒQƒbƒ^[‚Å•K—v‚È’l‚ğ‚Á‚Ä‚­‚é
+	//ã‚²ãƒƒã‚¿ãƒ¼ã§å¿…è¦ãªå€¤ã‚’æŒã£ã¦ãã‚‹
 	VECTOR playerPos = player.GetPos();
-	//‰¡‚Æc‚Ìƒ}ƒbƒvƒ`ƒbƒv‚Ì”‚ğ‚Á‚Ä‚­‚é
+	//æ¨ªã¨ç¸¦ã®ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®æ•°ã‚’æŒã£ã¦ãã‚‹
 	int mapXnum = map.getMapXNum();
 	int mapYNum = map.getMapYNum();
-	//ƒ}ƒbƒvƒf[ƒ^‚ğ‚Á‚Ä‚­‚é
+	//ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã‚’æŒã£ã¦ãã‚‹
 	int** mapData = map.getMapData();
 	VECTOR mapLeftPos = map.GetChipLeftPos();
 
 
-	// ƒ[ƒ‹ƒhÀ•W‚Å‚Ì1ƒsƒNƒZƒ‹‰º‚É‚¸‚ç‚µ‚Ä“–‚½‚ê‚Î’n–Ê‚É‘«‚ª‚Ô‚Â‚©‚Á‚Ä‚¢‚é 
+	// ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã§ã®1ãƒ”ã‚¯ã‚»ãƒ«ä¸‹ã«ãšã‚‰ã—ã¦å½“ãŸã‚Œã°åœ°é¢ã«è¶³ãŒã¶ã¤ã‹ã£ã¦ã„ã‚‹ 
 	auto checkPos = VGet(playerPos.x, playerPos.y - Map::ONE_PIXEL_SIZE, playerPos.z);
 	bool isHit;
-	// ‘Sƒ}ƒbƒvƒ`ƒbƒv•ªŒJ‚è•Ô‚·
+	// å…¨ãƒãƒƒãƒ—ãƒãƒƒãƒ—åˆ†ç¹°ã‚Šè¿”ã™
 	for (int hIndex = 0; hIndex < mapYNum; hIndex++)
 	{
 		for (int wIndex = 0; wIndex < mapXnum; wIndex++)
 		{
-			//ƒ}ƒbƒvƒ`ƒbƒvİ’è‚É¶‰º‚É‚¸‚ç‚µ‚Ä‚¢‚é‚Ì‚Å‚ ‚í‚¹‚Ä‚±‚¿‚ç‚Å‚àİ’è
+			//ãƒãƒƒãƒ—ãƒãƒƒãƒ—è¨­å®šæ™‚ã«å·¦ä¸‹ã«ãšã‚‰ã—ã¦ã„ã‚‹ã®ã§ã‚ã‚ã›ã¦ã“ã¡ã‚‰ã§ã‚‚è¨­å®š
 			VECTOR chipHalfOffset = VGet(-Map::CHIP_SIZE * 0.5f, -Map::CHIP_SIZE * 0.5f, 0);
-			//ƒ}ƒbƒvƒ`ƒbƒv‚»‚ê‚¼‚ê‚ÌÀ•W‚ğæ“¾
+			//ãƒãƒƒãƒ—ãƒãƒƒãƒ—ãã‚Œãã‚Œã®åº§æ¨™ã‚’å–å¾—
 			VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * (-hIndex - 1) + mapLeftPos.y, 0), chipHalfOffset);
-			//İ’è‚µ‚½À•W“¯m‚Ì“–‚½‚è”»’è‚ğŠm”F‚·‚é
+			//è¨­å®šã—ãŸåº§æ¨™åŒå£«ã®å½“ãŸã‚Šåˆ¤å®šã‚’ç¢ºèªã™ã‚‹
 			isHit = IsHitPlayerWithMapChip(player, checkPos, mapData[hIndex][wIndex],mapChipPos);
-			//“–‚½‚Á‚Ä‚¢‚½‚çˆ—‚©‚ç”²‚¯‚é
+			//å½“ãŸã£ã¦ã„ãŸã‚‰å‡¦ç†ã‹ã‚‰æŠœã‘ã‚‹
 			if (isHit)
 			{
 				break;
@@ -209,9 +209,9 @@ void PlayerColision::CheckIsGround(Player& player, const  Map& map)
 	}
 	if (isHit)
 	{
-		//Ú’n”»’è‚ğtrue‚É‚·‚é
+		//æ¥åœ°åˆ¤å®šã‚’trueã«ã™ã‚‹
 		player.SetIsGround(true);
-		// fallSpeed‚ğƒ[ƒ‚É‚µA‹}Œƒ‚È—‰º‚ğ–h‚®
+		// fallSpeedã‚’ã‚¼ãƒ­ã«ã—ã€æ€¥æ¿€ãªè½ä¸‹ã‚’é˜²ã
 		player.SetFallSpeed(0.0f);
 	}
 	else
@@ -221,35 +221,35 @@ void PlayerColision::CheckIsGround(Player& player, const  Map& map)
 }
 
 /// <summary>
-/// “Vˆä‚É“–‚½‚Á‚Ä‚¢‚½ê‡‚Ìˆ—
+/// å¤©äº•ã«å½“ãŸã£ã¦ã„ãŸå ´åˆã®å‡¦ç†
 /// </summary>
-/// <param name="player">ƒvƒŒƒCƒ„[</param>
-/// <param name="map">ƒ}ƒbƒv</param>
+/// <param name="player">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼</param>
+/// <param name="map">ãƒãƒƒãƒ—</param>
 void PlayerColision::CheckIsTopHit(Player& player, const  Map& map)
 {
-	//ƒQƒbƒ^[‚Å•K—v‚È’l‚ğ‚Á‚Ä‚­‚é
+	//ã‚²ãƒƒã‚¿ãƒ¼ã§å¿…è¦ãªå€¤ã‚’æŒã£ã¦ãã‚‹
 	VECTOR playerPos = player.GetPos();
-	//‰¡‚Æc‚Ìƒ}ƒbƒvƒ`ƒbƒv‚Ì”‚ğ‚Á‚Ä‚­‚é
+	//æ¨ªã¨ç¸¦ã®ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®æ•°ã‚’æŒã£ã¦ãã‚‹
 	int mapXnum = map.getMapXNum();
 	int mapYNum = map.getMapYNum();
-	//ƒ}ƒbƒvƒf[ƒ^‚ğ‚Á‚Ä‚­‚é
+	//ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã‚’æŒã£ã¦ãã‚‹
 	int** mapData = map.getMapData();
 	VECTOR mapLeftPos = map.GetChipLeftPos();
 
 
-	// ƒ[ƒ‹ƒhÀ•W‚Å‚Ì1ƒsƒNƒZƒ‹ã‚É‚¸‚ç‚µ‚Ä“–‚½‚ê‚Î“Vˆä‚É‚Ô‚Â‚©‚Á‚Ä‚¢‚é 
+	// ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã§ã®1ãƒ”ã‚¯ã‚»ãƒ«ä¸Šã«ãšã‚‰ã—ã¦å½“ãŸã‚Œã°å¤©äº•ã«ã¶ã¤ã‹ã£ã¦ã„ã‚‹ 
 	auto checkPos = VGet(playerPos.x, playerPos.y + Map::ONE_PIXEL_SIZE, playerPos.z);
 	bool isHit;
 	for (int hIndex = 0; hIndex < mapYNum; hIndex++)
 	{
 		for (int wIndex = 0; wIndex < mapXnum; wIndex++)
 		{
-			//ƒ}ƒbƒvƒ`ƒbƒvİ’è‚É¶‰º‚É‚¸‚ç‚µ‚Ä‚¢‚é‚Ì‚Å‚ ‚í‚¹‚Ä‚±‚¿‚ç‚Å‚àİ’è
+			//ãƒãƒƒãƒ—ãƒãƒƒãƒ—è¨­å®šæ™‚ã«å·¦ä¸‹ã«ãšã‚‰ã—ã¦ã„ã‚‹ã®ã§ã‚ã‚ã›ã¦ã“ã¡ã‚‰ã§ã‚‚è¨­å®š
 			VECTOR chipHalfOffset = VGet(-Map::CHIP_SIZE * 0.5f, -Map::CHIP_SIZE * 0.5f, 0);					
 			VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * (-hIndex - 1) + mapLeftPos.y, 0), chipHalfOffset);
-			//İ’è‚µ‚½À•W“¯m‚Å“–‚½‚è”»’è‚ğ’²‚×‚é
+			//è¨­å®šã—ãŸåº§æ¨™åŒå£«ã§å½“ãŸã‚Šåˆ¤å®šã‚’èª¿ã¹ã‚‹
 			isHit = IsHitPlayerWithMapChip(player, checkPos, mapData[hIndex][wIndex], mapChipPos);
-			//“–‚½‚Á‚Ä‚¢‚½‚ç‘¦ƒ‹[ƒv‚©‚ç”²‚¯‚é
+			//å½“ãŸã£ã¦ã„ãŸã‚‰å³ãƒ«ãƒ¼ãƒ—ã‹ã‚‰æŠœã‘ã‚‹
 			if (isHit)
 			{
 				break;
@@ -262,9 +262,9 @@ void PlayerColision::CheckIsTopHit(Player& player, const  Map& map)
 	}
 	if (isHit)
 	{
-		//“Vˆä‚É‚Ô‚Â‚©‚Á‚Ä‚¢‚½‚©‚Ìƒtƒ‰ƒO‚ğ‚Á‚Ä‚­‚é
+		//å¤©äº•ã«ã¶ã¤ã‹ã£ã¦ã„ãŸã‹ã®ãƒ•ãƒ©ã‚°ã‚’æŒã£ã¦ãã‚‹
 		bool inIsHitTop = player.GetIsHitTop();
-		// ˆÈ‘O‚Ô‚Â‚©‚Á‚Ä‚¢‚È‚¢‚Ì‚É‚Ô‚Â‚©‚é‚È‚çfallSpeed‚ğƒ[ƒ‚É‚µA‘¦—‰º‚·‚é‚æ‚¤‚É
+		// ä»¥å‰ã¶ã¤ã‹ã£ã¦ã„ãªã„ã®ã«ã¶ã¤ã‹ã‚‹ãªã‚‰fallSpeedã‚’ã‚¼ãƒ­ã«ã—ã€å³è½ä¸‹ã™ã‚‹ã‚ˆã†ã«
 		if (!inIsHitTop)
 		{
 			player.SetIsHitTop(true);
@@ -282,26 +282,26 @@ void PlayerColision::CheckIsTopHit(Player& player, const  Map& map)
 
 
 /// <summary>
-/// ƒGƒlƒ~[‚Ì“–‚½‚è”»’è‚ğ‚Æ‚Á‚½Œã‚Ì‰Ÿ‚µ–ß‚µˆ—
+/// ã‚¨ãƒãƒŸãƒ¼ã®å½“ãŸã‚Šåˆ¤å®šã‚’ã¨ã£ãŸå¾Œã®æŠ¼ã—æˆ»ã—å‡¦ç†
 /// </summary>
-/// <param name="enemy">ƒGƒlƒ~[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</param>
-/// <param name="map">ƒ}ƒbƒv‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</param>
-/// <param name="velocity">ƒGƒlƒ~[‚ÌˆÚ“®•ûŒü</param>
-/// <returns>‰Ÿ‚µ–ß‚µ‚½Û‚ÌˆÚ“®—Ê</returns>
+/// <param name="enemy">ã‚¨ãƒãƒŸãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</param>
+/// <param name="map">ãƒãƒƒãƒ—ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</param>
+/// <param name="velocity">ã‚¨ãƒãƒŸãƒ¼ã®ç§»å‹•æ–¹å‘</param>
+/// <returns>æŠ¼ã—æˆ»ã—ãŸéš›ã®ç§»å‹•é‡</returns>
 VECTOR EnemyColision::CheckEnemyHitWithMap(BaseEnemy& enemy, const Map& map, const VECTOR& velocity)
 {
-	// ƒTƒCƒY‚ªÅ‰‚©‚ç0‚È‚ç“®‚©‚³‚¸‘Šúreturn
-	if (VSize(velocity) == 0)		//VSize‚ÅƒxƒNƒgƒ‹‚ÌƒTƒCƒY‚ğ‚Æ‚Á‚Ä‚¢‚é0‚È‚ç“®‚¢‚Ä‚È‚¢‚È‚Ì‚Å‚±‚±‚Å•Ô‚·
+	// ã‚µã‚¤ã‚ºãŒæœ€åˆã‹ã‚‰0ãªã‚‰å‹•ã‹ã•ãšæ—©æœŸreturn
+	if (VSize(velocity) == 0)		//VSizeã§ãƒ™ã‚¯ãƒˆãƒ«ã®ã‚µã‚¤ã‚ºã‚’ã¨ã£ã¦ã„ã‚‹0ãªã‚‰å‹•ã„ã¦ãªã„ãªã®ã§ã“ã“ã§è¿”ã™
 	{
 		return velocity;
 	}
-	//ƒQƒbƒ^[‚Å”’l‚ğ•Ï”‚É‘ã“ü
-	//‰¡‚Æc‚Ìƒ}ƒbƒvƒ`ƒbƒv‚Ì”‚ğ‚Á‚Ä‚­‚é
+	//ã‚²ãƒƒã‚¿ãƒ¼ã§æ•°å€¤ã‚’å¤‰æ•°ã«ä»£å…¥
+	//æ¨ªã¨ç¸¦ã®ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®æ•°ã‚’æŒã£ã¦ãã‚‹
 	int mapXNum = map.getMapXNum();
 	int mapYNum = map.getMapYNum();
-	//ƒGƒlƒ~[‚ÌÀ•W‚ğ‚Á‚Ä‚­‚é
+	//ã‚¨ãƒãƒŸãƒ¼ã®åº§æ¨™ã‚’æŒã£ã¦ãã‚‹
 	VECTOR enemyPos = enemy.GetPos();
-	//ƒ}ƒbƒvƒf[ƒ^‚ğ‚Á‚Ä‚­‚é
+	//ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã‚’æŒã£ã¦ãã‚‹
 	int** mapData = map.getMapData();
 	VECTOR mapLeftPos = map.GetChipLeftPos();
 
@@ -309,55 +309,55 @@ VECTOR EnemyColision::CheckEnemyHitWithMap(BaseEnemy& enemy, const Map& map, con
 
 	VECTOR ret = velocity;
 
-	// “–‚½‚ç‚È‚­‚È‚é‚Ü‚ÅŒJ‚è•Ô‚·
+	// å½“ãŸã‚‰ãªããªã‚‹ã¾ã§ç¹°ã‚Šè¿”ã™
 	bool loop = true;
-	bool isFirstHit = true;	// ‰‰ñ‚Å“–‚½‚Á‚½‚©
+	bool isFirstHit = true;	// åˆå›ã§å½“ãŸã£ãŸã‹
 	while (loop)
 	{
 		loop = false;
 
-		// –¢—ˆ‚ÌƒvƒŒƒCƒ„[‚Ìƒ|ƒWƒVƒ‡ƒ“‚ğ‚Ü‚¸o‚·
+		// æœªæ¥ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’ã¾ãšå‡ºã™
 		VECTOR futurePos = VAdd(enemyPos, ret);
 
-		// ‘Sƒ}ƒbƒvƒ`ƒbƒv•ªŒJ‚è•Ô‚·
+		// å…¨ãƒãƒƒãƒ—ãƒãƒƒãƒ—åˆ†ç¹°ã‚Šè¿”ã™
 		for (int hIndex = 0; hIndex < mapYNum; hIndex++)
 		{
 			bool isHit = false;
 			for (int wIndex = 0; wIndex < mapXNum; wIndex++)
 			{
-				//ƒ}ƒbƒvƒ`ƒbƒv‚»‚ê‚¼‚ê‚ÌÀ•W‚ğæ“¾
+				//ãƒãƒƒãƒ—ãƒãƒƒãƒ—ãã‚Œãã‚Œã®åº§æ¨™ã‚’å–å¾—
 				VECTOR mapChipPos = VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * (-hIndex - 1) + mapLeftPos.y, 0);
-				//ƒ}ƒbƒvƒ`ƒbƒv‚ÆƒvƒŒƒCƒ„[‚Ì“–‚½‚è”»’è‚ğ‚İ‚é
+				//ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å½“ãŸã‚Šåˆ¤å®šã‚’ã¿ã‚‹
 				isHit = IsHitEnemyWithMapChip(enemy, futurePos, mapData[hIndex][wIndex], mapChipPos);
 
-				// ‰‰ñ‚É“–‚½‚Á‚½‚Æ‚«
+				// åˆå›ã«å½“ãŸã£ãŸã¨ã
 				if (isHit && isFirstHit)
 				{
-					// ¡Œã“–‚½‚è”»’è‚Åƒ|ƒWƒVƒ‡ƒ“‚âvelocity‚Ì•â³‚ğ‚·‚é‚Æ‚«A¬”“_ˆÈ‰º‚ÌŒë·‚ªY‚Ü‚ê‚é
-					// G‚É1ƒhƒbƒg‚¸‚ÂŒ¸‚ç‚·A”ŠwŒvZ‚ğ‚µ‚È‚¢ƒ}ƒbƒVƒu“–‚½‚è”»’è‚É‚Í×–‚‚È‚Ì‚Å‰‰ñ‚ÉŠÛ‚ß‚Ä‚µ‚Ü‚¢A
-					// ˆÈ~‰ü‚ß‚Ä“–‚½‚è”»’è
-					// pos‚àVelocity‚àŠÛ‚ß‚é
-					enemyPos.x = floorf(enemyPos.x);		//floorf‚Í¬”“_‚ğŠÛ‚ß‚é
+					// ä»Šå¾Œå½“ãŸã‚Šåˆ¤å®šã§ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚„velocityã®è£œæ­£ã‚’ã™ã‚‹ã¨ãã€å°æ•°ç‚¹ä»¥ä¸‹ã®èª¤å·®ãŒç”£ã¾ã‚Œã‚‹
+					// é›‘ã«1ãƒ‰ãƒƒãƒˆãšã¤æ¸›ã‚‰ã™ã€æ•°å­¦è¨ˆç®—ã‚’ã—ãªã„ãƒãƒƒã‚·ãƒ–å½“ãŸã‚Šåˆ¤å®šã«ã¯é‚ªé­”ãªã®ã§åˆå›ã«ä¸¸ã‚ã¦ã—ã¾ã„ã€
+					// ä»¥é™æ”¹ã‚ã¦å½“ãŸã‚Šåˆ¤å®š
+					// posã‚‚Velocityã‚‚ä¸¸ã‚ã‚‹
+					enemyPos.x = floorf(enemyPos.x);		//floorfã¯å°æ•°ç‚¹ã‚’ä¸¸ã‚ã‚‹
 					enemyPos.y = floorf(enemyPos.y);
 					enemy.SetPos(enemyPos);
 					ret.x = floorf(ret.x);
 					ret.y = floorf(ret.y);
 					isFirstHit = false;
-					loop = true;	// ƒ‹[ƒvŒp‘±
+					loop = true;	// ãƒ«ãƒ¼ãƒ—ç¶™ç¶š
 				}
 
-				// “–‚½‚Á‚½“_‚Åƒ}ƒbƒvƒ`ƒbƒv‚Ìƒ‹[ƒv‚©‚ç‚Ê‚¯‚é‚ªA“–‚½‚ç‚È‚­‚È‚é‚Ü‚ÅŒJ‚è•Ô‚·ƒ‹[ƒv‚ÍŒp‘±
+				// å½“ãŸã£ãŸæ™‚ç‚¹ã§ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®ãƒ«ãƒ¼ãƒ—ã‹ã‚‰ã¬ã‘ã‚‹ãŒã€å½“ãŸã‚‰ãªããªã‚‹ã¾ã§ç¹°ã‚Šè¿”ã™ãƒ«ãƒ¼ãƒ—ã¯ç¶™ç¶š
 				if (isHit && !isFirstHit)
 				{
-					// HACK: “–‚½‚Á‚Ä‚¢‚½ê‡‚Évelocity‚ğ1ƒhƒbƒg‚¸‚Âk‚ß‚Ä‚¢‚«A“–‚½‚ç‚È‚­‚È‚é‚Ü‚ÅŒJ‚è•Ô‚·
-					// ‚»‚Ì‚Ü‚Ük‚ß‚Ä‚µ‚Ü‚¤‚ÆAÎ‚ß‚ÌƒxƒNƒgƒ‹‚Ì‚Æ‚«i—á‚¦‚Î•Ç‚ÉŒü‚©‚Á‚ÄƒWƒƒƒ“ƒv‚µ‚½‚Æ‚«j‚ÉƒWƒƒƒ“ƒv‚Ì¨‚¢‚àk‚ß‚Ä‚µ‚Ü‚¤
-					// ‚±‚ê‚ğ–h‚®‚½‚ß‚ÉA
-					// ‰¡¬•ª‚©‚çk‚ß‚Ä‚¢‚­‚±‚Æ‚ÅA–â‘è‚ğ‰ñ”ğ‚·‚é
-					float absX = fabsf(ret.x);	// velocity‚Ìx¬•ª‚Ìâ‘Î’l
-					float absY = fabsf(ret.y);	// velocity‚Ìy¬•ª‚Ìâ‘Î’l
+					// HACK: å½“ãŸã£ã¦ã„ãŸå ´åˆã«velocityã‚’1ãƒ‰ãƒƒãƒˆãšã¤ç¸®ã‚ã¦ã„ãã€å½“ãŸã‚‰ãªããªã‚‹ã¾ã§ç¹°ã‚Šè¿”ã™
+					// ãã®ã¾ã¾ç¸®ã‚ã¦ã—ã¾ã†ã¨ã€æ–œã‚ã®ãƒ™ã‚¯ãƒˆãƒ«ã®ã¨ãï¼ˆä¾‹ãˆã°å£ã«å‘ã‹ã£ã¦ã‚¸ãƒ£ãƒ³ãƒ—ã—ãŸã¨ãï¼‰ã«ã‚¸ãƒ£ãƒ³ãƒ—ã®å‹¢ã„ã‚‚ç¸®ã‚ã¦ã—ã¾ã†
+					// ã“ã‚Œã‚’é˜²ããŸã‚ã«ã€
+					// æ¨ªæˆåˆ†ã‹ã‚‰ç¸®ã‚ã¦ã„ãã“ã¨ã§ã€å•é¡Œã‚’å›é¿ã™ã‚‹
+					float absX = fabsf(ret.x);	// velocityã®xæˆåˆ†ã®çµ¶å¯¾å€¤
+					float absY = fabsf(ret.y);	// velocityã®yæˆåˆ†ã®çµ¶å¯¾å€¤
 
-					// x¬•ª‚ğk‚ßØ‚Á‚Ä‚¢‚È‚¯‚ê‚Îx¬•ª‚ğk‚ß‚é
-					bool shrinkX = (absX != 0.0f);	// x¬•ª‚ğk‚ß‚é‚©‚Ç‚¤‚©
+					// xæˆåˆ†ã‚’ç¸®ã‚åˆ‡ã£ã¦ã„ãªã‘ã‚Œã°xæˆåˆ†ã‚’ç¸®ã‚ã‚‹
+					bool shrinkX = (absX != 0.0f);	// xæˆåˆ†ã‚’ç¸®ã‚ã‚‹ã‹ã©ã†ã‹
 
 					if (shrinkX)
 					{
@@ -370,7 +370,7 @@ VECTOR EnemyColision::CheckEnemyHitWithMap(BaseEnemy& enemy, const Map& map, con
 							ret.x += 1.0f;
 						}
 
-						// k‚ßØ‚Á‚½‚çÁ‚·
+						// ç¸®ã‚åˆ‡ã£ãŸã‚‰æ¶ˆã™
 						if (fabs(ret.x) < 1.0f)
 						{
 							ret.x = 0.0f;
@@ -388,7 +388,7 @@ VECTOR EnemyColision::CheckEnemyHitWithMap(BaseEnemy& enemy, const Map& map, con
 							ret.y += 1.0f;
 						}
 
-						// k‚ßØ‚Á‚½‚çÁ‚·
+						// ç¸®ã‚åˆ‡ã£ãŸã‚‰æ¶ˆã™
 						if (fabs(ret.y) < 1.0f)
 						{
 							ret.y = 0.0f;
@@ -405,25 +405,25 @@ VECTOR EnemyColision::CheckEnemyHitWithMap(BaseEnemy& enemy, const Map& map, con
 		}
 	}
 
-	// MEMO: ’´‚‘¬‚ÅˆÚ“®‚µ‚Äƒ}ƒbƒv“Ë‚«”²‚¯‚½ê‡‚Íl—¶‚µ‚Ä‚¢‚È‚¢
-	// MEMO: ˆ—•‰‰×‚ğ­‚µ‚Å‚àŒ¸‚ç‚·‚½‚ß‚ÉAƒ}ƒbƒvƒ`ƒbƒv‚ÆƒvƒŒƒCƒ„[‚Ì‹——£‚Å‚¢‚Á‚½‚ñŒvZœŠO‚·‚é‚Æ‚©AFX‚·‚é‚Ì‚ÍƒAƒŠ
+	// MEMO: è¶…é«˜é€Ÿã§ç§»å‹•ã—ã¦ãƒãƒƒãƒ—çªãæŠœã‘ãŸå ´åˆã¯è€ƒæ…®ã—ã¦ã„ãªã„
+	// MEMO: å‡¦ç†è² è·ã‚’å°‘ã—ã§ã‚‚æ¸›ã‚‰ã™ãŸã‚ã«ã€ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è·é›¢ã§ã„ã£ãŸã‚“è¨ˆç®—é™¤å¤–ã™ã‚‹ã¨ã‹ã€è‰²ã€…ã™ã‚‹ã®ã¯ã‚¢ãƒª
 
 	return ret;
 }
 
 bool EnemyColision::IsHitEnemyWithMapChip(const BaseEnemy& enemy, const  VECTOR& futurePos, int mapData, VECTOR mapChipPos)
 {
-	// ƒ}ƒbƒvƒ`ƒbƒv‚ª“–‚½‚ç‚È‚¢í—Ş‚È‚ç‘Šúreturn
+	// ãƒãƒƒãƒ—ãƒãƒƒãƒ—ãŒå½“ãŸã‚‰ãªã„ç¨®é¡ãªã‚‰æ—©æœŸreturn
 	if (mapData == -1)
 	{
 		return false;
 	}
-	//•‚Æ‚‚³‚Ìæ“¾
+	//å¹…ã¨é«˜ã•ã®å–å¾—
 	float enemyW = enemy.GetW();
 	float enemyH = enemy.GetH();
 
-	// “–‚½‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©’²‚×‚é
-	//•‚Æ‚‚³‚ğ”¼•ª‚É‚µ‚Ä’†SÀ•W‚ğ‹‚ß‚é
+	// å½“ãŸã£ã¦ã„ã‚‹ã‹ã©ã†ã‹èª¿ã¹ã‚‹
+	//å¹…ã¨é«˜ã•ã‚’åŠåˆ†ã«ã—ã¦ä¸­å¿ƒåº§æ¨™ã‚’æ±‚ã‚ã‚‹
 	float futurePosLeft = futurePos.x - enemyW * 0.5f;
 	float futurePosRight = futurePos.x + enemyW * 0.5f;
 	float futurePosTop = futurePos.y -  enemyH* 0.5f;
@@ -432,7 +432,7 @@ bool EnemyColision::IsHitEnemyWithMapChip(const BaseEnemy& enemy, const  VECTOR&
 	float targetRight = mapChipPos.x + Map::CHIP_SIZE * 0.5f;
 	float targetTop = mapChipPos.y - Map::CHIP_SIZE * 0.5f;
 	float targetBottom = mapChipPos.y + Map::CHIP_SIZE * 0.5f;
-	// ‹éŒ`“¯m‚Ì“–‚½‚è”»’è
+	// çŸ©å½¢åŒå£«ã®å½“ãŸã‚Šåˆ¤å®š
 	if (((targetLeft <= futurePosLeft && futurePosLeft < targetRight) ||
 		(targetLeft > futurePosLeft && targetLeft < futurePosRight)) &&
 		((targetTop <= futurePosTop && futurePosTop < targetBottom) ||
@@ -445,25 +445,25 @@ bool EnemyColision::IsHitEnemyWithMapChip(const BaseEnemy& enemy, const  VECTOR&
 
 void EnemyColision::CheckIsGround(BaseEnemy& enemy, const  Map& map)
 {
-	//ƒQƒbƒ^[‚Å•K—v‚È’l‚ğ‚Á‚Ä‚­‚é
+	//ã‚²ãƒƒã‚¿ãƒ¼ã§å¿…è¦ãªå€¤ã‚’æŒã£ã¦ãã‚‹
 	VECTOR enemyPos = enemy.GetPos();
-	//‰¡‚Æc‚Ìƒ}ƒbƒvƒ`ƒbƒv‚Ì”‚ğ‚Á‚Ä‚­‚é
+	//æ¨ªã¨ç¸¦ã®ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®æ•°ã‚’æŒã£ã¦ãã‚‹
 	int mapXnum = map.getMapXNum();
 	int mapYNum = map.getMapYNum();
-	//ƒ}ƒbƒvƒf[ƒ^‚ğ‚Á‚Ä‚­‚é
+	//ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã‚’æŒã£ã¦ãã‚‹
 	int** mapData = map.getMapData();
 	VECTOR mapLeftPos = map.GetChipLeftPos();
 
 
-	// 1ƒhƒbƒg‰º‚É‚¸‚ç‚µ‚Ä“–‚½‚ê‚Î’n–Ê‚É‘«‚ª‚Ô‚Â‚©‚Á‚Ä‚¢‚é i¬”“_–³‹j
+	// 1ãƒ‰ãƒƒãƒˆä¸‹ã«ãšã‚‰ã—ã¦å½“ãŸã‚Œã°åœ°é¢ã«è¶³ãŒã¶ã¤ã‹ã£ã¦ã„ã‚‹ ï¼ˆå°æ•°ç‚¹ç„¡è¦–ï¼‰
 	auto checkPos = VGet(enemyPos.x, floorf(enemyPos.y) + 1.0f, enemyPos.z);
 	bool isHit;
-	// ‘Sƒ}ƒbƒvƒ`ƒbƒv•ªŒJ‚è•Ô‚·
+	// å…¨ãƒãƒƒãƒ—ãƒãƒƒãƒ—åˆ†ç¹°ã‚Šè¿”ã™
 	for (int hIndex = 0; hIndex < mapYNum; hIndex++)
 	{
 		for (int wIndex = 0; wIndex < mapXnum; wIndex++)
 		{
-			//ƒ}ƒbƒvƒ`ƒbƒv‚»‚ê‚¼‚ê‚ÌÀ•W‚ğæ“¾
+			//ãƒãƒƒãƒ—ãƒãƒƒãƒ—ãã‚Œãã‚Œã®åº§æ¨™ã‚’å–å¾—
 			VECTOR mapChipPos = VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * hIndex + mapLeftPos.y, 0);
 			//if (isHit == false)
 			//{
@@ -481,13 +481,13 @@ void EnemyColision::CheckIsGround(BaseEnemy& enemy, const  Map& map)
 	}
 	if (isHit)
 	{
-		//Ú’n”»’è‚ğtrue‚É
+		//æ¥åœ°åˆ¤å®šã‚’trueã«
 		enemy.SetIsGround(true);
-		// fallSpeed‚ğƒ[ƒ‚É‚µA‹}Œƒ‚È—‰º‚ğ–h‚®
+		// fallSpeedã‚’ã‚¼ãƒ­ã«ã—ã€æ€¥æ¿€ãªè½ä¸‹ã‚’é˜²ã
 		enemy.SetFallSpeed(0.0f);
 
-		// ŒãX‚ÌGŒvZ‚É‹¿‚­‚Ì‚ÅAyÀ•W‚Ì¬”“_‚ğÁ‚µ”ò‚Î‚·
-		enemyPos.y = floorf(enemyPos.y);	// ‚¿‚å‚¤‚Ç’n–Ê‚É•t‚­ˆÊ’u‚É
+		// å¾Œã€…ã®é›‘è¨ˆç®—ã«éŸ¿ãã®ã§ã€yåº§æ¨™ã®å°æ•°ç‚¹ã‚’æ¶ˆã—é£›ã°ã™
+		enemyPos.y = floorf(enemyPos.y);	// ã¡ã‚‡ã†ã©åœ°é¢ã«ä»˜ãä½ç½®ã«
 	}
 	else
 	{
@@ -497,25 +497,25 @@ void EnemyColision::CheckIsGround(BaseEnemy& enemy, const  Map& map)
 
 void EnemyColision::CheckIsTopHit(BaseEnemy& enemy, const  Map& map)
 {
-	//ƒQƒbƒ^[‚Å•K—v‚È’l‚ğ‚Á‚Ä‚­‚é
+	//ã‚²ãƒƒã‚¿ãƒ¼ã§å¿…è¦ãªå€¤ã‚’æŒã£ã¦ãã‚‹
 	VECTOR enemyPos = enemy.GetPos();
-	//‰¡‚Æc‚Ìƒ}ƒbƒvƒ`ƒbƒv‚Ì”‚ğ‚Á‚Ä‚­‚é
+	//æ¨ªã¨ç¸¦ã®ãƒãƒƒãƒ—ãƒãƒƒãƒ—ã®æ•°ã‚’æŒã£ã¦ãã‚‹
 	int mapXnum = map.getMapXNum();
 	int mapYNum = map.getMapYNum();
-	//ƒ}ƒbƒvƒf[ƒ^‚ğ‚Á‚Ä‚­‚é
+	//ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ã‚’æŒã£ã¦ãã‚‹
 	int** mapData = map.getMapData();
 	VECTOR mapLeftPos = map.GetChipLeftPos();
 
 
-	// 1ƒhƒbƒgã‚É‚¸‚ç‚µ‚Ä“–‚½‚ê‚Î“ªã‚ª‚Ô‚Â‚©‚Á‚Ä‚¢‚é i¬”“_–³‹j
+	// 1ãƒ‰ãƒƒãƒˆä¸Šã«ãšã‚‰ã—ã¦å½“ãŸã‚Œã°é ­ä¸ŠãŒã¶ã¤ã‹ã£ã¦ã„ã‚‹ ï¼ˆå°æ•°ç‚¹ç„¡è¦–ï¼‰
 	auto checkPos = VGet(enemyPos.x, floorf(enemyPos.y) - 1.0f, enemyPos.z);
 	bool isHit;
-	//ƒ}ƒbƒv‚ÌxÀ•W‚ğ
+	//ãƒãƒƒãƒ—ã®xåº§æ¨™ã‚’
 	for (int hIndex = 0; hIndex < mapYNum; hIndex++)
 	{
 		for (int wIndex = 0; wIndex < mapXnum; wIndex++)
 		{
-			//ƒ}ƒbƒvƒ`ƒbƒv‚»‚ê‚¼‚ê‚ÌÀ•W‚ğæ“¾
+			//ãƒãƒƒãƒ—ãƒãƒƒãƒ—ãã‚Œãã‚Œã®åº§æ¨™ã‚’å–å¾—
 			VECTOR mapChipPos = VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * hIndex + mapLeftPos.y, 0);
 			isHit = IsHitEnemyWithMapChip(enemy, checkPos, mapData[hIndex][wIndex], mapChipPos);
 			if (isHit)
@@ -530,15 +530,15 @@ void EnemyColision::CheckIsTopHit(BaseEnemy& enemy, const  Map& map)
 	}
 	if (isHit)
 	{
-		//“Vˆä‚É‚Ô‚Â‚©‚Á‚Ä‚¢‚½‚©‚Ìƒtƒ‰ƒO‚ğ‚Á‚Ä‚­‚é
+		//å¤©äº•ã«ã¶ã¤ã‹ã£ã¦ã„ãŸã‹ã®ãƒ•ãƒ©ã‚°ã‚’æŒã£ã¦ãã‚‹
 		bool inIsHitTop = enemy.GetIsHitTop();
-		// ˆÈ‘O‚Ô‚Â‚©‚Á‚Ä‚¢‚È‚¢‚Ì‚É‚Ô‚Â‚©‚é‚È‚çfallSpeed‚ğƒ[ƒ‚É‚µA‘¦—‰º‚·‚é‚æ‚¤‚É
+		// ä»¥å‰ã¶ã¤ã‹ã£ã¦ã„ãªã„ã®ã«ã¶ã¤ã‹ã‚‹ãªã‚‰fallSpeedã‚’ã‚¼ãƒ­ã«ã—ã€å³è½ä¸‹ã™ã‚‹ã‚ˆã†ã«
 		if (!inIsHitTop)
 		{
 			enemy.SetIsHitTop(true);
 			enemy.SetFallSpeed(0.0f);
 
-			// ŒãX‚ÌGŒvZ‚É‹¿‚­‚Ì‚ÅAyÀ•W‚Ì¬”“_‚ğÁ‚µ”ò‚Î‚·
+			// å¾Œã€…ã®é›‘è¨ˆç®—ã«éŸ¿ãã®ã§ã€yåº§æ¨™ã®å°æ•°ç‚¹ã‚’æ¶ˆã—é£›ã°ã™
 			enemyPos.y = floorf(enemyPos.y);
 		}
 	}
