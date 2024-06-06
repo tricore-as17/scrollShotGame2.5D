@@ -30,13 +30,13 @@ public:
 	/// </summary>
 	/// <param name="map">マップのインスタンス</param>
 	/// <param name="speed">エネミーのスピード</param>
-	virtual void MoveProcess(const Map& map, const float& speed);
+	virtual void Move(const Map& map, const float& speed);
     /// <summary>
     /// エネミーのスクロールを始めるかのチェック(画面に入ったかでチェック)
     /// </summary>
     /// <param name="cameraPos">カメラのポジション</param>
     /// <returns>入っていたら(true)入ってなかったら(false)</returns>
-    virtual bool StartMoveCheck(const VECTOR& cameraPos);
+    virtual bool CheckStartMove(const VECTOR& cameraPos);
 	//ゲッターセッター
 	virtual VECTOR GetPos()const { return pos; }				//座標の取得
 	virtual void SetPos(const VECTOR inPos) { pos = inPos; }	//座標を設定

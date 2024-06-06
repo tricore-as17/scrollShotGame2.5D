@@ -52,7 +52,7 @@ void EasyEnemy::Update(const Map& map,const VECTOR&cameraPos)
 {
 
     //画面内に入ったかのチェック
-    moveStartFlag = StartMoveCheck(cameraPos);
+    moveStartFlag = CheckStartMove(cameraPos);
     
 	//移動開始フラグがたっていたら移動させる
 	if (moveStartFlag)
@@ -60,7 +60,7 @@ void EasyEnemy::Update(const Map& map,const VECTOR&cameraPos)
 		dir = VAdd(dir, VGet(-1, 0, 0));
 	}
     //当たり判定や移動処理などのエネミー共通処理を呼ぶ
-    MoveProcess(map, SPEED);
+    Move(map, SPEED);
     
 }
 

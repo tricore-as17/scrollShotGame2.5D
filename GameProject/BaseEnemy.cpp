@@ -18,7 +18,7 @@ BaseEnemy::~BaseEnemy() {/*処理なし*/ }
 /// </summary>
 /// <param name="map">マップのインスタンス</param>
 /// <param name="speed">エネミーのスピード</param>
-void BaseEnemy::MoveProcess(const Map& map,const float& speed)
+void BaseEnemy::Move(const Map& map,const float& speed)
 {
     // 正規化
     if (VSquareSize(dir) > 0)		//dirのサイズを2乗にして返す(二乗にすることでdirに値が入っていればifに入る
@@ -52,7 +52,7 @@ void BaseEnemy::MoveProcess(const Map& map,const float& speed)
 /// エネミーのスクロールを始めるかのチェック(画面に入ったかでチェック)
 /// </summary>
 /// <param name="cameraPos">カメラの座標</param>
-bool BaseEnemy::StartMoveCheck(const VECTOR& cameraPos)
+bool BaseEnemy::CheckStartMove(const VECTOR& cameraPos)
 {
     //座標が入っているかのチェック用フラグ
     bool checkFlag;
