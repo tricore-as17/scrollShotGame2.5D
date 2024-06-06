@@ -46,6 +46,8 @@ public:
 	static const float ONE_PIXEL_SIZE;				//ワールド座標での1ピクセルのサイズ
 	static constexpr int TILE_DIV_W = 22;			//マップタイルの横方向分割数
 	static constexpr int TILE_DIV_H = 11;			//マップタイルの縦方向分割数
+    static constexpr int BLANK_CHIP_NUMBER = 48;    //マップタイルの中の空白になっている番号
+    static const VECTOR CHIP_HALF_OFFSET;             //マップチップを左下に下げるためのベクトル
 
 
 private:

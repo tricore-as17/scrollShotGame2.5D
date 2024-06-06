@@ -41,7 +41,7 @@ VECTOR PlayerColision::CheckPlayerHitWithMap(Player& player, const Map& map, con
 		loop = false;
 
 		// 未来のプレイヤーのポジションをまず出す
-		VECTOR futurePos = VAdd(playerPos, ret);
+		VECTOR futurePos = VAdd(playerPos, ret);				
 
 		// 全マップチップ分繰り返す
 		for (int hIndex = 0; hIndex <mapYNum; hIndex++)
@@ -49,10 +49,8 @@ VECTOR PlayerColision::CheckPlayerHitWithMap(Player& player, const Map& map, con
 			bool isHit = false;
 			for (int wIndex = 0; wIndex < mapXNum; wIndex++)
 			{
-				//マップチップ設定時に左下にずらしているのであわせてこちらでも設定
-				VECTOR chipHalfOffset = VGet(-Map::CHIP_SIZE * 0.5f, -Map::CHIP_SIZE * 0.5f, 0);					
 				//マップチップそれぞれの座標を取得
-				VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex+mapLeftPos .x, Map::CHIP_SIZE * (-hIndex -1)  + mapLeftPos.y, 0), chipHalfOffset);
+				VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex+mapLeftPos .x, Map::CHIP_SIZE * (-hIndex -1)  + mapLeftPos.y, 0), Map::CHIP_HALF_OFFSET);
 				//マップチップとプレイヤーの当たり判定をみる
 				isHit = IsHitPlayerWithMapChip(player, futurePos, mapData[hIndex][wIndex],mapChipPos);
 
@@ -139,7 +137,7 @@ VECTOR PlayerColision::CheckPlayerHitWithMap(Player& player, const Map& map, con
 bool PlayerColision::IsHitPlayerWithMapChip(const Player& player, const  VECTOR& futurePos, int mapData,VECTOR mapChipPos)
 {
 	// マップチップが当たらない種類なら早期return
-	if (mapData == 48)
+	if (mapData == Map::BLANK_CHIP_NUMBER)
 	{
 		return false;
 	}	
@@ -152,7 +150,7 @@ bool PlayerColision::IsHitPlayerWithMapChip(const Player& player, const  VECTOR&
 	float targetRight = mapChipPos.x + Map::CHIP_SIZE * 0.5f;
 	float targetTop = mapChipPos.y - Map::CHIP_SIZE * 0.5f;
 	float targetBottom = mapChipPos.y + Map::CHIP_SIZE * 0.5f;
-	//確認用に描画
+
 	
 	// 矩形同士の当たり判定
 	if (((targetLeft <= futurePosLeft && futurePosLeft < targetRight) ||
@@ -181,7 +179,6 @@ void PlayerColision::CheckIsGround(Player& player, const  Map& map)
 	int** mapData = map.getMapData();
 	VECTOR mapLeftPos = map.GetChipLeftPos();
 
-
 	// ワールド座標での1ピクセル下にずらして当たれば地面に足がぶつかっている 
 	auto checkPos = VGet(playerPos.x, playerPos.y - Map::ONE_PIXEL_SIZE, playerPos.z);
 	bool isHit;
@@ -190,10 +187,8 @@ void PlayerColision::CheckIsGround(Player& player, const  Map& map)
 	{
 		for (int wIndex = 0; wIndex < mapXnum; wIndex++)
 		{
-			//マップチップ設定時に左下にずらしているのであわせてこちらでも設定
-			VECTOR chipHalfOffset = VGet(-Map::CHIP_SIZE * 0.5f, -Map::CHIP_SIZE * 0.5f, 0);
 			//マップチップそれぞれの座標を取得
-			VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * (-hIndex - 1) + mapLeftPos.y, 0), chipHalfOffset);
+			VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * (-hIndex - 1) + mapLeftPos.y, 0), Map::CHIP_HALF_OFFSET);
 			//設定した座標同士の当たり判定を確認する
 			isHit = IsHitPlayerWithMapChip(player, checkPos, mapData[hIndex][wIndex],mapChipPos);
 			//当たっていたら処理から抜ける
@@ -244,9 +239,8 @@ void PlayerColision::CheckIsTopHit(Player& player, const  Map& map)
 	{
 		for (int wIndex = 0; wIndex < mapXnum; wIndex++)
 		{
-			//マップチップ設定時に左下にずらしているのであわせてこちらでも設定
-			VECTOR chipHalfOffset = VGet(-Map::CHIP_SIZE * 0.5f, -Map::CHIP_SIZE * 0.5f, 0);					
-			VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * (-hIndex - 1) + mapLeftPos.y, 0), chipHalfOffset);
+				
+			VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * (-hIndex - 1) + mapLeftPos.y, 0), Map::CHIP_HALF_OFFSET);
 			//設定した座標同士で当たり判定を調べる
 			isHit = IsHitPlayerWithMapChip(player, checkPos, mapData[hIndex][wIndex], mapChipPos);
 			//当たっていたら即ループから抜ける
@@ -319,6 +313,7 @@ VECTOR EnemyColision::CheckEnemyHitWithMap(BaseEnemy& enemy, const Map& map, con
 		// 未来のプレイヤーのポジションをまず出す
 		VECTOR futurePos = VAdd(enemyPos, ret);
 
+
 		// 全マップチップ分繰り返す
 		for (int hIndex = 0; hIndex < mapYNum; hIndex++)
 		{
@@ -326,22 +321,14 @@ VECTOR EnemyColision::CheckEnemyHitWithMap(BaseEnemy& enemy, const Map& map, con
 			for (int wIndex = 0; wIndex < mapXNum; wIndex++)
 			{
 				//マップチップそれぞれの座標を取得
-				VECTOR mapChipPos = VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * (-hIndex - 1) + mapLeftPos.y, 0);
+				VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * (-hIndex - 1) + mapLeftPos.y, 0),Map::CHIP_HALF_OFFSET);
 				//マップチップとプレイヤーの当たり判定をみる
 				isHit = IsHitEnemyWithMapChip(enemy, futurePos, mapData[hIndex][wIndex], mapChipPos);
 
 				// 初回に当たったとき
 				if (isHit && isFirstHit)
 				{
-					// 今後当たり判定でポジションやvelocityの補正をするとき、小数点以下の誤差が産まれる
-					// 雑に1ドットずつ減らす、数学計算をしないマッシブ当たり判定には邪魔なので初回に丸めてしまい、
-					// 以降改めて当たり判定
-					// posもVelocityも丸める
-					enemyPos.x = floorf(enemyPos.x);		//floorfは小数点を丸める
-					enemyPos.y = floorf(enemyPos.y);
-					enemy.SetPos(enemyPos);
-					ret.x = floorf(ret.x);
-					ret.y = floorf(ret.y);
+                    //初回のフラグを消してループフラグをたてる
 					isFirstHit = false;
 					loop = true;	// ループ継続
 				}
@@ -359,19 +346,20 @@ VECTOR EnemyColision::CheckEnemyHitWithMap(BaseEnemy& enemy, const Map& map, con
 					// x成分を縮め切っていなければx成分を縮める
 					bool shrinkX = (absX != 0.0f);	// x成分を縮めるかどうか
 
+                    //スクリーン座標の1ピクセルをwワールド座標での大きさに変換した値分縮める
 					if (shrinkX)
 					{
 						if (ret.x > 0.0f)
 						{
-							ret.x -= 1.0f;
+							ret.x -= Map::ONE_PIXEL_SIZE;
 						}
 						else
 						{
-							ret.x += 1.0f;
+							ret.x += Map::ONE_PIXEL_SIZE;
 						}
 
 						// 縮め切ったら消す
-						if (fabs(ret.x) < 1.0f)
+						if (fabs(ret.x) < Map::ONE_PIXEL_SIZE)
 						{
 							ret.x = 0.0f;
 						}
@@ -381,15 +369,15 @@ VECTOR EnemyColision::CheckEnemyHitWithMap(BaseEnemy& enemy, const Map& map, con
 					{
 						if (ret.y > 0.0f)
 						{
-							ret.y -= 1.0f;
+							ret.y -= Map::ONE_PIXEL_SIZE;
 						}
 						else
 						{
-							ret.y += 1.0f;
+							ret.y += Map::ONE_PIXEL_SIZE;
 						}
 
 						// 縮め切ったら消す
-						if (fabs(ret.y) < 1.0f)
+						if (fabs(ret.y) < Map::ONE_PIXEL_SIZE)
 						{
 							ret.y = 0.0f;
 						}
@@ -414,7 +402,7 @@ VECTOR EnemyColision::CheckEnemyHitWithMap(BaseEnemy& enemy, const Map& map, con
 bool EnemyColision::IsHitEnemyWithMapChip(const BaseEnemy& enemy, const  VECTOR& futurePos, int mapData, VECTOR mapChipPos)
 {
 	// マップチップが当たらない種類なら早期return
-	if (mapData == -1)
+	if (mapData == Map::BLANK_CHIP_NUMBER)
 	{
 		return false;
 	}
@@ -455,8 +443,8 @@ void EnemyColision::CheckIsGround(BaseEnemy& enemy, const  Map& map)
 	VECTOR mapLeftPos = map.GetChipLeftPos();
 
 
-	// 1ドット下にずらして当たれば地面に足がぶつかっている （小数点無視）
-	auto checkPos = VGet(enemyPos.x, floorf(enemyPos.y) + 1.0f, enemyPos.z);
+	// 1ドット下にずらして当たれば地面に足がぶつかっている 
+	auto checkPos = VGet(enemyPos.x, enemyPos.y - Map::ONE_PIXEL_SIZE, enemyPos.z);
 	bool isHit;
 	// 全マップチップ分繰り返す
 	for (int hIndex = 0; hIndex < mapYNum; hIndex++)
@@ -464,11 +452,10 @@ void EnemyColision::CheckIsGround(BaseEnemy& enemy, const  Map& map)
 		for (int wIndex = 0; wIndex < mapXnum; wIndex++)
 		{
 			//マップチップそれぞれの座標を取得
-			VECTOR mapChipPos = VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * hIndex + mapLeftPos.y, 0);
-			//if (isHit == false)
-			//{
+            VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * (-hIndex - 1) + mapLeftPos.y, 0), Map::CHIP_HALF_OFFSET);
+
 			isHit = IsHitEnemyWithMapChip(enemy, checkPos, mapData[hIndex][wIndex], mapChipPos);
-			//}
+
 			if (isHit)
 			{
 				break;
@@ -485,9 +472,6 @@ void EnemyColision::CheckIsGround(BaseEnemy& enemy, const  Map& map)
 		enemy.SetIsGround(true);
 		// fallSpeedをゼロにし、急激な落下を防ぐ
 		enemy.SetFallSpeed(0.0f);
-
-		// 後々の雑計算に響くので、y座標の小数点を消し飛ばす
-		enemyPos.y = floorf(enemyPos.y);	// ちょうど地面に付く位置に
 	}
 	else
 	{
@@ -508,7 +492,7 @@ void EnemyColision::CheckIsTopHit(BaseEnemy& enemy, const  Map& map)
 
 
 	// 1ドット上にずらして当たれば頭上がぶつかっている （小数点無視）
-	auto checkPos = VGet(enemyPos.x, floorf(enemyPos.y) - 1.0f, enemyPos.z);
+	auto checkPos = VGet(enemyPos.x, enemyPos.y + Map::ONE_PIXEL_SIZE, enemyPos.z);
 	bool isHit;
 	//マップのx座標を
 	for (int hIndex = 0; hIndex < mapYNum; hIndex++)
@@ -516,7 +500,7 @@ void EnemyColision::CheckIsTopHit(BaseEnemy& enemy, const  Map& map)
 		for (int wIndex = 0; wIndex < mapXnum; wIndex++)
 		{
 			//マップチップそれぞれの座標を取得
-			VECTOR mapChipPos = VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * hIndex + mapLeftPos.y, 0);
+            VECTOR mapChipPos = VAdd(VGet(Map::CHIP_SIZE * wIndex + mapLeftPos.x, Map::CHIP_SIZE * (-hIndex - 1) + mapLeftPos.y, 0), Map::CHIP_HALF_OFFSET);
 			isHit = IsHitEnemyWithMapChip(enemy, checkPos, mapData[hIndex][wIndex], mapChipPos);
 			if (isHit)
 			{
@@ -538,8 +522,6 @@ void EnemyColision::CheckIsTopHit(BaseEnemy& enemy, const  Map& map)
 			enemy.SetIsHitTop(true);
 			enemy.SetFallSpeed(0.0f);
 
-			// 後々の雑計算に響くので、y座標の小数点を消し飛ばす
-			enemyPos.y = floorf(enemyPos.y);
 		}
 	}
 	else

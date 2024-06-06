@@ -2,19 +2,33 @@
 #include"DxLib.h"
 #include"GameObject.h"
 
+class Map;
+
 /// <summary>
 /// エネミーの共通する部分をまとめた基底クラス
 /// </summary>
-class BaseEnemy:public GameObject
+class BaseEnemy abstract :public GameObject 
 {
 public:
 	//コンストラクタデストラクタ
 	BaseEnemy();
 	virtual ~BaseEnemy();
+    /// <summary>
+    /// ゲーム開始時の初期化
+    /// </summary>
+    virtual void Init(const VECTOR& initPos )abstract;
+    /// <summary>
+    /// ゲーム中の更新処理
+    /// </summary>
+    virtual void Update()abstract;
+    /// <summary>
+    /// ゲーム中の描画
+    /// </summary>
+    virtual void Draw()abstract;
 	/// <summary>
 	/// エネミーの共通するスクロール処理(マップのスクロールに合わせてエネミーも移動)
 	/// </summary>
-	virtual void ScrollProcess();
+	virtual void MoveProcess(const Map& map, const float& speed);
 	//ゲッターセッター
 	virtual VECTOR GetPos()const { return pos; }				//座標の取得
 	virtual void SetPos(const VECTOR inPos) { pos = inPos; }	//座標を設定

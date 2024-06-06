@@ -17,9 +17,9 @@ class EnemyManager
 {
 public:
 	//定数群
-	//初期座標
-	static constexpr int EAZY1_FIRST_X = 1440;	
-	static constexpr int EAZY1_FIRST_Y = 352;
+	//初期座標(１マップチップ0.725の値で計算)
+	static constexpr float EAZY1_FIRST_X = 32.625f;	
+	static constexpr int EAZY1_FIRST_Y = 9.425f;
 	EnemyManager();		//コンストラクタ
 	~EnemyManager();	//デストラクタ
 	/// <summary>

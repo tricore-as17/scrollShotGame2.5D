@@ -9,7 +9,7 @@
 EnemyManager::EnemyManager()
 {
 	//一番弱い敵をインスタンス化
-	easyEnemy.emplace_back(new EasyEnemy(EAZY1_FIRST_X));	//1体目
+	easyEnemy.emplace_back(new EasyEnemy());	//1体目
 }
 
 /// <summary>
@@ -37,7 +37,7 @@ void EnemyManager::Update(const Map& map, const Player& player)
 {
 	//プレイヤーの移動方向の取得
 	VECTOR playerVec = player.GetKeepVelocity();
-	easyEnemy[0]->Update(map, playerVec);
+	easyEnemy[0]->Update(map);
 }
 /// <summary>
 /// 描画

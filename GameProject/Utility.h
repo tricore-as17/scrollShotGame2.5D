@@ -69,6 +69,14 @@ public:
 	/// <param name="num">作成するベクタの数</param>
 	/// <returns></returns>
 	vector<int> CreateArrayVector(const int targetData[], int num);
+
+    /// <summary>
+    /// 四角の当たり判定の描画
+    /// </summary>
+    /// <param name="pos">描画したいものの座標</param>
+    /// <param name="w">幅</param>
+    /// <param name="h">高さ</param>
+    static void DrawSquareCollisionDetection(const VECTOR& pos,const float& w,const float&h );
 	//更新処理
 	void Update();
 private:

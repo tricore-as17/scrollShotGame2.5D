@@ -85,6 +85,34 @@ vector<int> Utility::CreateArrayVector(const int targetData[], int num)
 }
 
 /// <summary>
+/// 四角の当たり判定の描画
+/// </summary>
+/// <param name="pos">描画したいものの座標</param>
+/// <param name="w">幅</param>
+/// <param name="h">高さ</param>
+void Utility::DrawSquareCollisionDetection(const VECTOR& pos, const float& w, const float& h)
+{
+    //左上座標
+    VECTOR leftUpPos = VGet(pos.x - w * 0.5f, pos.y + h * 0.5f, 0.0f);
+    //左下座標
+    VECTOR leftDownPos = VGet(pos.x - w * 0.5f, pos.y - h * 0.5f, 0.0f);
+    //右上座標
+    VECTOR rightUpPos = VGet(pos.x + w * 0.5f, pos.y + h * 0.5f, 0.0f);
+    //右下座標
+    VECTOR rightDownPos = VGet(pos.x + w * 0.5f, pos.y - h * 0.5f, 0.0f);
+    //左の線の描画
+    DrawLine3D(leftUpPos, leftDownPos,WHITE);
+    //上の線の描画
+    DrawLine3D(leftUpPos, rightUpPos, WHITE);
+    //右の線の描画
+    DrawLine3D(rightUpPos, rightDownPos, WHITE);
+    //下の線の描画
+    DrawLine3D(leftDownPos, rightDownPos, WHITE);
+
+    
+}
+
+/// <summary>
 /// カウントなどの更新処理
 /// </summary>
 void Utility::Update()
