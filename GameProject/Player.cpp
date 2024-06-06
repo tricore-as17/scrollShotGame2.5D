@@ -128,12 +128,12 @@ void Player::Update(bool keyStop,const Map &map)
 	if (velocity.x > 0)
 	{
 		//右回転の行列を設定;
-		rotaVector = VGet(20.0f, -90.0f, 0.0f);
+		rotaVector = VGet(rotaVector.x, -90.0f, rotaVector.z);
 	}
 	else if (velocity.x < 0)
 	{
 		//右回転の行列を設定;
-		rotaVector = VGet(20.0f, 90.0f, 0.0f);
+		rotaVector = VGet(rotaVector.x, 90.0f, rotaVector.z);
 	}
 	//モデルに拡大率、座標移動、回転率を与えるための行列を作成して反映させる
 	MATRIX modelMatrix = CalculationModelMatrixYXZ(SCALE_MATRIX, addPos, rotaVector);
@@ -153,7 +153,7 @@ void Player::Update(bool keyStop,const Map &map)
 	}
 
 	//アニメーションカウントの更新(１回の再生時間を超えたらリセット)
-	playTime += 0.7f;
+	playTime += ANIMETION_SPEED;
 	if (playTime >= totalAnimeTime)
 	{
 		playTime = 0.0f;
