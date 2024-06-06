@@ -40,6 +40,9 @@
     <Filter Include="ソース ファイル\Utility">
       <UniqueIdentifier>{14fdac80-f327-4240-a151-ffa00db026e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Shot">
+      <UniqueIdentifier>{2f2a679c-108a-4acf-b48c-6b726db01d1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -82,10 +85,10 @@
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
     <ClCompile Include="Shot.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Shot</Filter>
     </ClCompile>
     <ClCompile Include="ShotManager.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Shot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -129,10 +132,10 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Shot.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル\Shot</Filter>
     </ClInclude>
     <ClInclude Include="ShotManager.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル\Shot</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
