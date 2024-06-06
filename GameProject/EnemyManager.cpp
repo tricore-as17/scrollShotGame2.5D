@@ -9,7 +9,7 @@
 EnemyManager::EnemyManager()
 {
 	//一番弱い敵をインスタンス化
-	easyEnemy.emplace_back(new EasyEnemy(EAZY1_FIRST_X));	//1体目
+	easyEnemy.emplace_back(new EasyEnemy());	//1体目
 }
 
 /// <summary>
@@ -29,15 +29,14 @@ void EnemyManager::Init()
 	easyEnemy[0]->Init(VGet(EAZY1_FIRST_X, EAZY1_FIRST_Y, 0));
 }
 /// <summary>
-/// 更新処理
+/// エネミー全体の更新処理
 /// </summary>
 /// <param name="map">マップのインスタンス</param>
-/// <param name="player">プレイヤーのインスタンス</param>
-void EnemyManager::Update(const Map& map, const Player& player)
+/// <param name="cameraPos">カメラの座標</param>
+void EnemyManager::Update(const Map& map, const VECTOR& cameraPos)
 {
-	//プレイヤーの移動方向の取得
-	VECTOR playerVec = player.GetKeepVelocity();
-	easyEnemy[0]->Update(map, playerVec);
+
+	easyEnemy[0]->Update(map,cameraPos);
 }
 /// <summary>
 /// 描画

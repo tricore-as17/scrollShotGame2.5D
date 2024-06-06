@@ -1,5 +1,7 @@
 ﻿#include"BaseEnemy.h"
+#include"Colision.h"
 #include"Utility.h"
+#include"Map.h"
 
 /// <summary>
 /// コンストラクタ
@@ -12,13 +14,62 @@ BaseEnemy::BaseEnemy() :moveStartFlag(false) {}	//フラグの初期化
 BaseEnemy::~BaseEnemy() {/*処理なし*/ }
 
 /// <summary>
-/// エネミーの共通するスクロール処理(マップのスクロールに合わせてエネミーも移動)
+/// 当たり判定などの更新処理のなかでの共通処理をまとめたもの
 /// </summary>
-void BaseEnemy::ScrollProcess()
+/// <param name="map">マップのインスタンス</param>
+/// <param name="speed">エネミーのスピード</param>
+void BaseEnemy::Move(const Map& map,const float& speed)
 {
-	//エネミーが画面内に入ったらスクロールフラグを立てる
-	if (pos.x <= SCREEN_W)
-	{
-		moveStartFlag = true;
-	}
+    // 正規化
+    if (VSquareSize(dir) > 0)		//dirのサイズを2乗にして返す(二乗にすることでdirに値が入っていればifに入る
+    {
+        dir = VNorm(dir);			//各成分のサイズを１にする
+    }
+
+    //移動量を出す
+    VECTOR velocity = VScale(dir, speed);
+
+    //重力の値だけ落下させる
+    fallSpeed -= Utility::GRAVITY;
+
+    // HACK: 先に設定判定をすることでfallSpeed修正＋接地フラグ更新
+    EnemyColision::CheckIsGround(*this, map);
+    EnemyColision::CheckIsTopHit(*this, map);
+
+    // 落下速度を移動量に加える
+    VECTOR fallVelocity = VGet(0, fallSpeed, 0);	// 落下をベクトルに。y座標しか変化しないので最後にベクトルにする
+    velocity = VAdd(velocity, fallVelocity);
+
+    // 当たり判定をして、壁にめり込まないようにvelocityを操作する
+    velocity = EnemyColision::CheckEnemyHitWithMap(*this, map, velocity);
+
+    // 移動
+    pos = VAdd(pos, velocity);
+        
 }
+
+/// <summary>
+/// エネミーのスクロールを始めるかのチェック(画面に入ったかでチェック)
+/// </summary>
+/// <param name="cameraPos">カメラの座標</param>
+bool BaseEnemy::CheckStartMove(const VECTOR& cameraPos)
+{
+    //座標が入っているかのチェック用フラグ
+    bool checkFlag;
+    //画面右端の座標
+    float RightLimit = cameraPos.x +Utility::WORLD_SCREEN_W_SIZE * 0.5;
+    //画面左端の座標
+    float LeftLimit = cameraPos.x - Utility::WORLD_SCREEN_W_SIZE * 0.5;
+    //画面内に座標があるかのチェック
+    if (pos.x < RightLimit && LeftLimit < pos.x)
+    {
+        checkFlag = true;
+    }
+    else
+    {
+        checkFlag = false;
+    }
+    return checkFlag;
+}
+
+

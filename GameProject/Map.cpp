@@ -8,6 +8,8 @@
 //ワールド座標での32ピクセルのサイズから1ピクセルを計算して出す
 const float Map::ONE_PIXEL_SIZE = Map::CHIP_SIZE / 32;
 
+//マップチップを左下に下げる際に使うベクトルの初期化
+const VECTOR Map::CHIP_HALF_OFFSET = VGet(-Map::CHIP_SIZE * 0.5f, -Map::CHIP_SIZE * 0.5f, 0);
 //コンストラクタ
 Map::Map()
 {

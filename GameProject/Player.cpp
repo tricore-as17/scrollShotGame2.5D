@@ -13,7 +13,7 @@ const MATRIX Player::SCALE_MATRIX = MGetScale(VGet(SCALE, SCALE, SCALE));
 Player::Player():isHitTop(false),isGround(false)
 {
 	//座標の初期化
-	pos = VGet(10, 8, 0);
+	pos = VGet(0, 0, 0);
 	dir = VGet(0, 0, 1);
 	fallSpeed = 0;
 	playTime = 0.0f;

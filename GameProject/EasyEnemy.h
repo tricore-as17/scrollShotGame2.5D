@@ -12,26 +12,29 @@ class EasyEnemy :public BaseEnemy
 {
 public:
 	//定数群
-	static constexpr float SPEED = 2.5f;		//スピード
-	static constexpr float W = 64.0f;			//幅
-	static constexpr float H = 64.0f;			//高さ
+	static const float SPEED;		//スピード
+	static constexpr float W = 1.45f;			//幅
+	static constexpr float H = 1.45f;			//高さ
 	//メソッド
-	EasyEnemy(int inFirstX);			//コンストラクタ	
+	EasyEnemy();			//コンストラクタ	
 	~EasyEnemy();						//デストラクタ
 	/// <summary>
 	/// ゲーム開始時の初期化
 	/// </summary>
 	/// <param name="initPos">初期化用の座標</param>
-	void Init(VECTOR initPos);				
-	/// <summary>
-	/// 更新処理
-	/// </summary>
-	/// <param name="map">マップの情報が入ったインスタンス</param>
-	/// <param name="playerVec">プレイヤーのベクトルをもってくる</param>
-	void Update(const Map& map,const VECTOR& playerVec);	
+	void Init(const VECTOR& initPos)override;
+    /// <summary>
+    /// 初期エネミーの更新処理
+    /// </summary>
+    /// <param name="map">マップのインスタンス</param>
+    /// <param name="cameraPos">カメラの座標</param>
+	void Update(const Map& map, const VECTOR& cameraPos);
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw();							
+	void Draw()override;
+
+    //使用しない純粋仮想関数の定義
+    void Update(){}
 
 };

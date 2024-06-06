@@ -17,21 +17,21 @@ class EnemyManager
 {
 public:
 	//定数群
-	//初期座標
-	static constexpr int EAZY1_FIRST_X = 1440;	
-	static constexpr int EAZY1_FIRST_Y = 352;
+	//初期座標(１マップチップ0.725の値で計算)
+	static constexpr float EAZY1_FIRST_X = 32.625f;	
+	static constexpr int EAZY1_FIRST_Y = 9.425f;
 	EnemyManager();		//コンストラクタ
 	~EnemyManager();	//デストラクタ
 	/// <summary>
 	/// ゲーム開始ごとの初期化
 	/// </summary>
 	void Init();
-	/// <summary>
-	/// エネミーの更新処理をまとめたもの
-	/// </summary>
-	/// <param name="map">マップのインスタンス</param>
-	/// <param name="player">プレイヤーのインスタンス</param>
-	void Update(const Map&map,const Player&player);
+    /// <summary>
+    /// エネミー全体の更新処理
+    /// </summary>
+    /// <param name="map">マップのインスタンス</param>
+    /// <param name="cameraPos">カメラの座標</param>
+	void Update(const Map&map, const VECTOR& cameraPos);
 	void Draw();
 private:
 	vector<EasyEnemy*> easyEnemy;	//一番弱い敵

@@ -39,6 +39,9 @@ public:
 	//定数群
 	static constexpr float GRAVITY = 0.005f;			//重力の値
 	static const float CONVERSION_RADIAN ;				//角度をラジアンに変換する際にしようする定数
+    static constexpr float WORLD_SCREEN_W_SIZE = 29.0f;    //ワールド座標に合わせたスクリーンの幅
+    static constexpr float WORLD_SCREEN_H_SIZE = 18.125f;    //ワールド座標に合わせたスクリーンの高さ
+
 
 	//ゲッターセッター
 	//経過時間のゲッター
@@ -69,6 +72,14 @@ public:
 	/// <param name="num">作成するベクタの数</param>
 	/// <returns></returns>
 	vector<int> CreateArrayVector(const int targetData[], int num);
+
+    /// <summary>
+    /// 四角の当たり判定の描画
+    /// </summary>
+    /// <param name="pos">描画したいものの座標</param>
+    /// <param name="w">幅</param>
+    /// <param name="h">高さ</param>
+    static void DrawSquareCollisionDetection(const VECTOR& pos,const float& w,const float&h );
 	//更新処理
 	void Update();
 private:
