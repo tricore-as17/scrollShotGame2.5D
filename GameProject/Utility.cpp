@@ -1,51 +1,51 @@
-#include"Utility.h"
+ï»¿#include"Utility.h"
 #include"DxLib.h"
 
-//static•Ï”‚Ì‰Šú‰»
+//staticå¤‰æ•°ã®åˆæœŸåŒ–
 float Utility::fps = 0;
 int Utility::startTime = GetNowCount();
 int Utility::roopCount = 0;
 
 /// <summary>
-/// ƒtƒŒ[ƒ€ƒŒ[ƒg‚Ì’²®‚ğ‚·‚é•Ï”‚È‚Ç‚Ì‰Šú‰»
+/// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã®èª¿æ•´ã‚’ã™ã‚‹å¤‰æ•°ãªã©ã®åˆæœŸåŒ–
 /// </summary>
 void Utility::FpsInit()
 {
-    //ƒQ[ƒ€ŠJn“_‚ÌŠÔ‚ğæ“¾
+    //ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ç‚¹ã®æ™‚é–“ã‚’å–å¾—
     startTime = GetNowCount();
     roopCount = 0;
     fps = 0;
 }
 /// <summary>
-/// ƒtƒŒ[ƒ€ƒŒ[ƒg‚ÌŒvZ‚Ì‚½‚ß‚ÉƒJƒEƒ“ƒg‚È‚Ç‚ğæ“¾
+/// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã®è¨ˆç®—ã®ãŸã‚ã«ã‚«ã‚¦ãƒ³ãƒˆãªã©ã‚’å–å¾—
 /// </summary>
 void Utility::FpsUpdate()
 {
-    //1ƒtƒŒ[ƒ€–Ú‚È‚ç
+    //1ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ãªã‚‰
     if (roopCount == 0)
     {
         startTime = GetNowCount();
     }
-    //60ƒtƒŒ[ƒ€–Ú‚È‚ç
+    //60ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ãªã‚‰
     if (roopCount == AVERAGE_FLAME)
     {
-        //Œ»İ‚Ì’l‚ğ‘ã“ü
+        //ç¾åœ¨ã®å€¤ã‚’ä»£å…¥
         int tmp = GetNowCount();
-        //•\¦‚·‚éFPS‚Ì’l‚ğ‘ã“ü
+        //è¡¨ç¤ºã™ã‚‹FPSã®å€¤ã‚’ä»£å…¥
         fps = 1000.f / ((tmp - startTime) / (float)AVERAGE_FLAME);
-        //ƒ‹[ƒvƒJƒEƒ“ƒg‚Ì‰Šú‰»
+        //ãƒ«ãƒ¼ãƒ—ã‚«ã‚¦ãƒ³ãƒˆã®åˆæœŸåŒ–
         roopCount = 0;
         startTime = tmp;
     }
     roopCount++;
 }
 /// <summary>
-/// æ“¾‚µ‚½ƒJƒEƒ“ƒg‚ğg—p‚µÀÛ‚ÉƒtƒŒ[ƒ€ƒŒ[ƒg‚ğ’²ß‚·‚é
+/// å–å¾—ã—ãŸã‚«ã‚¦ãƒ³ãƒˆã‚’ä½¿ç”¨ã—å®Ÿéš›ã«ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã‚’èª¿ç¯€ã™ã‚‹
 /// </summary>
 void Utility::FpsControll()
 {
-    int tookTime = GetNowCount() - startTime;                   //Œ»İ‚ÌƒtƒŒ[ƒ€‚ÌŒo‰ß‚©‚ç1ƒtƒŒ[ƒ€–Ú‚ÅŒvZ‚µ‚½’l‚ğˆø‚­
-    int waitTime = roopCount * 1000 / 60 - tookTime;            //tookTime‚Ì’l‚ª‘å‚«‚¢‚Æ‚PƒtƒŒ[ƒ€•Ó‚è‚É‚©‚©‚éŠÔ‚ª’·‚¢‚Ì‚Åˆ—‚ª’x‚¢‚±‚Æ‚É‚È‚é
+    int tookTime = GetNowCount() - startTime;                   //ç¾åœ¨ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã®çµŒéã‹ã‚‰1ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ã§è¨ˆç®—ã—ãŸå€¤ã‚’å¼•ã
+    int waitTime = roopCount * 1000 / 60 - tookTime;            //tookTimeã®å€¤ãŒå¤§ãã„ã¨ï¼‘ãƒ•ãƒ¬ãƒ¼ãƒ è¾ºã‚Šã«ã‹ã‹ã‚‹æ™‚é–“ãŒé•·ã„ã®ã§å‡¦ç†ãŒé…ã„ã“ã¨ã«ãªã‚‹
 
     if (waitTime > 0)
     {
@@ -54,11 +54,11 @@ void Utility::FpsControll()
 }
 
 /// <summary>
-/// ƒQ[ƒ€‚Ég—p‚·‚éƒXƒNƒ[ƒ‹ƒXƒs[ƒh‚âƒJƒEƒ“ƒg‚È‚Ç‚ğ‰Šú‰»
+/// ã‚²ãƒ¼ãƒ ã«ä½¿ç”¨ã™ã‚‹ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚„ã‚«ã‚¦ãƒ³ãƒˆãªã©ã‚’åˆæœŸåŒ–
 /// </summary>
 void Utility::StartInit()
 {
-    //ƒQ[ƒ€ŠJnŠÔ‚ğ‹L˜^
+    //ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚é–“ã‚’è¨˜éŒ²
     gameStartTime = GetNowCount();
     elapsedTime = 0;
     scrollSpeed = FIRST_SCROLL_SPEED;
@@ -67,10 +67,10 @@ void Utility::StartInit()
 }
 
 /// <summary>
-/// ”z—ñ‚Ö‚Ìƒ|ƒCƒ“ƒ^‚ğ‚à‚ç‚Á‚ÄƒxƒNƒ^‚ğì¬‚·‚é
+/// é…åˆ—ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã‚’ã‚‚ã‚‰ã£ã¦ãƒ™ã‚¯ã‚¿ã‚’ä½œæˆã™ã‚‹
 /// </summary>
-/// <param name="targetData">ƒxƒNƒ^“à‚É“ü‚ê‚é”z—ñ‚Ìƒf[ƒ^</param>
-/// <param name="num">ì¬‚·‚éƒxƒNƒ^‚Ì”</param>
+/// <param name="targetData">ãƒ™ã‚¯ã‚¿å†…ã«å…¥ã‚Œã‚‹é…åˆ—ã®ãƒ‡ãƒ¼ã‚¿</param>
+/// <param name="num">ä½œæˆã™ã‚‹ãƒ™ã‚¯ã‚¿ã®æ•°</param>
 /// <returns></returns>
 vector<int> Utility::CreateArrayVector(const int targetData[], int num)
 {
@@ -83,9 +83,9 @@ vector<int> Utility::CreateArrayVector(const int targetData[], int num)
 }
 
 /// <summary>
-/// ƒJƒEƒ“ƒg‚È‚Ç‚ÌXVˆ—
+/// ã‚«ã‚¦ãƒ³ãƒˆãªã©ã®æ›´æ–°å‡¦ç†
 /// </summary>
 void Utility::Update()
 {
-    //ˆ—‚È‚µ
+    //å‡¦ç†ãªã—
 }

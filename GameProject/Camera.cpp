@@ -1,60 +1,60 @@
-#include"Camera.h"
+﻿#include"Camera.h"
 #include"Map.h"
 #include"Player.h"
 
 /// <summary>
-/// �R���X�g���N�^
+/// コンストラクタ
 /// </summary>
 Camera::Camera()
 {
-    //���s0.1�`1000�܂ł��J�����̕`��͈͂Ƃ���
+    //奥行0.1～1000までをカメラの描画範囲とする
     SetCameraNearFar(0.1f, 1000.0f);
-    //���W�̏�����
+    //座標の初期化
     pos = VGet(0, 0, 0);
 }
 
 /// <summary>
-/// �f�X�g���N�^
+/// デストラクタ
 /// </summary>
 Camera::~Camera()
 {
-    //�����Ȃ�
+    //処理なし
 }
 
 /// <summary>
-/// �Q�[���J�n���Ƃ̏�����
+/// ゲーム開始ごとの初期化
 /// </summary>
 void Camera::Init()
 {
-    //���W�̏�����
+    //座標の初期化
     pos = VGet(0, 0, 0);
 
 }
 
 /// <summary>
-/// �J�������v���C���[�̈ʒu��}�b�v�̈ʒu�ɍ��킹�čX�V����
+/// カメラをプレイヤーの位置やマップの位置に合わせて更新する
 /// </summary>
-/// <param name="map">�}�b�v�̃C���X�^���X</param>
-/// <param name="player">�v���C���̃C���X�^���X</param>
+/// <param name="map">マップのインスタンス</param>
+/// <param name="player">プレイヤのインスタンス</param>
 void Camera::Update(const Map& map, const Player& player)
 {
-    //�v���C���[�ƃ}�b�v�̍��W�������Ă���
+    //プレイヤーとマップの座標を持ってくる
     VECTOR playerPos = player.GetPos();
     int mapYNum = map.getMapYNum();
 
-    // �傫��0.5�̃}�b�v�`�b�v���A�}�b�vY�̐������z�u����
-    // �v���C���[�̒n�ʂ�Y�ʒu��0�Ƃ������̂ŁA�n�㕔�̃}�b�v�`�b�v�̐��͓���炵���ʒu�Œ���
-    // ���̐^�񒆂ɕ\������̂Ŕ������v�Z�ŏo��
-    // �v���C���[��X���W�ɂ͒Ǐ]�������̂�player��X���g��
+    // 大きさ0.5のマップチップを、マップYの数だけ配置する
+    // プレイヤーの地面のY位置を0としたいので、地上部のマップチップの数は二つ減らした位置で調整
+    // その真ん中に表示するので半分を計算で出す
+    // プレイヤーのX座標には追従したいのでplayerのXを使う
     VECTOR cameraPos = VGet(playerPos.x, Map::CHIP_SIZE * (mapYNum - 2) * 0.5f, playerPos.z - 15.0f);
 
 
-    // �������鎋�_�́A�J�����ƕ��s�ɂ܂�����z=0�n�_
+    // 注視する視点は、カメラと平行にまっすぐz=0地点
     VECTOR lookPos = VGet(cameraPos.x, cameraPos.y, 0.0f);
 
     pos = cameraPos;
 
-    // �J�����Ɉʒu�𔽉f.
+    // カメラに位置を反映.
     SetCameraPositionAndTarget_UpVecY(pos, lookPos);
     
 }

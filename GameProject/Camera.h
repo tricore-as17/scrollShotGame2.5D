@@ -1,32 +1,32 @@
-#pragma once
+ï»¿#pragma once
 #include"DxLib.h"
 
-//ƒNƒ‰ƒX‚Ìƒvƒƒgƒ^ƒCƒvéŒ¾
+//ã‚¯ãƒ©ã‚¹ã®ãƒ—ãƒ­ãƒˆã‚¿ã‚¤ãƒ—å®£è¨€
 class Map;
 class Player;
 
 /// <summary>
-/// ƒJƒƒ‰
+/// ã‚«ãƒ¡ãƒ©
 /// </summary>
 class Camera
 {
 public:
-    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-    //ƒfƒXƒgƒ‰ƒNƒ^
+    //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     Camera();
     ~Camera();
     /// <summary>
-    /// ƒQ[ƒ€ŠJn‚²‚Æ‚Ì‰Šú‰»
+    /// ã‚²ãƒ¼ãƒ é–‹å§‹ã”ã¨ã®åˆæœŸåŒ–
     /// </summary>
     void Init();
     /// <summary>
-    /// ƒJƒƒ‰‚Ìƒ|ƒWƒVƒ‡ƒ“‚È‚Ç‚ÌXV(ƒvƒŒƒCƒ„[‚ğ’Ç]
+    /// ã‚«ãƒ¡ãƒ©ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ãªã©ã®æ›´æ–°(ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’è¿½å¾“
     /// </summary>
-    /// <param name="map">ƒ}ƒbƒv‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</param>
-    /// <param name="player">ƒvƒŒƒCƒ„[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</param>
+    /// <param name="map">ãƒãƒƒãƒ—ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</param>
+    /// <param name="player">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</param>
     void Update(const Map& map, const Player& player);
-    //ƒ|ƒWƒVƒ‡ƒ“‚Ìgetter/setter
+    //ãƒã‚¸ã‚·ãƒ§ãƒ³ã®getter/setter
     const VECTOR& GetPos() const { return pos; }
 private:   
-    VECTOR pos;         //À•W
+    VECTOR pos;         //åº§æ¨™
 };
