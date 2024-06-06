@@ -23,6 +23,15 @@ public:
 	void Init();								//初期化
 	void Update(bool keyStop,const Map& map);	//更新
 	void Draw();								//描画
+
+	/// <summary>
+	/// プレイヤーモデルの座標移動、拡大、YXZの順で回転させる
+	/// </summary>
+	/// <param name="scale">拡大率</param>
+	/// <param name="translate">移動させたい座標</param>
+	/// <param name="rota">それぞれの回転を代入したVECTOR</param>
+	/// <returns>計算した行列</returns>
+	MATRIX CalculationModelMatrixYXZ(const MATRIX& scale, const VECTOR& translate, const VECTOR& rota);
 	//ゲッターセッター
 	VECTOR GetPos()const { return pos; }									//座標を返す
 	VECTOR GetKeepVelocity()const { return keepVelocity; }					//プレイヤーの移動方向を保存
@@ -41,8 +50,10 @@ public:
 	//定数群	
 	static constexpr float PLAYER_W = 0.725f;			//プレイヤー横サイズ
 	static constexpr float PLAYER_H = 2.175f;			//プレイヤーの縦サイズ
+    static constexpr float ANIMETION_SPEED = 0.7f;      //プレイヤーのアニメーションの速度
 	static constexpr float JUMP_POWER = 0.25f;			//キャラのジャンプ力
 	static constexpr int ANIME_STATE_SUM = 4;			//合計アニメーションの数
+	static const MATRIX SCALE_MATRIX;					//キャラの拡大率を設定するための行列
 
 private:
 
@@ -55,10 +66,11 @@ private:
 	float totalAnimeTime;				//アニメーションのトータル再生時間
 	float playTime;						//アニメーションの現在の再生時間
 	bool animeState[ANIME_STATE_SUM];	//アニメーションの状態
+	
 
 	VECTOR velocity;					//移動量
 	VECTOR keepVelocity;				//プレイヤーの移動量の保存用
-
+	VECTOR rotaVector;					//回転率を保存するためのベクトル
 	bool hitFlag;
 	bool isGround;						//接地判定
 	bool isHitTop;						//天井に当たっているかの判定

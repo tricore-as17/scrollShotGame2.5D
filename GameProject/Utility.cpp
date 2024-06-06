@@ -6,6 +6,9 @@ float Utility::fps = 0;
 int Utility::startTime = GetNowCount();
 int Utility::roopCount = 0;
 
+//静的定数の設定
+const float Utility::CONVERSION_RADIAN = DX_PI_F / 180.0f;  //ラジアン変換を作る
+
 /// <summary>
 /// フレームレートの調整をする変数などの初期化
 /// </summary>
@@ -61,7 +64,6 @@ void Utility::StartInit()
     //ゲーム開始時間を記録
     gameStartTime = GetNowCount();
     elapsedTime = 0;
-    scrollSpeed = FIRST_SCROLL_SPEED;
     endElapsedTime = 0;
     loadFlag = false;
 }

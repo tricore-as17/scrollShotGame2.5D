@@ -5,7 +5,9 @@
 // 静的定数
 // 速度（1=1m、60fps固定として、時速10km）
 // 10000m ÷ 時間 ÷ 分 ÷ 秒 ÷ フレーム
-const float Player::SPEED = static_cast<float>(10000.0 / 60.0 / 60.0 / 60.0);
+const float Player::SPEED = static_cast<float>(17000.0 / 60.0 / 60.0 / 60.0);
+//拡大率の設定
+const MATRIX Player::SCALE_MATRIX = MGetScale(VGet(SCALE, SCALE, SCALE));
 
 //コンストラクタ
 Player::Player():isHitTop(false),isGround(false)
@@ -17,14 +19,14 @@ Player::Player():isHitTop(false),isGround(false)
 	playTime = 0.0f;
 	//モデルハンドルに代入
 	modelHandle = MV1LoadModel("mv1/Player/playerModel.mv1");
-	//モデルのサイズを設定
-	MV1SetScale(modelHandle, VGet(SCALE, SCALE, SCALE));
-	//モデルの回転値を設定(y軸に90度回転させる);
-	MV1SetRotationXYZ(modelHandle, VGet(0.0f, -110.0f * DX_PI_F / 180.0f, 0.0f));
 	//3Dモデルの1番目のアニメーションをアタッチする
 	attachIndex = MV1AttachAnim(modelHandle, IDLE, -1, FALSE);
 	//アタッチしたアニメションの総再生時間を取得
 	totalAnimeTime = MV1GetAttachAnimTotalTime(modelHandle, attachIndex);
+	//回転率の初期設定(左向きにさせる)
+	rotaVector= VGet(20.0f, -90.0f, 0.0f);
+
+
 }
 //デストラクタ
 Player::~Player()
@@ -42,6 +44,8 @@ void Player::Init()
 	dir = VGet(0, 0, 0);
 	fallSpeed = 0;
 	isHitTop, isGround = false;
+	//回転率の初期設定(左向きにさせる)
+	rotaVector = VGet(20.0f, -90.0f, 0.0f);
 	//アニメーション関連の初期化
 	playTime = 0.0f;
 	for (int i = 0; i < ANIME_STATE_SUM; i++)
@@ -112,18 +116,51 @@ void Player::Update(bool keyStop,const Map &map)
 	//出た値を保存する
 	keepVelocity = velocity;
 
+
 	// 移動
 	pos = VAdd(pos, velocity);
 
 	//そのまま位置を設定するとモデルの位置がぶれるので微調整
 	VECTOR playerOffset = VGet(0, -PLAYER_H*0.5, 0);
-	pos = VAdd(pos, playerOffset);
+	VECTOR addPos = VAdd(pos, playerOffset);
 
-	// ３Dモデルのポジション設定
-	MV1SetPosition(modelHandle, pos);
 
-	//微調整した後はポジションを戻す
-	pos = VSub(pos, playerOffset);
+	if (velocity.x > 0)
+	{
+		//右回転の行列を設定;
+		rotaVector = VGet(rotaVector.x, -90.0f, rotaVector.z);
+	}
+	else if (velocity.x < 0)
+	{
+		//右回転の行列を設定;
+		rotaVector = VGet(rotaVector.x, 90.0f, rotaVector.z);
+	}
+	//モデルに拡大率、座標移動、回転率を与えるための行列を作成して反映させる
+	MATRIX modelMatrix = CalculationModelMatrixYXZ(SCALE_MATRIX, addPos, rotaVector);
+	MV1SetMatrix(modelHandle, modelMatrix);
+
+
+	//アニメーションの更新
+	//左右どちらかに動いていたら走りのアニメーションを有効にする
+	if (velocity.x != 0.0f)
+	{
+		AnimeSet(RUN);
+	}
+	//動いていないので待機アニメーションを有効にする
+	else
+	{
+		AnimeSet(IDLE);
+	}
+
+	//アニメーションカウントの更新(１回の再生時間を超えたらリセット)
+	playTime += ANIMETION_SPEED;
+	if (playTime >= totalAnimeTime)
+	{
+		playTime = 0.0f;
+	}
+	//再生時間のセット
+	MV1SetAttachAnimTime(modelHandle, attachIndex, playTime);
+
 
 
 
@@ -170,6 +207,24 @@ void Player::AnimeSet(int setState)
 		ResetAnimeFlag();
 		animeState[setState] = true;
 	}
+}
+
+/// <summary>
+/// プレイヤーモデルの座標移動、拡大、YXZの順で回転させる
+/// </summary>
+/// <param name="scale">拡大率</param>
+/// <param name="translate">移動させたい座標</param>
+/// <param name="rota">それぞれの回転を代入したVECTOR</param>
+/// <returns>計算した行列</returns>
+MATRIX Player::CalculationModelMatrixYXZ(const MATRIX& scale, const VECTOR& translate, const VECTOR& rota)
+{
+	//マトリックスに移動する値をセット
+	MATRIX translateMatrix = MGetTranslate(translate);	
+	//YXZの順で回転行列を掛けて回転させる
+	MATRIX rotaMatrix = MMult(MMult(MGetRotY(rota.y * Utility::CONVERSION_RADIAN),
+		MGetRotX(rota.x * Utility::CONVERSION_RADIAN)), MGetRotZ(rota.z));
+	//スケールを追加した状態で計算して返り値にする
+	return MMult(MMult(scale, rotaMatrix), translateMatrix);
 }
 
 

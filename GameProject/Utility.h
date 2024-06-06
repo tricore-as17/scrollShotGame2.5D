@@ -31,13 +31,14 @@ enum STATE
 };
 
 /// <summary>
-/// ゲームのスクロースぴーどや
+/// FPS処理などのゲーム全体で必要なものをまとめたクラス
 /// </summary>
 class Utility
 {
 public:
 	//定数群
 	static constexpr float GRAVITY = 0.005f;			//重力の値
+	static const float CONVERSION_RADIAN ;				//角度をラジアンに変換する際にしようする定数
 
 	//ゲッターセッター
 	//経過時間のゲッター
@@ -48,7 +49,6 @@ public:
 	void SetLoadFlag(const bool inLoadFlag) { loadFlag = inLoadFlag; }
 	//ゲームのステータスのげったーせったー
 	int getGameState() { return gameState; }
-	int getScrollSpeed() { return scrollSpeed; }
 	void setGameState(int inputState) { gameState = inputState; }
 	int GetNowScreenX()const { return nowScreenX; }		//スクリーンX座標の取得
 	int GetNowScreenY()const { return nowScreenY; }		//スクリーンY座標の取得
@@ -73,19 +73,18 @@ public:
 	void Update();
 private:
 	//fps処理に関する変数
-	static int startTime;			//ループ開始時点の時間
-	static int roopCount;			//何回目のループか60になったら0に戻る
-	static float fps;				//表示するfps値
+	static int startTime;				//ループ開始時点の時間
+	static int roopCount;				//何回目のループか60になったら0に戻る
+	static float fps;					//表示するfps値
 	//ゲームの経過時間関連
 	int gameStartTime = 0;				//ゲーム開始時の時間を保存
 	int elapsedTime = 0;				//ゲームの経過時間
-	int endElapsedTime;
+	int endElapsedTime;					//ゲーム終了時の経過時間
 	bool loadFlag;						//ゲームオーバー時の経過時間を既に読み込んだかのフラグ
 	//ゲームの状態
-	int gameState = STATE_GAME;
-	int scrollSpeed = FIRST_SCROLL_SPEED;
-	int nowScreenX = 0;		//スクリーンの現在の座標
-	int nowScreenY = 0;		//スクリーンの現在の座標
+	int gameState = STATE_GAME;			//ゲームステート（タイトル、ゲーム中など)
+	int nowScreenX = 0;					//スクリーンの現在の座標
+	int nowScreenY = 0;					//スクリーンの現在の座標
 
 
 
