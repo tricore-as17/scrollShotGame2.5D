@@ -1,56 +1,56 @@
-#include"DxLib.h"
+﻿#include"DxLib.h"
 #include"WorldSprite.h"
 
 /// <summary>
-/// ������
+/// 初期化
 /// </summary>
-/// <param name="textureGraph">�e�N�X�`���̉摜�n���h��</param>
-/// <param name="chipPixelSize">�X�v���C�g�̂P�`�b�v�̃s�N�Z���T�C�Y</param>
-/// <param name="spriteNo">�X�v���C�g�ԍ�</param>
+/// <param name="textureGraph">テクスチャの画像ハンドル</param>
+/// <param name="chipPixelSize">スプライトの１チップのピクセルサイズ</param>
+/// <param name="spriteNo">スプライト番号</param>
 void WorldSprite::Initialize(int textureGraph, int chipPixelSize, int spriteNo)
 {
-    //�}�b�v�̃`�b�v�O���t�����[���h�X�v���C�g�̃e�N�X�`���O���t�ɑ��
+    //マップのチップグラフをワールドスプライトのテクスチャグラフに代入
     this->textureGraph = textureGraph;
 
-    // NOTE:���������ɌŒ肵�Ă��邪�A�ύX��������Ύ����Ŋ֐���ǉ�����K�v������
-    // �S���_����uv�f�[�^��ݒ�
+    // NOTE:初期化時に固定しているが、変更したければ自分で関数を追加する必要がある
+    // ４頂点分のuvデータを設定
     int texW, texH;
-    //�`�b�v�O���t�̏c�����Ɖ������̃T�C�Y���Q�b�g
+    //チップグラフの縦方向と横方向のサイズをゲット
     GetGraphTextureSize(textureGraph, &texW, &texH);
-    //�������̃T�C�Y�������Đ����o��
-    //���ƍ����͓����Ȃ̂ň��
+    //幅から一つのサイズを割って数を出す
+    //幅と高さは同じなので一つに
     int chipXNum = texW / chipPixelSize;
     int chipYNum = texH / chipPixelSize;
-    //������divgraph���蓮�ōs���Ă���݂����Ȋ���
-    int chipNoX = spriteNo % chipXNum;       //��̎w��
-    int chipNoY = spriteNo / chipXNum;       //�s�̎w��
-    float oneChipUVXRate = 1.0f / (float)chipXNum;   // �e�N�X�`���S����1.0�Ƃ�������cihp��ɑ΂���uv�̃T�C�Y
+    //ここでdivgraphを手動で行っているみたいな感じ
+    int chipNoX = spriteNo % chipXNum;       //列の指定
+    int chipNoY = spriteNo / chipXNum;       //行の指定
+    float oneChipUVXRate = 1.0f / (float)chipXNum;   // テクスチャ全部を1.0とした時のcihp一個に対するuvのサイズ
     float oneChipUVYRate = 1.0f / (float)chipYNum;
-    //�e�N�X�`���̍��W�̐ݒ�
-    // 0.0�Ȃ�x1��������y1�@//1.0�Ȃ�x2��������y2
-    //�e�N�X�`���𒣂�4�̍��W�����̍��W�̗�or�s��+
-    Vertex[0].u = (chipNoX + 0.0f) * oneChipUVXRate;     //�`�b�v�̍����x���W
-    Vertex[0].v = (chipNoY + 0.0f) * oneChipUVYRate;     //�`�b�v�̍����Y���W
-    Vertex[1].u = (chipNoX + 1.0f) * oneChipUVXRate;     //�`�b�v�̉E���x���W
-    Vertex[1].v = (chipNoY + 0.0f) * oneChipUVYRate;     //�`�b�v�̉E���y���W
-    Vertex[2].u = (chipNoX + 0.0f) * oneChipUVXRate;     //�`�b�v�̍�����x���W
-    Vertex[2].v = (chipNoY + 1.0f) * oneChipUVYRate;     //�`�b�v�̉E���y���W
-    Vertex[3].u = (chipNoX + 1.0f) * oneChipUVXRate;     //�`�b�v�̉E����x���W
-    Vertex[3].v = (chipNoY + 1.0f) * oneChipUVYRate;     //�`�b�v�̉E����y���W
+    //テクスチャの座標の設定
+    // 0.0ならx1もしくはy1　//1.0ならx2もしくはy2
+    //テクスチャを張る4つの座標＝この座標の列or行数+
+    Vertex[0].u = (chipNoX + 0.0f) * oneChipUVXRate;     //チップの左上のx座標
+    Vertex[0].v = (chipNoY + 0.0f) * oneChipUVYRate;     //チップの左上のY座標
+    Vertex[1].u = (chipNoX + 1.0f) * oneChipUVXRate;     //チップの右上のx座標
+    Vertex[1].v = (chipNoY + 0.0f) * oneChipUVYRate;     //チップの右上のy座標
+    Vertex[2].u = (chipNoX + 0.0f) * oneChipUVXRate;     //チップの左下のx座標
+    Vertex[2].v = (chipNoY + 1.0f) * oneChipUVYRate;     //チップの右上のy座標
+    Vertex[3].u = (chipNoX + 1.0f) * oneChipUVXRate;     //チップの右下のx座標
+    Vertex[3].v = (chipNoY + 1.0f) * oneChipUVYRate;     //チップの右下のy座標
 
-    // �f�B�t���[�Y�A�X�y�L�����͏��������ɌŒ�(�����͋C�ɂ��Ȃ�)
+    // ディフューズ、スペキュラは初期化時に固定(ここは気にしない)
     for (int i = 0; i < 4; i++)
     {
         Vertex[i].dif = GetColorU8(255, 255, 255, 255);
         Vertex[i].spc = GetColorU8(0, 0, 0, 0);
-        Vertex[i].norm = VGet(0.0f, 0.0f, -1.0f);   // ��]���T�|�[�g���Ȃ��̂Ńm�[�}�����Œ�
+        Vertex[i].norm = VGet(0.0f, 0.0f, -1.0f);   // 回転をサポートしないのでノーマルも固定
 
-        // �⏕�e�N�X�`�����T�|�[�g���Ȃ��̂�uv�Œ�
+        // 補助テクスチャをサポートしないのでuv固定
         Vertex[i].su = 0.0f;
         Vertex[i].sv = 0.0f;
     }
 
-    // �Q�|���S�����̃C���f�b�N�X�f�[�^���Z�b�g
+    // ２ポリゴン分のインデックスデータをセット
     Index[0] = 0;
     Index[1] = 1;
     Index[2] = 2;
@@ -60,16 +60,16 @@ void WorldSprite::Initialize(int textureGraph, int chipPixelSize, int spriteNo)
 }
 
 /// <summary>
-/// �T�C�Y�ƃ|�W�V�����ɉ����ĂS���_���̒��_�ʒu�𒲐�
+/// サイズとポジションに応じて４頂点分の頂点位置を調整
 /// </summary>
-/// <param name="pos">�|�W�V����</param>
-/// <param name="chipSize">�z�u���郏�[���h�X�v���C�g�̃T�C�Y</param>
+/// <param name="pos">ポジション</param>
+/// <param name="chipSize">配置するワールドスプライトのサイズ</param>
 void WorldSprite::SetTransform(const VECTOR& pos, float spriteSize)
 {
     this->pos = pos;
-    // �s�{�b�g���S�Őݒ�
-    //spriteSize��0.725
-    //����A�E��A�����A�E���ɍ��W��ݒ�
+    // ピボット中心で設定
+    //spriteSizeは0.725
+    //左上、右上、左下、右下に座標を設定
     Vertex[0].pos = VScale(VGet(-1.0f, 1.0f, 0.0f), spriteSize * 0.5f);
     Vertex[1].pos = VScale(VGet(1.0f, 1.0f, 0.0f), spriteSize * 0.5f);
     Vertex[2].pos = VScale(VGet(-1.0, -1.0f, 0.0f), spriteSize * 0.5f);
@@ -81,11 +81,11 @@ void WorldSprite::SetTransform(const VECTOR& pos, float spriteSize)
 }
 
 /// <summary>
-/// �`��
+/// 描画
 /// </summary>
 void WorldSprite::Draw()
 {
-    // �Q�|���S���̕`��
-    //4�͒��_�̐�2���|���S���̐�
+    // ２ポリゴンの描画
+    //4は頂点の数2がポリゴンの数
     DrawPolygonIndexed3D(Vertex, 4, Index, 2, textureGraph, TRUE);
 }

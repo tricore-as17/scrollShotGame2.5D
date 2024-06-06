@@ -1,4 +1,4 @@
-#include"DxLib.h"
+ï»¿#include"DxLib.h"
 #include"Utility.h"
 #include"Camera.h"
 #include"Effect.h"
@@ -6,31 +6,31 @@
 #include"EffekseerForDXLib.h"
 
 //----------------------------//
-// WinMainŠÖ”.
+// WinMainé–¢æ•°.
 //----------------------------//
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
-	// ‰æ–Êƒ‚[ƒh‚ÌÝ’è
-	SetGraphMode(SCREEN_W, SCREEN_H, 16);		// ‰ð‘œ“x‚ðSCREEN_W*SCREEN_HAcolor‚ð16bit‚ÉÝ’è.
+	// ç”»é¢ãƒ¢ãƒ¼ãƒ‰ã®è¨­å®š
+	SetGraphMode(SCREEN_W, SCREEN_H, 16);		// è§£åƒåº¦ã‚’SCREEN_W*SCREEN_Hã€colorã‚’16bitã«è¨­å®š.
 
 
 
 
 	/////////////////////////////////
-	// ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚É(ƒRƒƒ“ƒgƒAƒEƒg‚µ‚½‚çƒtƒ‹ƒXƒNƒŠ[ƒ“).
+	// ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã«(ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆã—ãŸã‚‰ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³).
 	ChangeWindowMode(TRUE);
 	////////////////////////////
 
 
 
-		// ‚c‚wƒ‰ƒCƒuƒ‰ƒŠ‰Šú‰»ˆ—
+		// ï¼¤ï¼¸ãƒ©ã‚¤ãƒ–ãƒ©ãƒªåˆæœŸåŒ–å‡¦ç†
 	if (DxLib_Init() == -1)
 	{
 		return -1;
 	}
 	SetDrawScreen(DX_SCREEN_BACK);
-	//ƒGƒtƒFƒNƒg‚Ì‰ŠúÝ’è
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®åˆæœŸè¨­å®š
 	if (Effect::Setting() == -1)
 	{
 		DxLib_End();
@@ -39,10 +39,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	
 
-	// ”wŒi‚ÌƒXƒNƒ[ƒ‹‚ð‚·‚é‚½‚ß‚ÉƒeƒNƒXƒ`ƒƒƒ‚[ƒh‚ðƒ‰ƒbƒsƒ“ƒO‚ÉC³.
+	// èƒŒæ™¯ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚’ã™ã‚‹ãŸã‚ã«ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¢ãƒ¼ãƒ‰ã‚’ãƒ©ãƒƒãƒ”ãƒ³ã‚°ã«ä¿®æ­£.
 	//SetTextureAddressMode(DX_TEXADDRESS_WRAP);
 
-	// ƒOƒ‰ƒtƒBƒbƒN‚Ì•`‰ææ‚ð— ‰æ–Ê‚ÉƒZƒbƒg
+	// ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã®æç”»å…ˆã‚’è£ç”»é¢ã«ã‚»ãƒƒãƒˆ
 
 
 	Utility::FpsInit();
@@ -54,12 +54,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 
 
-	// ƒQ[ƒ€ƒ‹[ƒv.
+	// ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—.
 	while (1)
 	{
 		Utility::FpsUpdate();
-		// ‰æ–Ê‚ð‰Šú‰»(^‚Á•‚É‚·‚é)
-		SetCameraNearFar(10.0f, 500.0f);	//near‚Æfar‚ÌÝ’è
+		// ç”»é¢ã‚’åˆæœŸåŒ–(çœŸã£é»’ã«ã™ã‚‹)
+		SetCameraNearFar(10.0f, 500.0f);	//nearã¨farã®è¨­å®š
 		ClearDrawScreen();
 		game->Update();
 		game->Draw();
@@ -71,29 +71,29 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		/*int nowTime = GetNowCount();
 		DrawFormatString(600, 400, GetColor(255, 255, 255), "%d", nowTime);*/
 
-		// — ‰æ–Ê‚Ì“à—e‚ð•\‰æ–Ê‚ÉƒRƒs[‚·‚éi•`‰æ‚ÌŠm’èj.
+		// è£ç”»é¢ã®å†…å®¹ã‚’è¡¨ç”»é¢ã«ã‚³ãƒ”ãƒ¼ã™ã‚‹ï¼ˆæç”»ã®ç¢ºå®šï¼‰.
 		ScreenFlip();
 
-		// Windows “Á—L‚Ì–Ê“|‚Èˆ—‚ð‚c‚wƒ‰ƒCƒuƒ‰ƒŠ‚É‚â‚ç‚¹‚é
-		// ƒ}ƒCƒiƒX‚Ì’liƒGƒ‰[’lj‚ª•Ô‚Á‚Ä‚«‚½‚çƒ‹[ƒv‚ð”²‚¯‚é
+		// Windows ç‰¹æœ‰ã®é¢å€’ãªå‡¦ç†ã‚’ï¼¤ï¼¸ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã«ã‚„ã‚‰ã›ã‚‹
+		// ãƒžã‚¤ãƒŠã‚¹ã®å€¤ï¼ˆã‚¨ãƒ©ãƒ¼å€¤ï¼‰ãŒè¿”ã£ã¦ããŸã‚‰ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹
 		if (ProcessMessage() < 0)
 		{
 			break;
 		}
-		// ‚à‚µ‚d‚r‚bƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚çƒ‹[ƒv‚©‚ç”²‚¯‚é
+		// ã‚‚ã—ï¼¥ï¼³ï¼£ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰ãƒ«ãƒ¼ãƒ—ã‹ã‚‰æŠœã‘ã‚‹
 		else if ( CheckHitKey(KEY_INPUT_ESCAPE) == 1)
 		{
 			break;
 		}
-		//‚±‚±‚ÅFPS‚Ì’²®
+		//ã“ã“ã§FPSã®èª¿æ•´
 		Utility::FpsControll();
 		
 	};
 	//gameFinalize(game);
-	// Effekseer‚ðI—¹‚·‚éB
+	// Effekseerã‚’çµ‚äº†ã™ã‚‹ã€‚
 	Effkseer_End();
 
-	DxLib_End();				// ‚c‚wƒ‰ƒCƒuƒ‰ƒŠŽg—p‚ÌI—¹ˆ—
+	DxLib_End();				// ï¼¤ï¼¸ãƒ©ã‚¤ãƒ–ãƒ©ãƒªä½¿ç”¨ã®çµ‚äº†å‡¦ç†
 
-	return 0;					// ƒ\ƒtƒg‚ÌI—¹
+	return 0;					// ã‚½ãƒ•ãƒˆã®çµ‚äº†
 }
