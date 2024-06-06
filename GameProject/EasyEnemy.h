@@ -23,11 +23,12 @@ public:
 	/// </summary>
 	/// <param name="initPos">初期化用の座標</param>
 	void Init(const VECTOR& initPos)override;
-	/// <summary>
-	/// 更新処理(当たり判定などの処理はプレイヤーとほぼ同じ)
-	/// </summary>
-	/// <param name="map">マップのインスタンス</param>
-	void Update(const Map& map);
+    /// <summary>
+    /// 初期エネミーの更新処理
+    /// </summary>
+    /// <param name="map">マップのインスタンス</param>
+    /// <param name="cameraPos">カメラの座標</param>
+	void Update(const Map& map, const VECTOR& cameraPos);
 	/// <summary>
 	/// 描画
 	/// </summary>

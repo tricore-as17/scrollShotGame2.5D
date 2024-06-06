@@ -26,12 +26,12 @@ public:
 	/// ゲーム開始ごとの初期化
 	/// </summary>
 	void Init();
-	/// <summary>
-	/// エネミーの更新処理をまとめたもの
-	/// </summary>
-	/// <param name="map">マップのインスタンス</param>
-	/// <param name="player">プレイヤーのインスタンス</param>
-	void Update(const Map&map,const Player&player);
+    /// <summary>
+    /// エネミー全体の更新処理
+    /// </summary>
+    /// <param name="map">マップのインスタンス</param>
+    /// <param name="cameraPos">カメラの座標</param>
+	void Update(const Map&map, const VECTOR& cameraPos);
 	void Draw();
 private:
 	vector<EasyEnemy*> easyEnemy;	//一番弱い敵

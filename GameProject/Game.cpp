@@ -142,7 +142,7 @@ void Game::Update()
 	case STATE_GAME:
 		map->Update(player->GetKeepVelocity());
 		player->Update(keyStop, *map);
-		enemyManager->Update(*map, *player);
+		enemyManager->Update(*map, camera->GetPos());
 		camera->Update(*map,*player);
 		break;
 	case STATE_GAMEOVER:

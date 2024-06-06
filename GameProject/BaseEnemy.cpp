@@ -16,6 +16,8 @@ BaseEnemy::~BaseEnemy() {/*処理なし*/ }
 /// <summary>
 /// 当たり判定などの更新処理のなかでの共通処理をまとめたもの
 /// </summary>
+/// <param name="map">マップのインスタンス</param>
+/// <param name="speed">エネミーのスピード</param>
 void BaseEnemy::MoveProcess(const Map& map,const float& speed)
 {
     // 正規化
@@ -44,5 +46,30 @@ void BaseEnemy::MoveProcess(const Map& map,const float& speed)
     // 移動
     pos = VAdd(pos, velocity);
         
-
 }
+
+/// <summary>
+/// エネミーのスクロールを始めるかのチェック(画面に入ったかでチェック)
+/// </summary>
+/// <param name="cameraPos">カメラの座標</param>
+bool BaseEnemy::StartMoveCheck(const VECTOR& cameraPos)
+{
+    //座標が入っているかのチェック用フラグ
+    bool checkFlag;
+    //画面右端の座標
+    float RightLimit = cameraPos.x +Utility::WORLD_SCREEN_W_SIZE * 0.5;
+    //画面左端の座標
+    float LeftLimit = cameraPos.x - Utility::WORLD_SCREEN_W_SIZE * 0.5;
+    //画面内に座標があるかのチェック
+    if (pos.x < RightLimit && LeftLimit < pos.x)
+    {
+        checkFlag = true;
+    }
+    else
+    {
+        checkFlag = false;
+    }
+    return checkFlag;
+}
+
+

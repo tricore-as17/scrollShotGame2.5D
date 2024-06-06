@@ -44,11 +44,15 @@ void EasyEnemy::Init(const VECTOR& initPos)
 }
 
 /// <summary>
-/// 更新処理(当たり判定などの処理はプレイヤーとほぼ同じ)
+/// 初期エネミーの更新処理
 /// </summary>
 /// <param name="map">マップのインスタンス</param>
-void EasyEnemy::Update(const Map& map)
+/// <param name="cameraPos">カメラの座標</param>
+void EasyEnemy::Update(const Map& map,const VECTOR&cameraPos)
 {
+
+    //画面内に入ったかのチェック
+    moveStartFlag = StartMoveCheck(cameraPos);
     
 	//移動開始フラグがたっていたら移動させる
 	if (moveStartFlag)
