@@ -3,6 +3,7 @@
 #include"GameObject.h"
 #include"Player.h"
 #include"EasyEnemy.h"
+#include"Shot.h"
 #include"Map.h"
 
 /// <summary>
@@ -528,6 +529,19 @@ void EnemyColision::CheckIsTopHit(BaseEnemy& enemy, const  Map& map)
 	{
 		enemy.SetIsHitTop(false);
 	}
+}
+
+/// <summary>
+/// 弾とエネミーの当たり判定
+/// </summary>
+/// <param name="shot">弾のインスタンス</param>
+/// <param name="enemy">エネミーのインスタンス</param>
+/// <returns>ヒット判定</returns>
+bool ShotColision::IsHitShotWithEnemy(const Shot& shot, const BaseEnemy& enemy)
+{
+    //当たったかのフラグ
+    bool isHit = false;
+
 }
 
 

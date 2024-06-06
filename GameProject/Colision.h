@@ -5,6 +5,7 @@
 class Map;
 class Player;
 class BaseEnemy;
+class Shot;
 
 
 /// <summary>
@@ -58,4 +59,19 @@ public:
 	//プレイヤーとの当たり判定
 	static bool IsHitPlayerWithEnemy(const BaseEnemy& enemy, const Player& player, const VECTOR& futurePos);
 };
+
+/// <summary>
+/// 弾の当たり判定
+/// </summary>
+class ShotColision
+{
+    /// <summary>
+/// 弾とエネミーの当たり判定
+/// </summary>
+/// <param name="shot">弾のインスタンス</param>
+/// <param name="enemy">エネミーのインスタンス</param>
+/// <returns>ヒット判定</returns>
+    static bool IsHitShotWithEnemy(const Shot& shot, const BaseEnemy& enemy);
+};
+
 
