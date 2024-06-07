@@ -46,6 +46,89 @@ bool Colision::IsHitRectangles(const VECTOR& pos1, float w1, float h1, const VEC
 }
 
 /// <summary>
+/// 矩形と円の当たり判定
+/// </summary>
+/// <param name="rectPos">矩形の座標</param>
+/// <param name="rectW">矩形の幅</param>
+/// <param name="rectH">矩形の高さ</param>
+/// <param name="circlePos">円の中心座標</param>
+/// <param name="circleR">円の半径</param>
+/// <returns>当たったかの判定結果</returns>
+bool Colision::IsHitCircleWithRectangles(const VECTOR& rectPos, const float rectW, const float rectH, const VECTOR& circlePos, const float circleR)
+{
+    //当たったかのフラグ
+    bool isHit = false;
+    //矩形の4つの頂点を出す
+    float left = rectPos.x - rectW * 0.5f;      //左
+    float right = rectPos.x + rectW * 0.5f;     //右
+    float top = rectPos.y + rectH * 0.5f;       //上
+    float bottom = rectPos.y - rectH * 0.5f;    //下
+
+    //四角形の四辺に対して円の半径分だけ足したとき円が重なっていたら
+    //大雑把に当たったかを判定できる
+    if ((circlePos.x > left - circleR)&&
+        (circlePos.x < right + circleR)&&
+        (circlePos.y > top - circleR)&&
+        (circlePos.y < bottom + circleR))
+    {
+
+        isHit = true;
+        //半径を2乗した値を出す(矩形との距離を図るときに平方根を使わないようにするため
+        float circleSquareR = circleR * circleR;
+        //矩形のそれぞれの頂点と円の中心座標が半径より離れていないか調べて判定する
+        if (circlePos.x < left)
+        {
+            //左上
+            if (circlePos.y < top)
+            {
+
+                if (DistanceSquare(left,top,circlePos.x,circlePos.y) >= circleSquareR)
+                {
+                    isHit = false;
+                }
+            }
+            //左下
+            else
+            {
+                if (circlePos.y > bottom)
+                {
+                    if (DistanceSquare(left, bottom, circlePos.x, circlePos.y) >= circleSquareR)
+                    {
+                        isHit = false;
+                    }
+                }
+            }
+        }
+        else
+        {
+            //右上
+            if (circlePos.y < top)
+            {
+
+                if (DistanceSquare(right, top, circlePos.x, circlePos.y) >= circleSquareR)
+                {
+                    isHit = false;
+                }
+            }
+            //左下
+            else
+            {
+                if (circlePos.y > bottom)
+                {
+                    if (DistanceSquare(right, bottom, circlePos.x, circlePos.y) >= circleSquareR)
+                    {
+                        isHit = false;
+                    }
+                }
+            }
+        }
+    }
+    return isHit;
+
+
+}
+
+/// <summary>
 /// マップとプレイヤーやエネミーの当たり判定
 /// </summary>
 /// <param name="map">マップのインスタンス</param>
@@ -291,6 +374,24 @@ bool Colision::CheckIsTopHit(const Map& map, const VECTOR& objectPos, const floa
         isTopHit = false;
     }
     return isTopHit;
+}
+
+/// <summary>
+/// 二点間の距離を出す
+/// </summary>
+/// <param name="x1">点１のx</param>
+/// <param name="y1">点１のｙ</param>
+/// <param name="x2">点２のｘ</param>
+/// <param name="y2">点２のｙ</param>
+/// <returns>二点間の距離</returns>
+float Colision::DistanceSquare(const float x1, const float y1, const float x2, const float y2)
+{
+    //x,yそれぞれの長さを出す
+    float distanceX = x2 - x1;
+    float distanceY = y2 - y1;
+
+    //２乗して足した値を出す
+    return (distanceX * distanceX) + (distanceY * distanceY);
 }
 
 
