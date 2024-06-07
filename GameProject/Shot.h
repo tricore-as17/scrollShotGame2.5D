@@ -9,7 +9,6 @@ class Shot :public GameObject
 {
 public:
     //getter,setter
-    VECTOR GetPos()const { return pos; }    //座標のgetter
     //コンスタラクタ
     Shot(const VECTOR& initPos, const VECTOR& initDir, const float& initSpeed,const float& initRadius,const int kinds);
     //デストラクタ
