@@ -93,10 +93,9 @@ void Player::Update(bool keyStop,const Map &map)
 
 
 	// HACK: 先に設定判定をすることでfallSpeed修正＋接地フラグ更新
-	PlayerColision::CheckIsGround(*this, map);
-	PlayerColision::CheckIsTopHit(*this, map);
+	isGround = Colision::CheckIsGround(map,pos,PLAYER_W,PLAYER_H,fallSpeed);
+    isHitTop = Colision::CheckIsTopHit(map, pos, PLAYER_W, PLAYER_H, fallSpeed);
 
-	//// 落下速度を更新
 
 	// 地に足が着いている場合のみジャンプボタン(ボタン１ or Ｚキー)を見る
 	if (((isGround && !isHitTop)) && (input & PAD_INPUT_A) && keyStop == false)
@@ -110,7 +109,7 @@ void Player::Update(bool keyStop,const Map &map)
 	velocity = VAdd(velocity, fallVelocity);
 
 	// 当たり判定をして、壁にめり込まないようにvelocityを操作する
-	velocity = PlayerColision::CheckPlayerHitWithMap(*this, map, velocity);
+	velocity = Colision::CheckHitMapAdjustmentVector(map,velocity,pos,PLAYER_W,PLAYER_H);
 	
 	//FIXME:マップをスクロールするために使用しているがその使用は辞めたので
 	//出た値を保存する
