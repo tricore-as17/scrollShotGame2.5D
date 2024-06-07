@@ -1,6 +1,7 @@
 ﻿#include"Map.h"
 #include"ShotManager.h"
 #include"Shot.h"
+#include"Utility.h"
 
 // 静的定数
 
@@ -33,4 +34,56 @@ void ShotManager::CreateShot(const VECTOR& pos, const VECTOR& dir,const int shot
         shot.emplace_back(new Shot(pos, dir,SHOT_SPEED[shotKinds],SHOT_RADIUS[shotKinds],shotKinds));
     }
 }
+
+/// <summary>
+/// 弾の削除(画面外に出たら削除)
+/// </summary>
+/// <param name="cameraPos">カメラの座標</param>
+void ShotManager::DeleteShot(const VECTOR& cameraPos)
+{
+    //現在あるショットの数だけまわす
+
+    for (int i = 0; shot.size(); i++)
+    {
+        //座標の取得
+        VECTOR shotPos = shot[i]->GetPos();
+        //画面外に出たら要素を削除する
+        if (CheckScreenOut(cameraPos,shotPos))
+        {
+            shot.erase(shot.begin() + i);
+        }
+    }
+}
+
+/// <summary>
+/// 画面外に出たかのチェック
+/// </summary>
+/// <param name="cameraPos">カメラの座標</param>
+/// <param name="objectPos"></param>
+/// <returns></returns>
+bool ShotManager::CheckScreenOut(const VECTOR& cameraPos, const VECTOR objectPos)
+{
+    //座標が出たかのチェック用フラグ
+    bool checkFlag = false;
+    //画面右端の座標
+    float rightLimit = cameraPos.x + Utility::WORLD_SCREEN_W_SIZE * 0.5f;
+    //画面左端の座標
+    float leftLimit = cameraPos.x - Utility::WORLD_SCREEN_W_SIZE * 0.5f;
+    //画面上端の座標
+    float topLimit = cameraPos.y + Utility::WORLD_SCREEN_H_SIZE * 0.5f;
+    //画面下端の座標
+    float botomLimit = cameraPos.y - Utility::WORLD_SCREEN_H_SIZE * 0.5f;
+    //画面内に座標があるかのチェック
+    if ((objectPos.x < rightLimit && leftLimit < objectPos.x)&&(objectPos.y < topLimit && objectPos.y > botomLimit))
+    {
+        checkFlag = false;
+    }
+    else
+    {
+        checkFlag = true;
+    }
+    return checkFlag;
+}
+
+
 

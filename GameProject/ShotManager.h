@@ -31,6 +31,18 @@ public:
     /// <param name="dir">弾の方向</param>
     /// <param name="shotKinds">どの弾を撃ったか</param>
     void CreateShot(const VECTOR& playerPos,const VECTOR& playerDir, const int shotKinds);
+    /// <summary>
+    /// 弾の削除(画面外に出たら削除)
+    /// </summary>
+    /// <param name="cameraPos">カメラの座標</param>
+    void DeleteShot(const VECTOR& cameraPos);
+    /// <summary>
+    /// 画面外に出たかのチェック
+    /// </summary>
+    /// <param name="cameraPos">カメラの座標</param>
+    /// <param name="objectPos"></param>
+    /// <returns></returns>
+    bool CheckScreenOut(const VECTOR& cameraPos,const VECTOR objectPos);
     //定数
     static constexpr int INTERVAL[SHOT_KINDS_NUM] = { 50,200 };     //それぞれの弾の発射間隔
     static const float SHOT_SPEED[SHOT_KINDS_NUM];                  //それぞれの弾のスピード
