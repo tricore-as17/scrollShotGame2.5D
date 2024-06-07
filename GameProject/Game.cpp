@@ -6,6 +6,7 @@
 #include"Camera.h"
 #include"Effect.h"
 #include"EnemyManager.h"
+#include"ShotManager.h"
 #include"Game.h"
 
 //コンストラクタ
@@ -20,8 +21,6 @@ Game::Game()
 	map = new Map();
 	enemyManager = new EnemyManager();
 
-\
-
 	//エフェクトの動的確保
 	for (int i = 0; i < CLEAR_EFFECT_NUM; i++)
 	{
@@ -34,13 +33,17 @@ Game::Game()
 //デストラクタ
 Game::~Game()
 {
-	//解放
+	//メモリの解放
 	delete player,utility,ui,bgModel,camera,bg,player3D,gameOverEffect,clearCharaEffect,map
 		,enemyManager;
-	player ,utility,ui,bgModel,camera,bg,player3D = nullptr;
+    //ヌルポインターの代入
+	player ,utility,ui,bgModel,camera,bg,player3D,gameOverEffect,clearCharaEffect,map,enemyManager = nullptr;
+    //ベクターのメモリ解放
 	gimmick.clear();
 	cloud.clear();
 	clearEffect.clear();
+    //全ての弾のインスタンスを消す
+    ShotManager::DeleteAllShot();
 }
 
 /// <summary>
@@ -143,6 +146,10 @@ void Game::Update()
 		map->Update(player->GetKeepVelocity());
 		player->Update(keyStop, *map);
 		enemyManager->Update(*map, camera->GetPos());
+        //弾の移動など
+        ShotManager::Update();
+        //画面外に出た弾を消す処理
+        ShotManager::DeleteShot(camera->GetPos());
 		camera->Update(*map,*player);
 		break;
 	case STATE_GAMEOVER:
@@ -172,6 +179,7 @@ void Game::Draw()
 	case STATE_GAME:
 		map->Draw();
 		player->Draw();
+        ShotManager::Draw();
 		enemyManager->Draw();
 
 		break;

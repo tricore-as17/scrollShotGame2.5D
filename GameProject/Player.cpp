@@ -1,5 +1,6 @@
 ﻿#include"Player.h"
 #include"Colision.h"
+#include"ShotManager.h"
 #include"Utility.h"
 
 // 静的定数
@@ -122,6 +123,12 @@ void Player::Update(bool keyStop,const Map &map)
 	//そのまま位置を設定するとモデルの位置がぶれるので微調整
 	VECTOR playerOffset = VGet(0, -PLAYER_H*0.5, 0);
 	VECTOR addPos = VAdd(pos, playerOffset);
+
+    //弾を撃つ処理
+    if (input & PAD_INPUT_10 && keyStop == false)
+    {
+        ShotManager::CreateShot(pos, dir, PLAYER_USUALLY);
+    }
 
 
 	if (velocity.x > 0)

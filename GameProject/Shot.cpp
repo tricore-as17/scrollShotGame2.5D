@@ -23,6 +23,7 @@ void Shot::Update()
 {
     //移動量を出す
     VECTOR velocity = VScale(dir, speed);
+    pos = VAdd(pos, velocity);
 
 }
 

@@ -15,6 +15,7 @@ class Gimmick3D;
 class GroundDraw3D;
 class Effect;
 class EnemyManager;
+class ShotManager;
 
 /// <summary>
 /// ゲーム全体のインスタンスなどをまとめたクラス
@@ -48,6 +49,7 @@ private:
 	Effect* clearCharaEffect;
 	Map* map;
 	EnemyManager* enemyManager;
+    
 	
 	std::vector<Cloud*> cloud;
 	std::vector<Gimmick*> gimmick;
