@@ -1,4 +1,22 @@
 ﻿#pragma once
+#include<vector>
+#include"DxLib.h"
+
+using namespace std;
+
+//クラスのプロトタイプ宣言
+class Shot;
+
+/// <summary>
+/// 弾の種類を判断する定数
+/// </summary>
+enum ShotKinds
+{
+    PLAYER_USUALLY,
+    ENEMY_USUALLY,
+    //ショットの合計数(新しい種類を追加する際はこの上に追加)
+    SHOT_KINDS_NUM
+};
 
 /// <summary>
 /// 弾の発射やインターバルを管理するクラス
@@ -6,7 +24,19 @@
 class ShotManager
 {
 public:
-
+    /// <summary>
+    /// 弾の生成(敵の弾も味方の弾もすべて生成する)
+    /// </summary>
+    /// <param name="pos">弾を撃った座標</param>
+    /// <param name="dir">弾の方向</param>
+    /// <param name="shotKinds">どの弾を撃ったか</param>
+    void CreateShot(const VECTOR& playerPos,const VECTOR& playerDir, const int shotKinds);
+    //定数
+    static constexpr int INTERVAL[SHOT_KINDS_NUM] = { 50,200 };     //それぞれの弾の発射間隔
+    static const float SHOT_SPEED[SHOT_KINDS_NUM];                  //それぞれの弾のスピード
+    static const float SHOT_RADIUS[SHOT_KINDS_NUM];                 //それぞれの弾の半径
+    
 private:
-    int intervalCount;
+    int intervalCount[SHOT_KINDS_NUM];              //弾を撃てる間隔を測定するためのカウント(弾の種類だけ作る)
+    vector<Shot*> shot;                             //弾を格納する配列
 };

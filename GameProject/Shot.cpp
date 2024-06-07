@@ -1,4 +1,5 @@
 ﻿#include"Shot.h"
+#include"Utility.h"
 
 /// <summary>
 /// コンストラクタ
@@ -6,7 +7,9 @@
 /// <param name="initPos">ショットの初期座標</param>
 /// <param name="initDir">ショットの方向</param>
 /// <param name="speed">ショットのスピード</param>
-Shot::Shot(const VECTOR& initPos,const VECTOR& initDir,const float& initSpeed):speed(initSpeed)
+/// <param name="initRadius">ショットの半径</param>
+Shot::Shot(const VECTOR& initPos, const VECTOR& initDir, const float& initSpeed, const float& initRadius,const int initKinds)
+    :speed(initSpeed),radius(initRadius),kinds(initKinds)
 {
     //座標と方向の初期化
     pos = initPos;
@@ -28,5 +31,6 @@ void Shot::Update()
 /// </summary>
 void Shot::Draw()
 {
-
+    //テスト用の描画のちのちは別の画像を使用
+    DrawSphere3D(pos, radius, 32, GetColor(255, 0, 0), WHITE, TRUE);
 }

@@ -9,7 +9,7 @@ class Shot :public GameObject
 {
 public:
     //コンスタラクタ
-    Shot(const VECTOR& initPos, const VECTOR& initDir, const float& speed);
+    Shot(const VECTOR& initPos, const VECTOR& initDir, const float& initSpeed,const float& initRadius,const int kinds);
     //デストラクタ
     ~Shot();
     void Update();
@@ -17,4 +17,5 @@ public:
 private:
     float speed;        //弾のスピード
     float radius;       //半径
+    int kinds;          //弾の種類
 };
