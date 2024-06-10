@@ -6,7 +6,7 @@
 // 静的定数
 // 速度（1=1m、60fps固定として、時速10km）
 // 10000m ÷ 時間 ÷ 分 ÷ 秒 ÷ フレーム
-const float Player::SPEED = static_cast<float>(17000.0 / 60.0 / 60.0 / 60.0);
+const float Player::SPEED = Utility::CalculationSpeed(17000.0f);
 //拡大率の設定
 const MATRIX Player::SCALE_MATRIX = MGetScale(VGet(SCALE, SCALE, SCALE));
 
@@ -94,8 +94,8 @@ void Player::Update(bool keyStop,const Map &map)
 
 
 	// HACK: 先に設定判定をすることでfallSpeed修正＋接地フラグ更新
-	isGround = Colision::CheckIsGround(map,pos,PLAYER_W,PLAYER_H,fallSpeed);
-    isHitTop = Colision::CheckIsTopHit(map, pos, PLAYER_W, PLAYER_H, fallSpeed);
+	isGround = Colision::IsGround(map,pos,PLAYER_W,PLAYER_H,fallSpeed);
+    isHitTop = Colision::IsTopHit(map, pos, PLAYER_W, PLAYER_H, fallSpeed);
 
 
 	// 地に足が着いている場合のみジャンプボタン(ボタン１ or Ｚキー)を見る

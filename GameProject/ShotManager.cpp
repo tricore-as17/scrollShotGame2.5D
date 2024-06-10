@@ -8,9 +8,9 @@
 // 速度（1=1m、60fps固定として、時速10km）
 // 10000m ÷ 時間 ÷ 分 ÷ 秒 ÷ フレーム
 //プレイヤーの通常弾の速度
-const float ShotManager::SHOT_SPEED[SHOT_KINDS_NUM] = { static_cast<float>(35000.0 / 60.0 / 60.0 / 60.0),
+const float ShotManager::SHOT_SPEED[SHOT_KINDS_NUM] = { Utility::CalculationSpeed(35000.0f),
 //敵の弾の通常速度
-static_cast<float>(25000.0 / 60.0 / 60.0 / 60.0) };
+Utility::CalculationSpeed(25000.0f)};
 
 //プレイヤーの通常弾の半径(マップチップのサイズの4分の一)
 const float ShotManager::SHOT_RADIUS[SHOT_KINDS_NUM] = { Map::CHIP_SIZE / 4,

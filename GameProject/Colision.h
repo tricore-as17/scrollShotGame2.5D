@@ -54,7 +54,7 @@ public:
     /// <param name="objectW">オブジェクトの幅</param>
     /// <param name="objectH">オブジェクトの高さ</param>
     /// <returns>接地しているか</returns>
-    static bool CheckIsGround(const Map& map, const VECTOR& objectPos, const float objectW, const float objectH, float& fallSpeed);
+    static bool IsGround(const Map& map, const VECTOR& objectPos, const float objectW, const float objectH, float& fallSpeed);
 
     /// <summary>
     /// 天井に頭がぶつかっているか
@@ -65,7 +65,7 @@ public:
     /// <param name="objectH">オブジェクトの高さ</param>
     /// <param name="fallSpeed">オブジェクトの落下速度</param>
     /// <returns>当たっているか</returns>
-    static bool CheckIsTopHit(const Map& map, const VECTOR& objectPos, const float objectW, const float objectH, float& fallSpeed);
+    static bool IsTopHit(const Map& map, const VECTOR& objectPos, const float objectW, const float objectH, float& fallSpeed);
 
     /// <summary>
     /// 二点間の距離を2乗した値を計算
