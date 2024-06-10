@@ -61,24 +61,28 @@ void ShotManager::CreateShot(const VECTOR& pos, const VECTOR& dir,const int shot
     {
         //インターバルを0にして弾の作成
         readyFlag[shotKinds] = false;
-        shot.emplace_back(new Shot(pos, dir,SHOT_SPEED[shotKinds],SHOT_RADIUS[shotKinds],shotKinds,shotDamage);
+        shot.emplace_back(new Shot(pos, dir, SHOT_SPEED[shotKinds], SHOT_RADIUS[shotKinds], shotKinds, shotDamage));
     }
 }
 
 /// <summary>
-/// 弾の削除(画面外に出たら削除)
+/// 弾の削除(画面外に出るか当たっていたら削除)
 /// </summary>
 /// <param name="cameraPos">カメラの座標</param>
 void ShotManager::DeleteShot(const VECTOR& cameraPos)
 {
     //現在あるショットの数だけまわす
-
     for (int i = 0; i< shot.size(); i++)
     {
         //座標の取得
         VECTOR shotPos = shot[i]->GetPos();
+        //接触した後の弾を消す処理
+        if (!shot[i]->GetSurvivalFlag())
+        {
+            shot.erase(shot.begin() + i);
+        }
         //画面外に出たら要素を削除する
-        if (CheckScreenOut(cameraPos,shotPos))
+        else if (CheckScreenOut(cameraPos,shotPos))
         {
             shot.erase(shot.begin() + i);
         }

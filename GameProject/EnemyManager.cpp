@@ -35,13 +35,35 @@ void EnemyManager::Init()
 /// <param name="cameraPos">カメラの座標</param>
 void EnemyManager::Update(const Map& map, const VECTOR& cameraPos)
 {
+    for (int i = 0; i < easyEnemy.size(); i++)
+    {
+	    easyEnemy[i]->Update(map,cameraPos);
+    }
+    DeleteEnemy();
 
-	easyEnemy[0]->Update(map,cameraPos);
 }
 /// <summary>
 /// 描画
 /// </summary>
 void EnemyManager::Draw()
 {
-	easyEnemy[0]->Draw();
+    for (int i = 0; i < easyEnemy.size(); i++)
+    {
+        easyEnemy[i]->Draw();
+    }
 }
+
+/// <summary>
+/// 体力が0になったらインスタンスを削除する
+/// </summary>
+void EnemyManager::DeleteEnemy()
+{
+    for (int i = 0; i < easyEnemy.size(); i++)
+    {
+        if (easyEnemy[i]->GetLife() <= 0)
+        {
+            easyEnemy.erase(easyEnemy.begin() + i);
+        }
+    }
+}
+
