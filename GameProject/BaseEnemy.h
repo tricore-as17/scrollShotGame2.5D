@@ -51,6 +51,8 @@ protected:
 	bool isGround;		//接地しているか
 	bool isHitTop;		//天井にぶつかっているか
 	int firstX;			//初期X座標
+    int life;           //体力
+    int kind;           //自分の番号(エネミーかプレイヤーかを判断するための変数)
 
 
 };

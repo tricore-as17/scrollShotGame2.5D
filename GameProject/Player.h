@@ -77,6 +77,7 @@ private:
 	//静的定数
 	static constexpr float SCALE = 0.01f;	//プレイヤーの大きさ
 	static const float SPEED;				//プレイヤーの速度
+    static constexpr int SHOT_DAMAGE = 1;   //弾のダメージ
 
 
 	

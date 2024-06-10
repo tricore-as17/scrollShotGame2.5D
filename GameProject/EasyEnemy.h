@@ -15,6 +15,7 @@ public:
 	static const float SPEED;		//スピード
 	static constexpr float W = 1.45f;			//幅
 	static constexpr float H = 1.45f;			//高さ
+    static constexpr int MAX_LIFE = 1;          //体力の上限値
 	//メソッド
 	EasyEnemy();			//コンストラクタ	
 	~EasyEnemy();						//デストラクタ

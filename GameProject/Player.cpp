@@ -178,8 +178,9 @@ void Player::Update(bool keyStop,const Map &map)
     //弾を撃つ処理
     if (input & PAD_INPUT_10 && keyStop == false)
     {
-        ShotManager::CreateShot(pos, shotDirction, PLAYER_USUALLY);
+        ShotManager::CreateShot(pos, shotDirction, PLAYER_USUALLY,SHOT_DAMAGE);
     }
+
 
 
 
