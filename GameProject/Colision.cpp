@@ -68,8 +68,8 @@ bool Colision::IsHitCircleWithRectangles(const VECTOR& rectPos, const float rect
     //大雑把に当たったかを判定できる
     if ((circlePos.x > left - circleR)&&
         (circlePos.x < right + circleR)&&
-        (circlePos.y > top - circleR)&&
-        (circlePos.y < bottom + circleR))
+        (circlePos.y < top + circleR)&&
+        (circlePos.y > bottom - circleR))
     {
 
         isHit = true;
@@ -79,7 +79,7 @@ bool Colision::IsHitCircleWithRectangles(const VECTOR& rectPos, const float rect
         if (circlePos.x < left)
         {
             //左上
-            if (circlePos.y < top)
+            if (circlePos.y > top)
             {
 
                 if (DistanceSquare(left,top,circlePos.x,circlePos.y) >= circleSquareR)
@@ -90,7 +90,7 @@ bool Colision::IsHitCircleWithRectangles(const VECTOR& rectPos, const float rect
             //左下
             else
             {
-                if (circlePos.y > bottom)
+                if (circlePos.y < bottom)
                 {
                     if (DistanceSquare(left, bottom, circlePos.x, circlePos.y) >= circleSquareR)
                     {
@@ -102,7 +102,7 @@ bool Colision::IsHitCircleWithRectangles(const VECTOR& rectPos, const float rect
         else
         {
             //右上
-            if (circlePos.y < top)
+            if (circlePos.y > top)
             {
 
                 if (DistanceSquare(right, top, circlePos.x, circlePos.y) >= circleSquareR)
@@ -113,7 +113,7 @@ bool Colision::IsHitCircleWithRectangles(const VECTOR& rectPos, const float rect
             //左下
             else
             {
-                if (circlePos.y > bottom)
+                if (circlePos.y < bottom)
                 {
                     if (DistanceSquare(right, bottom, circlePos.x, circlePos.y) >= circleSquareR)
                     {
