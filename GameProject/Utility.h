@@ -83,6 +83,11 @@ public:
     /// <param name="w">幅</param>
     /// <param name="h">高さ</param>
     static void DrawSquareCollisionDetection(const VECTOR& pos,const float& w,const float&h );
+    /// <summary>
+    /// フレームレートに合わせたスピードの値を計算する処理
+    /// </summary>
+    /// <param name="setSpeed">代入するスピード</param>
+    static float CalculationSpeed(const float setSpeed);
 	//更新処理
 	void Update();
 private:

@@ -7,7 +7,7 @@
 // 静的定数
 // 速度（1=1m、60fps固定として、時速10km）
 // 設定したい速さ ÷ 時間 ÷ 分 ÷ 秒 ÷ フレーム
-const float EasyEnemy::SPEED = static_cast<float>(17000.0 / 60.0 / 60.0 / 60.0);
+const float EasyEnemy::SPEED = Utility::CalculationSpeed(17000.0f);
 
 /// <summary>
 /// コンストラクタ

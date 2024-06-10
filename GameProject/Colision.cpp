@@ -256,7 +256,7 @@ VECTOR Colision::CheckHitMapAdjustmentVector(const Map& map, VECTOR velocity, co
     return ret;
 }
 
-bool Colision::CheckIsGround(const Map& map, const VECTOR& objectPos,const float objectW,const float objectH,float& fallSpeed)
+bool Colision::IsGround(const Map& map, const VECTOR& objectPos,const float objectW,const float objectH,float& fallSpeed)
 {
     //接地判定用のフラグ
     bool isGround = false;
@@ -321,7 +321,7 @@ bool Colision::CheckIsGround(const Map& map, const VECTOR& objectPos,const float
 /// <param name="objectH">オブジェクトの高さ</param>
 /// <param name="fallSpeed">オブジェクトの落下速度</param>
 /// <returns>当たっているか</returns>
-bool Colision::CheckIsTopHit(const Map& map, const VECTOR& objectPos, const float objectW, const float objectH, float& fallSpeed)
+bool Colision::IsTopHit(const Map& map, const VECTOR& objectPos, const float objectW, const float objectH, float& fallSpeed)
 {
     //天井への接触判定用フラグ
     bool isTopHit = false;

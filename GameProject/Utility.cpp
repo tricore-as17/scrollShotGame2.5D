@@ -111,6 +111,14 @@ void Utility::DrawSquareCollisionDetection(const VECTOR& pos, const float& w, co
 
     
 }
+/// <summary>
+/// フレームレートに合わせたスピードの値を計算する処理
+/// </summary>
+/// <param name="setSpeed">代入するスピード</param>
+float Utility::CalculationSpeed(const float setSpeed)
+{
+    return setSpeed / 60.0f / 60.0f / 60.0f;
+}
 
 /// <summary>
 /// カウントなどの更新処理

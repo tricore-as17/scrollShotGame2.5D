@@ -36,8 +36,8 @@ void BaseEnemy::Move(const Map& map,const float& speed)
     fallSpeed -= Utility::GRAVITY;
 
     // HACK: 先に設定判定をすることでfallSpeed修正＋接地フラグ更新
-    Colision::CheckIsGround(map,pos,w,h,fallSpeed);
-    Colision::CheckIsTopHit(map, pos,w,h,fallSpeed);
+    Colision::IsGround(map,pos,w,h,fallSpeed);
+    Colision::IsTopHit(map, pos,w,h,fallSpeed);
 
     // 落下速度を移動量に加える
     VECTOR fallVelocity = VGet(0, fallSpeed, 0);	// 落下をベクトルに。y座標しか変化しないので最後にベクトルにする
