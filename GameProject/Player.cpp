@@ -1,16 +1,17 @@
 ﻿#include"Player.h"
 #include"Colision.h"
+#include"ShotManager.h"
 #include"Utility.h"
 
 // 静的定数
 // 速度（1=1m、60fps固定として、時速10km）
 // 10000m ÷ 時間 ÷ 分 ÷ 秒 ÷ フレーム
-const float Player::SPEED = static_cast<float>(17000.0 / 60.0 / 60.0 / 60.0);
+const float Player::SPEED = Utility::CalculationSpeed(17000.0f);
 //拡大率の設定
 const MATRIX Player::SCALE_MATRIX = MGetScale(VGet(SCALE, SCALE, SCALE));
 
 //コンストラクタ
-Player::Player():isHitTop(false),isGround(false)
+Player::Player():isHitTop(false),isGround(false),rotaModelY(-90.0f)
 {
 	//座標の初期化
 	pos = VGet(0, 0, 0);
@@ -24,7 +25,7 @@ Player::Player():isHitTop(false),isGround(false)
 	//アタッチしたアニメションの総再生時間を取得
 	totalAnimeTime = MV1GetAttachAnimTotalTime(modelHandle, attachIndex);
 	//回転率の初期設定(左向きにさせる)
-	rotaVector= VGet(20.0f, -90.0f, 0.0f);
+	rotaVector= VGet(20.0f, rotaModelY, 0.0f);
 
 
 }
@@ -45,7 +46,7 @@ void Player::Init()
 	fallSpeed = 0;
 	isHitTop, isGround = false;
 	//回転率の初期設定(左向きにさせる)
-	rotaVector = VGet(20.0f, -90.0f, 0.0f);
+	rotaVector = VGet(20.0f, rotaModelY, 0.0f);
 	//アニメーション関連の初期化
 	playTime = 0.0f;
 	for (int i = 0; i < ANIME_STATE_SUM; i++)
@@ -93,10 +94,9 @@ void Player::Update(bool keyStop,const Map &map)
 
 
 	// HACK: 先に設定判定をすることでfallSpeed修正＋接地フラグ更新
-	PlayerColision::CheckIsGround(*this, map);
-	PlayerColision::CheckIsTopHit(*this, map);
+	isGround = Colision::IsGround(map,pos,PLAYER_W,PLAYER_H,fallSpeed);
+    isHitTop = Colision::IsTopHit(map, pos, PLAYER_W, PLAYER_H, fallSpeed);
 
-	//// 落下速度を更新
 
 	// 地に足が着いている場合のみジャンプボタン(ボタン１ or Ｚキー)を見る
 	if (((isGround && !isHitTop)) && (input & PAD_INPUT_A) && keyStop == false)
@@ -110,7 +110,7 @@ void Player::Update(bool keyStop,const Map &map)
 	velocity = VAdd(velocity, fallVelocity);
 
 	// 当たり判定をして、壁にめり込まないようにvelocityを操作する
-	velocity = PlayerColision::CheckPlayerHitWithMap(*this, map, velocity);
+	velocity = Colision::CheckHitMapAdjustmentVector(map,velocity,pos,PLAYER_W,PLAYER_H);
 	
 	//FIXME:マップをスクロールするために使用しているがその使用は辞めたので
 	//出た値を保存する
@@ -125,16 +125,17 @@ void Player::Update(bool keyStop,const Map &map)
 	VECTOR addPos = VAdd(pos, playerOffset);
 
 
+
 	if (velocity.x > 0)
 	{
-		//右回転の行列を設定;
-		rotaVector = VGet(rotaVector.x, -90.0f, rotaVector.z);
+        rotaModelY = -90.0f;
 	}
 	else if (velocity.x < 0)
 	{
-		//右回転の行列を設定;
-		rotaVector = VGet(rotaVector.x, 90.0f, rotaVector.z);
+        rotaModelY = 90.0f;
 	}
+    //右回転の行列を設定;
+    rotaVector = VGet(rotaVector.x, rotaModelY, rotaVector.z);
 	//モデルに拡大率、座標移動、回転率を与えるための行列を作成して反映させる
 	MATRIX modelMatrix = CalculationModelMatrixYXZ(SCALE_MATRIX, addPos, rotaVector);
 	MV1SetMatrix(modelHandle, modelMatrix);
@@ -160,6 +161,25 @@ void Player::Update(bool keyStop,const Map &map)
 	}
 	//再生時間のセット
 	MV1SetAttachAnimTime(modelHandle, attachIndex, playTime);
+
+    //ショットに引数として渡す用の方向変数の宣言
+    VECTOR shotDirction;
+
+    //モデルの向いている方向によってショットの撃つ向きを設定
+    if (rotaModelY == -90.0f)
+    {
+        shotDirction = VGet(1.0f, 0.0f, 0.0f);
+    }
+    else if (rotaModelY == 90.0f)
+    {
+        shotDirction = VGet(-1.0f, 0.0f, 0.0f);
+    }
+
+    //弾を撃つ処理
+    if (input & PAD_INPUT_10 && keyStop == false)
+    {
+        ShotManager::CreateShot(pos, shotDirction, PLAYER_USUALLY);
+    }
 
 
 
