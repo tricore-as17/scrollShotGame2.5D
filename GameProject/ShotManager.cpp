@@ -8,7 +8,7 @@
 // 速度（1=1m、60fps固定として、時速10km）
 // 10000m ÷ 時間 ÷ 分 ÷ 秒 ÷ フレーム
 //プレイヤーの通常弾の速度
-const float ShotManager::SHOT_SPEED[SHOT_KINDS_NUM] = { static_cast<float>(25000.0 / 60.0 / 60.0 / 60.0),
+const float ShotManager::SHOT_SPEED[SHOT_KINDS_NUM] = { static_cast<float>(35000.0 / 60.0 / 60.0 / 60.0),
 //敵の弾の通常速度
 static_cast<float>(25000.0 / 60.0 / 60.0 / 60.0) };
 
@@ -40,7 +40,7 @@ void ShotManager::Update()
     }
 
     //弾の移動処理
-    for (size_t i = 0; shot.size(); i++)
+    for (int i = 0; i<shot.size(); i++)
     {
         shot[i]->Update();
     }
@@ -56,7 +56,7 @@ void ShotManager::CreateShot(const VECTOR& pos, const VECTOR& dir,const int shot
 {
 
     //インターバルをチェックして撃てるかの確認撃てるなら弾を作成
-    if ( readyFlag[shotKinds] = true)
+    if ( readyFlag[shotKinds] == true)
     {
         //インターバルを0にして弾の作成
         readyFlag[shotKinds] = false;
@@ -72,7 +72,7 @@ void ShotManager::DeleteShot(const VECTOR& cameraPos)
 {
     //現在あるショットの数だけまわす
 
-    for (size_t i = 0; shot.size(); i++)
+    for (int i = 0; i< shot.size(); i++)
     {
         //座標の取得
         VECTOR shotPos = shot[i]->GetPos();
@@ -120,7 +120,7 @@ bool ShotManager::CheckScreenOut(const VECTOR& cameraPos, const VECTOR objectPos
 /// </summary>
 void ShotManager::Draw()
 {
-    for (size_t i = 0; shot.size(); i++)
+    for (int i = 0; i < shot.size(); i++)
     {
         shot[i]->Draw();
     }

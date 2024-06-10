@@ -17,6 +17,14 @@ Shot::Shot(const VECTOR& initPos, const VECTOR& initDir, const float& initSpeed,
 }
 
 /// <summary>
+/// デストラクタ
+/// </summary>
+Shot::~Shot()
+{
+    //処理なし
+}
+
+/// <summary>
 /// 弾の移動などの更新処理
 /// </summary>
 void Shot::Update()

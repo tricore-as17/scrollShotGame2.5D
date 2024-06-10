@@ -69,6 +69,7 @@ private:
 	VECTOR velocity;					//移動量
 	VECTOR keepVelocity;				//プレイヤーの移動量の保存用
 	VECTOR rotaVector;					//回転率を保存するためのベクトル
+    float rotaModelY;                   //プレイヤーの向きの角度
 	bool hitFlag;
 	bool isGround;						//接地判定
 	bool isHitTop;						//天井に当たっているかの判定
