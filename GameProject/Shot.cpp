@@ -8,8 +8,10 @@
 /// <param name="initDir">ショットの方向</param>
 /// <param name="speed">ショットのスピード</param>
 /// <param name="initRadius">ショットの半径</param>
-Shot::Shot(const VECTOR& initPos, const VECTOR& initDir, const float& initSpeed, const float& initRadius,const int initKinds)
-    :speed(initSpeed),radius(initRadius),kinds(initKinds)
+/// <param name="initKinds">弾の種類</param>
+/// <param name="initDamage">弾のダメージ</param>
+Shot::Shot(const VECTOR& initPos, const VECTOR& initDir, const float& initSpeed, const float& initRadius,const int initKinds,const int initDamage)
+    :speed(initSpeed),radius(initRadius),kinds(initKinds),damage(initDamage),survivalFlag(true)
 {
     //座標と方向の初期化
     pos = initPos;
@@ -32,7 +34,6 @@ void Shot::Update()
     //移動量を出す
     VECTOR velocity = VScale(dir, speed);
     pos = VAdd(pos, velocity);
-
 }
 
 /// <summary>

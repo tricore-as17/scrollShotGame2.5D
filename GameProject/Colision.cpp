@@ -394,6 +394,39 @@ float Colision::DistanceSquare(const float x1, const float y1, const float x2, c
     return (distanceX * distanceX) + (distanceY * distanceY);
 }
 
+/// <summary>
+/// 弾とオブジェクトとの接触判定(オブジェクトはプレイヤーやエネミー)
+/// </summary>
+/// <param name="shot">弾のベクター配列</param>
+/// <param name="objectPos">オブジェクトの座標</param>
+/// <param name="objectW">オブジェクトの幅</param>
+/// <param name="objectH">オブジェクトの高さ</param>
+/// <param name="objectLife">オブジェクトの体力</param>
+/// <param name="objectKind">オブジェクトの種類(誰が発射した弾か)</param>
+void Colision::ColisionShot(vector<Shot*> shot, const VECTOR& objectPos, const float objectW, const float objectH,int& objectLife,const int objectKind)
+{
+    for (int i = 0; i < shot.size(); i++)
+    {
+        bool isHit = false;
+        if (shot[i]->GetSurvivalFlag())
+        {
+            //自分の弾じゃないかを確認する
+            if (shot[i]->Getkinds() !=objectKind)
+            {
+                //ショットとオブジェクトが当たったかを判定する
+                isHit=IsHitCircleWithRectangles(objectPos, objectW, objectH, shot[i]->GetPos(), shot[i]->GetRadius());
+            }
+        }
+        //弾に当たっていたら弾の生存フラグをfalseにするのと体力を減らす
+        if (isHit)
+        {
+            shot[i]->SetSurvivalFlag(false);
+            objectLife -= shot[i]->GetDamage();
+        }
+
+    }
+}
+
 
 
 

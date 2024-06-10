@@ -18,12 +18,16 @@ enum ShotKinds
     SHOT_KINDS_NUM
 };
 
+
+
 /// <summary>
 /// 弾の発射やインターバルを管理するクラス
 /// </summary>
 class ShotManager
 {
 public:
+    //getter,setter
+    static const vector<Shot*> GetShot() { return shot; }
 
     /// <summary>
     /// 弾の移動などの更新処理
@@ -35,7 +39,8 @@ public:
     /// <param name="pos">弾を撃った座標</param>
     /// <param name="dir">弾の方向</param>
     /// <param name="shotKinds">どの弾を撃ったか</param>
-    static void CreateShot(const VECTOR& playerPos,const VECTOR& playerDir, const int shotKinds);
+    /// <param name="shotDamage">弾のダメージ</param>
+    static void CreateShot(const VECTOR& playerPos,const VECTOR& playerDir, const int shotKinds, const int shotDamage);
     /// <summary>
     /// 弾の削除(画面外に出たら削除)
     /// </summary>

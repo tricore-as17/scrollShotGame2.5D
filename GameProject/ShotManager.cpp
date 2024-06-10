@@ -52,7 +52,8 @@ void ShotManager::Update()
 /// <param name="pos">弾を撃った座標</param>
 /// <param name="dir">弾の方向</param>
 /// <param name="shotKinds">どの弾を撃ったか</param>
-void ShotManager::CreateShot(const VECTOR& pos, const VECTOR& dir,const int shotKinds)
+/// <param name="shotDamage">弾のダメージ</param>
+void ShotManager::CreateShot(const VECTOR& pos, const VECTOR& dir,const int shotKinds,const int shotDamage)
 {
 
     //インターバルをチェックして撃てるかの確認撃てるなら弾を作成
@@ -60,7 +61,7 @@ void ShotManager::CreateShot(const VECTOR& pos, const VECTOR& dir,const int shot
     {
         //インターバルを0にして弾の作成
         readyFlag[shotKinds] = false;
-        shot.emplace_back(new Shot(pos, dir,SHOT_SPEED[shotKinds],SHOT_RADIUS[shotKinds],shotKinds));
+        shot.emplace_back(new Shot(pos, dir,SHOT_SPEED[shotKinds],SHOT_RADIUS[shotKinds],shotKinds,shotDamage);
     }
 }
 
