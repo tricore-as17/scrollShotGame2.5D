@@ -1,5 +1,6 @@
 ﻿#include"EasyEnemy.h"
 #include"EnemyManager.h"
+#include"ShotManager.h"
 #include"Map.h"
 #include"Player.h"
 
@@ -33,11 +34,12 @@ void EnemyManager::Init()
 /// </summary>
 /// <param name="map">マップのインスタンス</param>
 /// <param name="cameraPos">カメラの座標</param>
-void EnemyManager::Update(const Map& map, const VECTOR& cameraPos)
+/// <param name="shotManager">ショットを管理するクラス</param>
+void EnemyManager::Update(const Map& map, const VECTOR& cameraPos, const ShotManager& shotManager)
 {
     for (int i = 0; i < easyEnemy.size(); i++)
     {
-	    easyEnemy[i]->Update(map,cameraPos);
+	    easyEnemy[i]->Update(map,cameraPos,shotManager);
     }
     DeleteEnemy();
 

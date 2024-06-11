@@ -17,12 +17,6 @@ const float ShotManager::SHOT_RADIUS[SHOT_KINDS_NUM] = { Map::CHIP_SIZE / 4,
 //敵の通常弾の半径(マップチップのサイズの4分の一)
 Map::CHIP_SIZE/4};
 
-//静的変数の初期化
-bool ShotManager::readyFlag[SHOT_KINDS_NUM];
-int ShotManager::intervalCount[SHOT_KINDS_NUM] = { 0 };
-
-list<Shot*> ShotManager::activeShot;
-list<Shot*> ShotManager::inactiveShot;
 
 
 /// <summary>
@@ -36,13 +30,23 @@ ShotManager::ShotManager()
     }
 }
 
+/// <summary>
+/// デストラクタ
+/// </summary>
+ShotManager::~ShotManager()
+{
+    //解放用の関数を呼ぶ
+    DeleteAllShot();
+}
+
 //NOTE
 //staticを辞めたらコンストラクタで行うので消す
 void ShotManager::Init()
 {
-    for (int i = 0; i < INACTIVE_SHOT_NUM; i++)
+    for (int i = 0; i < SHOT_KINDS_NUM; i++)
     {
-        inactiveShot.emplace_back(new Shot());
+        readyFlag[i] = false;
+        intervalCount[i] = 0;
     }
 }
 

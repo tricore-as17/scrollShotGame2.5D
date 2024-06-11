@@ -9,6 +9,7 @@ const int PLAYER_STATE_NUM = 4;				//プレイヤーの状態の数
 //クラスのプロトタイプ宣言
 class Map;
 class Gimmick;
+class ShotManager;
 
 /// <summary>
 /// プレイヤークラス
@@ -21,7 +22,7 @@ public:
 	~Player();
 	//基本メソッド
 	void Init();								//初期化
-	void Update(bool keyStop,const Map& map);	//更新
+	void Update(bool keyStop,const Map& map, ShotManager& shotManager);	//更新
 	void Draw();								//描画
 
 	/// <summary>

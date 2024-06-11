@@ -49,6 +49,7 @@ private:
 	Effect* clearCharaEffect;
 	Map* map;
 	EnemyManager* enemyManager;
+    ShotManager* shotManager;
     
 	
 	std::vector<Cloud*> cloud;
