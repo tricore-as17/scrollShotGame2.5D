@@ -18,6 +18,11 @@ EnemyManager::EnemyManager()
 /// </summary>
 EnemyManager::~EnemyManager()
 {
+    //中の要素の削除
+    for (auto it : easyEnemy)
+    {
+        delete it;
+    }
 	//メモリの開放
 	easyEnemy.clear();
 }
@@ -60,11 +65,15 @@ void EnemyManager::Draw()
 /// </summary>
 void EnemyManager::DeleteEnemy()
 {
-    for (int i = 0; i < easyEnemy.size(); i++)
+    for (auto it = easyEnemy.begin(); it != easyEnemy.end();)
     {
-        if (easyEnemy[i]->GetLife() <= 0)
+        if ((*it)->GetLife() <= 0)
         {
-            easyEnemy.erase(easyEnemy.begin() + i);
+            it = easyEnemy.erase(it);
+        }
+        else
+        {
+            ++it;
         }
     }
 }

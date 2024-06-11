@@ -16,33 +16,29 @@ Game::Game()
 	player = new Player();
 	utility = new Utility();
 	camera = new Camera();
-	gameOverEffect = new Effect("Effect/BreakChara.efkefc");
-	clearCharaEffect = new Effect("Effect/clearChara.efkefc");
 	map = new Map();
 	enemyManager = new EnemyManager();
-    shotManager = new ShotManager();
-
-	//エフェクトの動的確保
-	for (int i = 0; i < CLEAR_EFFECT_NUM; i++)
-	{
-		clearEffect.emplace_back(new Effect("Effect/hitEffect.efkefc"));
-	}
-
-	
-	
+    shotManager = new ShotManager();	
 }
 //デストラクタ
 Game::~Game()
 {
 	//メモリの解放
-	delete player,utility,ui,bgModel,camera,bg,player3D,gameOverEffect,clearCharaEffect,map
-		,enemyManager,shotManager;
+    delete player;
+    delete utility;
+    delete ui;
+    delete camera;
+    delete map;
+    delete enemyManager;
+    delete shotManager;
     //ヌルポインターの代入
-	player ,utility,ui,bgModel,camera,bg,player3D,gameOverEffect,clearCharaEffect,map,enemyManager = nullptr;
-    //ベクターのメモリ解放
-	gimmick.clear();
-	cloud.clear();
-	clearEffect.clear();
+    player = nullptr;
+    utility = nullptr;
+    ui = nullptr;
+    camera = nullptr;
+    map = nullptr;
+    enemyManager = nullptr;
+    shotManager = nullptr;
     
 }
 
@@ -107,7 +103,6 @@ void Game::Update()
 	bool inGameClearFlag = false;//ゲームクリアフラグ
 	//キー入力
 	auto input = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	bool inEffectPlayFlag = gameOverEffect->GetPlayFlag();
 	int elapsedTime = utility->getElapsedTime();
 
 
