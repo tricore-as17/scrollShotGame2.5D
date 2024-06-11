@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include<vector>
+#include<list>
 #include"DxLib.h"
 
 using namespace std;
@@ -26,9 +27,11 @@ enum ShotKinds
 class ShotManager
 {
 public:
+    //コンストラクタ
+    ShotManager();
     //getter,setter
-    static const vector<Shot*> GetShot() { return shot; }
-
+    static const list<Shot*> GetShot() { return activeShot; }
+    static void Init();
     /// <summary>
     /// 弾の移動などの更新処理
     /// </summary>
@@ -65,9 +68,11 @@ public:
     static constexpr int INTERVAL[SHOT_KINDS_NUM] = { 50,200 };     //それぞれの弾の発射間隔
     static const float SHOT_SPEED[SHOT_KINDS_NUM];                  //それぞれの弾のスピード
     static const float SHOT_RADIUS[SHOT_KINDS_NUM];                 //それぞれの弾の半径
+    static constexpr int INACTIVE_SHOT_NUM = 20;                    //最初に用意するショットのインスタンスの数
     
 private:
     static bool readyFlag[SHOT_KINDS_NUM];                  //弾を撃てる状態かの判定フラグ
     static int intervalCount[SHOT_KINDS_NUM];              //弾を撃てる間隔を測定するためのカウント(弾の種類だけ作る)
-    static vector<Shot*> shot;                             //弾を格納する配列
+    static list<Shot*> inactiveShot;                             //弾を格納する配列（未使用)
+    static list<Shot*> activeShot;                              //弾を格納する配列(使用中)
 };

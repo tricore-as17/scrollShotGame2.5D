@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include<vector>
+#include<list>
 #include"DxLib.h"
 
 using namespace std;
@@ -90,7 +91,7 @@ public:
     /// <param name="objectH">オブジェクトの高さ</param>
     /// <param name="objectLife">オブジェクトの体力</param>
     /// <param name="objectKind">オブジェクトの種類(誰が発射した弾か)</param>
-    static void ColisionShot(vector<Shot*> shot, const VECTOR& objectPos, const float objectW, const float objectH, int& objectLife, const int objectKind);
+    static void ColisionShot(list<Shot*> shot, const VECTOR& objectPos, const float objectW, const float objectH, int& objectLife, const int objectKind);
 
 
 };

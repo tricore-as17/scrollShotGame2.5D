@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include<vector>
+#include<list>
 #include"DxLib.h"
 
 using namespace std;

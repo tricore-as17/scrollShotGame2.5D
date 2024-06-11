@@ -20,7 +20,31 @@ Map::CHIP_SIZE/4};
 //静的変数の初期化
 bool ShotManager::readyFlag[SHOT_KINDS_NUM];
 int ShotManager::intervalCount[SHOT_KINDS_NUM] = { 0 };
-vector<Shot*> ShotManager::shot;
+
+list<Shot*> ShotManager::activeShot;
+list<Shot*> ShotManager::inactiveShot;
+
+
+/// <summary>
+/// コンスタラクタ
+/// </summary>
+ShotManager::ShotManager()
+{
+    for (int i = 0; i < INACTIVE_SHOT_NUM; i++)
+    {
+        inactiveShot.emplace_back(new Shot());
+    }
+}
+
+//NOTE
+//staticを辞めたらコンストラクタで行うので消す
+void ShotManager::Init()
+{
+    for (int i = 0; i < INACTIVE_SHOT_NUM; i++)
+    {
+        inactiveShot.emplace_back(new Shot());
+    }
+}
 
 
 /// <summary>
@@ -31,18 +55,21 @@ void ShotManager::Update()
     //弾を撃てるようになるまでの間隔のカウントをする
     for (int i = 0; i < SHOT_KINDS_NUM; i++)
     {
-        intervalCount[i] ++;
-        if (intervalCount[i] >= INTERVAL[i])
+        if (!readyFlag[i])
         {
-            readyFlag[i] = true;
-            intervalCount[i] = 0;
+            intervalCount[i] ++;
+            if (intervalCount[i] >= INTERVAL[i])
+            {
+                readyFlag[i] = true;
+                intervalCount[i] = 0;
+            }
         }
     }
 
     //弾の移動処理
-    for (int i = 0; i<shot.size(); i++)
+    for (auto it = activeShot.begin(); it !=activeShot.end(); ++it)
     {
-        shot[i]->Update();
+        (*it)->Update();
     }
 }
 
@@ -55,13 +82,16 @@ void ShotManager::Update()
 /// <param name="shotDamage">弾のダメージ</param>
 void ShotManager::CreateShot(const VECTOR& pos, const VECTOR& dir,const int shotKinds,const int shotDamage)
 {
-
     //インターバルをチェックして撃てるかの確認撃てるなら弾を作成
-    if ( readyFlag[shotKinds] == true)
+    if ( readyFlag[shotKinds])
     {
         //インターバルを0にして弾の作成
         readyFlag[shotKinds] = false;
-        shot.emplace_back(new Shot(pos, dir, SHOT_SPEED[shotKinds], SHOT_RADIUS[shotKinds], shotKinds, shotDamage));
+        //オブジェクトプールを使ってactivShotを有効か
+        activeShot.splice(activeShot.end(), inactiveShot, inactiveShot.begin());
+        //差し込んだ位置のイテレータを用意してそこで初期化する
+        auto it = prev(activeShot.end());    
+        (*it)->Init(pos, dir, SHOT_SPEED[shotKinds], SHOT_RADIUS[shotKinds], shotKinds, shotDamage);
     }
 }
 
@@ -72,19 +102,22 @@ void ShotManager::CreateShot(const VECTOR& pos, const VECTOR& dir,const int shot
 void ShotManager::DeleteShot(const VECTOR& cameraPos)
 {
     //現在あるショットの数だけまわす
-    for (int i = 0; i< shot.size(); i++)
+    for (auto it = activeShot.begin(); it != activeShot.end();)
     {
         //座標の取得
-        VECTOR shotPos = shot[i]->GetPos();
-        //接触した後の弾を消す処理
-        if (!shot[i]->GetSurvivalFlag())
+        VECTOR shotPos = (*it)->GetPos();
+        //接触した後かスクリーン外に出た際にアクティブからインアクティブに
+        if (!(*it)->GetSurvivalFlag() || CheckScreenOut(cameraPos, shotPos))
         {
-            shot.erase(shot.begin() + i);
+            //渡す用のイテレータを用意
+            auto switchShot = it;
+            ++it;
+            //最初の位置に差し込む
+            inactiveShot.splice(inactiveShot.begin(), activeShot, switchShot);
         }
-        //画面外に出たら要素を削除する
-        else if (CheckScreenOut(cameraPos,shotPos))
+        else
         {
-            shot.erase(shot.begin() + i);
+            ++it;
         }
     }
 }
@@ -125,9 +158,9 @@ bool ShotManager::CheckScreenOut(const VECTOR& cameraPos, const VECTOR objectPos
 /// </summary>
 void ShotManager::Draw()
 {
-    for (int i = 0; i < shot.size(); i++)
+    for (auto it = activeShot.begin(); it != activeShot.end(); ++it)
     {
-        shot[i]->Draw();
+        (*it)->Draw();
     }
 }
 
@@ -136,8 +169,14 @@ void ShotManager::Draw()
 /// </summary>
 void ShotManager::DeleteAllShot()
 {
-    //メモリの解放
-    shot.clear();
+    //リストポインタの指しているオブジェクトの解放
+    for ( auto ptr : inactiveShot)
+    {
+        delete ptr;
+    }
+    //ポインタも解放する
+    inactiveShot.clear();
+    activeShot.clear();
 }
 
 

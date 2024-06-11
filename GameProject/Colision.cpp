@@ -403,25 +403,25 @@ float Colision::DistanceSquare(const float x1, const float y1, const float x2, c
 /// <param name="objectH">オブジェクトの高さ</param>
 /// <param name="objectLife">オブジェクトの体力</param>
 /// <param name="objectKind">オブジェクトの種類(誰が発射した弾か)</param>
-void Colision::ColisionShot(vector<Shot*> shot, const VECTOR& objectPos, const float objectW, const float objectH,int& objectLife,const int objectKind)
+void Colision::ColisionShot(list<Shot*> shot, const VECTOR& objectPos, const float objectW, const float objectH,int& objectLife,const int objectKind)
 {
-    for (int i = 0; i < shot.size(); i++)
+    for (auto it = shot.begin(); it != shot.end(); ++it)
     {
         bool isHit = false;
-        if (shot[i]->GetSurvivalFlag())
+        if ((*it)->GetSurvivalFlag())
         {
             //自分の弾じゃないかを確認する
-            if (shot[i]->Getkinds() !=objectKind)
+            if ((*it)->Getkinds() !=objectKind)
             {
                 //ショットとオブジェクトが当たったかを判定する
-                isHit=IsHitCircleWithRectangles(objectPos, objectW, objectH, shot[i]->GetPos(), shot[i]->GetRadius());
+                isHit=IsHitCircleWithRectangles(objectPos, objectW, objectH, (*it)->GetPos(), (*it)->GetRadius());
             }
         }
         //弾に当たっていたら弾の生存フラグをfalseにするのと体力を減らす
         if (isHit)
         {
-            shot[i]->SetSurvivalFlag(false);
-            objectLife -= shot[i]->GetDamage();
+            (*it)->SetSurvivalFlag(false);
+            objectLife -= (*it)->GetDamage();
         }
 
     }
