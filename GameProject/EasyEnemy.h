@@ -4,6 +4,7 @@
 
 //クラスのプロトタイプ宣言
 class Map;
+class ShotManager;
 
 /// <summary>
 /// 一番最初に登場する雑魚敵横に移動してくるだけ
@@ -29,7 +30,8 @@ public:
     /// </summary>
     /// <param name="map">マップのインスタンス</param>
     /// <param name="cameraPos">カメラの座標</param>
-	void Update(const Map& map, const VECTOR& cameraPos);
+    /// <param name="shotManager">ショットを管理するクラス</param>
+	void Update(const Map& map, const VECTOR& cameraPos, const ShotManager& shotManager);
 	/// <summary>
 	/// 描画
 	/// </summary>

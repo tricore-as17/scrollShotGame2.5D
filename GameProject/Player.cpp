@@ -63,7 +63,7 @@ void Player::Init()
 /// <summary>
 /// 更新処理
 /// </summary>
-void Player::Update(bool keyStop,const Map &map)
+void Player::Update(bool keyStop,const Map &map, ShotManager& shotManager)
 {
 	// 入力状態を更新
 	// パッド１とキーボードから入力を得る
@@ -180,7 +180,7 @@ void Player::Update(bool keyStop,const Map &map)
     //弾を撃つ処理
     if (input & PAD_INPUT_10 && keyStop == false)
     {
-        ShotManager::CreateShot(pos, shotDirction, PLAYER_USUALLY,SHOT_DAMAGE);
+        shotManager.CreateShot(pos, shotDirction, PLAYER_USUALLY,SHOT_DAMAGE);
     }
 
 

@@ -29,13 +29,18 @@ class ShotManager
 public:
     //コンストラクタ
     ShotManager();
+    //デストラクタ
+    ~ShotManager();
     //getter,setter
-    static const list<Shot*> GetShot() { return activeShot; }
-    static void Init();
+    list<Shot*> GetShot()const { return activeShot; }
+    /// <summary>
+    /// ゲーム開始ごとの初期化
+    /// </summary>
+    void Init();
     /// <summary>
     /// 弾の移動などの更新処理
     /// </summary>
-    static void Update();
+    void Update();
     /// <summary>
     /// 弾の生成(敵の弾も味方の弾もすべて生成する)
     /// </summary>
@@ -43,27 +48,27 @@ public:
     /// <param name="dir">弾の方向</param>
     /// <param name="shotKinds">どの弾を撃ったか</param>
     /// <param name="shotDamage">弾のダメージ</param>
-    static void CreateShot(const VECTOR& playerPos,const VECTOR& playerDir, const int shotKinds, const int shotDamage);
+    void CreateShot(const VECTOR& playerPos,const VECTOR& playerDir, const int shotKinds, const int shotDamage);
     /// <summary>
     /// 弾の削除(画面外に出たら削除)
     /// </summary>
     /// <param name="cameraPos">カメラの座標</param>
-    static void DeleteShot(const VECTOR& cameraPos);
+    void DeleteShot(const VECTOR& cameraPos);
     /// <summary>
     /// 画面外に出たかのチェック
     /// </summary>
     /// <param name="cameraPos">カメラの座標</param>
     /// <param name="objectPos"></param>
     /// <returns></returns>
-    static bool CheckScreenOut(const VECTOR& cameraPos,const VECTOR objectPos);
+    bool CheckScreenOut(const VECTOR& cameraPos,const VECTOR objectPos);
     /// <summary>
     /// 弾の描画
     /// </summary>
-    static void Draw();
+    void Draw();
     /// <summary>
     /// 全ての弾の削除
     /// </summary>
-    static void DeleteAllShot();
+    void DeleteAllShot();
     //定数
     static constexpr int INTERVAL[SHOT_KINDS_NUM] = { 50,200 };     //それぞれの弾の発射間隔
     static const float SHOT_SPEED[SHOT_KINDS_NUM];                  //それぞれの弾のスピード
@@ -71,8 +76,8 @@ public:
     static constexpr int INACTIVE_SHOT_NUM = 20;                    //最初に用意するショットのインスタンスの数
     
 private:
-    static bool readyFlag[SHOT_KINDS_NUM];                  //弾を撃てる状態かの判定フラグ
-    static int intervalCount[SHOT_KINDS_NUM];              //弾を撃てる間隔を測定するためのカウント(弾の種類だけ作る)
-    static list<Shot*> inactiveShot;                             //弾を格納する配列（未使用)
-    static list<Shot*> activeShot;                              //弾を格納する配列(使用中)
+    bool readyFlag[SHOT_KINDS_NUM];                  //弾を撃てる状態かの判定フラグ
+    int intervalCount[SHOT_KINDS_NUM];              //弾を撃てる間隔を測定するためのカウント(弾の種類だけ作る)
+    list<Shot*> inactiveShot;                             //弾を格納する配列（未使用)
+    list<Shot*> activeShot;                              //弾を格納する配列(使用中)
 };

@@ -51,7 +51,8 @@ void EasyEnemy::Init(const VECTOR& initPos)
 /// </summary>
 /// <param name="map">マップのインスタンス</param>
 /// <param name="cameraPos">カメラの座標</param>
-void EasyEnemy::Update(const Map& map,const VECTOR&cameraPos)
+/// <param name="shotManager">ショットを管理するクラス</param>
+void EasyEnemy::Update(const Map& map,const VECTOR&cameraPos,const ShotManager& shotManager)
 {
 
     //画面内に入ったかのチェック
@@ -66,7 +67,7 @@ void EasyEnemy::Update(const Map& map,const VECTOR&cameraPos)
     Move(map, SPEED);
 
     //弾と当たっているかを判定して体力などを減らす処理
-    Colision::ColisionShot(ShotManager::GetShot(), pos, w, h, life, kind);
+    Colision::ColisionShot(shotManager.GetShot(), pos, w, h, life, kind);
 }
 
 /// <summary>

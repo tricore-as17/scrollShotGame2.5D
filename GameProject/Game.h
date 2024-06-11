@@ -39,21 +39,10 @@ private:
 	Player* player;
 	Utility* utility;
 	UI* ui;
-	BgModel* bgModel;
 	Camera* camera;
-	BG *bg;
-	Player3DDraw* player3D;
-	Gimmick3D* gimmick3D;
-	GroundDraw3D* groundDraw3D;
-	Effect* gameOverEffect;
-	Effect* clearCharaEffect;
 	Map* map;
 	EnemyManager* enemyManager;
-    
-	
-	std::vector<Cloud*> cloud;
-	std::vector<Gimmick*> gimmick;
-	std::vector<Effect*>clearEffect;
+    ShotManager* shotManager;
 	//ゲームのステータス関連（スクロールスピードなど)
 	
 	bool keyRelease = false;

@@ -32,7 +32,7 @@ public:
     /// </summary>
     /// <param name="map">マップのインスタンス</param>
     /// <param name="cameraPos">カメラの座標</param>
-	void Update(const Map&map, const VECTOR& cameraPos);
+	void Update(const Map&map, const VECTOR& cameraPos, const ShotManager& shotManager);
 	/// <summary>
 	/// エネミーの描画
 	/// </summary>

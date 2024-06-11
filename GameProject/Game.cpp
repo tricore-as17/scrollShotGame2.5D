@@ -16,34 +16,30 @@ Game::Game()
 	player = new Player();
 	utility = new Utility();
 	camera = new Camera();
-	gameOverEffect = new Effect("Effect/BreakChara.efkefc");
-	clearCharaEffect = new Effect("Effect/clearChara.efkefc");
 	map = new Map();
 	enemyManager = new EnemyManager();
-
-	//エフェクトの動的確保
-	for (int i = 0; i < CLEAR_EFFECT_NUM; i++)
-	{
-		clearEffect.emplace_back(new Effect("Effect/hitEffect.efkefc"));
-	}
-
-	
-	
+    shotManager = new ShotManager();	
 }
 //デストラクタ
 Game::~Game()
 {
 	//メモリの解放
-	delete player,utility,ui,bgModel,camera,bg,player3D,gameOverEffect,clearCharaEffect,map
-		,enemyManager;
+    delete player;
+    delete utility;
+    delete ui;
+    delete camera;
+    delete map;
+    delete enemyManager;
+    delete shotManager;
     //ヌルポインターの代入
-	player ,utility,ui,bgModel,camera,bg,player3D,gameOverEffect,clearCharaEffect,map,enemyManager = nullptr;
-    //ベクターのメモリ解放
-	gimmick.clear();
-	cloud.clear();
-	clearEffect.clear();
-    //全ての弾のインスタンスを消す
-    ShotManager::DeleteAllShot();
+    player = nullptr;
+    utility = nullptr;
+    ui = nullptr;
+    camera = nullptr;
+    map = nullptr;
+    enemyManager = nullptr;
+    shotManager = nullptr;
+    
 }
 
 /// <summary>
@@ -66,6 +62,7 @@ void Game::GameStateChange()
 		player->Init();
 		map->Init();
 		enemyManager->Init();
+        shotManager->Init();
 		break;
 	case STATE_GAMECLEAR:
 
@@ -92,10 +89,6 @@ void Game::Initialize()
 	map->Init();
 	camera->Init();
 	enemyManager->Init();
-    //NOTE
-    //現在staticでやっているので作っているが後でstaticをやめるので
-    //コンストラクタで呼ぶ
-    ShotManager::Init();
 }
 
 /// <summary>
@@ -110,7 +103,6 @@ void Game::Update()
 	bool inGameClearFlag = false;//ゲームクリアフラグ
 	//キー入力
 	auto input = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	bool inEffectPlayFlag = gameOverEffect->GetPlayFlag();
 	int elapsedTime = utility->getElapsedTime();
 
 
@@ -148,12 +140,12 @@ void Game::Update()
 		break;
 	case STATE_GAME:
 		map->Update(player->GetKeepVelocity());
-		player->Update(keyStop, *map);
-		enemyManager->Update(*map, camera->GetPos());
+		player->Update(keyStop, *map,*shotManager);
+		enemyManager->Update(*map, camera->GetPos(),*shotManager);
         //弾の移動など
-        ShotManager::Update();
+        shotManager->Update();
         //画面外に出た弾を消す処理
-        ShotManager::DeleteShot(camera->GetPos());
+        shotManager->DeleteShot(camera->GetPos());
 		camera->Update(*map,*player);
 		break;
 	case STATE_GAMEOVER:
@@ -183,7 +175,7 @@ void Game::Draw()
 	case STATE_GAME:
 		map->Draw();
 		player->Draw();
-        ShotManager::Draw();
+        shotManager->Draw();
 		enemyManager->Draw();
 
 		break;
