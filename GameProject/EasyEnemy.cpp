@@ -1,5 +1,6 @@
 ﻿#include"EasyEnemy.h"
 #include"Colision.h"
+#include"ShotManager.h"
 #include"Map.h"
 #include"Utility.h"
 
@@ -15,6 +16,8 @@ EasyEnemy::EasyEnemy()
 {
 	//座標の初期化
 	pos = VGet(0, 0, 0);
+    //体力の初期化
+    life = MAX_LIFE;
 
 }
 /// <summary>
@@ -61,7 +64,9 @@ void EasyEnemy::Update(const Map& map,const VECTOR&cameraPos)
 	}
     //当たり判定や移動処理などのエネミー共通処理を呼ぶ
     Move(map, SPEED);
-    
+
+    //弾と当たっているかを判定して体力などを減らす処理
+    Colision::ColisionShot(ShotManager::GetShot(), pos, w, h, life, kind);
 }
 
 /// <summary>

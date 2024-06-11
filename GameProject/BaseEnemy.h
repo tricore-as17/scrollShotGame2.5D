@@ -38,10 +38,12 @@ public:
     /// <returns>入っていたら(true)入ってなかったら(false)</returns>
     virtual bool CheckStartMove(const VECTOR& cameraPos);
 	//ゲッターセッター
-	virtual bool GetIsGround()const { return isGround; }		//接地判定の取得
-	virtual void SetIsGround(const bool inIsGroound) { isGround = inIsGroound; }	//接地判定の設定
-	virtual bool GetIsHitTop()const { return isHitTop; }		//頭上判定の取得
-	virtual void SetIsHitTop(const bool inIsHitTop) { isHitTop = inIsHitTop; }	//頭上判定の設定
+	bool GetIsGround()const { return isGround; }		//接地判定の取得
+    void SetIsGround(const bool inIsGroound) { isGround = inIsGroound; }	//接地判定の設定
+	bool GetIsHitTop()const { return isHitTop; }		//頭上判定の取得
+	void SetIsHitTop(const bool inIsHitTop) { isHitTop = inIsHitTop; }	//頭上判定の設定
+    int GetLife()const { return life; }                 //体力の値を返す
+    
 
 
 
@@ -51,6 +53,8 @@ protected:
 	bool isGround;		//接地しているか
 	bool isHitTop;		//天井にぶつかっているか
 	int firstX;			//初期X座標
+    int life;           //体力
+    int kind;           //自分の番号(エネミーかプレイヤーかを判断するための変数)
 
 
 };

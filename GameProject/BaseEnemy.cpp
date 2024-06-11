@@ -6,7 +6,10 @@
 /// <summary>
 /// コンストラクタ
 /// </summary>
-BaseEnemy::BaseEnemy() :moveStartFlag(false) {}	//フラグの初期化
+BaseEnemy::BaseEnemy() :moveStartFlag(false),kind(Utility::KIND_ENEMY)
+{
+    //処理なし
+}
 
 /// <summary>
 /// デストラクタ

@@ -40,7 +40,10 @@ public:
 	static constexpr float GRAVITY = 0.005f;			//重力の値
 	static const float CONVERSION_RADIAN ;				//角度をラジアンに変換する際にしようする定数
     static constexpr float WORLD_SCREEN_W_SIZE = 29.0f;    //ワールド座標に合わせたスクリーンの幅
-    static constexpr float WORLD_SCREEN_H_SIZE = 18.125f;    //ワールド座標に合わせたスクリーンの高さ
+    static constexpr float WORLD_SCREEN_H_SIZE = 18.125f;  //ワールド座標に合わせたスクリーンの高さ
+    static constexpr int KIND_PLAYER = 0;                  //プレイヤーを判断するための数字
+    static constexpr int KIND_ENEMY = 1;                   //エネミーを判断するための数字
+
 
 
 	//ゲッターセッター

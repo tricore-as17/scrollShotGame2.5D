@@ -92,6 +92,10 @@ void Game::Initialize()
 	map->Init();
 	camera->Init();
 	enemyManager->Init();
+    //NOTE
+    //現在staticでやっているので作っているが後でstaticをやめるので
+    //コンストラクタで呼ぶ
+    ShotManager::Init();
 }
 
 /// <summary>

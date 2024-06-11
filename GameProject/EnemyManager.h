@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include<vector>
+#include<list>
 #include"DxLib.h"
 
 using namespace std;
@@ -32,7 +33,11 @@ public:
     /// <param name="map">マップのインスタンス</param>
     /// <param name="cameraPos">カメラの座標</param>
 	void Update(const Map&map, const VECTOR& cameraPos);
+	/// <summary>
+	/// エネミーの描画
+	/// </summary>
 	void Draw();
+    void DeleteEnemy();
 private:
 	vector<EasyEnemy*> easyEnemy;	//一番弱い敵
 };

@@ -68,8 +68,8 @@ bool Colision::IsHitCircleWithRectangles(const VECTOR& rectPos, const float rect
     //大雑把に当たったかを判定できる
     if ((circlePos.x > left - circleR)&&
         (circlePos.x < right + circleR)&&
-        (circlePos.y > top - circleR)&&
-        (circlePos.y < bottom + circleR))
+        (circlePos.y < top + circleR)&&
+        (circlePos.y > bottom - circleR))
     {
 
         isHit = true;
@@ -79,7 +79,7 @@ bool Colision::IsHitCircleWithRectangles(const VECTOR& rectPos, const float rect
         if (circlePos.x < left)
         {
             //左上
-            if (circlePos.y < top)
+            if (circlePos.y > top)
             {
 
                 if (DistanceSquare(left,top,circlePos.x,circlePos.y) >= circleSquareR)
@@ -90,7 +90,7 @@ bool Colision::IsHitCircleWithRectangles(const VECTOR& rectPos, const float rect
             //左下
             else
             {
-                if (circlePos.y > bottom)
+                if (circlePos.y < bottom)
                 {
                     if (DistanceSquare(left, bottom, circlePos.x, circlePos.y) >= circleSquareR)
                     {
@@ -102,7 +102,7 @@ bool Colision::IsHitCircleWithRectangles(const VECTOR& rectPos, const float rect
         else
         {
             //右上
-            if (circlePos.y < top)
+            if (circlePos.y > top)
             {
 
                 if (DistanceSquare(right, top, circlePos.x, circlePos.y) >= circleSquareR)
@@ -113,7 +113,7 @@ bool Colision::IsHitCircleWithRectangles(const VECTOR& rectPos, const float rect
             //左下
             else
             {
-                if (circlePos.y > bottom)
+                if (circlePos.y < bottom)
                 {
                     if (DistanceSquare(right, bottom, circlePos.x, circlePos.y) >= circleSquareR)
                     {
@@ -392,6 +392,39 @@ float Colision::DistanceSquare(const float x1, const float y1, const float x2, c
 
     //２乗して足した値を出す
     return (distanceX * distanceX) + (distanceY * distanceY);
+}
+
+/// <summary>
+/// 弾とオブジェクトとの接触判定(オブジェクトはプレイヤーやエネミー)
+/// </summary>
+/// <param name="shot">弾のベクター配列</param>
+/// <param name="objectPos">オブジェクトの座標</param>
+/// <param name="objectW">オブジェクトの幅</param>
+/// <param name="objectH">オブジェクトの高さ</param>
+/// <param name="objectLife">オブジェクトの体力</param>
+/// <param name="objectKind">オブジェクトの種類(誰が発射した弾か)</param>
+void Colision::ColisionShot(list<Shot*> shot, const VECTOR& objectPos, const float objectW, const float objectH,int& objectLife,const int objectKind)
+{
+    for (auto it = shot.begin(); it != shot.end(); ++it)
+    {
+        bool isHit = false;
+        if ((*it)->GetSurvivalFlag())
+        {
+            //自分の弾じゃないかを確認する
+            if ((*it)->Getkinds() !=objectKind)
+            {
+                //ショットとオブジェクトが当たったかを判定する
+                isHit=IsHitCircleWithRectangles(objectPos, objectW, objectH, (*it)->GetPos(), (*it)->GetRadius());
+            }
+        }
+        //弾に当たっていたら弾の生存フラグをfalseにするのと体力を減らす
+        if (isHit)
+        {
+            (*it)->SetSurvivalFlag(false);
+            objectLife -= (*it)->GetDamage();
+        }
+
+    }
 }
 
 

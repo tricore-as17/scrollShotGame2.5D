@@ -1,27 +1,25 @@
 ﻿#include"Shot.h"
 #include"Utility.h"
 
-/// <summary>
-/// コンストラクタ
-/// </summary>
-/// <param name="initPos">ショットの初期座標</param>
-/// <param name="initDir">ショットの方向</param>
-/// <param name="speed">ショットのスピード</param>
-/// <param name="initRadius">ショットの半径</param>
-Shot::Shot(const VECTOR& initPos, const VECTOR& initDir, const float& initSpeed, const float& initRadius,const int initKinds)
-    :speed(initSpeed),radius(initRadius),kinds(initKinds)
-{
-    //座標と方向の初期化
-    pos = initPos;
-    dir = initDir;
-}
 
 /// <summary>
-/// デストラクタ
+/// 引数として値を受け取って初期化
 /// </summary>
-Shot::~Shot()
+/// <param name="initPos">座標</param>
+/// <param name="initDir">方向</param>
+/// <param name="initSpeed">スピード</param>
+/// <param name="initRadius">半径</param>
+/// <param name="initKinds">種類</param>
+/// <param name="initDamage">ダメージ</param>
+void Shot::Init(const VECTOR& initPos, const VECTOR& initDir, const float& initSpeed, const float& initRadius, const int initKinds, const int initDamage)
 {
-    //処理なし
+    survivalFlag = true;
+    pos = initPos;
+    dir = initDir;
+    speed = initSpeed;
+    radius = initRadius;
+    kinds = initKinds;
+    damage = initDamage;
 }
 
 /// <summary>
@@ -32,7 +30,6 @@ void Shot::Update()
     //移動量を出す
     VECTOR velocity = VScale(dir, speed);
     pos = VAdd(pos, velocity);
-
 }
 
 /// <summary>

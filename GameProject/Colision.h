@@ -1,8 +1,13 @@
 ﻿#pragma once
+#include<vector>
+#include<list>
 #include"DxLib.h"
+
+using namespace std;
 
 //クラスのプロトタイプ宣言
 class Map;
+class Shot;
 
 
 /// <summary>
@@ -76,6 +81,17 @@ public:
     /// <param name="y2">点２のｙ</param>
     /// <returns>距離を2乗した値</returns>
     static float DistanceSquare(const float x1, const float y1, const float x2, const float y2);
+
+    /// <summary>
+    /// 弾とオブジェクトとの接触判定(オブジェクトはプレイヤーやエネミー)
+    /// </summary>
+    /// <param name="shot">弾のベクター配列</param>
+    /// <param name="objectPos">オブジェクトの座標</param>
+    /// <param name="objectW">オブジェクトの幅</param>
+    /// <param name="objectH">オブジェクトの高さ</param>
+    /// <param name="objectLife">オブジェクトの体力</param>
+    /// <param name="objectKind">オブジェクトの種類(誰が発射した弾か)</param>
+    static void ColisionShot(list<Shot*> shot, const VECTOR& objectPos, const float objectW, const float objectH, int& objectLife, const int objectKind);
 
 
 };
