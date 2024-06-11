@@ -174,6 +174,10 @@ void ShotManager::DeleteAllShot()
     {
         delete ptr;
     }
+    for (auto ptr : activeShot)
+    {
+        delete ptr;
+    }
     //ポインタも解放する
     inactiveShot.clear();
     activeShot.clear();
