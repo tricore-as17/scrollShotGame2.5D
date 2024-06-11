@@ -1,6 +1,7 @@
 ﻿#include"Player.h"
 #include"Colision.h"
 #include"ShotManager.h"
+#include"Shot.h"
 #include"EnemyManager.h"
 #include"BaseEnemy.h"
 #include"EasyEnemy.h"
@@ -263,7 +264,8 @@ MATRIX Player::CalculationModelMatrixYXZ(const MATRIX& scale, const VECTOR& tran
 /// 当たり判定を見てダメージを受けたかのチェック
 /// </summary>
 /// <param name="enemy">調べるエネミーのvector</param>
-void Player::CheckDamage(const vector<BaseEnemy*> enemy)
+/// <param name="shot">画面上に出ている弾のlist</param>
+void Player::CheckDamage(const vector<BaseEnemy*> enemy,const list<Shot*> shot)
 {
     bool isHit = false;
     //ダメージを受けている状態じゃなければ当たり判定をみる
@@ -281,6 +283,16 @@ void Player::CheckDamage(const vector<BaseEnemy*> enemy)
                break;
            }            
         }
+        if (!isHit)
+        {
+            isHit = Colision::ColisionShot(shot, pos, PLAYER_W, PLAYER_H, life, Utility::KIND_PLAYER);
+            if (isHit)
+            {
+                damageFlag = true;
+            }
+
+        }
+
     }
     //一度ダメージを受けた状態なら(一定時間無敵状態になる)
     else

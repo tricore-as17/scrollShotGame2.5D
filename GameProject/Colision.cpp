@@ -403,11 +403,12 @@ float Colision::DistanceSquare(const float x1, const float y1, const float x2, c
 /// <param name="objectH">オブジェクトの高さ</param>
 /// <param name="objectLife">オブジェクトの体力</param>
 /// <param name="objectKind">オブジェクトの種類(誰が発射した弾か)</param>
-void Colision::ColisionShot(list<Shot*> shot, const VECTOR& objectPos, const float objectW, const float objectH,int& objectLife,const int objectKind)
+/// <returns>当たったかを返す</returns>
+bool Colision::ColisionShot(list<Shot*> shot, const VECTOR& objectPos, const float objectW, const float objectH,int& objectLife,const int objectKind)
 {
+    bool isHit = false;
     for (auto it = shot.begin(); it != shot.end(); ++it)
     {
-        bool isHit = false;
         if ((*it)->GetSurvivalFlag())
         {
             //自分の弾じゃないかを確認する
@@ -422,9 +423,11 @@ void Colision::ColisionShot(list<Shot*> shot, const VECTOR& objectPos, const flo
         {
             (*it)->SetSurvivalFlag(false);
             objectLife -= (*it)->GetDamage();
+            break;
         }
 
     }
+    return isHit;
 }
 
 

@@ -12,6 +12,8 @@ class Map;
 class Gimmick;
 class ShotManager;
 class BaseEnemy;
+class Shot;
+
 using namespace std;
 
 /// <summary>
@@ -40,7 +42,8 @@ public:
     /// 当たり判定を見てダメージを受けたかのチェック
     /// </summary>
     /// <param name="enemy">調べるエネミーのvector</param>
-    void CheckDamage(const vector<BaseEnemy*> enemy);
+    /// <param name="shot">画面上に出ている弾のlist</param>
+    void CheckDamage(const vector<BaseEnemy*> enemy, list<Shot*> shot);
 	//ゲッターセッター
 	VECTOR GetKeepVelocity()const { return keepVelocity; }					//プレイヤーの移動方向を保存
 	bool GetIsHitTop()const { return isHitTop; }							//天井へ当たっているかのフラグを返す

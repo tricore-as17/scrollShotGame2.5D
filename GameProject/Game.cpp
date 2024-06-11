@@ -7,6 +7,7 @@
 #include"Effect.h"
 #include"EnemyManager.h"
 #include"ShotManager.h"
+#include"Shot.h"
 #include"Game.h"
 
 //コンストラクタ
@@ -144,7 +145,7 @@ void Game::Update()
 		enemyManager->Update(*map, camera->GetPos(),*shotManager);
         //弾の移動など
         shotManager->Update();
-        player->CheckDamage(enemyManager->GetEasyEnemy());
+        player->CheckDamage(enemyManager->GetEasyEnemy(),shotManager->GetShot());
         //画面外に出た弾を消す処理
         shotManager->DeleteShot(camera->GetPos());
 		camera->Update(*map,*player);
