@@ -9,8 +9,11 @@
 /// </summary>
 EnemyManager::EnemyManager()
 {
-	//一番弱い敵をインスタンス化
-	easyEnemy.emplace_back(new EasyEnemy());	//1体目
+	//一番弱い敵をインスタンス化(作る数だけ)
+    for (int i = 0; i < EAZY_NUM;i++)
+    {
+	    easyEnemy.emplace_back(new EasyEnemy());	
+    }
 }
 
 /// <summary>
@@ -32,7 +35,10 @@ EnemyManager::~EnemyManager()
 /// </summary>
 void EnemyManager::Init()
 {
+    //それぞれの敵の座標を代入していく
 	easyEnemy[0]->Init(VGet(EAZY1_FIRST_X, EAZY1_FIRST_Y, 0));
+    easyEnemy[1]->Init(VGet(EAZY2_FIRST_X, EAZY1_FIRST_Y, 0));
+    
 }
 /// <summary>
 /// エネミー全体の更新処理

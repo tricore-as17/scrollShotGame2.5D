@@ -18,9 +18,12 @@ class EnemyManager
 {
 public:
 	//定数群
+    static constexpr int EAZY_NUM = 2;              //一番弱い敵の数
 	//初期座標(１マップチップ0.725の値で計算)
 	static constexpr float EAZY1_FIRST_X = 32.625f;	
-	static constexpr int EAZY1_FIRST_Y = 9.425f;
+	static constexpr float EAZY1_FIRST_Y = 9.425f;
+    static constexpr float EAZY2_FIRST_X = 36.975f;
+    static constexpr float EAZY2_FIRST_Y = 5.075f;
     //getter,setter
     vector<BaseEnemy*> GetEasyEnemy()const { return easyEnemy; }
 	EnemyManager();		//コンストラクタ
