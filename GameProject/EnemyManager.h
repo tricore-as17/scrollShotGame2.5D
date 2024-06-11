@@ -21,6 +21,8 @@ public:
 	//初期座標(１マップチップ0.725の値で計算)
 	static constexpr float EAZY1_FIRST_X = 32.625f;	
 	static constexpr int EAZY1_FIRST_Y = 9.425f;
+    //getter,setter
+    vector<BaseEnemy*> GetEasyEnemy()const { return easyEnemy; }
 	EnemyManager();		//コンストラクタ
 	~EnemyManager();	//デストラクタ
 	/// <summary>
@@ -39,5 +41,5 @@ public:
 	void Draw();
     void DeleteEnemy();
 private:
-	vector<EasyEnemy*> easyEnemy;	//一番弱い敵
+	vector<BaseEnemy*> easyEnemy;	//一番弱い敵
 };

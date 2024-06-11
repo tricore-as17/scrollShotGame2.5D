@@ -16,8 +16,7 @@ EasyEnemy::EasyEnemy()
 {
 	//座標の初期化
 	pos = VGet(0, 0, 0);
-    //体力の初期化
-    life = MAX_LIFE;
+
 
 }
 /// <summary>
@@ -42,6 +41,10 @@ void EasyEnemy::Init(const VECTOR& initPos)
     //幅と高さの代入
     w = W;
     h = H;
+    //体力の初期化
+    life = MAX_LIFE;
+    //ダメージの値を初期化
+    damage = INIT_DAMAGE;
 
 	
 }

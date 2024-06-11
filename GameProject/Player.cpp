@@ -1,6 +1,9 @@
 ﻿#include"Player.h"
 #include"Colision.h"
 #include"ShotManager.h"
+#include"EnemyManager.h"
+#include"BaseEnemy.h"
+#include"EasyEnemy.h"
 #include"Utility.h"
 
 // 静的定数
@@ -45,6 +48,9 @@ void Player::Init()
 	dir = VGet(0, 0, 0);
 	fallSpeed = 0;
 	isHitTop, isGround = false;
+    damageFlag = false;         //ダメージを受けていない状態に
+    invincibleCount = 0;        //無敵カウントを0に
+    life = INIT_LIFE;           //体力を初期値に
 	//回転率の初期設定(左向きにさせる)
 	rotaVector = VGet(20.0f, rotaModelY, 0.0f);
 	//アニメーション関連の初期化
@@ -197,6 +203,9 @@ void Player::Draw()
 {
 	//プレイヤーモデルの描画
 	MV1DrawModel(modelHandle);
+    //NOTE
+    //確認用で追加しています(UIを作ったら削除)
+    DrawFormatString(300,400,WHITE,"life:%d", life);
 
 }
 
@@ -248,6 +257,42 @@ MATRIX Player::CalculationModelMatrixYXZ(const MATRIX& scale, const VECTOR& tran
 		MGetRotX(rota.x * Utility::CONVERSION_RADIAN)), MGetRotZ(rota.z));
 	//スケールを追加した状態で計算して返り値にする
 	return MMult(MMult(scale, rotaMatrix), translateMatrix);
+}
+
+/// <summary>
+/// 当たり判定を見てダメージを受けたかのチェック
+/// </summary>
+/// <param name="enemy">調べるエネミーのvector</param>
+void Player::CheckDamage(const vector<BaseEnemy*> enemy)
+{
+    bool isHit = false;
+    //ダメージを受けている状態じゃなければ当たり判定をみる
+    if (!damageFlag)
+    {
+        //エネミーの数だけまわして当たり判定をみる
+        //当たった瞬間にフラグをたてて抜ける
+        for (auto it = enemy.begin(); it != enemy.end(); it++)
+        {
+           isHit = Colision::IsHitRectangles(pos, PLAYER_W, PLAYER_H, (*it)->GetPos(), (*it)->GetW(), (*it)->GetH());
+           if (isHit)
+           {
+               life -= (*it)->GetDamage();
+               damageFlag = true;
+               break;
+           }            
+        }
+    }
+    //一度ダメージを受けた状態なら(一定時間無敵状態になる)
+    else
+    {
+        invincibleCount++;
+        //無敵時間が終わったらまたダメージを受ける状態に戻す
+        if (invincibleCount >= INVINCIBLE_TIME)
+        {
+            invincibleCount = 0;
+            damageFlag = false;
+        }
+    }
 }
 
 

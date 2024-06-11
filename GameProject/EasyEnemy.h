@@ -17,6 +17,7 @@ public:
 	static constexpr float W = 1.45f;			//幅
 	static constexpr float H = 1.45f;			//高さ
     static constexpr int MAX_LIFE = 1;          //体力の上限値
+    static constexpr int INIT_DAMAGE = 1;       //当たった時のダメージ
 	//メソッド
 	EasyEnemy();			//コンストラクタ	
 	~EasyEnemy();						//デストラクタ
@@ -31,13 +32,11 @@ public:
     /// <param name="map">マップのインスタンス</param>
     /// <param name="cameraPos">カメラの座標</param>
     /// <param name="shotManager">ショットを管理するクラス</param>
-	void Update(const Map& map, const VECTOR& cameraPos, const ShotManager& shotManager);
+	void Update(const Map& map, const VECTOR& cameraPos, const ShotManager& shotManager)override;
 	/// <summary>
 	/// 描画
 	/// </summary>
 	void Draw()override;
 
-    //使用しない純粋仮想関数の定義
-    void Update(){}
 
 };
