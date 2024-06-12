@@ -19,7 +19,7 @@ public:
     static constexpr int MAX_LIFE = 1;          //体力の上限値
     static constexpr int INIT_DAMAGE = 1;       //当たった時のダメージ
 	//メソッド
-	EasyEnemy();			//コンストラクタ	
+	EasyEnemy();			            //コンストラクタ	
 	~EasyEnemy();						//デストラクタ
 	/// <summary>
 	/// ゲーム開始時の初期化
@@ -32,11 +32,8 @@ public:
     /// <param name="map">マップのインスタンス</param>
     /// <param name="cameraPos">カメラの座標</param>
     /// <param name="shotManager">ショットを管理するクラス</param>
-	void Update(const Map& map, const VECTOR& cameraPos, const ShotManager& shotManager)override;
-	/// <summary>
-	/// 描画
-	/// </summary>
-	void Draw()override;
+	void Update(const Map& map, const VECTOR& cameraPos, ShotManager& shotManager)override;
+
 
 
 };

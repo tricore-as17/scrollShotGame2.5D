@@ -75,4 +75,33 @@ bool BaseEnemy::CheckStartMove(const VECTOR& cameraPos)
     return checkFlag;
 }
 
+/// <summary>
+/// 弾を撃てるようになるまでの間隔の設定
+/// </summary>
+/// <param name="INTERVAL_RIMIT">間隔の大きさ</param>
+void BaseEnemy::CountShotInterval(const int INTERVAL_RIMIT)
+{
+    //撃てる準備がまだできていないなら
+    if (!readyShotFlag)
+    {
+        shotIntervalCount++;
+        if (shotIntervalCount>=INTERVAL_RIMIT)
+        {
+            readyShotFlag = true;
+            shotIntervalCount = 0;
+        }
+
+    }
+}
+
+/// <summary>
+/// 描画
+/// </summary>
+void BaseEnemy::Draw()
+{
+    //テスト用
+    //当たり判定の描画
+    Utility::DrawSquareCollisionDetection(pos, w, h);
+}
+
 

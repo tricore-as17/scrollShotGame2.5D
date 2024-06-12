@@ -21,11 +21,14 @@ public:
     /// <summary>
     /// ゲーム中の更新処理
     /// </summary>
-    virtual void Update(const Map& map, const VECTOR& cameraPos, const ShotManager& shotManager)abstract;
+    /// <param name="map">マップのインスタンス</param>
+    /// <param name="cameraPos">カメラの座標</param>
+    /// <param name="shotManager">ショットの管理クラス</param>
+    virtual void Update(const Map& map, const VECTOR& cameraPos, ShotManager& shotManager)abstract;
     /// <summary>
     /// ゲーム中の描画
     /// </summary>
-    virtual void Draw()abstract;
+    virtual void Draw();
 	/// <summary>
 	/// 当たり判定などの更新処理のなかでの共通処理をまとめたもの
 	/// </summary>
@@ -38,6 +41,11 @@ public:
     /// <param name="cameraPos">カメラのポジション</param>
     /// <returns>入っていたら(true)入ってなかったら(false)</returns>
     virtual bool CheckStartMove(const VECTOR& cameraPos);
+    /// <summary>
+    /// 弾を撃てるようになるまでの間隔の設定
+    /// </summary>
+    /// <param name="INTERVAL_RIMIT">間隔の大きさ</param>
+    virtual void CountShotInterval(const int INTERVAL_RIMIT);
 	//ゲッターセッター
 	bool GetIsGround()const { return isGround; }		//接地判定の取得
     void SetIsGround(const bool inIsGroound) { isGround = inIsGroound; }	//接地判定の設定
@@ -50,14 +58,16 @@ public:
 
 
 protected:
-	int** graph;		//画像
-	bool moveStartFlag;	//移動を開始させるフラグ
-	bool isGround;		//接地しているか
-	bool isHitTop;		//天井にぶつかっているか
-	int firstX;			//初期X座標
-    int life;           //体力
-    int kind;           //自分の番号(エネミーかプレイヤーかを判断するための変数)
-    int damage;         //敵に当たった時のダメージ
+	int** graph;		    //画像
+	bool moveStartFlag;	    //移動を開始させるフラグ
+	bool isGround;		    //接地しているか
+	bool isHitTop;		    //天井にぶつかっているか
+	int firstX;			    //初期X座標
+    int life;               //体力
+    int kind;               //自分の番号(エネミーかプレイヤーかを判断するための変数)
+    int damage;             //敵に当たった時のダメージ
+    int shotIntervalCount;  //弾を撃つ間隔をカウントする変数
+    bool readyShotFlag;     //弾を撃つ準備が出来たか確認フラグ
 
 
 };

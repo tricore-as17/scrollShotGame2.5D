@@ -66,6 +66,7 @@ public:
 	static const MATRIX SCALE_MATRIX;					//キャラの拡大率を設定するための行列
     static constexpr int INIT_LIFE = 5;                 //ゲーム開始時の体力
     static constexpr int INVINCIBLE_TIME = 50;          //無敵時間の長さ
+    static constexpr int INTERVAL_RIMIT = 50;           //弾を撃てるようになるまでの間隔
 
 private:
 
@@ -90,6 +91,8 @@ private:
     bool damageFlag;                    //ダメージを受けた際のフラグ
     int invincibleCount;               //無敵時間のカウント
     int life;                           //体力
+    int shotIntervalCount;              //弾を撃つ間隔をカウントする変数
+    bool canShotFlag;                   //弾を撃つ準備が出来たか確認フラグ
 
 	//静的定数
 	static constexpr float SCALE = 0.01f;	//プレイヤーの大きさ

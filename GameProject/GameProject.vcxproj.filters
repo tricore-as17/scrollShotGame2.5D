@@ -90,6 +90,9 @@
     <ClCompile Include="ShotManager.cpp">
       <Filter>ソース ファイル\Shot</Filter>
     </ClCompile>
+    <ClCompile Include="LeftShotEnemy.cpp">
+      <Filter>ソース ファイル\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -136,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="ShotManager.h">
       <Filter>ソース ファイル\Shot</Filter>
+    </ClInclude>
+    <ClInclude Include="LeftShotEnemy.h">
+      <Filter>ソース ファイル\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
