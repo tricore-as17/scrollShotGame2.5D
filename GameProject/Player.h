@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include<vector>
+#include<list>
 #include"DxLib.h"
 #include"GameObject.h"
 
@@ -10,6 +11,10 @@ const int PLAYER_STATE_NUM = 4;				//プレイヤーの状態の数
 class Map;
 class Gimmick;
 class ShotManager;
+class BaseEnemy;
+class Shot;
+
+using namespace std;
 
 /// <summary>
 /// プレイヤークラス
@@ -33,6 +38,12 @@ public:
 	/// <param name="rota">それぞれの回転を代入したVECTOR</param>
 	/// <returns>計算した行列</returns>
 	MATRIX CalculationModelMatrixYXZ(const MATRIX& scale, const VECTOR& translate, const VECTOR& rota);
+    /// <summary>
+    /// 当たり判定を見てダメージを受けたかのチェック
+    /// </summary>
+    /// <param name="enemy">調べるエネミーのvector</param>
+    /// <param name="shot">画面上に出ている弾のlist</param>
+    void CheckDamage(const vector<BaseEnemy*> enemy, list<Shot*> shot);
 	//ゲッターセッター
 	VECTOR GetKeepVelocity()const { return keepVelocity; }					//プレイヤーの移動方向を保存
 	bool GetIsHitTop()const { return isHitTop; }							//天井へ当たっているかのフラグを返す
@@ -53,6 +64,8 @@ public:
 	static constexpr float JUMP_POWER = 0.25f;			//キャラのジャンプ力
 	static constexpr int ANIME_STATE_SUM = 4;			//合計アニメーションの数
 	static const MATRIX SCALE_MATRIX;					//キャラの拡大率を設定するための行列
+    static constexpr int INIT_LIFE = 5;                 //ゲーム開始時の体力
+    static constexpr int INVINCIBLE_TIME = 50;          //無敵時間の長さ
 
 private:
 
@@ -60,7 +73,7 @@ private:
 	void ResetAnimeFlag();
 	//アニメションのセット
 	void AnimeSet(int setState);
-	int modelHandle;					//キャラのモデルハンドル
+    int modelHandle;					//キャラのモデルハンドル
 	int attachIndex;					//アニメーションアタッチ用インデックス
 	float totalAnimeTime;				//アニメーションのトータル再生時間
 	float playTime;						//アニメーションの現在の再生時間
@@ -74,6 +87,9 @@ private:
 	bool hitFlag;
 	bool isGround;						//接地判定
 	bool isHitTop;						//天井に当たっているかの判定
+    bool damageFlag;                    //ダメージを受けた際のフラグ
+    int invincibleCount;               //無敵時間のカウント
+    int life;                           //体力
 
 	//静的定数
 	static constexpr float SCALE = 0.01f;	//プレイヤーの大きさ

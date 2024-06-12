@@ -3,6 +3,7 @@
 #include"GameObject.h"
 
 class Map;
+class ShotManager;
 
 /// <summary>
 /// エネミーの共通する部分をまとめた基底クラス
@@ -20,7 +21,7 @@ public:
     /// <summary>
     /// ゲーム中の更新処理
     /// </summary>
-    virtual void Update()abstract;
+    virtual void Update(const Map& map, const VECTOR& cameraPos, const ShotManager& shotManager)abstract;
     /// <summary>
     /// ゲーム中の描画
     /// </summary>
@@ -43,6 +44,7 @@ public:
 	bool GetIsHitTop()const { return isHitTop; }		//頭上判定の取得
 	void SetIsHitTop(const bool inIsHitTop) { isHitTop = inIsHitTop; }	//頭上判定の設定
     int GetLife()const { return life; }                 //体力の値を返す
+    int GetDamage()const { return damage; }             //ダメージの値を返す
     
 
 
@@ -55,6 +57,7 @@ protected:
 	int firstX;			//初期X座標
     int life;           //体力
     int kind;           //自分の番号(エネミーかプレイヤーかを判断するための変数)
+    int damage;         //敵に当たった時のダメージ
 
 
 };
