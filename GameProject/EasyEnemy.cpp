@@ -15,7 +15,7 @@ const float EasyEnemy::SPEED = Utility::CalculationSpeed(17000.0f);
 EasyEnemy::EasyEnemy()
 {
 	//座標の初期化
-	pos = VGet(0, 0, 0);
+	position = VGet(0, 0, 0);
 
 
 }
@@ -30,11 +30,11 @@ EasyEnemy::~EasyEnemy()
 /// <summary>
 /// 初期化
 /// </summary>
-/// <param name="initPos">初期化用の座標</param>
-void EasyEnemy::Init(const VECTOR& initPos)
+/// <param name="initializePosition">初期化用の座標</param>
+void EasyEnemy::Initialize(const VECTOR& initializePosition)
 {
 	//座標の代入
-	pos = initPos;
+	position = initializePosition;
 	//移動を開始するフラグの初期化
 	moveStartFlag = false;
     fallSpeed = 0;
@@ -44,7 +44,7 @@ void EasyEnemy::Init(const VECTOR& initPos)
     //体力の初期化
     life = MAX_LIFE;
     //ダメージの値を初期化
-    damage = INIT_DAMAGE;
+    damage = INITIALIZE_DAMAGE;
 
 	
 }
@@ -53,24 +53,24 @@ void EasyEnemy::Init(const VECTOR& initPos)
 /// 初期エネミーの更新処理
 /// </summary>
 /// <param name="map">マップのインスタンス</param>
-/// <param name="cameraPos">カメラの座標</param>
+/// <param name="cameraPosition">カメラの座標</param>
 /// <param name="shotManager">ショットを管理するクラス</param>
-void EasyEnemy::Update(const Map& map,const VECTOR&cameraPos,ShotManager& shotManager)
+void EasyEnemy::Update(const Map& map,const VECTOR&cameraPosition,ShotManager& shotManager)
 {
 
     //画面内に入ったかのチェック
-    moveStartFlag = CheckStartMove(cameraPos);
+    moveStartFlag = CanStartMove(cameraPosition);
     
 	//移動開始フラグがたっていたら移動させる
 	if (moveStartFlag)
 	{
-		dir = VAdd(dir, VGet(-1, 0, 0));
+		direction = VAdd(direction, VGet(-1, 0, 0));
 	}
     //当たり判定や移動処理などのエネミー共通処理を呼ぶ
     Move(map, SPEED);
 
     //弾と当たっているかを判定して体力などを減らす処理
-    Colision::ColisionShot(shotManager.GetShot(), pos, w, h, life, kind);
+    Colision::ColisionShot(shotManager.GetShot(), position, w, h, life, kind);
 }
 
 

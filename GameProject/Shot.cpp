@@ -5,21 +5,21 @@
 /// <summary>
 /// 引数として値を受け取って初期化
 /// </summary>
-/// <param name="initPos">座標</param>
-/// <param name="initDir">方向</param>
-/// <param name="initSpeed">スピード</param>
-/// <param name="initRadius">半径</param>
-/// <param name="initKinds">種類</param>
-/// <param name="initDamage">ダメージ</param>
-void Shot::Init(const VECTOR& initPos, const VECTOR& initDir, const float& initSpeed, const float& initRadius, const int initKinds, const int initDamage)
+/// <param name="position">座標</param>
+/// <param name="initializeDirection">方向</param>
+/// <param name="initializeSpeed">スピード</param>
+/// <param name="initializeRadius">半径</param>
+/// <param name="initializeKinds">種類</param>
+/// <param name="initializeDamage">ダメージ</param>
+void Shot::Initialize(const VECTOR& initializePosition, const VECTOR& initializeDirection, const float& initializeSpeed, const float& initializeRadius, const int initializeKinds, const int initializeDamage)
 {
     survivalFlag = true;
-    pos = initPos;
-    dir = initDir;
-    speed = initSpeed;
-    radius = initRadius;
-    kinds = initKinds;
-    damage = initDamage;
+    position = initializePosition;
+    direction = initializeDirection;
+    speed = initializeSpeed;
+    radius = initializeRadius;
+    kinds = initializeKinds;
+    damage = initializeDamage;
 }
 
 /// <summary>
@@ -28,8 +28,8 @@ void Shot::Init(const VECTOR& initPos, const VECTOR& initDir, const float& initS
 void Shot::Update()
 {
     //移動量を出す
-    VECTOR velocity = VScale(dir, speed);
-    pos = VAdd(pos, velocity);
+    VECTOR velocity = VScale(direction, speed);
+    position = VAdd(position, velocity);
 }
 
 /// <summary>
@@ -38,5 +38,5 @@ void Shot::Update()
 void Shot::Draw()
 {
     //テスト用の描画のちのちは別の画像を使用
-    DrawSphere3D(pos, radius, 32, GetColor(255, 0, 0), WHITE, TRUE);
+    DrawSphere3D(position, radius, 32, GetColor(255, 0, 0), WHITE, TRUE);
 }

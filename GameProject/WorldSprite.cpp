@@ -62,11 +62,11 @@ void WorldSprite::Initialize(int textureGraph, int chipPixelSize, int spriteNo)
 /// <summary>
 /// サイズとポジションに応じて４頂点分の頂点位置を調整
 /// </summary>
-/// <param name="pos">ポジション</param>
+/// <param name="position">ポジション</param>
 /// <param name="chipSize">配置するワールドスプライトのサイズ</param>
-void WorldSprite::SetTransform(const VECTOR& pos, float spriteSize)
+void WorldSprite::SetTransform(const VECTOR& position, float spriteSize)
 {
-    this->pos = pos;
+    this->position = position;
     // ピボット中心で設定
     //spriteSizeは0.725
     //左上、右上、左下、右下に座標を設定
@@ -76,7 +76,7 @@ void WorldSprite::SetTransform(const VECTOR& pos, float spriteSize)
     Vertex[3].pos = VScale(VGet(1.0f, -1.0f, 0.0f), spriteSize * 0.5f);
     for (int i = 0; i < 4; i++)
     {
-        Vertex[i].pos = VAdd(Vertex[i].pos, pos);
+        Vertex[i].pos = VAdd(Vertex[i].pos, position);
     }
 }
 

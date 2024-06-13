@@ -18,7 +18,7 @@ public:
     /// <summary>
     /// ゲーム開始ごとの初期化
     /// </summary>
-    void Init();
+    void Initialize();
     /// <summary>
     /// カメラのポジションなどの更新(プレイヤーを追従
     /// </summary>
@@ -26,7 +26,7 @@ public:
     /// <param name="player">プレイヤーのインスタンス</param>
     void Update(const Map& map, const Player& player);
     //ポジションのgetter/setter
-    const VECTOR& GetPos() const { return pos; }
+    const VECTOR& GetPosition() const { return position; }
 private:   
-    VECTOR pos;         //座標
+    VECTOR position;         //座標
 };

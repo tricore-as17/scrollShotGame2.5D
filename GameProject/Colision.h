@@ -19,25 +19,25 @@ public:
     /// <summary>
     /// 矩形同士の当たり判定
     /// </summary>
-    /// <param name="pos1">矩形１の座標</param>
+    /// <param name="position1">矩形１の座標</param>
     /// <param name="w1">矩形１の幅</param>
     /// <param name="h1">矩形１の高さ</param>
-    /// <param name="pos2">矩形２の座標</param>
+    /// <param name="position2">矩形２の座標</param>
     /// <param name="w2">矩形２の幅</param>
     /// <param name="h2">矩形２の高さ</param>
     /// <returns>当たったかの判定結果</returns>
-    static bool IsHitRectangles(const VECTOR& pos1, float w1, float h1, const VECTOR& pos2, float w2, float h2);
+    static bool IsHitRectangles(const VECTOR& position1, float w1, float h1, const VECTOR& position2, float w2, float h2);
 
     /// <summary>
     /// 矩形と円の当たり判定
     /// </summary>
-    /// <param name="rectPos">矩形の座標</param>
+    /// <param name="rectPosition">矩形の座標</param>
     /// <param name="rectW">矩形の幅</param>
     /// <param name="rectH">矩形の高さ</param>
-    /// <param name="circlePos">円の中心座標</param>
+    /// <param name="circlePosition">円の中心座標</param>
     /// <param name="circleR">円の半径</param>
     /// <returns>当たったかの判定結果</returns>
-    static bool IsHitCircleWithRectangles(const VECTOR& rectPos, const float rectW, const float rectH, const VECTOR& circlePos, const float circleR);
+    static bool IsHitCircleWithRectangles(const VECTOR& rectPosition, const float rectW, const float rectH, const VECTOR& circlePosition, const float circleR);
 
 
     /// <summary>
@@ -45,32 +45,32 @@ public:
     /// </summary>
     /// <param name="map">マップのインスタンス</param>
     /// <param name="velocity">プレイヤーなどのベクトル</param>
-    /// <param name="pos">動かす前の座標</param>
+    /// <param name="position">動かす前の座標</param>
     /// <param name="w">オブジェクトの幅</param>
     /// <param name="h">オブジェクトの高さ</param>
     /// <returns>調節したベクトル</returns>
-    static VECTOR CheckHitMapAdjustmentVector(const Map& map, VECTOR velocity, const VECTOR& pos,const float w, const float h);
+    static VECTOR IsHitMapAdjustmentVector(const Map& map, VECTOR velocity, const VECTOR& position,const float w, const float h);
 
     /// <summary>
     /// オブジェクトが接地しているかの判定
     /// </summary>
     /// <param name="map">マップのインスタンス</param>
-    /// <param name="objectPos">調べるオブジェクトの座標</param>
+    /// <param name="objectPosition">調べるオブジェクトの座標</param>
     /// <param name="objectW">オブジェクトの幅</param>
     /// <param name="objectH">オブジェクトの高さ</param>
     /// <returns>接地しているか</returns>
-    static bool IsGround(const Map& map, const VECTOR& objectPos, const float objectW, const float objectH, float& fallSpeed);
+    static bool IsGround(const Map& map, const VECTOR& objectPosition, const float objectW, const float objectH, float& fallSpeed);
 
     /// <summary>
     /// 天井に頭がぶつかっているか
     /// </summary>
     /// <param name="map">マップのインスタンス</param>
-    /// <param name="objectPos">調べるオブジェクトの座標</param>
+    /// <param name="objectPosition">調べるオブジェクトの座標</param>
     /// <param name="objectW">オブジェクトの幅</param>
     /// <param name="objectH">オブジェクトの高さ</param>
     /// <param name="fallSpeed">オブジェクトの落下速度</param>
     /// <returns>当たっているか</returns>
-    static bool IsTopHit(const Map& map, const VECTOR& objectPos, const float objectW, const float objectH, float& fallSpeed);
+    static bool IsTopHit(const Map& map, const VECTOR& objectPosition, const float objectW, const float objectH, float& fallSpeed);
 
     /// <summary>
     /// 二点間の距離を2乗した値を計算
@@ -86,12 +86,12 @@ public:
     /// 弾とオブジェクトとの接触判定(オブジェクトはプレイヤーやエネミー)
     /// </summary>
     /// <param name="shot">弾のベクター配列</param>
-    /// <param name="objectPos">オブジェクトの座標</param>
+    /// <param name="objectPosition">オブジェクトの座標</param>
     /// <param name="objectW">オブジェクトの幅</param>
     /// <param name="objectH">オブジェクトの高さ</param>
     /// <param name="objectLife">オブジェクトの体力</param>
     /// <param name="objectKind">オブジェクトの種類(誰が発射した弾か)</param>
-    static bool ColisionShot(list<Shot*> shot, const VECTOR& objectPos, const float objectW, const float objectH, int& objectLife, const int objectKind);
+    static bool ColisionShot(list<Shot*> shot, const VECTOR& objectPosition, const float objectW, const float objectH, int& objectLife, const int objectKind);
 
 
 };

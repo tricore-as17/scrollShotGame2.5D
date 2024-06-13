@@ -33,14 +33,14 @@ Map::~Map()
 /// <summary>
 /// マップの位置の初期化
 /// </summary>
-void Map::Init()
+void Map::Initialize()
 {
 	//チップサイズ半分左下にずらす際にしようする大きさ
 	float halfMinusChipSize = -CHIP_SIZE * 0.5f;
 	//chipHalfOffsetはチップを左下にずらす
 	VECTOR chipHalfOffset = VGet(halfMinusChipSize, halfMinusChipSize, 0);		
 	//ワールドスプライトの左上座標を設定
-	chipLeftTopPos = VGet(0, mapYNum * CHIP_SIZE,0);
+	chipLeftTopPosition = VGet(0, mapYNum * CHIP_SIZE,0);
 	for (int yIndex = 0; yIndex < mapYNum; yIndex++)
 	{
 		for (int xIndex = 0; xIndex < mapXNum; xIndex++)
@@ -50,9 +50,9 @@ void Map::Init()
 			sprite->Initialize(tileGraph, CHIP_PIXEL_SIZE, mapData[yIndex][xIndex]);
 
 			
-			VECTOR chipPos = VAdd(VGet(xIndex * CHIP_SIZE, (-yIndex - 1) * CHIP_SIZE, 0), chipHalfOffset);	// 真ん中ピボットなのでマップチップ半分サイズずらす+地面なので一つ下に
-			chipPos = VAdd(chipPos, chipLeftTopPos);	//行の数だけ座標を上にもってくる
-			sprite->SetTransform(chipPos, CHIP_SIZE);
+			VECTOR chipPosition = VAdd(VGet(xIndex * CHIP_SIZE, (-yIndex - 1) * CHIP_SIZE, 0), chipHalfOffset);	// 真ん中ピボットなのでマップチップ半分サイズずらす+地面なので一つ下に
+			chipPosition = VAdd(chipPosition, chipLeftTopPosition);	//行の数だけ座標を上にもってくる
+			sprite->SetTransform(chipPosition, CHIP_SIZE);
 			sprites.push_back(sprite);
 		}
 	}

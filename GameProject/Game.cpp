@@ -56,21 +56,21 @@ void Game::GameStateChange()
 	case STATE_TITLE:
 		//プレイヤーとギミックの位置は毎回リセット
 		//player->Init();
-		utility->StartInit();
+		utility->StartInitialize();
 		break;
 	case STATE_GAME:
-		utility->StartInit();
-		player->Init();
-		map->Init();
-		enemyManager->Init();
-        shotManager->Init();
+		utility->StartInitialize();
+		player->Initialize();
+		map->Initialize();
+		enemyManager->Initialize();
+        shotManager->Initialize();
 		break;
 	case STATE_GAMECLEAR:
 
 		break;
 	case STATE_GAMEOVER:
 		//プレイヤーとギミックの位置は毎回リセット
-		player->Init();
+		player->Initialize();
 		break;
 	default:
 		break;
@@ -86,10 +86,10 @@ void Game::GameStateChange()
 /// </summary>
 void Game::Initialize()
 {
-	player->Init();
-	map->Init();
-	camera->Init();
-	enemyManager->Init();
+	player->Initialize();
+	map->Initialize();
+	camera->Initialize();
+	enemyManager->Initialize();
 }
 
 /// <summary>
@@ -142,12 +142,12 @@ void Game::Update()
 	case STATE_GAME:
 		map->Update(player->GetKeepVelocity());
 		player->Update(keyStop, *map,*shotManager);
-		enemyManager->Update(*map, camera->GetPos(),*shotManager);
+		enemyManager->Update(*map, camera->GetPosition(),*shotManager);
         //弾の移動など
         shotManager->Update();
-        player->CheckDamage(enemyManager->GetEasyEnemy(),shotManager->GetShot());
+        player->IsReceiveDamage(enemyManager->GetEasyEnemy(),shotManager->GetShot());
         //画面外に出た弾を消す処理
-        shotManager->DeleteShot(camera->GetPos());
+        shotManager->DeleteShot(camera->GetPosition());
 		camera->Update(*map,*player);
 		break;
 	case STATE_GAMEOVER:

@@ -24,11 +24,11 @@ LeftShotEnemy::~LeftShotEnemy()
 /// <summary>
 /// ゲーム開始時の初期化
 /// </summary>
-/// <param name="initPos">初期座標</param>
-void LeftShotEnemy::Init(const VECTOR& initPos)
+/// <param name="initPosition">初期座標</param>
+void LeftShotEnemy::Initialize(const VECTOR& initializePosition)
 {
     //座標の代入
-    pos = initPos;
+    position = initializePosition;
     //撃ち始めるフラグ
     moveStartFlag = false;
     fallSpeed = 0;
@@ -38,7 +38,7 @@ void LeftShotEnemy::Init(const VECTOR& initPos)
     //体力の初期化
     life = MAX_LIFE;
     //ダメージの値を初期化
-    damage = INIT_DAMAGE;
+    damage = INITIALIZE_DAMAGE;
 
 }
 
@@ -46,12 +46,12 @@ void LeftShotEnemy::Init(const VECTOR& initPos)
 /// ゲーム中の更新処理
 /// </summary>
 /// <param name="map">マップのインスタンス</param>
-/// <param name="cameraPos">カメラの座標</param>
+/// <param name="cameraPosition">カメラの座標</param>
 /// <param name="shotManager">ショットを管理するクラス</param>
-void LeftShotEnemy::Update(const Map& map, const VECTOR& cameraPos, ShotManager& shotManager)
+void LeftShotEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotManager& shotManager)
 {
     //画面内に入ったかのチェック
-    moveStartFlag = CheckStartMove(cameraPos);
+    moveStartFlag = CanStartMove(cameraPosition);
 
     //画面内に入ったフラグが立っていれば撃つ
     if (moveStartFlag)
@@ -60,12 +60,12 @@ void LeftShotEnemy::Update(const Map& map, const VECTOR& cameraPos, ShotManager&
         CountShotInterval(SHOT_INTERVAL_RIMIT);
         if (readyShotFlag)
         {
-            shotManager.CreateShot(pos, VGet(SHOT_DIRCTION, 0, 0), LEFT_ENEMY_SHOT, damage);
+            shotManager.CreateShot(position, VGet(SHOT_DIRCTION, 0, 0), LEFT_ENEMY_SHOT, damage);
             readyShotFlag = false;
         }
     }
     //弾と当たっているかを判定して体力などを減らす処理
-    Colision::ColisionShot(shotManager.GetShot(), pos, w, h, life, kind);
+    Colision::ColisionShot(shotManager.GetShot(), position, w, h, life, kind);
 }
 
 

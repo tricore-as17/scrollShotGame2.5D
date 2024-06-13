@@ -21,9 +21,9 @@ public:
 	const int getMapXNum() const{ return mapXNum; }					//横チップの数を返す
 	const int getMapYNum() const { return mapYNum; }				//縦チップの数を返す
 	int** getMapData()const{ return  mapData; }				//マップデータを返す
-	const VECTOR GetChipLeftPos() const { return chipLeftTopPos; }	//マップの左上の座標
+	const VECTOR GetChipLeftPosition() const { return chipLeftTopPosition; }	//マップの左上の座標
 
-	void Init();
+	void Initialize();
 	/// <summary>
 	/// 座標移動などの更新処理
 	/// </summary>
@@ -55,7 +55,7 @@ private:
 	int **mapData;									//マップデータ(CSVで管理)
 	int mapXNum;									//横方向のマップチップの数
 	int mapYNum;									//縦方向のマップチップの数
-	VECTOR chipLeftTopPos;							//ワールドスプライトの左上座標
+	VECTOR chipLeftTopPosition;							//ワールドスプライトの左上座標
 	vector<WorldSprite*> sprites;					//ワールドスプライトのインスタンス
 
 

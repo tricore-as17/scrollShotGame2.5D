@@ -13,6 +13,7 @@ class Gimmick;
 class ShotManager;
 class BaseEnemy;
 class Shot;
+class Utility;
 
 using namespace std;
 
@@ -26,7 +27,7 @@ public:
 	Player();
 	~Player();
 	//基本メソッド
-	void Init();								//初期化
+	void Initialize();								//初期化
 	void Update(bool keyStop,const Map& map, ShotManager& shotManager);	//更新
 	void Draw();								//描画
 
@@ -43,7 +44,7 @@ public:
     /// </summary>
     /// <param name="enemy">調べるエネミーのvector</param>
     /// <param name="shot">画面上に出ている弾のlist</param>
-    void CheckDamage(const vector<BaseEnemy*> enemy, list<Shot*> shot);
+    void IsReceiveDamage(const vector<BaseEnemy*> enemy, list<Shot*> shot);
 	//ゲッターセッター
 	VECTOR GetKeepVelocity()const { return keepVelocity; }					//プレイヤーの移動方向を保存
 	bool GetIsHitTop()const { return isHitTop; }							//天井へ当たっているかのフラグを返す
@@ -64,7 +65,7 @@ public:
 	static constexpr float JUMP_POWER = 0.25f;			//キャラのジャンプ力
 	static constexpr int ANIME_STATE_SUM = 4;			//合計アニメーションの数
 	static const MATRIX SCALE_MATRIX;					//キャラの拡大率を設定するための行列
-    static constexpr int INIT_LIFE = 5;                 //ゲーム開始時の体力
+    static constexpr int INITIALIZE_LIFE = 5;                 //ゲーム開始時の体力
     static constexpr int INVINCIBLE_TIME = 50;          //無敵時間の長さ
     static constexpr int INTERVAL_RIMIT = 50;           //弾を撃てるようになるまでの間隔
 

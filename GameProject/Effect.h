@@ -23,5 +23,5 @@ private:
 	int playTime;			//再生時間
 	bool playFlag;			//再生中か確認するフラグ
 	bool playEndFlag;		//再生終了のフラグ
-	VECTOR pos;				//座標
+	VECTOR position;				//座標
 };

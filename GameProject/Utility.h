@@ -61,13 +61,13 @@ public:
 	int SetNowScreenX(int inX) { nowScreenX = inX; }	//スクリーンX座標の更新
 	int SetNowScreenY(int inY) { nowScreenY = inY; }	//スクリーンY座標の更新
 	//フレームレート関連の初期化
-	static void FpsInit();
+	static void FpsInitialize();
 	//1フレーム目と60フレーム目で更新
 	static void FpsUpdate();
 	//計算した値でフレームレートを調節
 	static void FpsControll();
 	//ゲーム開始時ごとの初期化処理
-	void StartInit();
+	void StartInitialize();
 	/// <summary>
 	/// 配列へのポインタをもらってベクタを作成する
 	/// </summary>
@@ -79,10 +79,10 @@ public:
     /// <summary>
     /// 四角の当たり判定の描画
     /// </summary>
-    /// <param name="pos">描画したいものの座標</param>
+    /// <param name="position">描画したいものの座標</param>
     /// <param name="w">幅</param>
     /// <param name="h">高さ</param>
-    static void DrawSquareCollisionDetection(const VECTOR& pos,const float& w,const float&h );
+    static void DrawSquareCollisionDetection(const VECTOR& position,const float& w,const float&h );
     /// <summary>
     /// フレームレートに合わせたスピードの値を計算する処理
     /// </summary>

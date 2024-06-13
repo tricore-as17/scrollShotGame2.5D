@@ -45,7 +45,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// グラフィックの描画先を裏画面にセット
 
 
-	Utility::FpsInit();
+	Utility::FpsInitialize();
 	Game* game = new Game;
 
 	game->Initialize();

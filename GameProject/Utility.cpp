@@ -12,7 +12,7 @@ const float Utility::CONVERSION_RADIAN = DX_PI_F / 180.0f;  //ラジアン変換
 /// <summary>
 /// フレームレートの調整をする変数などの初期化
 /// </summary>
-void Utility::FpsInit()
+void Utility::FpsInitialize()
 {
     //ゲーム開始時点の時間を取得
     startTime = GetNowCount();
@@ -59,7 +59,7 @@ void Utility::FpsControll()
 /// <summary>
 /// ゲームに使用するスクロールスピードやカウントなどを初期化
 /// </summary>
-void Utility::StartInit()
+void Utility::StartInitialize()
 {
     //ゲーム開始時間を記録
     gameStartTime = GetNowCount();
@@ -87,27 +87,27 @@ vector<int> Utility::CreateArrayVector(const int targetData[], int num)
 /// <summary>
 /// 四角の当たり判定の描画
 /// </summary>
-/// <param name="pos">描画したいものの座標</param>
+/// <param name="position">描画したいものの座標</param>
 /// <param name="w">幅</param>
 /// <param name="h">高さ</param>
-void Utility::DrawSquareCollisionDetection(const VECTOR& pos, const float& w, const float& h)
+void Utility::DrawSquareCollisionDetection(const VECTOR& position, const float& w, const float& h)
 {
     //左上座標
-    VECTOR leftUpPos = VGet(pos.x - w * 0.5f, pos.y + h * 0.5f, 0.0f);
+    VECTOR leftUpPosition = VGet(position.x - w * 0.5f, position.y + h * 0.5f, 0.0f);
     //左下座標
-    VECTOR leftDownPos = VGet(pos.x - w * 0.5f, pos.y - h * 0.5f, 0.0f);
+    VECTOR leftDownPosition = VGet(position.x - w * 0.5f, position.y - h * 0.5f, 0.0f);
     //右上座標
-    VECTOR rightUpPos = VGet(pos.x + w * 0.5f, pos.y + h * 0.5f, 0.0f);
+    VECTOR rightUpPosition = VGet(position.x + w * 0.5f, position.y + h * 0.5f, 0.0f);
     //右下座標
-    VECTOR rightDownPos = VGet(pos.x + w * 0.5f, pos.y - h * 0.5f, 0.0f);
+    VECTOR rightDownPosition = VGet(position.x + w * 0.5f, position.y - h * 0.5f, 0.0f);
     //左の線の描画
-    DrawLine3D(leftUpPos, leftDownPos,WHITE);
+    DrawLine3D(leftUpPosition, leftDownPosition,WHITE);
     //上の線の描画
-    DrawLine3D(leftUpPos, rightUpPos, WHITE);
+    DrawLine3D(leftUpPosition, rightUpPosition, WHITE);
     //右の線の描画
-    DrawLine3D(rightUpPos, rightDownPos, WHITE);
+    DrawLine3D(rightUpPosition, rightDownPosition, WHITE);
     //下の線の描画
-    DrawLine3D(leftDownPos, rightDownPos, WHITE);
+    DrawLine3D(leftDownPosition, rightDownPosition, WHITE);
 
     
 }
