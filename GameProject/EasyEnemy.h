@@ -14,8 +14,8 @@ class EasyEnemy :public BaseEnemy
 public:
 	//定数群
 	static const float SPEED;		//スピード
-	static constexpr float W = 1.45f;			//幅
-	static constexpr float H = 1.45f;			//高さ
+	static constexpr float WIDTH  = 1.45f;			//幅
+	static constexpr float HEIGHT = 1.45f;			//高さ
     static constexpr int MAX_LIFE = 1;          //体力の上限値
     static constexpr int INIT_DAMAGE = 1;       //当たった時のダメージ
 	//メソッド
@@ -25,7 +25,7 @@ public:
 	/// ゲーム開始時の初期化
 	/// </summary>
 	/// <param name="initPos">初期化用の座標</param>
-	void Init(const VECTOR& initPos)override;
+	void Initialize(const VECTOR& initPos)override;
     /// <summary>
     /// 初期エネミーの更新処理
     /// </summary>

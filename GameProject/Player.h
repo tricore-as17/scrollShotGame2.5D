@@ -58,8 +58,8 @@ public:
 		IDLE = 1, MAGIC, RUN
 	};
 	//定数群	
-	static constexpr float PLAYER_W = 0.725f;			//プレイヤー横サイズ
-	static constexpr float PLAYER_H = 2.175f;			//プレイヤーの縦サイズ
+	static constexpr float PLAYER_WIDTH = 0.725f;			//プレイヤー横サイズ
+	static constexpr float PLAYER_HEIGHT = 2.175f;			//プレイヤーの縦サイズ
     static constexpr float ANIMETION_SPEED = 0.7f;      //プレイヤーのアニメーションの速度
 	static constexpr float JUMP_POWER = 0.25f;			//キャラのジャンプ力
 	static constexpr int ANIME_STATE_SUM = 4;			//合計アニメーションの数

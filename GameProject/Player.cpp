@@ -103,8 +103,8 @@ void Player::Update(bool keyStop,const Map &map, ShotManager& shotManager)
 
 
 	// HACK: 先に設定判定をすることでfallSpeed修正＋接地フラグ更新
-	isGround = Colision::IsGround(map,pos,PLAYER_W,PLAYER_H,fallSpeed);
-    isHitTop = Colision::IsTopHit(map, pos, PLAYER_W, PLAYER_H, fallSpeed);
+	isGround = Colision::IsGround(map,pos,PLAYER_WIDTH,PLAYER_HEIGHT,fallSpeed);
+    isHitTop = Colision::IsTopHit(map, pos, PLAYER_WIDTH, PLAYER_HEIGHT, fallSpeed);
 
 
 	// 地に足が着いている場合のみジャンプボタン(ボタン１ or Ｚキー)を見る
@@ -119,7 +119,7 @@ void Player::Update(bool keyStop,const Map &map, ShotManager& shotManager)
 	velocity = VAdd(velocity, fallVelocity);
 
 	// 当たり判定をして、壁にめり込まないようにvelocityを操作する
-	velocity = Colision::CheckHitMapAdjustmentVector(map,velocity,pos,PLAYER_W,PLAYER_H);
+	velocity = Colision::CheckHitMapAdjustmentVector(map,velocity,pos,PLAYER_WIDTH,PLAYER_HEIGHT);
 	
 	//FIXME:マップをスクロールするために使用しているがその使用は辞めたので
 	//出た値を保存する
@@ -130,7 +130,7 @@ void Player::Update(bool keyStop,const Map &map, ShotManager& shotManager)
 	pos = VAdd(pos, velocity);
 
 	//そのまま位置を設定するとモデルの位置がぶれるので微調整
-	VECTOR playerOffset = VGet(0, -PLAYER_H*0.5, 0);
+	VECTOR playerOffset = VGet(0, -PLAYER_HEIGHT*0.5, 0);
 	VECTOR addPos = VAdd(pos, playerOffset);
 
 
@@ -290,7 +290,7 @@ void Player::CheckDamage(const vector<BaseEnemy*> enemy,const list<Shot*> shot)
         //当たった瞬間にフラグをたてて抜ける
         for (auto it = enemy.begin(); it != enemy.end(); it++)
         {
-           isHit = Colision::IsHitRectangles(pos, PLAYER_W, PLAYER_H, (*it)->GetPos(), (*it)->GetW(), (*it)->GetH());
+           isHit = Colision::IsHitRectangles(pos, PLAYER_WIDTH, PLAYER_HEIGHT, (*it)->GetPos(), (*it)->GetW(), (*it)->GetH());
            if (isHit)
            {
                life -= (*it)->GetDamage();
@@ -300,7 +300,7 @@ void Player::CheckDamage(const vector<BaseEnemy*> enemy,const list<Shot*> shot)
         }
         if (!isHit)
         {
-            isHit = Colision::ColisionShot(shot, pos, PLAYER_W, PLAYER_H, life, Utility::KIND_PLAYER);
+            isHit = Colision::ColisionShot(shot, pos, PLAYER_WIDTH, PLAYER_HEIGHT, life, Utility::KIND_PLAYER);
             if (isHit)
             {
                 damageFlag = true;

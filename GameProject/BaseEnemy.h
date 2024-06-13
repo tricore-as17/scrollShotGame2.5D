@@ -17,7 +17,7 @@ public:
     /// <summary>
     /// ゲーム開始時の初期化
     /// </summary>
-    virtual void Init(const VECTOR& initPos )abstract;
+    virtual void Initialize(const VECTOR& initPos );
     /// <summary>
     /// ゲーム中の更新処理
     /// </summary>

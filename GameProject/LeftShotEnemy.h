@@ -13,11 +13,11 @@ class LeftShotEnemy :public BaseEnemy
 {
 public:
     //定数群
-    static constexpr float W = 1.45f;       //幅
-    static constexpr float H = 1.45f;       //高さ
-    static constexpr int MAX_LIFE = 2;      //体力の最大値
-    static constexpr int INIT_DAMAGE = 1;   //与えるダメージ量
-    static constexpr int SHOT_DIRCTION = -1;//撃つ弾の方向
+    static constexpr float WIDTH = 1.45f;           //幅
+    static constexpr float HEIGHT = 1.45f;          //高さ
+    static constexpr int MAX_LIFE = 2;              //体力の最大値
+    static constexpr int INIT_DAMAGE = 1;           //与えるダメージ量
+    static constexpr int SHOT_DIRCTION = -1;        //撃つ弾の方向
     static constexpr int SHOT_INTERVAL_RIMIT = 80;  //弾を撃つ間隔
     //コンストラクタ
     LeftShotEnemy();
@@ -27,7 +27,7 @@ public:
     /// 初期化
     /// </summary>
     /// <param name="initPos">初期化用の座標</param>
-    void Init(const VECTOR& initPos)override;
+    void Initialize(const VECTOR& initPos)override;
     /// <summary>
     /// ゲーム中の更新処理
     /// </summary>

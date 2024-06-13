@@ -11,7 +11,7 @@
 EnemyManager::EnemyManager()
 {
 	//一番弱い敵をインスタンス化(作る数だけ)
-    for (int i = 0; i < EAZY_NUM;i++)
+    for (int i = 0; i < EASY_NUM;i++)
     {
 	    easyEnemy.emplace_back(new EasyEnemy());	
     }
@@ -38,10 +38,10 @@ EnemyManager::~EnemyManager()
 void EnemyManager::Init()
 {
     //それぞれの敵の座標を代入していく
-	easyEnemy[0]->Init(VGet(EAZY1_FIRST_X, EAZY1_FIRST_Y, 0));
-    easyEnemy[1]->Init(VGet(EAZY2_FIRST_X, EAZY1_FIRST_Y, 0));
-    leftShotEnemy[0]->Init(VGet(LEFT1_FIRST_X,LEFT1_FIRST_Y,0));
-    leftShotEnemy[1]->Init(VGet(LEFT2_FIRST_X, LEFT2_FIRST_Y, 0));
+	easyEnemy[0]->Initialize(VGet(EASY1_FIRST_X, EASY1_FIRST_Y, 0));
+    easyEnemy[1]->Initialize(VGet(EASY2_FIRST_X, EASY1_FIRST_Y, 0));
+    leftShotEnemy[0]->Initialize(VGet(LEFT1_FIRST_X,LEFT1_FIRST_Y,0));
+    leftShotEnemy[1]->Initialize(VGet(LEFT2_FIRST_X, LEFT2_FIRST_Y, 0));
 
 
     
