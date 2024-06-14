@@ -45,7 +45,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// グラフィックの描画先を裏画面にセット
 
 
-	Utility::FpsInitialize();
+	Game::InitializeFrameRate();
 	Game* game = new Game;
 
 	game->Initialize();
@@ -57,7 +57,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// ゲームループ.
 	while (1)
 	{
-		Utility::FpsUpdate();
+		Game::UpdateFrameRate();
 		// 画面を初期化(真っ黒にする)
 		SetCameraNearFar(10.0f, 500.0f);	//nearとfarの設定
 		ClearDrawScreen();
@@ -86,7 +86,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			break;
 		}
 		//ここでFPSの調整
-		Utility::FpsControll();
+		Game::ControlFrameRate();
 		
 	};
 	//gameFinalize(game);
