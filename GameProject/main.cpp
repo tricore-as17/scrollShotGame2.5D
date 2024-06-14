@@ -44,10 +44,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	// グラフィックの描画先を裏画面にセット
 
-
-	Game::InitializeFrameRate();
+    //ゲームクラスのインスタンス化
 	Game* game = new Game;
 
+    //ゲーム中のフレームレートの初期化
+    game->InitializeFrameRate();
+    //ゲーム自体の初期化
 	game->Initialize();
 
 	
@@ -57,7 +59,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// ゲームループ.
 	while (1)
 	{
-		Game::UpdateFrameRate();
+        //フレームレートを調整するための値の更新
+		game->UpdateFrameRate();
 		// 画面を初期化(真っ黒にする)
 		SetCameraNearFar(10.0f, 500.0f);	//nearとfarの設定
 		ClearDrawScreen();
@@ -85,8 +88,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		{
 			break;
 		}
-		//ここでFPSの調整
-		Game::ControlFrameRate();
+		//ここでフレームレートの調整
+		game->ControlFrameRate();
 		
 	};
 	//gameFinalize(game);

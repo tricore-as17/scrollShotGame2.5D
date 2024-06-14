@@ -10,12 +10,12 @@
 #include"Shot.h"
 #include"Game.h"
 
-//static変数の初期化
-int Game::startTime = GetNowCount();
-int Game::roopCount = 0;
 
 //コンストラクタ
 Game::Game()
+    :startTime(GetNowCount())
+    ,roopCount(0)
+
 {
 	//クラスのインスタンスの作成
 	player = new Player();
@@ -23,7 +23,8 @@ Game::Game()
 	camera = new Camera();
 	map = new Map();
 	enemyManager = new EnemyManager();
-    shotManager = new ShotManager();	
+    shotManager = new ShotManager();
+
 }
 //デストラクタ
 Game::~Game()

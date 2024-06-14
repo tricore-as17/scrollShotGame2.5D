@@ -21,14 +21,7 @@ const int FORCE_SCROLL_SPEED = -8;		//4回目のスクロールスピード
 const int FIFTH_SCROLL_SPEED = -9;		//5回目のスクロールスピード
 
 
-// ゲームの状態.
-enum STATE
-{
-	STATE_TITLE,		// タイトル
-	STATE_GAME,			// ゲーム中
-	STATE_GAMECLEAR,	//クリア
-	STATE_GAMEOVER,		// ゲームオーバー
-};
+
 
 /// <summary>
 /// FPS処理などのゲーム全体で必要なものをまとめたクラス

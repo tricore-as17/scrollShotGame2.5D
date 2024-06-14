@@ -23,7 +23,14 @@ class ShotManager;
 class Game
 {
 public:
-
+    // ゲームの状態.
+    enum STATE
+    {
+        STATE_TITLE,		// タイトル
+        STATE_GAME,			// ゲーム中
+        STATE_GAMECLEAR,	//クリア
+        STATE_GAMEOVER,		// ゲームオーバー
+    };
 	//コンストラクタ・デストラクタ
 	Game();
 	~Game();
@@ -35,20 +42,20 @@ public:
     /// <summary>
     /// フレームレートの調整をする変数などの初期化
     /// </summary>
-    static void InitializeFrameRate();
+    void InitializeFrameRate();
     /// <summary>
     /// フレームレートの計算のためにカウントなどを取得
     /// </summary>
-    static void UpdateFrameRate();
+    void UpdateFrameRate();
     /// <summary>
     /// 取得したカウントを使用し実際にフレームレートを調節する
     /// </summary>
-    static void ControlFrameRate();
+    void ControlFrameRate();
 private:
     //static変数
     //FPSコントロール用
-    static int startTime;           //ループ開始時の時間
-    static int roopCount;           //ループ回数
+    int startTime;           //ループ開始時の時間
+    int roopCount;           //ループ回数
 
 	//プレイヤーやマップなどのクラスをまとめる
 	Player* player;
