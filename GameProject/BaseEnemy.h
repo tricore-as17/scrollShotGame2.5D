@@ -58,7 +58,6 @@ public:
 
 
 protected:
-	int** graph;		    //画像
 	bool moveStartFlag;	    //移動を開始させるフラグ
 	bool isGround;		    //接地しているか
 	bool isHitTop;		    //天井にぶつかっているか

@@ -93,13 +93,13 @@ bool BaseEnemy::CheckStartMove(const VECTOR& cameraPos)
 /// 弾を撃てるようになるまでの間隔の設定
 /// </summary>
 /// <param name="INTERVAL_RIMIT">間隔の大きさ</param>
-void BaseEnemy::CountShotInterval(const int INTERVAL_RIMIT)
+void BaseEnemy::CountShotInterval(const int intervalRimit)
 {
     //撃てる準備がまだできていないなら
     if (!readyShotFlag)
     {
         shotIntervalCount++;
-        if (shotIntervalCount>=INTERVAL_RIMIT)
+        if (shotIntervalCount>=intervalRimit)
         {
             readyShotFlag = true;
             shotIntervalCount = 0;
