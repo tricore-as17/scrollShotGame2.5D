@@ -45,7 +45,7 @@ public:
     /// 弾を撃てるようになるまでの間隔の設定
     /// </summary>
     /// <param name="INTERVAL_RIMIT">間隔の大きさ</param>
-    virtual void CountShotInterval(const int INTERVAL_RIMIT);
+    virtual void CountShotInterval(const int intervalRimit);
 	//ゲッターセッター
 	bool GetIsGround()const { return isGround; }		//接地判定の取得
     void SetIsGround(const bool inIsGroound) { isGround = inIsGroound; }	//接地判定の設定
