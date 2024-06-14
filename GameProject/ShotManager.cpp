@@ -118,13 +118,13 @@ bool ShotManager::IsScreenOut(const VECTOR& cameraPosition, const VECTOR objectP
     //座標が出たかのチェック用フラグ
     bool isScreenOut = false;
     //画面右端の座標
-    float rightLimit = cameraPosition.x + Utility::WORLD_SCREEN_W_SIZE * 0.5f;
+    float rightLimit = cameraPosition.x + Utility::WORLD_SCREEN_WIDTH_SIZE * 0.5f;
     //画面左端の座標
-    float leftLimit = cameraPosition.x - Utility::WORLD_SCREEN_W_SIZE * 0.5f;
+    float leftLimit = cameraPosition.x - Utility::WORLD_SCREEN_WIDTH_SIZE * 0.5f;
     //画面上端の座標
-    float topLimit = cameraPosition.y + Utility::WORLD_SCREEN_H_SIZE * 0.5f;
+    float topLimit = cameraPosition.y + Utility::WORLD_SCREEN_HEIGHT_SIZE * 0.5f;
     //画面下端の座標
-    float botomLimit = cameraPosition.y - Utility::WORLD_SCREEN_H_SIZE * 0.5f;
+    float botomLimit = cameraPosition.y - Utility::WORLD_SCREEN_HEIGHT_SIZE * 0.5f;
     //画面内に座標があるかのチェック
     if ((objectPosition.x < rightLimit && leftLimit < objectPosition.x)&&(objectPosition.y < topLimit && objectPosition.y > botomLimit))
     {

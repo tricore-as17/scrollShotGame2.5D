@@ -12,7 +12,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
 	// 画面モードの設定
-	SetGraphMode(SCREEN_W, SCREEN_H, 16);		// 解像度をSCREEN_W*SCREEN_H、colorを16bitに設定.
+	SetGraphMode(SCREEN_WIDTH, SCREEN_HEIGHT, 16);		// 解像度をSCREEN_W*SCREEN_H、colorを16bitに設定.
 
 
 

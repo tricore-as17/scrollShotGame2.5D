@@ -90,16 +90,16 @@ vector<int> Utility::CreateArrayVector(const int targetData[], int num)
 /// <param name="position">描画したいものの座標</param>
 /// <param name="w">幅</param>
 /// <param name="h">高さ</param>
-void Utility::DrawSquareCollisionDetection(const VECTOR& position, const float& w, const float& h)
+void Utility::DrawSquareCollisionDetection(const VECTOR& position, const float& width, const float& height)
 {
     //左上座標
-    VECTOR leftUpPosition = VGet(position.x - w * 0.5f, position.y + h * 0.5f, 0.0f);
+    VECTOR leftUpPosition = VGet(position.x - width * 0.5f, position.y + height * 0.5f, 0.0f);
     //左下座標
-    VECTOR leftDownPosition = VGet(position.x - w * 0.5f, position.y - h * 0.5f, 0.0f);
+    VECTOR leftDownPosition = VGet(position.x - width * 0.5f, position.y - height * 0.5f, 0.0f);
     //右上座標
-    VECTOR rightUpPosition = VGet(position.x + w * 0.5f, position.y + h * 0.5f, 0.0f);
+    VECTOR rightUpPosition = VGet(position.x + width * 0.5f, position.y + height * 0.5f, 0.0f);
     //右下座標
-    VECTOR rightDownPosition = VGet(position.x + w * 0.5f, position.y - h * 0.5f, 0.0f);
+    VECTOR rightDownPosition = VGet(position.x + width * 0.5f, position.y - height * 0.5f, 0.0f);
     //左の線の描画
     DrawLine3D(leftUpPosition, leftDownPosition,WHITE);
     //上の線の描画

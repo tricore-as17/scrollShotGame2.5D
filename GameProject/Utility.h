@@ -5,8 +5,8 @@
 using namespace std;
 
 //スクリーンサイズ
-const int SCREEN_W = 1280;
-const int SCREEN_H = 800;
+const int SCREEN_WIDTH = 1280;
+const int SCREEN_HEIGHT = 800;
 
 //色
 const int WHITE = GetColor(255, 255, 255);
@@ -39,8 +39,8 @@ public:
 	//定数群
 	static constexpr float GRAVITY = 0.005f;			//重力の値
 	static const float CONVERSION_RADIAN ;				//角度をラジアンに変換する際にしようする定数
-    static constexpr float WORLD_SCREEN_W_SIZE = 29.0f;    //ワールド座標に合わせたスクリーンの幅
-    static constexpr float WORLD_SCREEN_H_SIZE = 18.125f;  //ワールド座標に合わせたスクリーンの高さ
+    static constexpr float WORLD_SCREEN_WIDTH_SIZE = 29.0f;    //ワールド座標に合わせたスクリーンの幅
+    static constexpr float WORLD_SCREEN_HEIGHT_SIZE = 18.125f;  //ワールド座標に合わせたスクリーンの高さ
     static constexpr int KIND_PLAYER = 0;                  //プレイヤーを判断するための数字
     static constexpr int KIND_ENEMY = 1;                   //エネミーを判断するための数字
 
@@ -80,9 +80,9 @@ public:
     /// 四角の当たり判定の描画
     /// </summary>
     /// <param name="position">描画したいものの座標</param>
-    /// <param name="w">幅</param>
-    /// <param name="h">高さ</param>
-    static void DrawSquareCollisionDetection(const VECTOR& position,const float& w,const float&h );
+    /// <param name="width">幅</param>
+    /// <param name="height">高さ</param>
+    static void DrawSquareCollisionDetection(const VECTOR& position,const float& width,const float& height );
     /// <summary>
     /// フレームレートに合わせたスピードの値を計算する処理
     /// </summary>
