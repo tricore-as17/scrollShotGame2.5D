@@ -17,6 +17,20 @@ BaseEnemy::BaseEnemy() :moveStartFlag(false),kind(Utility::KIND_ENEMY)
 BaseEnemy::~BaseEnemy() {/*処理なし*/ }
 
 /// <summary>
+/// ベースで行う共通の初期化処理
+/// </summary>
+/// <param name="initPosition">初期化用座標</param>
+void BaseEnemy::Initialize(const VECTOR& initPosition)
+{
+    //座標の代入
+    pos = initPosition;
+    //移動を開始するフラグの初期化
+    moveStartFlag = false;
+    fallSpeed = 0;
+}
+
+
+/// <summary>
 /// 当たり判定などの更新処理のなかでの共通処理をまとめたもの
 /// </summary>
 /// <param name="map">マップのインスタンス</param>
@@ -36,15 +50,18 @@ void BaseEnemy::Move(const Map& map,const float& speed)
     fallSpeed -= Utility::GRAVITY;
 
     // HACK: 先に設定判定をすることでfallSpeed修正＋接地フラグ更新
+
     Colision::IsGround(map,position,w,h,fallSpeed);
     Colision::IsTopHit(map, position,w,h,fallSpeed);
+
 
     // 落下速度を移動量に加える
     VECTOR fallVelocity = VGet(0, fallSpeed, 0);	// 落下をベクトルに。y座標しか変化しないので最後にベクトルにする
     velocity = VAdd(velocity, fallVelocity);
 
     // 当たり判定をして、壁にめり込まないようにvelocityを操作する
-    velocity = Colision::IsHitMapAdjustmentVector(map,velocity,position,w,h);
+    velocity = Colision::IsHitMapAdjustmentVector(map,velocity,position,width,height);
+
 
     // 移動
     position = VAdd(position, velocity);
@@ -79,13 +96,13 @@ bool BaseEnemy::CanStartMove(const VECTOR& cameraPosition)
 /// 弾を撃てるようになるまでの間隔の設定
 /// </summary>
 /// <param name="INTERVAL_RIMIT">間隔の大きさ</param>
-void BaseEnemy::CountShotInterval(const int INTERVAL_RIMIT)
+void BaseEnemy::CountShotInterval(const int intervalRimit)
 {
     //撃てる準備がまだできていないなら
     if (!readyShotFlag)
     {
         shotIntervalCount++;
-        if (shotIntervalCount>=INTERVAL_RIMIT)
+        if (shotIntervalCount>=intervalRimit)
         {
             readyShotFlag = true;
             shotIntervalCount = 0;
@@ -101,7 +118,8 @@ void BaseEnemy::Draw()
 {
     //テスト用
     //当たり判定の描画
-    Utility::DrawSquareCollisionDetection(position, w, h);
+    Utility::DrawSquareCollisionDetection(position, width, height);
+
 }
 
 

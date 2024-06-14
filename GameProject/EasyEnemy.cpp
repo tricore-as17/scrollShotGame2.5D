@@ -30,23 +30,19 @@ EasyEnemy::~EasyEnemy()
 /// <summary>
 /// 初期化
 /// </summary>
-/// <param name="initializePosition">初期化用の座標</param>
-void EasyEnemy::Initialize(const VECTOR& initializePosition)
+/// <param name="initPos">初期化用の座標</param>
+void EasyEnemy::Initialize(const VECTOR& initializePos)
 {
-	//座標の代入
-	position = initializePosition;
-	//移動を開始するフラグの初期化
-	moveStartFlag = false;
-    fallSpeed = 0;
+    //ベースの初期化を呼び出して共通処理をする
+    BaseEnemy::Initialize(initializePos);
     //幅と高さの代入
-    w = W;
-    h = H;
+    width = WIDTH;
+    height = HEIGHT;
     //体力の初期化
     life = MAX_LIFE;
     //ダメージの値を初期化
     damage = INITIALIZE_DAMAGE;
 
-	
 }
 
 /// <summary>
@@ -70,7 +66,8 @@ void EasyEnemy::Update(const Map& map,const VECTOR& cameraPosition,ShotManager& 
     Move(map, SPEED);
 
     //弾と当たっているかを判定して体力などを減らす処理
-    Colision::ColisionShot(shotManager.GetShot(), position, w, h, life, kind);
+    Colision::ColisionShot(shotManager.GetShot(), position, width, height, life, kind);
+
 }
 
 

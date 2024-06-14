@@ -21,13 +21,13 @@ class EnemyManager
 {
 public:
 	//定数群
-    static constexpr int EAZY_NUM = 2;              //一番弱い敵の数
+    static constexpr int EASY_NUM = 2;              //一番弱い敵の数
     static constexpr int LEFT_SHOT_ENEMY_NUM = 2;   //横に撃つ敵の数
 	//初期座標(１マップチップ0.725の値で計算)
-	static constexpr float EAZY1_FIRST_X = 32.625f;	
-	static constexpr float EAZY1_FIRST_Y = 9.425f;
-    static constexpr float EAZY2_FIRST_X = 36.975f;
-    static constexpr float EAZY2_FIRST_Y = 5.075f;
+	static constexpr float EASY1_FIRST_X = 32.625f;	
+	static constexpr float EASY1_FIRST_Y = 9.425f;
+    static constexpr float EASY2_FIRST_X = 36.975f;
+    static constexpr float EASY2_FIRST_Y = 5.075f;
     static constexpr float LEFT1_FIRST_X = 52.2f;
     static constexpr float LEFT1_FIRST_Y = 7.25f;
     static constexpr float LEFT2_FIRST_X = 55.1f;

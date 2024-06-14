@@ -17,7 +17,9 @@ public:
     /// <summary>
     /// ゲーム開始時の初期化
     /// </summary>
+
     virtual void Initialize(const VECTOR& initializePosition )abstract;
+
     /// <summary>
     /// ゲーム中の更新処理
     /// </summary>
@@ -45,7 +47,7 @@ public:
     /// 弾を撃てるようになるまでの間隔の設定
     /// </summary>
     /// <param name="INTERVAL_RIMIT">間隔の大きさ</param>
-    virtual void CountShotInterval(const int INTERVAL_RIMIT);
+    virtual void CountShotInterval(const int intervalRimit);
 	//ゲッターセッター
 	bool GetIsGround()const { return isGround; }		//接地判定の取得
     void SetIsGround(const bool inIsGroound) { isGround = inIsGroound; }	//接地判定の設定
@@ -58,7 +60,6 @@ public:
 
 
 protected:
-	int** graph;		    //画像
 	bool moveStartFlag;	    //移動を開始させるフラグ
 	bool isGround;		    //接地しているか
 	bool isHitTop;		    //天井にぶつかっているか
