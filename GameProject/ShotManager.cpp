@@ -9,7 +9,7 @@
 // 10000m ÷ 時間 ÷ 分 ÷ 秒 ÷ フレーム
 //プレイヤーの通常弾の速度
 const float ShotManager::SHOT_SPEED[SHOT_KINDS_NUM] = { Utility::CalculationSpeed(35000.0f),
-//敵の弾の通常速度
+//左に撃つ敵の弾の通常速度
 Utility::CalculationSpeed(25000.0f)};
 
 //プレイヤーの通常弾の半径(マップチップのサイズの4分の一)
@@ -56,19 +56,6 @@ void ShotManager::Init()
 /// </summary>
 void ShotManager::Update()
 {
-    //弾を撃てるようになるまでの間隔のカウントをする
-    for (int i = 0; i < SHOT_KINDS_NUM; i++)
-    {
-        if (!readyFlag[i])
-        {
-            intervalCount[i] ++;
-            if (intervalCount[i] >= INTERVAL[i])
-            {
-                readyFlag[i] = true;
-                intervalCount[i] = 0;
-            }
-        }
-    }
 
     //弾の移動処理
     for (auto it = activeShot.begin(); it !=activeShot.end(); ++it)
@@ -86,17 +73,11 @@ void ShotManager::Update()
 /// <param name="shotDamage">弾のダメージ</param>
 void ShotManager::CreateShot(const VECTOR& pos, const VECTOR& dir,const int shotKinds,const int shotDamage)
 {
-    //インターバルをチェックして撃てるかの確認撃てるなら弾を作成
-    if ( readyFlag[shotKinds])
-    {
-        //インターバルを0にして弾の作成
-        readyFlag[shotKinds] = false;
-        //オブジェクトプールを使ってactivShotを有効か
-        activeShot.splice(activeShot.end(), inactiveShot, inactiveShot.begin());
-        //差し込んだ位置のイテレータを用意してそこで初期化する
-        auto it = prev(activeShot.end());    
-        (*it)->Init(pos, dir, SHOT_SPEED[shotKinds], SHOT_RADIUS[shotKinds], shotKinds, shotDamage);
-    }
+    //オブジェクトプールを使ってactivShotを有効か
+    activeShot.splice(activeShot.end(), inactiveShot, inactiveShot.begin());
+    //差し込んだ位置のイテレータを用意してそこで初期化する
+    auto it = prev(activeShot.end());    
+    (*it)->Init(pos, dir, SHOT_SPEED[shotKinds], SHOT_RADIUS[shotKinds], shotKinds, shotDamage);
 }
 
 /// <summary>

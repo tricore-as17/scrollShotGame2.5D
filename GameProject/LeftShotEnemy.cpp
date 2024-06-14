@@ -1,37 +1,31 @@
-﻿#include"EasyEnemy.h"
-#include"Colision.h"
+﻿#include"LeftShotEnemy.h"
+#include"Shot.h"
 #include"ShotManager.h"
 #include"Map.h"
+#include"Colision.h"
 #include"Utility.h"
-
-// 静的定数
-// 速度（1=1m、60fps固定として、時速10km）
-// 設定したい速さ ÷ 時間 ÷ 分 ÷ 秒 ÷ フレーム
-const float EasyEnemy::SPEED = Utility::CalculationSpeed(17000.0f);
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
-EasyEnemy::EasyEnemy()
+LeftShotEnemy::LeftShotEnemy()
 {
-	//座標の初期化
-	pos = VGet(0, 0, 0);
-
-
+    //処理なし
 }
+
 /// <summary>
 /// デストラクタ
 /// </summary>
-EasyEnemy::~EasyEnemy()
+LeftShotEnemy::~LeftShotEnemy()
 {
-	//処理なし
+    //処理なし
 }
 
 /// <summary>
-/// 初期化
+/// ゲーム開始時の初期化
 /// </summary>
-/// <param name="initPos">初期化用の座標</param>
-void EasyEnemy::Initialize(const VECTOR& initPos)
+/// <param name="initPos">初期座標</param>
+void LeftShotEnemy::Initialize(const VECTOR& initPos)
 {
     //ベースの初期化を呼び出して共通処理をする
     BaseEnemy::Initialize(initPos);
@@ -42,30 +36,34 @@ void EasyEnemy::Initialize(const VECTOR& initPos)
     life = MAX_LIFE;
     //ダメージの値を初期化
     damage = INIT_DAMAGE;
+
 }
 
 /// <summary>
-/// 初期エネミーの更新処理
+/// ゲーム中の更新処理
 /// </summary>
 /// <param name="map">マップのインスタンス</param>
 /// <param name="cameraPos">カメラの座標</param>
 /// <param name="shotManager">ショットを管理するクラス</param>
-void EasyEnemy::Update(const Map& map,const VECTOR&cameraPos,ShotManager& shotManager)
+void LeftShotEnemy::Update(const Map& map, const VECTOR& cameraPos, ShotManager& shotManager)
 {
-
     //画面内に入ったかのチェック
     moveStartFlag = CheckStartMove(cameraPos);
-    
-	//移動開始フラグがたっていたら移動させる
-	if (moveStartFlag)
-	{
-		dir = VAdd(dir, VGet(-1, 0, 0));
-	}
-    //当たり判定や移動処理などのエネミー共通処理を呼ぶ
-    Move(map, SPEED);
 
+    //画面内に入ったフラグが立っていれば撃つ
+    if (moveStartFlag)
+    {
+        //前撃ってから一定の間隔が経っていれば撃つ
+        CountShotInterval(SHOT_INTERVAL_RIMIT);
+        if (readyShotFlag)
+        {
+            shotManager.CreateShot(pos, VGet(SHOT_DIRCTION, 0, 0), LEFT_ENEMY_SHOT, damage);
+            readyShotFlag = false;
+        }
+    }
     //弾と当たっているかを判定して体力などを減らす処理
     Colision::ColisionShot(shotManager.GetShot(), pos, width, height, life, kind);
 }
+
 
 

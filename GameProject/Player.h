@@ -58,14 +58,15 @@ public:
 		IDLE = 1, MAGIC, RUN
 	};
 	//定数群	
-	static constexpr float PLAYER_W = 0.725f;			//プレイヤー横サイズ
-	static constexpr float PLAYER_H = 2.175f;			//プレイヤーの縦サイズ
+	static constexpr float PLAYER_WIDTH = 0.725f;			//プレイヤー横サイズ
+	static constexpr float PLAYER_HEIGHT = 2.175f;			//プレイヤーの縦サイズ
     static constexpr float ANIMETION_SPEED = 0.7f;      //プレイヤーのアニメーションの速度
 	static constexpr float JUMP_POWER = 0.25f;			//キャラのジャンプ力
 	static constexpr int ANIME_STATE_SUM = 4;			//合計アニメーションの数
 	static const MATRIX SCALE_MATRIX;					//キャラの拡大率を設定するための行列
     static constexpr int INIT_LIFE = 5;                 //ゲーム開始時の体力
     static constexpr int INVINCIBLE_TIME = 50;          //無敵時間の長さ
+    static constexpr int INTERVAL_RIMIT = 50;           //弾を撃てるようになるまでの間隔
 
 private:
 
@@ -90,6 +91,8 @@ private:
     bool damageFlag;                    //ダメージを受けた際のフラグ
     int invincibleCount;               //無敵時間のカウント
     int life;                           //体力
+    int shotIntervalCount;              //弾を撃つ間隔をカウントする変数
+    bool canShotFlag;                   //弾を撃つ準備が出来たか確認フラグ
 
 	//静的定数
 	static constexpr float SCALE = 0.01f;	//プレイヤーの大きさ

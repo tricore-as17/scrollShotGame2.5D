@@ -14,7 +14,7 @@ class Shot;
 enum ShotKinds
 {
     PLAYER_USUALLY,
-    ENEMY_USUALLY,
+    LEFT_ENEMY_SHOT,
     //ショットの合計数(新しい種類を追加する際はこの上に追加)
     SHOT_KINDS_NUM
 };
@@ -70,7 +70,7 @@ public:
     /// </summary>
     void DeleteAllShot();
     //定数
-    static constexpr int INTERVAL[SHOT_KINDS_NUM] = { 50,200 };     //それぞれの弾の発射間隔
+    static constexpr int INTERVAL[SHOT_KINDS_NUM] = { 50,80 };     //それぞれの弾の発射間隔
     static const float SHOT_SPEED[SHOT_KINDS_NUM];                  //それぞれの弾のスピード
     static const float SHOT_RADIUS[SHOT_KINDS_NUM];                 //それぞれの弾の半径
     static constexpr int INACTIVE_SHOT_NUM = 20;                    //最初に用意するショットのインスタンスの数
