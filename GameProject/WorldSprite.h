@@ -16,20 +16,20 @@ public:
 	/// <summary>
 	/// サイズとポジションに応じて４頂点分の頂点位置を調整
 	/// </summary>
-	/// <param name="pos">ポジション</param>
+	/// <param name="position">ポジション</param>
 	/// <param name="chipSize">配置するワールドスプライトのサイズ</param>
-	void SetTransform(const VECTOR& pos, float spriteSize);
+	void SetTransform(const VECTOR& position, float spriteSize);
 	/// <summary>
 	/// 描画
 	/// </summary>
 	void Draw();
 
 	//ゲッター
-	const VECTOR& GetPos()const { return pos; }
+	const VECTOR& Getposition()const { return position; }
 
 private:
 	int			textureGraph;	// スプライトを作成する元テクスチャのグラフィックハンドル
-	VECTOR		pos;			// 描画ポジション
+	VECTOR		position;			// 描画ポジション
 	VERTEX3D	Vertex[4];		// 頂点バッファ
 	WORD		Index[6];		// インデックスバッファ
 };

@@ -18,8 +18,8 @@ const MATRIX Player::SCALE_MATRIX = MGetScale(VGet(SCALE, SCALE, SCALE));
 Player::Player():isHitTop(false),isGround(false),rotaModelY(-90.0f)
 {
 	//座標の初期化
-	pos = VGet(0, 0, 0);
-	dir = VGet(0, 0, 1);
+	position = VGet(0, 0, 0);
+	direction = VGet(0, 0, 1);
 	fallSpeed = 0;
 	playTime = 0.0f;
 	//モデルハンドルに代入
@@ -42,16 +42,16 @@ Player::~Player()
 /// <summary>
 /// ゲーム開始時の初期化
 /// </summary>
-void Player::Init()
+void Player::Initialize()
 {
 	//座標の初期化と移動方向の初期化
-	pos = VGet(10,8, 0);
-	dir = VGet(0, 0, 0);
+	position = VGet(10,8, 0);
+	direction = VGet(0, 0, 0);
 	fallSpeed = 0;
 	isHitTop, isGround = false;
     damageFlag = false;         //ダメージを受けていない状態に
     invincibleCount = 0;        //無敵カウントを0に
-    life = INIT_LIFE;           //体力を初期値に
+    life = INITIALIZE_LIFE;           //体力を初期値に
     canShotFlag = true;         //ショットを撃てるかどうかのフラグ
     shotIntervalCount = 0;      //ショットの弾を撃つ間隔をカウント
 	//回転率の初期設定(左向きにさせる)
@@ -80,31 +80,32 @@ void Player::Update(bool keyStop,const Map &map, ShotManager& shotManager)
 
 	// プレイヤーの移動処理
 	// 左右の移動方向を出す
-	dir = VGet(0, 0, 0);
+	direction = VGet(0, 0, 0);
 	if (input & PAD_INPUT_LEFT && keyStop == false)
 	{
-		dir = VAdd(dir, VGet(-1, 0, 0));
+		direction = VAdd(direction, VGet(-1, 0, 0));
 	}
 	if (input & PAD_INPUT_RIGHT && keyStop == false)
 	{
-		dir = VAdd(dir, VGet(1, 0, 0));
+		direction = VAdd(direction, VGet(1, 0, 0));
 	}
 
 	// 正規化
-	if (VSquareSize(dir) > 0)		//dirのサイズを2乗にして返す(二乗にすることでdirに値が入っていればifに入る
+	if (VSquareSize(direction) > 0)		//directionのサイズを2乗にして返す(二乗にすることでdirectionに値が入っていればifに入る
 	{
-		dir = VNorm(dir);			//各成分のサイズを１にする
+		direction = VNorm(direction);			//各成分のサイズを１にする
 	}
 
 	// 移動量を出す
-	velocity = VScale(dir, SPEED);		//dirの各成分にspeedを掛ける
+	velocity = VScale(direction, SPEED);		//directionの各成分にspeedを掛ける
 
 	fallSpeed -= Utility::GRAVITY;
 
 
 	// HACK: 先に設定判定をすることでfallSpeed修正＋接地フラグ更新
-	isGround = Colision::IsGround(map,pos,PLAYER_WIDTH,PLAYER_HEIGHT,fallSpeed);
-    isHitTop = Colision::IsTopHit(map, pos, PLAYER_WIDTH, PLAYER_HEIGHT, fallSpeed);
+	isGround = Colision::IsGround(map,position,PLAYER_WIDTH,PLAYER_HEIGHT,fallSpeed);
+    isHitTop = Colision::IsTopHit(map, position, PLAYER_WIDTH, PLAYER_HEIGHT, fallSpeed);
+
 
 
 	// 地に足が着いている場合のみジャンプボタン(ボタン１ or Ｚキー)を見る
@@ -119,7 +120,8 @@ void Player::Update(bool keyStop,const Map &map, ShotManager& shotManager)
 	velocity = VAdd(velocity, fallVelocity);
 
 	// 当たり判定をして、壁にめり込まないようにvelocityを操作する
-	velocity = Colision::CheckHitMapAdjustmentVector(map,velocity,pos,PLAYER_WIDTH,PLAYER_HEIGHT);
+	velocity = Colision::IsHitMapAdjustmentVector(map,velocity,position,PLAYER_WIDTH,PLAYER_HEIGHT);
+
 	
 	//FIXME:マップをスクロールするために使用しているがその使用は辞めたので
 	//出た値を保存する
@@ -127,11 +129,12 @@ void Player::Update(bool keyStop,const Map &map, ShotManager& shotManager)
 
 
 	// 移動
-	pos = VAdd(pos, velocity);
+	position = VAdd(position, velocity);
 
 	//そのまま位置を設定するとモデルの位置がぶれるので微調整
 	VECTOR playerOffset = VGet(0, -PLAYER_HEIGHT*0.5, 0);
-	VECTOR addPos = VAdd(pos, playerOffset);
+	VECTOR addPosition = VAdd(position, playerOffset);
+
 
 
 
@@ -146,7 +149,7 @@ void Player::Update(bool keyStop,const Map &map, ShotManager& shotManager)
     //右回転の行列を設定;
     rotaVector = VGet(rotaVector.x, rotaModelY, rotaVector.z);
 	//モデルに拡大率、座標移動、回転率を与えるための行列を作成して反映させる
-	MATRIX modelMatrix = CalculationModelMatrixYXZ(SCALE_MATRIX, addPos, rotaVector);
+	MATRIX modelMatrix = CalculationModelMatrixYXZ(SCALE_MATRIX, addPosition, rotaVector);
 	MV1SetMatrix(modelHandle, modelMatrix);
 
 
@@ -200,7 +203,7 @@ void Player::Update(bool keyStop,const Map &map, ShotManager& shotManager)
     {
         if (canShotFlag)
         {
-            shotManager.CreateShot(pos, shotDirction, PLAYER_USUALLY,SHOT_DAMAGE);
+            shotManager.CreateShot(position, shotDirction, PLAYER_USUALLY,SHOT_DAMAGE);
             canShotFlag = false;
         }
     }
@@ -280,7 +283,7 @@ MATRIX Player::CalculationModelMatrixYXZ(const MATRIX& scale, const VECTOR& tran
 /// </summary>
 /// <param name="enemy">調べるエネミーのvector</param>
 /// <param name="shot">画面上に出ている弾のlist</param>
-void Player::CheckDamage(const vector<BaseEnemy*> enemy,const list<Shot*> shot)
+void Player::IsReceiveDamage(const vector<BaseEnemy*> enemy,const list<Shot*> shot)
 {
     bool isHit = false;
     //ダメージを受けている状態じゃなければ当たり判定をみる
@@ -290,7 +293,8 @@ void Player::CheckDamage(const vector<BaseEnemy*> enemy,const list<Shot*> shot)
         //当たった瞬間にフラグをたてて抜ける
         for (auto it = enemy.begin(); it != enemy.end(); it++)
         {
-           isHit = Colision::IsHitRectangles(pos, PLAYER_WIDTH, PLAYER_HEIGHT, (*it)->GetPos(), (*it)->GetW(), (*it)->GetH());
+           isHit = Colision::IsHitRectangles(position, PLAYER_WIDTH, PLAYER_HEIGHT, (*it)->GetPosition(), (*it)->GetWidth(), (*it)->GetHeight());
+
            if (isHit)
            {
                life -= (*it)->GetDamage();
@@ -300,7 +304,8 @@ void Player::CheckDamage(const vector<BaseEnemy*> enemy,const list<Shot*> shot)
         }
         if (!isHit)
         {
-            isHit = Colision::ColisionShot(shot, pos, PLAYER_WIDTH, PLAYER_HEIGHT, life, Utility::KIND_PLAYER);
+
+            isHit = Colision::ColisionShot(shot, position, PLAYER_WIDTH, PLAYER_HEIGHT, life, Utility::KIND_PLAYER);
             if (isHit)
             {
                 damageFlag = true;

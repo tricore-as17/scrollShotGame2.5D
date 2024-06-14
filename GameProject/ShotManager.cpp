@@ -41,7 +41,7 @@ ShotManager::~ShotManager()
 
 //NOTE
 //staticを辞めたらコンストラクタで行うので消す
-void ShotManager::Init()
+void ShotManager::Initialize()
 {
     for (int i = 0; i < SHOT_KINDS_NUM; i++)
     {
@@ -67,32 +67,32 @@ void ShotManager::Update()
 /// <summary>
 /// 弾の生成(敵の弾も味方の弾もすべて生成する)
 /// </summary>
-/// <param name="pos">弾を撃った座標</param>
-/// <param name="dir">弾の方向</param>
+/// <param name="position">弾を撃った座標</param>
+/// <param name="direction">弾の方向</param>
 /// <param name="shotKinds">どの弾を撃ったか</param>
 /// <param name="shotDamage">弾のダメージ</param>
-void ShotManager::CreateShot(const VECTOR& pos, const VECTOR& dir,const int shotKinds,const int shotDamage)
+void ShotManager::CreateShot(const VECTOR& position, const VECTOR& direction,const int shotKinds,const int shotDamage)
 {
     //オブジェクトプールを使ってactivShotを有効か
     activeShot.splice(activeShot.end(), inactiveShot, inactiveShot.begin());
     //差し込んだ位置のイテレータを用意してそこで初期化する
     auto it = prev(activeShot.end());    
-    (*it)->Init(pos, dir, SHOT_SPEED[shotKinds], SHOT_RADIUS[shotKinds], shotKinds, shotDamage);
+    (*it)->Initialize(position, direction, SHOT_SPEED[shotKinds], SHOT_RADIUS[shotKinds], shotKinds, shotDamage);
 }
 
 /// <summary>
 /// 弾の削除(画面外に出るか当たっていたら削除)
 /// </summary>
-/// <param name="cameraPos">カメラの座標</param>
-void ShotManager::DeleteShot(const VECTOR& cameraPos)
+/// <param name="cameraPosition">カメラの座標</param>
+void ShotManager::DeleteShot(const VECTOR& cameraPosition)
 {
     //現在あるショットの数だけまわす
     for (auto it = activeShot.begin(); it != activeShot.end();)
     {
         //座標の取得
-        VECTOR shotPos = (*it)->GetPos();
+        VECTOR shotPosition = (*it)->GetPosition();
         //接触した後かスクリーン外に出た際にアクティブからインアクティブに
-        if (!(*it)->GetSurvivalFlag() || CheckScreenOut(cameraPos, shotPos))
+        if (!(*it)->GetSurvivalFlag() || IsScreenOut(cameraPosition, shotPosition))
         {
             //渡す用のイテレータを用意
             auto switchShot = it;
@@ -110,31 +110,31 @@ void ShotManager::DeleteShot(const VECTOR& cameraPos)
 /// <summary>
 /// 画面外に出たかのチェック
 /// </summary>
-/// <param name="cameraPos">カメラの座標</param>
-/// <param name="objectPos"></param>
+/// <param name="cameraPosition">カメラの座標</param>
+/// <param name="objectPosition"></param>
 /// <returns></returns>
-bool ShotManager::CheckScreenOut(const VECTOR& cameraPos, const VECTOR objectPos)
+bool ShotManager::IsScreenOut(const VECTOR& cameraPosition, const VECTOR objectPosition)
 {
     //座標が出たかのチェック用フラグ
-    bool checkFlag = false;
+    bool isScreenOut = false;
     //画面右端の座標
-    float rightLimit = cameraPos.x + Utility::WORLD_SCREEN_W_SIZE * 0.5f;
+    float rightLimit = cameraPosition.x + Utility::WORLD_SCREEN_W_SIZE * 0.5f;
     //画面左端の座標
-    float leftLimit = cameraPos.x - Utility::WORLD_SCREEN_W_SIZE * 0.5f;
+    float leftLimit = cameraPosition.x - Utility::WORLD_SCREEN_W_SIZE * 0.5f;
     //画面上端の座標
-    float topLimit = cameraPos.y + Utility::WORLD_SCREEN_H_SIZE * 0.5f;
+    float topLimit = cameraPosition.y + Utility::WORLD_SCREEN_H_SIZE * 0.5f;
     //画面下端の座標
-    float botomLimit = cameraPos.y - Utility::WORLD_SCREEN_H_SIZE * 0.5f;
+    float botomLimit = cameraPosition.y - Utility::WORLD_SCREEN_H_SIZE * 0.5f;
     //画面内に座標があるかのチェック
-    if ((objectPos.x < rightLimit && leftLimit < objectPos.x)&&(objectPos.y < topLimit && objectPos.y > botomLimit))
+    if ((objectPosition.x < rightLimit && leftLimit < objectPosition.x)&&(objectPosition.y < topLimit && objectPosition.y > botomLimit))
     {
-        checkFlag = false;
+        isScreenOut = false;
     }
     else
     {
-        checkFlag = true;
+        isScreenOut = true;
     }
-    return checkFlag;
+    return isScreenOut;
 }
 
 

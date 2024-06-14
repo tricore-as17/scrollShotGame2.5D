@@ -36,7 +36,7 @@ public:
     /// <summary>
     /// ゲーム開始ごとの初期化
     /// </summary>
-    void Init();
+    void Initialize();
     /// <summary>
     /// 弾の移動などの更新処理
     /// </summary>
@@ -44,23 +44,23 @@ public:
     /// <summary>
     /// 弾の生成(敵の弾も味方の弾もすべて生成する)
     /// </summary>
-    /// <param name="pos">弾を撃った座標</param>
-    /// <param name="dir">弾の方向</param>
+    /// <param name="position">弾を撃った座標</param>
+    /// <param name="direction">弾の方向</param>
     /// <param name="shotKinds">どの弾を撃ったか</param>
     /// <param name="shotDamage">弾のダメージ</param>
-    void CreateShot(const VECTOR& playerPos,const VECTOR& playerDir, const int shotKinds, const int shotDamage);
+    void CreateShot(const VECTOR& position,const VECTOR& direction, const int shotKinds, const int shotDamage);
     /// <summary>
     /// 弾の削除(画面外に出たら削除)
     /// </summary>
-    /// <param name="cameraPos">カメラの座標</param>
-    void DeleteShot(const VECTOR& cameraPos);
+    /// <param name="cameraPosition">カメラの座標</param>
+    void DeleteShot(const VECTOR& cameraPosition);
     /// <summary>
     /// 画面外に出たかのチェック
     /// </summary>
-    /// <param name="cameraPos">カメラの座標</param>
-    /// <param name="objectPos"></param>
+    /// <param name="cameraPosition">カメラの座標</param>
+    /// <param name="objectPosition"></param>
     /// <returns></returns>
-    bool CheckScreenOut(const VECTOR& cameraPos,const VECTOR objectPos);
+    bool IsScreenOut(const VECTOR& cameraPosition,const VECTOR objectPosition);
     /// <summary>
     /// 弾の描画
     /// </summary>

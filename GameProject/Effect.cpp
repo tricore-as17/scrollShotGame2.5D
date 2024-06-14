@@ -2,7 +2,7 @@
 #include"Effect.h"
 
 //コンストラクタ
-Effect::Effect(const char* fileName) :playTime(0), pos(VGet(0.0f, 0.0f, 0.0f)), playFlag(false), playHandle(-1)
+Effect::Effect(const char* fileName) :playTime(0), position(VGet(0.0f, 0.0f, 0.0f)), playFlag(false), playHandle(-1)
 {
 	//ハンドルの読み込み
 	handle = LoadEffekseerEffect(fileName, 1.5f);

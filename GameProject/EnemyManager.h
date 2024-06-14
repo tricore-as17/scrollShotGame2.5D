@@ -39,13 +39,13 @@ public:
 	/// <summary>
 	/// ゲーム開始ごとの初期化
 	/// </summary>
-	void Init();
+	void Initialize();
     /// <summary>
     /// エネミー全体の更新処理
     /// </summary>
     /// <param name="map">マップのインスタンス</param>
-    /// <param name="cameraPos">カメラの座標</param>
-	void Update(const Map&map, const VECTOR& cameraPos, ShotManager& shotManager);
+    /// <param name="cameraPosition">カメラの座標</param>
+	void Update(const Map&map, const VECTOR& cameraPosition, ShotManager& shotManager);
 	/// <summary>
 	/// エネミーの描画
 	/// </summary>
@@ -64,9 +64,9 @@ public:
     /// </summary>
     /// <param name="enemy">エネミーの種類毎のvector</param>
     /// <param name="map">マップのインスタンス</param>
-    /// <param name="cameraPos">カメラの座標</param>
+    /// <param name="cameraPosition">カメラの座標</param>
     /// <param name="shotManager">ショットの管理クラス</param>
-    void SingleUpdate(vector<BaseEnemy*> enemy, const Map& map, const VECTOR& cameraPos, ShotManager& shotManager);
+    void SingleUpdate(vector<BaseEnemy*> enemy, const Map& map, const VECTOR& cameraPosition, ShotManager& shotManager);
     /// <summary>
     /// for文を毎回呼ばないでいいように用意したエネミーの種類毎の描画
     /// </summary>

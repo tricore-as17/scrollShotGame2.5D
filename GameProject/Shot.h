@@ -17,13 +17,13 @@ public:
     /// <summary>
     /// 引数として値を受け取って初期化
     /// </summary>
-    /// <param name="initPos">座標</param>
-    /// <param name="initDir">方向</param>
-    /// <param name="initSpeed">スピード</param>
-    /// <param name="initRadius">半径</param>
-    /// <param name="initKinds">種類</param>
-    /// <param name="initDamage">ダメージ</param>
-    void Init(const VECTOR& initPos, const VECTOR& initDir, const float& initSpeed, const float& initRadius, const int initKinds, const int initDamage);
+    /// <param name="initializePosition">座標</param>
+    /// <param name="initializeDirection">方向</param>
+    /// <param name="initializeSpeed">スピード</param>
+    /// <param name="initializeRadius">半径</param>
+    /// <param name="initializeKinds">種類</param>
+    /// <param name="initializeDamage">ダメージ</param>
+    void Initialize(const VECTOR& initializePosition, const VECTOR& initializeDirection, const float& initializeSpeed, const float& initializeRadius, const int initializeKinds, const int initializeDamage);
     void Update();
     void Draw();
 private:

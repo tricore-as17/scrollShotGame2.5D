@@ -10,7 +10,7 @@ Camera::Camera()
     //奥行0.1～1000までをカメラの描画範囲とする
     SetCameraNearFar(0.1f, 1000.0f);
     //座標の初期化
-    pos = VGet(0, 0, 0);
+    position = VGet(0, 0, 0);
 }
 
 /// <summary>
@@ -24,10 +24,10 @@ Camera::~Camera()
 /// <summary>
 /// ゲーム開始ごとの初期化
 /// </summary>
-void Camera::Init()
+void Camera::Initialize()
 {
     //座標の初期化
-    pos = VGet(0, 0, 0);
+    position = VGet(0, 0, 0);
 
 }
 
@@ -39,22 +39,22 @@ void Camera::Init()
 void Camera::Update(const Map& map, const Player& player)
 {
     //プレイヤーとマップの座標を持ってくる
-    VECTOR playerPos = player.GetPos();
+    VECTOR playerPosition = player.GetPosition();
     int mapYNum = map.getMapYNum();
 
     // 大きさ0.5のマップチップを、マップYの数だけ配置する
     // プレイヤーの地面のY位置を0としたいので、地上部のマップチップの数は二つ減らした位置で調整
     // その真ん中に表示するので半分を計算で出す
     // プレイヤーのX座標には追従したいのでplayerのXを使う
-    VECTOR cameraPos = VGet(playerPos.x, Map::CHIP_SIZE * (mapYNum - 2) * 0.5f, playerPos.z - 15.0f);
+    VECTOR cameraPosition = VGet(playerPosition.x, Map::CHIP_SIZE * (mapYNum - 2) * 0.5f, playerPosition.z - 15.0f);
 
 
     // 注視する視点は、カメラと平行にまっすぐz=0地点
-    VECTOR lookPos = VGet(cameraPos.x, cameraPos.y, 0.0f);
+    VECTOR lookPosition = VGet(cameraPosition.x, cameraPosition.y, 0.0f);
 
-    pos = cameraPos;
+    position = cameraPosition;
 
     // カメラに位置を反映.
-    SetCameraPositionAndTarget_UpVecY(pos, lookPos);
+    SetCameraPositionAndTarget_UpVecY(position, lookPosition);
     
 }

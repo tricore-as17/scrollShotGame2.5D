@@ -38,55 +38,58 @@ void BaseEnemy::Initialize(const VECTOR& initPosition)
 void BaseEnemy::Move(const Map& map,const float& speed)
 {
     // 正規化
-    if (VSquareSize(dir) > 0)		//dirのサイズを2乗にして返す(二乗にすることでdirに値が入っていればifに入る
+    if (VSquareSize(direction) > 0)		//directionのサイズを2乗にして返す(二乗にすることでdirectionに値が入っていればifに入る
     {
-        dir = VNorm(dir);			//各成分のサイズを１にする
+        direction = VNorm(direction);			//各成分のサイズを１にする
     }
 
     //移動量を出す
-    VECTOR velocity = VScale(dir, speed);
+    VECTOR velocity = VScale(direction, speed);
 
     //重力の値だけ落下させる
     fallSpeed -= Utility::GRAVITY;
 
     // HACK: 先に設定判定をすることでfallSpeed修正＋接地フラグ更新
-    Colision::IsGround(map,pos,width,height,fallSpeed);
-    Colision::IsTopHit(map, pos,width,height,fallSpeed);
+
+    Colision::IsGround(map,position,w,h,fallSpeed);
+    Colision::IsTopHit(map, position,w,h,fallSpeed);
+
 
     // 落下速度を移動量に加える
     VECTOR fallVelocity = VGet(0, fallSpeed, 0);	// 落下をベクトルに。y座標しか変化しないので最後にベクトルにする
     velocity = VAdd(velocity, fallVelocity);
 
     // 当たり判定をして、壁にめり込まないようにvelocityを操作する
-    velocity = Colision::CheckHitMapAdjustmentVector(map,velocity,pos,width,height);
+    velocity = Colision::IsHitMapAdjustmentVector(map,velocity,position,width,height);
+
 
     // 移動
-    pos = VAdd(pos, velocity);
+    position = VAdd(position, velocity);
         
 }
 
 /// <summary>
 /// エネミーのスクロールを始めるかのチェック(画面に入ったかでチェック)
 /// </summary>
-/// <param name="cameraPos">カメラの座標</param>
-bool BaseEnemy::CheckStartMove(const VECTOR& cameraPos)
+/// <param name="cameraPosition">カメラの座標</param>
+bool BaseEnemy::CanStartMove(const VECTOR& cameraPosition)
 {
     //座標が入っているかのチェック用フラグ
-    bool checkFlag;
+    bool isInScreen;
     //画面右端の座標
-    float RightLimit = cameraPos.x +Utility::WORLD_SCREEN_W_SIZE * 0.5;
+    float RightLimit = cameraPosition.x +Utility::WORLD_SCREEN_W_SIZE * 0.5;
     //画面左端の座標
-    float LeftLimit = cameraPos.x - Utility::WORLD_SCREEN_W_SIZE * 0.5;
+    float LeftLimit = cameraPosition.x - Utility::WORLD_SCREEN_W_SIZE * 0.5;
     //画面内に座標があるかのチェック
-    if (pos.x < RightLimit && LeftLimit < pos.x)
+    if (position.x < RightLimit && LeftLimit < position.x)
     {
-        checkFlag = true;
+        isInScreen = true;
     }
     else
     {
-        checkFlag = false;
+        isInScreen = false;
     }
-    return checkFlag;
+    return isInScreen;
 }
 
 /// <summary>
@@ -115,7 +118,8 @@ void BaseEnemy::Draw()
 {
     //テスト用
     //当たり判定の描画
-    Utility::DrawSquareCollisionDetection(pos, width, height);
+    Utility::DrawSquareCollisionDetection(position, width, height);
+
 }
 
 

@@ -17,14 +17,16 @@ public:
     /// <summary>
     /// ゲーム開始時の初期化
     /// </summary>
-    virtual void Initialize(const VECTOR& initPos );
+
+    virtual void Initialize(const VECTOR& initializePosition )abstract;
+
     /// <summary>
     /// ゲーム中の更新処理
     /// </summary>
     /// <param name="map">マップのインスタンス</param>
-    /// <param name="cameraPos">カメラの座標</param>
+    /// <param name="cameraPosition">カメラの座標</param>
     /// <param name="shotManager">ショットの管理クラス</param>
-    virtual void Update(const Map& map, const VECTOR& cameraPos, ShotManager& shotManager)abstract;
+    virtual void Update(const Map& map, const VECTOR& cameraPosition, ShotManager& shotManager)abstract;
     /// <summary>
     /// ゲーム中の描画
     /// </summary>
@@ -38,9 +40,9 @@ public:
     /// <summary>
     /// エネミーのスクロールを始めるかのチェック(画面に入ったかでチェック)
     /// </summary>
-    /// <param name="cameraPos">カメラのポジション</param>
+    /// <param name="cameraPosition">カメラのポジション</param>
     /// <returns>入っていたら(true)入ってなかったら(false)</returns>
-    virtual bool CheckStartMove(const VECTOR& cameraPos);
+    virtual bool CanStartMove(const VECTOR& cameraPosition);
     /// <summary>
     /// 弾を撃てるようになるまでの間隔の設定
     /// </summary>
