@@ -269,7 +269,7 @@ bool Colision::IsGround(const Map& map, const VECTOR& objectPosition,const float
 
 
     // 1ドット下にずらして当たれば地面に足がぶつかっている 
-    auto downPositionY = VGet(objectPosition.x, objectPosition.y - Map::ONE_PIXEL_SIZE, objectPosition.z);
+    auto footPosition = VGet(objectPosition.x, objectPosition.y - Map::ONE_PIXEL_SIZE, objectPosition.z);
     bool isHit;
     // 全マップチップ分繰り返す
     for (int hIndex = 0; hIndex < mapYNum; hIndex++)
@@ -285,7 +285,7 @@ bool Colision::IsGround(const Map& map, const VECTOR& objectPosition,const float
             }
             else
             {
-                isHit = IsHitRectangles(downPositionY, objectW,objectH, mapChipPosition,Map::CHIP_SIZE,Map::CHIP_SIZE);
+                isHit = IsHitRectangles(footPosition, objectW,objectH, mapChipPosition,Map::CHIP_SIZE,Map::CHIP_SIZE);
             }
 
             if (isHit)
@@ -333,7 +333,7 @@ bool Colision::IsTopHit(const Map& map, const VECTOR& objectPosition, const floa
     VECTOR mapLeftPosition = map.GetChipLeftPosition();
 
     // 1ドット上にずらして当たっていれば天井にぶつかっている
-    auto upPositionY = VGet(objectPosition.x, objectPosition.y + Map::ONE_PIXEL_SIZE, objectPosition.z);
+    auto topPosition = VGet(objectPosition.x, objectPosition.y + Map::ONE_PIXEL_SIZE, objectPosition.z);
     bool isHit;
     // 全マップチップ分繰り返す
     for (int hIndex = 0; hIndex < mapYNum; hIndex++)
@@ -349,7 +349,7 @@ bool Colision::IsTopHit(const Map& map, const VECTOR& objectPosition, const floa
             }
             else
             {
-                isHit = IsHitRectangles(upPositionY, objectW, objectH, mapChipPosition, Map::CHIP_SIZE, Map::CHIP_SIZE);
+                isHit = IsHitRectangles(topPosition, objectW, objectH, mapChipPosition, Map::CHIP_SIZE, Map::CHIP_SIZE);
             }
 
             if (isHit)
