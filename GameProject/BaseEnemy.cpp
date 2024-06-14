@@ -20,10 +20,10 @@ BaseEnemy::~BaseEnemy() {/*処理なし*/ }
 /// ベースで行う共通の初期化処理
 /// </summary>
 /// <param name="initPosition">初期化用座標</param>
-void BaseEnemy::Initialize(const VECTOR& initPosition)
+void BaseEnemy::Initialize(const VECTOR& initializePosition)
 {
     //座標の代入
-    pos = initPosition;
+    position = initializePosition;
     //移動を開始するフラグの初期化
     moveStartFlag = false;
     fallSpeed = 0;
@@ -51,8 +51,8 @@ void BaseEnemy::Move(const Map& map,const float& speed)
 
     // HACK: 先に設定判定をすることでfallSpeed修正＋接地フラグ更新
 
-    Colision::IsGround(map,position,w,h,fallSpeed);
-    Colision::IsTopHit(map, position,w,h,fallSpeed);
+    Colision::IsGround(map,position,width,height,fallSpeed);
+    Colision::IsTopHit(map, position,width,height,fallSpeed);
 
 
     // 落下速度を移動量に加える
@@ -77,9 +77,9 @@ bool BaseEnemy::CanStartMove(const VECTOR& cameraPosition)
     //座標が入っているかのチェック用フラグ
     bool isInScreen;
     //画面右端の座標
-    float RightLimit = cameraPosition.x +Utility::WORLD_SCREEN_W_SIZE * 0.5;
+    float RightLimit = cameraPosition.x +Utility::WORLD_SCREEN_WIDTH_SIZE * 0.5;
     //画面左端の座標
-    float LeftLimit = cameraPosition.x - Utility::WORLD_SCREEN_W_SIZE * 0.5;
+    float LeftLimit = cameraPosition.x - Utility::WORLD_SCREEN_WIDTH_SIZE * 0.5;
     //画面内に座標があるかのチェック
     if (position.x < RightLimit && LeftLimit < position.x)
     {

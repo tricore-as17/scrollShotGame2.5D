@@ -23,9 +23,14 @@ class ShotManager;
 class Game
 {
 public:
-
-	//定数
-	static constexpr int CLEAR_EFFECT_NUM = 4;		//クリア時のエフェクトの数
+    // ゲームの状態.
+    enum STATE
+    {
+        STATE_TITLE,		// タイトル
+        STATE_GAME,			// ゲーム中
+        STATE_GAMECLEAR,	//クリア
+        STATE_GAMEOVER,		// ゲームオーバー
+    };
 	//コンストラクタ・デストラクタ
 	Game();
 	~Game();
@@ -34,7 +39,24 @@ public:
 	//メイン描画の後にサブの処理をする必要があるので別々にする
 	void Update();				//メイン画面の更新処理
 	void Draw();				//メイン画面の描画
+    /// <summary>
+    /// フレームレートの調整をする変数などの初期化
+    /// </summary>
+    void InitializeFrameRate();
+    /// <summary>
+    /// フレームレートの計算のためにカウントなどを取得
+    /// </summary>
+    void UpdateFrameRate();
+    /// <summary>
+    /// 取得したカウントを使用し実際にフレームレートを調節する
+    /// </summary>
+    void ControlFrameRate();
 private:
+    //static変数
+    //FPSコントロール用
+    int startTime;           //ループ開始時の時間
+    int roopCount;           //ループ回数
+
 	//プレイヤーやマップなどのクラスをまとめる
 	Player* player;
 	Utility* utility;
@@ -50,5 +72,9 @@ private:
 	bool prevKeyOn = false;
 	int effectPlayCount = 0;
 	bool keyStop = false;
+    //ゲームの状態
+    int gameState = STATE_GAME;			//ゲームステート（タイトル、ゲーム中など)
+
+
 
 };

@@ -12,7 +12,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
 	// 画面モードの設定
-	SetGraphMode(SCREEN_W, SCREEN_H, 16);		// 解像度をSCREEN_W*SCREEN_H、colorを16bitに設定.
+	SetGraphMode(SCREEN_WIDTH, SCREEN_HEIGHT, 16);		// 解像度をSCREEN_W*SCREEN_H、colorを16bitに設定.
 
 
 
@@ -44,10 +44,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	// グラフィックの描画先を裏画面にセット
 
-
-	Utility::FpsInitialize();
+    //ゲームクラスのインスタンス化
 	Game* game = new Game;
 
+    //ゲーム中のフレームレートの初期化
+    game->InitializeFrameRate();
+    //ゲーム自体の初期化
 	game->Initialize();
 
 	
@@ -57,7 +59,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// ゲームループ.
 	while (1)
 	{
-		Utility::FpsUpdate();
+        //フレームレートを調整するための値の更新
+		game->UpdateFrameRate();
 		// 画面を初期化(真っ黒にする)
 		SetCameraNearFar(10.0f, 500.0f);	//nearとfarの設定
 		ClearDrawScreen();
@@ -85,8 +88,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		{
 			break;
 		}
-		//ここでFPSの調整
-		Utility::FpsControll();
+		//ここでフレームレートの調整
+		game->ControlFrameRate();
 		
 	};
 	//gameFinalize(game);

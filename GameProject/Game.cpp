@@ -10,8 +10,12 @@
 #include"Shot.h"
 #include"Game.h"
 
+
 //コンストラクタ
 Game::Game()
+    :startTime(GetNowCount())
+    ,roopCount(0)
+
 {
 	//クラスのインスタンスの作成
 	player = new Player();
@@ -19,7 +23,8 @@ Game::Game()
 	camera = new Camera();
 	map = new Map();
 	enemyManager = new EnemyManager();
-    shotManager = new ShotManager();	
+    shotManager = new ShotManager();
+
 }
 //デストラクタ
 Game::~Game()
@@ -48,18 +53,15 @@ Game::~Game()
 /// </summary>
 void Game::GameStateChange()
 {
-	//ゲームステータスの取得
-	int inGameState = utility->getGameState();
+
 	//プレイヤー座標の取得
-	switch (inGameState)
+	switch (gameState)
 	{
 	case STATE_TITLE:
 		//プレイヤーとギミックの位置は毎回リセット
 		//player->Init();
-		utility->StartInitialize();
 		break;
 	case STATE_GAME:
-		utility->StartInitialize();
 		player->Initialize();
 		map->Initialize();
 		enemyManager->Initialize();
@@ -97,14 +99,11 @@ void Game::Initialize()
 /// </summary>
 void Game::Update()
 {
-	//ゲームステータスの取得
-	int inGameState = utility->getGameState();
 	//ローカル変数の宣言
 	bool inGameOverFlag = false;//ゲームオーバーフラグ
 	bool inGameClearFlag = false;//ゲームクリアフラグ
 	//キー入力
 	auto input = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	int elapsedTime = utility->getElapsedTime();
 
 
 	keyRelease = false;
@@ -133,7 +132,7 @@ void Game::Update()
 		}
 
 
-	switch (inGameState)
+	switch (gameState)
 	{
 	case STATE_TITLE:
 
@@ -167,10 +166,7 @@ void Game::Update()
 void Game::Draw()
 {
 
-	//ゲームステータスの取得
-	int inGameState = utility->getGameState();
-	int inElapsedTime = utility->getElapsedTime();
-	switch (inGameState)
+	switch (gameState)
 	{
 	case STATE_TITLE:
 		break;
@@ -193,6 +189,52 @@ void Game::Draw()
 	
 
 	
+}
+
+/// <summary>
+/// フレームレートの調整をする変数などの初期化
+/// </summary>
+void Game::InitializeFrameRate()
+{
+    //ゲーム開始時点の時間を取得
+    startTime = GetNowCount();
+    roopCount = 0;
+}
+
+/// <summary>
+/// フレームレートの計算のためにカウントなどを取得
+/// </summary>
+void Game::UpdateFrameRate()
+{
+    //1フレーム目なら
+    if (roopCount == 0)
+    {
+        startTime = GetNowCount();
+    }
+    //60フレーム目なら
+    if (roopCount == AVERAGE_FLAME)
+    {
+        //現在の値を代入
+        int tmp = GetNowCount();
+        //ループカウントの初期化
+        roopCount = 0;
+        startTime = tmp;
+    }
+    roopCount++;
+}
+
+/// <summary>
+/// 取得したカウントを使用し実際にフレームレートを調節する
+/// </summary>
+void Game::ControlFrameRate()
+{
+    int tookTime = GetNowCount() - startTime;                   //現在のフレームの経過から1フレーム目で計算した値を引く
+    int waitTime = roopCount * 1000 / 60 - tookTime;            //tookTimeの値が大きいと１フレーム辺りにかかる時間が長いので処理が遅いことになる
+
+    if (waitTime > 0)
+    {
+        Sleep(waitTime);
+    }
 }
 
 
