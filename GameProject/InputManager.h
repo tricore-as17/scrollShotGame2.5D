@@ -6,6 +6,8 @@
 class InputManager
 {
 public:
+    //getter,setter
+    const bool GetIsStopKey()const { return isStopKey; }
     //コンストラクタ
     InputManager();
     //デストラクタ
@@ -21,6 +23,7 @@ private:
     bool releaseKey;        //キーが離されたか
     bool onKey;             //キーが押されたか
     bool onPrevKey;         //キーが押され続けているか
+    bool isStopKey;         //キーを押されないようにする
     
 };
 

@@ -16,6 +16,7 @@ class GroundDraw3D;
 class Effect;
 class EnemyManager;
 class ShotManager;
+class Camera;
 
 /// <summary>
 /// ゲーム全体のインスタンスなどをまとめたクラス

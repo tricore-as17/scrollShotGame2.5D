@@ -1,6 +1,7 @@
 ﻿#include "SceneManager.h"
 #include"SceneBase.h"
 #include"TitleScene.h"
+#include"Game.h"
 
 /// <summary>
 /// コンストラクタ
@@ -11,7 +12,13 @@ SceneManager::SceneManager()
     //最初はタイトルなのでタイトルシーンを作成してnowSceneに代入
     nowScene = new TitleScene();
 
+    game = new Game();
+    //TODO
+    //ゲームから無理やり読んでいるのでフレームレート処理用のクラスを作る
+    game->InitializeFrameRate();
+
 }
+
 
 /// <summary>
 /// デストラクタ
@@ -30,11 +37,17 @@ void SceneManager::GameLoop()
     while (IsContinueGame())
     {
         ClearDrawScreen();
+        //ToDo
+        //ゲームを無理やり呼び出してフレームレートを調整しているのでそこを修正
+        game->UpdateFrameRate();
         nowScene->Update();
         //更新処理の後次のループでのシーンを代入する
         nextScene = nowScene->GetNextScene();
         nowScene->Draw();
         ScreenFlip();
+        //TODO
+        //ここも別のフレームレート処理用のクラスを作る
+        game->ControlFrameRate();
         //次のループのシーンと現在のシーンが違う場合は移行処理を行う
         if (nowScene != nextScene)
         {
@@ -55,7 +68,11 @@ bool SceneManager::IsContinueGame()
     bool isContinue = true;
     if (ProcessMessage())
     {
-        return false;
+        isContinue = false;
+    }
+    if (CheckHitKey(KEY_INPUT_ESCAPE))
+    {
+        isContinue = false;
     }
     //TODO
     //他に終了する条件をここに追加する

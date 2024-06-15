@@ -51,6 +51,7 @@ public:
 	void SetIsHitTop(const bool inIsHitTop) { isHitTop = inIsHitTop; }		//天井へ当たっているかのセット
 	void SetFallSpeed(const float inFallSpeed) { fallSpeed = inFallSpeed; }	//落下スピードのセット
 	void SetIsGround(const bool inIsGround) { isGround = inIsGround; }		//接地判定の設定
+    const int GetLife() const { return life; }                              //プレイヤーの体力を返す
 	
 	//アニメーションの状態の定数
 	static enum ANIME_STATE

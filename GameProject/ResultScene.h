@@ -1,18 +1,17 @@
 ﻿#pragma once
 
-class SceneBase;
 class InputManager;
 
 /// <summary>
-/// タイトのシーン
+/// ゲーム終了後の画面
 /// </summary>
-class TitleScene:public SceneBase
+class ResultScene:public SceneBase
 {
 public:
     //コンストラクタ
-    TitleScene();
+    ResultScene();
     //デストラクタ
-    ~TitleScene();
+    ~ResultScene();
     /// <summary>
     /// 更新処理
     /// </summary>
@@ -22,9 +21,6 @@ public:
     /// </summary>
     void Draw() override;
 private:
-
-    InputManager* inputManager;         //入力に関する処理をまとめたもの
-
-
+    InputManager* inputManager;
 };
 

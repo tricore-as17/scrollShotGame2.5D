@@ -8,6 +8,7 @@ InputManager::InputManager()
     :releaseKey(false)
     ,onKey(false)
     ,onPrevKey(false)
+    ,isStopKey(false)
 {
     //処理なし
 }
