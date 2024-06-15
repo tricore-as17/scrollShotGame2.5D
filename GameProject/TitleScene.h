@@ -20,6 +20,9 @@ public:
     /// 描画処理
     /// </summary>
     void Draw() override;
+private:
+
+    InputManager* inputManager;         //入力に関する処理をまとめたもの
 
 
 };

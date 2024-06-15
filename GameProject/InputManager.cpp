@@ -22,12 +22,12 @@ InputManager::~InputManager()
 
 
 /// <summary>
-/// キー１度だけ押す処理(押し続けても入力されないように)
+/// <summary>
+/// キーを離した瞬間をとる
 /// </summary>
-/// <param name="inputKey">入力されたキーの値</param>
-/// <param name="compareKey"></param>
-/// <returns></returns>
-void InputManager::InputKeyOnlyOne(const int inputKey, const int compareKey)
+/// <param name="compareKey">チェックしたい入力キー</param>
+/// <returns>キーを離したか</returns>
+bool InputManager::InputKeyOnlyOne(const int compareKey)
 {
     //キー入力
     auto input = GetJoypadInputState(DX_INPUT_KEY_PAD1);
@@ -57,4 +57,5 @@ void InputManager::InputKeyOnlyOne(const int inputKey, const int compareKey)
     {
         onPrevKey = false;
     }
+    return releaseKey;
 }

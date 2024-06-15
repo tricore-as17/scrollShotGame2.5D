@@ -13,9 +13,9 @@ public:
     /// <summary>
     /// キー１度だけ押す処理(押し続けても入力されないように)
     /// </summary>
-    /// <param name="inputKey">入力されたキーの値</param>
     /// <param name="compareKey">チェックしたい入力キー</param>
-    void InputKeyOnlyOne(const int inputKey,const int compareKey);
+    /// <returns>入力されたかを返す</returns>
+    bool InputKeyOnlyOne(const int compareKey);
 
 private:
     bool releaseKey;        //キーが離されたか
