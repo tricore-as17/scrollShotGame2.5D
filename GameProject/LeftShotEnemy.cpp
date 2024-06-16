@@ -1,4 +1,5 @@
 ﻿#include"LeftShotEnemy.h"
+#include"ShooterEnemy.h"
 #include"Shot.h"
 #include"ShotManager.h"
 #include"Map.h"
@@ -10,7 +11,7 @@
 /// </summary>
 LeftShotEnemy::LeftShotEnemy()
 {
-    //処理なし
+    shooterEnemy = new ShooterEnemy();
 }
 
 /// <summary>
@@ -18,7 +19,7 @@ LeftShotEnemy::LeftShotEnemy()
 /// </summary>
 LeftShotEnemy::~LeftShotEnemy()
 {
-    //処理なし
+    delete shooterEnemy;
 }
 
 /// <summary>
@@ -38,6 +39,10 @@ void LeftShotEnemy::Initialize(const VECTOR& initializePos)
     //ダメージの値を初期化
     damage = INITIALIZE_DAMAGE;
 
+    //インターバルをセット
+    shooterEnemy->SetRimitShotInterval(SHOT_INTERVAL_RIMIT);
+
+
 }
 
 /// <summary>
@@ -55,16 +60,17 @@ void LeftShotEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotMan
     if (moveStartFlag)
     {
         //前撃ってから一定の間隔が経っていれば撃つ
-        CountShotInterval(SHOT_INTERVAL_RIMIT);
-        if (readyShotFlag)
+        shooterEnemy->CountShotInterval();
+        if (shooterEnemy->GetIsAbleShot())
         {
             shotManager.CreateShot(position, VGet(SHOT_DIRCTION, 0, 0), LEFT_ENEMY_SHOT, damage);
-            readyShotFlag = false;
+            shooterEnemy->SetIsAbleShot(false);
         }
     }
     //弾と当たっているかを判定して体力などを減らす処理
     Colision::ColisionShot(shotManager.GetShot(), position, width, height, life, kind);
 }
+
 
 
 

@@ -55,6 +55,12 @@
     <Filter Include="ソース ファイル\FPS">
       <UniqueIdentifier>{76021b98-28e4-487d-a651-2949048f946d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Enemy\Base">
+      <UniqueIdentifier>{5e801147-cfcf-4690-bb99-8f0acf54a311}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Enemy\Sub">
+      <UniqueIdentifier>{0a5c6ece-71b9-4828-9ae1-0b7fd23346f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -82,9 +88,6 @@
       <Filter>ソース ファイル\Map</Filter>
     </ClCompile>
     <ClCompile Include="EasyEnemy.cpp">
-      <Filter>ソース ファイル\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseEnemy.cpp">
       <Filter>ソース ファイル\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="EnemyManager.cpp">
@@ -129,6 +132,12 @@
     <ClCompile Include="FrameRate.cpp">
       <Filter>ソース ファイル\FPS</Filter>
     </ClCompile>
+    <ClCompile Include="BaseEnemy.cpp">
+      <Filter>ソース ファイル\Enemy\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ShooterEnemy.cpp">
+      <Filter>ソース ファイル\Enemy\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -150,9 +159,6 @@
       <Filter>ソース ファイル\Map</Filter>
     </ClInclude>
     <ClInclude Include="EasyEnemy.h">
-      <Filter>ソース ファイル\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseEnemy.h">
       <Filter>ソース ファイル\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="EnemyManager.h">
@@ -202,6 +208,12 @@
     </ClInclude>
     <ClInclude Include="FrameRate.h">
       <Filter>ソース ファイル\FPS</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseEnemy.h">
+      <Filter>ソース ファイル\Enemy\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ShooterEnemy.h">
+      <Filter>ソース ファイル\Enemy\Base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

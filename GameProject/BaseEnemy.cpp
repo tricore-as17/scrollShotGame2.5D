@@ -69,7 +69,7 @@ void BaseEnemy::Move(const Map& map,const float& speed)
 }
 
 /// <summary>
-/// エネミーのスクロールを始めるかのチェック(画面に入ったかでチェック)
+/// エネミーが行動を始めるかのチェック(画面に入ったかでチェック)
 /// </summary>
 /// <param name="cameraPosition">カメラの座標</param>
 bool BaseEnemy::CanStartMove(const VECTOR& cameraPosition)
@@ -92,24 +92,6 @@ bool BaseEnemy::CanStartMove(const VECTOR& cameraPosition)
     return isInScreen;
 }
 
-/// <summary>
-/// 弾を撃てるようになるまでの間隔の設定
-/// </summary>
-/// <param name="INTERVAL_RIMIT">間隔の大きさ</param>
-void BaseEnemy::CountShotInterval(const int intervalRimit)
-{
-    //撃てる準備がまだできていないなら
-    if (!readyShotFlag)
-    {
-        shotIntervalCount++;
-        if (shotIntervalCount>=intervalRimit)
-        {
-            readyShotFlag = true;
-            shotIntervalCount = 0;
-        }
-
-    }
-}
 
 /// <summary>
 /// 描画
