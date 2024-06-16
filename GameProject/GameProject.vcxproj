@@ -146,6 +146,7 @@
     <ClCompile Include="EasyEnemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Font.cpp" />
+    <ClCompile Include="FrameRate.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameSceneUI.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Font.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Colision.h" />
+    <ClInclude Include="FrameRate.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameScene.h" />

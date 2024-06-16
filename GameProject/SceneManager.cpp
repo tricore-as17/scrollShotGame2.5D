@@ -1,4 +1,5 @@
 ﻿#include "SceneManager.h"
+#include"FrameRate.h"
 #include"SceneBase.h"
 #include"TitleScene.h"
 #include"Game.h"
@@ -12,10 +13,8 @@ SceneManager::SceneManager()
     //最初はタイトルなのでタイトルシーンを作成してnowSceneに代入
     nowScene = new TitleScene();
 
-    game = new Game();
-    //TODO
-    //ゲームから無理やり読んでいるのでフレームレート処理用のクラスを作る
-    game->InitializeFrameRate();
+    frameRate = new FrameRate();
+
 
 }
 
@@ -25,7 +24,9 @@ SceneManager::SceneManager()
 /// </summary>
 SceneManager::~SceneManager()
 {
+    //解放処理
     delete nowScene;
+    delete frameRate;
 }
 
 /// <summary>
@@ -37,17 +38,15 @@ void SceneManager::GameLoop()
     while (IsContinueGame())
     {
         ClearDrawScreen();
-        //ToDo
-        //ゲームを無理やり呼び出してフレームレートを調整しているのでそこを修正
-        game->UpdateFrameRate();
+        //フレームレートを調整するための計算
+        frameRate->Update();
         nowScene->Update();
         //更新処理の後次のループでのシーンを代入する
         nextScene = nowScene->GetNextScene();
         nowScene->Draw();
         ScreenFlip();
-        //TODO
-        //ここも別のフレームレート処理用のクラスを作る
-        game->ControlFrameRate();
+        //フレームレートを調整
+        frameRate->Control();
         //次のループのシーンと現在のシーンが違う場合は移行処理を行う
         if (nowScene != nextScene)
         {

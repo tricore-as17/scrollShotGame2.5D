@@ -52,6 +52,9 @@
     <Filter Include="ソース ファイル\InputManager">
       <UniqueIdentifier>{d3139443-b036-45f7-96f5-2cfc4d1b5bde}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\FPS">
+      <UniqueIdentifier>{76021b98-28e4-487d-a651-2949048f946d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -123,6 +126,9 @@
     <ClCompile Include="ResultScene.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="FrameRate.cpp">
+      <Filter>ソース ファイル\FPS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -193,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="ResultScene.h">
       <Filter>ソース ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameRate.h">
+      <Filter>ソース ファイル\FPS</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

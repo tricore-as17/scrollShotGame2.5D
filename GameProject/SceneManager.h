@@ -5,7 +5,7 @@
 
 //クラスのプロトタイプ宣言
 class SceneBase;
-class Game;
+class FrameRate;
 
 class SceneManager
 {
@@ -37,7 +37,7 @@ private:
     SceneBase* nowScene;        //現在のループでのシーンを保存するポインタ
     SceneBase* nextScene;       //次のループでのシーンを保存するポインタ
 
-    Game* game;
+    FrameRate* frameRate;       //フレームレート計算用クラス
 
     
 
