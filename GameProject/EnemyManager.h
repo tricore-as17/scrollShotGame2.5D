@@ -49,9 +49,8 @@ public:
     /// CSVファイルからエネミーのデータを読み込む
     /// </summary>
     /// <param name="fileName">ファイル名</param>
-    void LoadEnemyInformation(const string& fileName);
+    vector<EnemyInformation*> LoadEnemyInformation(const string& fileName);
 
 private:
     vector<BaseEnemy*>        enemy;            //敵のインスタンスをまとめたもの
-    vector<EnemyInformation*> enemyInformation; //敵の初期化情報をまとめたもの
 };

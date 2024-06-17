@@ -14,8 +14,9 @@
 /// </summary>
 EnemyManager::EnemyManager()
 {
+    vector<EnemyInformation*> enemyInformation;
     //エネミーの初期化情報の入ったcsvファイルを読み込む
-    LoadEnemyInformation("Information/InitializeEnemy.csv");
+    enemyInformation = LoadEnemyInformation("Information/InitializeEnemy.csv");
 
     //読み込んだエネミーの数だけまわす
     for (const auto& information : enemyInformation)
@@ -25,11 +26,17 @@ EnemyManager::EnemyManager()
         {
             enemy.emplace_back(new EasyEnemy(information));
         }
-        if (information->type == LEFT_SHOT)
+        else if (information->type == LEFT_SHOT)
         {
             enemy.emplace_back(new LeftShotEnemy(information));
         }
     }
+    //確保した初期化情報の入った中身を解放
+    for (auto it : enemyInformation)
+    {
+        delete it;
+    }
+    enemyInformation.clear();
     
 }
 
@@ -43,13 +50,8 @@ EnemyManager::~EnemyManager()
     {
         delete it;
     }
-    //初期化情報の要素を削除
-    for (auto it : enemyInformation)
-    {
-        delete it;
-    }
+
     //それぞれのポインタが持ってる情報も削除
-    enemyInformation.clear();
     enemy.clear();
 
     
@@ -98,10 +100,12 @@ void EnemyManager::Draw()
 /// CSVファイルからエネミーのデータを読み込む
 /// </summary>
 /// <param name="fileName">ファイル名</param>
-void EnemyManager::LoadEnemyInformation(const string& fileName)
+vector<EnemyInformation*> EnemyManager::LoadEnemyInformation(const string& fileName)
 {
     //ファイルを入れる変数を作成
     ifstream file(fileName);
+    //引数として渡す用のベクター
+    vector<EnemyInformation*> enemyInformation;
 
     //ファイルが開けない場合の処理
     if (!file.is_open())
@@ -137,6 +141,7 @@ void EnemyManager::LoadEnemyInformation(const string& fileName)
 
     //終わったのでファイルを閉じる
     file.close();
+    return enemyInformation;
 
 }
 
