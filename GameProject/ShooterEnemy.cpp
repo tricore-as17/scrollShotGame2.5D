@@ -6,7 +6,7 @@
 /// </summary>
 ShooterEnemy::ShooterEnemy()
     :countShotInterval(0)
-    ,isAbleShot(false)
+    ,canShot(false)
 {
 
 }
@@ -30,12 +30,12 @@ void ShooterEnemy::CountShotInterval()
 {
     //弾のインターバルが残っている場合はカウントが間隔を超えるまで増やす
     //超えたら撃てるフラグを立てる
-    if (!isAbleShot)
+    if (!canShot)
     {
         countShotInterval++;
         if (countShotInterval >= rimitShotInterval)
         {
-            isAbleShot = true;
+            canShot = true;
             countShotInterval = 0;
         }
     }

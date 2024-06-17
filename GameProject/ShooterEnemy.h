@@ -8,8 +8,8 @@ class ShooterEnemy
 public:
     //getter,setter
     void SetRimitShotInterval(const int rimitShotInterval) { this->rimitShotInterval = rimitShotInterval; }
-    const bool GetIsAbleShot()const { return isAbleShot; }
-    void SetIsAbleShot(const bool isAbleShot) { this->isAbleShot = isAbleShot; }
+    const bool GetIsAbleShot()const { return canShot; }
+    void SetIsAbleShot(const bool isAbleShot) { this->canShot = isAbleShot; }
     //コンストラクタ
     ShooterEnemy();
     //デストラクタ
@@ -23,7 +23,7 @@ public:
 private:
     //メンバ変数
     int  countShotInterval;              //ショットを撃った後の待ち時間のカウント用
-    bool isAbleShot;                     //弾を撃てるようになっているか
+    bool canShot;                     //弾を撃てるようになっているか
     int rimitShotInterval;
 
 };
