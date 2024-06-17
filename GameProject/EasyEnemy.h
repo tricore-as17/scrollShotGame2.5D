@@ -5,6 +5,7 @@
 //クラスのプロトタイプ宣言
 class Map;
 class ShotManager;
+struct EnemyInformation;
 
 /// <summary>
 /// 一番最初に登場する雑魚敵横に移動してくるだけ
@@ -19,14 +20,9 @@ public:
     static constexpr int MAX_LIFE = 1;          //体力の上限値
     static constexpr int INITIALIZE_DAMAGE = 1;       //当たった時のダメージ
 	//メソッド
-	EasyEnemy();			            //コンストラクタ	
+	EasyEnemy(EnemyInformation* enemyInformation);			            //コンストラクタ	
 	~EasyEnemy();						//デストラクタ
-	/// <summary>
-	/// ゲーム開始時の初期化
-	/// </summary>
-	/// <param name="initializePosition">初期化用の座標</param>
-	void Initialize(const VECTOR& initializePosition)override;
-
+    
     /// <summary>
     /// 初期エネミーの更新処理
     /// </summary>

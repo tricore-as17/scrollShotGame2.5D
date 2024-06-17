@@ -166,6 +166,7 @@
     <ClInclude Include="BaseEnemy.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="EasyEnemy.h" />
+    <ClInclude Include="EnemyInformation.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Camera.h" />

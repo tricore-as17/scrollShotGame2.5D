@@ -87,12 +87,6 @@
     <ClCompile Include="Map.cpp">
       <Filter>ソース ファイル\Map</Filter>
     </ClCompile>
-    <ClCompile Include="EasyEnemy.cpp">
-      <Filter>ソース ファイル\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
-      <Filter>ソース ファイル\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="WorldSprite.cpp">
       <Filter>ソース ファイル\Map</Filter>
     </ClCompile>
@@ -105,16 +99,7 @@
     <ClCompile Include="ShotManager.cpp">
       <Filter>ソース ファイル\Shot</Filter>
     </ClCompile>
-    <ClCompile Include="LeftShotEnemy.cpp">
-      <Filter>ソース ファイル\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="GameScene.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="GameSceneUI.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneBase.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
     <ClCompile Include="TitleScene.cpp">
@@ -133,7 +118,16 @@
       <Filter>ソース ファイル\Enemy\Base</Filter>
     </ClCompile>
     <ClCompile Include="ShooterEnemy.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Enemy\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="EasyEnemy.cpp">
+      <Filter>ソース ファイル\Enemy\Sub</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>ソース ファイル\Enemy\Sub</Filter>
+    </ClCompile>
+    <ClCompile Include="LeftShotEnemy.cpp">
+      <Filter>ソース ファイル\Enemy\Sub</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,12 +149,6 @@
     <ClInclude Include="Map.h">
       <Filter>ソース ファイル\Map</Filter>
     </ClInclude>
-    <ClInclude Include="EasyEnemy.h">
-      <Filter>ソース ファイル\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>ソース ファイル\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="Colision.h">
       <Filter>ソース ファイル\Colision</Filter>
     </ClInclude>
@@ -179,14 +167,8 @@
     <ClInclude Include="ShotManager.h">
       <Filter>ソース ファイル\Shot</Filter>
     </ClInclude>
-    <ClInclude Include="LeftShotEnemy.h">
-      <Filter>ソース ファイル\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="GameScene.h">
       <Filter>ソース ファイル\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="GameSceneUI.h">
-      <Filter>ソース ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="SceneBase.h">
       <Filter>ソース ファイル\Scene</Filter>
@@ -206,8 +188,20 @@
     <ClInclude Include="BaseEnemy.h">
       <Filter>ソース ファイル\Enemy\Base</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyInformation.h">
+      <Filter>ソース ファイル\Enemy\Base</Filter>
+    </ClInclude>
     <ClInclude Include="ShooterEnemy.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル\Enemy\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="EasyEnemy.h">
+      <Filter>ソース ファイル\Enemy\Sub</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>ソース ファイル\Enemy\Sub</Filter>
+    </ClInclude>
+    <ClInclude Include="LeftShotEnemy.h">
+      <Filter>ソース ファイル\Enemy\Sub</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

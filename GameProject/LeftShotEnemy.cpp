@@ -2,6 +2,7 @@
 #include"ShooterEnemy.h"
 #include"Shot.h"
 #include"ShotManager.h"
+#include"EnemyInformation.h"
 #include"Map.h"
 #include"Colision.h"
 #include"Utility.h"
@@ -9,28 +10,9 @@
 /// <summary>
 /// コンストラクタ
 /// </summary>
-LeftShotEnemy::LeftShotEnemy()
+LeftShotEnemy::LeftShotEnemy(EnemyInformation* enemyInformation):BaseEnemy(enemyInformation)
 {
     shooterEnemy = new ShooterEnemy();
-}
-
-/// <summary>
-/// デストラクタ
-/// </summary>
-LeftShotEnemy::~LeftShotEnemy()
-{
-    delete shooterEnemy;
-}
-
-/// <summary>
-/// ゲーム開始時の初期化
-/// </summary>
-/// <param name="initPos">初期座標</param>
-void LeftShotEnemy::Initialize(const VECTOR& initializePos)
-{
-    //ベースの初期化を呼び出して共通処理をする
-    BaseEnemy::Initialize(initializePos);
-
     //幅と高さの代入
     width = WIDTH;
     height = HEIGHT;
@@ -41,9 +23,16 @@ void LeftShotEnemy::Initialize(const VECTOR& initializePos)
 
     //インターバルをセット
     shooterEnemy->SetRimitShotInterval(SHOT_INTERVAL_RIMIT);
-
-
 }
+
+/// <summary>
+/// デストラクタ
+/// </summary>
+LeftShotEnemy::~LeftShotEnemy()
+{
+    delete shooterEnemy;
+}
+
 
 /// <summary>
 /// ゲーム中の更新処理

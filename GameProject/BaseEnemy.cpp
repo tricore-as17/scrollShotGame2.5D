@@ -1,4 +1,5 @@
 ﻿#include"BaseEnemy.h"
+#include"EnemyInformation.h"
 #include"Colision.h"
 #include"Utility.h"
 #include"Map.h"
@@ -6,28 +7,22 @@
 /// <summary>
 /// コンストラクタ
 /// </summary>
-BaseEnemy::BaseEnemy() :moveStartFlag(false),kind(Utility::KIND_ENEMY)
+BaseEnemy::BaseEnemy(EnemyInformation* enemyInformation)
+    :moveStartFlag(false)
+    ,kind(Utility::KIND_ENEMY)
 {
-    //処理なし
+    //座標の初期化
+    position.x = enemyInformation->initializeX;
+    position.y = enemyInformation->initializeY;
+    position.z = 0;
+    //落下速度の初期化
+    fallSpeed = 0;
 }
 
 /// <summary>
 /// デストラクタ
 /// </summary>
 BaseEnemy::~BaseEnemy() {/*処理なし*/ }
-
-/// <summary>
-/// ベースで行う共通の初期化処理
-/// </summary>
-/// <param name="initPosition">初期化用座標</param>
-void BaseEnemy::Initialize(const VECTOR& initializePosition)
-{
-    //座標の代入
-    position = initializePosition;
-    //移動を開始するフラグの初期化
-    moveStartFlag = false;
-    fallSpeed = 0;
-}
 
 
 /// <summary>
