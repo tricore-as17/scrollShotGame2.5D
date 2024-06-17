@@ -11,7 +11,7 @@
 /// </summary>
 TitleScene::TitleScene()
 {
-    inputManager = new InputManager();
+    //処理なし
 }
 
 /// <summary>
@@ -19,16 +19,17 @@ TitleScene::TitleScene()
 /// </summary>
 TitleScene::~TitleScene()
 {
-    delete inputManager;
+    //処理なし
 }
 
 /// <summary>
 /// 更新処理
 /// </summary>
-void TitleScene::Update()
+/// <param name="inputManager">入力管理クラス</param>
+void TitleScene::Update(InputManager* inputManager)
 {
     //スペースキーが押されたかのチェック
-    bool isKeyRelease = inputManager->InputKeyOnlyOne(PAD_INPUT_10);
+    bool isKeyRelease = inputManager->IsReleaseKey(PAD_INPUT_10);
 
     //スペースキーが押されていればゲームを始める
     if (isKeyRelease)

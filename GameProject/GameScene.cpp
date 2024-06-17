@@ -11,16 +11,11 @@
 //コンストラクタ
 GameScene::GameScene()
 {
-    //ToDo
-    //ゲームで使うクラスのインスタンスを作成する
-    //ゲーム開始時点で初期化するものもここに書く
-    //クラスのインスタンスの作成
     player       = new Player();
     camera       = new Camera();
     map          = new Map();
     enemyManager = new EnemyManager();
     shotManager  = new ShotManager();
-    inputManager = new InputManager();
 
     player->Initialize();
     camera->Initialize();
@@ -38,24 +33,21 @@ GameScene::~GameScene()
     delete map;
     delete enemyManager;
     delete shotManager;
-    delete inputManager;
     player       = NULL;
     camera       = NULL;
     map          = NULL;
     enemyManager = NULL;
     shotManager  = NULL;
-    inputManager = NULL;
 }
 
 /// <summary>
-/// ゲーム中の更新処理
+/// 更新処理
 /// </summary>
-void GameScene::Update()
+/// <param name="inputManager">入力管理クラス</param>
+void GameScene::Update(InputManager* inputManager)
 {
-    //キー入力を止める必要があるか
-    bool isKeyStop = inputManager->GetIsStopKey();
 
-    player->Update(isKeyStop, *map, *shotManager);
+    player->Update(*map, *shotManager);
     enemyManager->Update(*map, camera->GetPosition(),*shotManager);
     shotManager->Update();
     player->IsReceiveDamage(enemyManager->GetEasyEnemy(), shotManager->GetShot());
@@ -78,8 +70,6 @@ void GameScene::Update()
 /// </summary>
 void GameScene::Draw()
 {
-    //ToDo
-    //ゲーム中に行う描画処理をまとめる
     map->Draw();
     player->Draw();
     shotManager->Draw();

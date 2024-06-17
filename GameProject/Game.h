@@ -6,6 +6,7 @@
 //クラスのプロトタイプ宣言
 class SceneBase;
 class FrameRate;
+class InputManager;
 
 class Game
 {
@@ -18,7 +19,7 @@ public:
     /// <summary>
     /// ゲームループをまわす処理
     /// </summary>
-    void GameLoop();
+    void Update();
 
     /// <summary>
     /// ゲームを継続するかの判断
@@ -32,12 +33,13 @@ private:
     /// <summary>
     /// 現在のシーンを削除して次のシーンのポインタを入れる
     /// </summary>
-    void SceneChange();
+    void ChangeScene();
 
     SceneBase* nowScene;        //現在のループでのシーンを保存するポインタ
     SceneBase* nextScene;       //次のループでのシーンを保存するポインタ
 
     FrameRate* frameRate;       //フレームレート計算用クラス
+    InputManager* inputManager; //入力を管理するクラス
 
 
 
