@@ -8,7 +8,6 @@ InputManager::InputManager()
     :releaseKey(false)
     ,onKey(false)
     ,onPrevKey(false)
-    ,isStopKey(false)
 {
     //処理なし
 }
@@ -23,12 +22,11 @@ InputManager::~InputManager()
 
 
 /// <summary>
-/// <summary>
 /// キーを離した瞬間をとる
 /// </summary>
 /// <param name="compareKey">チェックしたい入力キー</param>
 /// <returns>キーを離したか</returns>
-bool InputManager::InputKeyOnlyOne(const int compareKey)
+bool InputManager::IsReleaseKey(const int compareKey)
 {
     //キー入力
     auto input = GetJoypadInputState(DX_INPUT_KEY_PAD1);

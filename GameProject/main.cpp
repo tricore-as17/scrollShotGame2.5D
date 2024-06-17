@@ -44,7 +44,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	SetCameraNearFar(10.0f, 500.0f);	//nearとfarの設定
 
     //ゲームループ
-    game->GameLoop();		
+    game->Update();		
 
 
 	// Effekseerを終了する。

@@ -1,5 +1,6 @@
 ﻿#include "Game.h"
 #include"FrameRate.h"
+#include"InputManager.h"
 #include"SceneBase.h"
 #include"TitleScene.h"
 #include"Game.h"
@@ -14,6 +15,9 @@ Game::Game()
     nowScene = new TitleScene();
 
     frameRate = new FrameRate();
+    inputManager = new InputManager();
+
+
 
 
 }
@@ -27,12 +31,13 @@ Game::~Game()
     //解放処理
     delete nowScene;
     delete frameRate;
+    delete inputManager;
 }
 
 /// <summary>
 /// ゲームループをまわす処理
 /// </summary>
-void Game::GameLoop()
+void Game::Update()
 {
     //ゲームを終了するフラグが来ない限り続ける
     while (IsContinueGame())
@@ -40,17 +45,17 @@ void Game::GameLoop()
         ClearDrawScreen();
         //フレームレートを調整するための計算
         frameRate->Update();
-        nowScene->Update();
+        nowScene->Update(inputManager);
         //更新処理の後次のループでのシーンを代入する
         nextScene = nowScene->GetNextScene();
         nowScene->Draw();
         ScreenFlip();
-        //フレームレートを調整
-        frameRate->Control();
+        //フレームレートを設定した値に同期させる
+        frameRate->Sync();
         //次のループのシーンと現在のシーンが違う場合は移行処理を行う
         if (nowScene != nextScene)
         {
-            SceneChange();
+            ChangeScene();
         }
 
 
@@ -73,8 +78,6 @@ bool Game::IsContinueGame()
     {
         isContinue = false;
     }
-    //TODO
-    //他に終了する条件をここに追加する
     return isContinue;
 
 }
@@ -82,7 +85,7 @@ bool Game::IsContinueGame()
 /// <summary>
 /// シーンの移行処理
 /// </summary>
-void Game::SceneChange()
+void Game::ChangeScene()
 {
     delete nowScene;
     nowScene = nextScene;

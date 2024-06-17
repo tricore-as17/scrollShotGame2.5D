@@ -18,9 +18,15 @@ public:
     GameScene();
     ~GameScene();
 
+    /// <summary>
+    /// 更新処理
+    /// </summary>
+    /// <param name="inputManager">入力管理クラス</param>
+    void Update(InputManager* inputManager)override;
 
-    void Update()override;
-
+    /// <summary>
+    /// 描画
+    /// </summary>
     void Draw() override;
 private:
     Player*       player;         //プレイヤー
@@ -28,7 +34,6 @@ private:
     Map*          map;            //マップ
     EnemyManager* enemyManager;   //エネミーマネージャー
     ShotManager*  shotManager;    //ショットマネージャー
-    InputManager* inputManager;   //インプトマネージャー
     
 
 };

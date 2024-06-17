@@ -27,9 +27,9 @@ public:
 	Player();
 	~Player();
 	//基本メソッド
-	void Initialize();								//初期化
-	void Update(bool keyStop,const Map& map, ShotManager& shotManager);	//更新
-	void Draw();								//描画
+	void Initialize();								        //初期化
+	void Update(const Map& map, ShotManager& shotManager);	//更新
+	void Draw();								            //描画
 
 	/// <summary>
 	/// プレイヤーモデルの座標移動、拡大、YXZの順で回転させる

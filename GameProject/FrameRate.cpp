@@ -40,9 +40,9 @@ void FrameRate::Update()
 }
 
 /// <summary>
-/// 計算した値から処理をまつ
+/// 計算した値から設定したフレームレートになるように同期させる
 /// </summary>
-void FrameRate::Control()
+void FrameRate::Sync()
 {
     int tookTime = GetNowCount() - startTime;                   //現在のフレームの経過から1フレーム目で計算した値を引く
     int waitTime = roopCount * 1000 / 60 - tookTime;            //tookTimeの値が大きいと１フレーム辺りにかかる時間が長いので処理が遅いことになる
