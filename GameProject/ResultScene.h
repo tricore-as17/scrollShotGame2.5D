@@ -15,12 +15,12 @@ public:
     /// <summary>
     /// 更新処理
     /// </summary>
-    void Update() override;
+    /// <param name="inputManager">入力管理クラス</param>
+    void Update(InputManager* inputManager) override;
     /// <summary>
     /// 描画処理
     /// </summary>
     void Draw() override;
 private:
-    InputManager* inputManager;
 };
 
