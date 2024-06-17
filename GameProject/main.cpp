@@ -1,5 +1,5 @@
 ﻿#include"DxLib.h"
-#include"SceneManager.h"
+#include"Game.h"
 #include"Utility.h"
 #include"Camera.h"
 #include"Effect.h"
@@ -37,20 +37,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		DxLib_End();
 		return -1;
 	}
-
-    SceneManager* sceneManager = new SceneManager();
+    Game* game = new Game();
+    
 
 	// 画面を初期化(真っ黒にする)
 	SetCameraNearFar(10.0f, 500.0f);	//nearとfarの設定
 
     //ゲームループ
-    sceneManager->GameLoop();		
+    game->GameLoop();		
 
 
 	// Effekseerを終了する。
 	Effkseer_End();
     //シーンマネージャーの解放
-    delete sceneManager;
+    delete game;
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
 
