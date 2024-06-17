@@ -15,9 +15,9 @@ public:
     /// </summary>
     void Update();
     /// <summary>
-    /// 計算した値から処理をまつ
+    /// 計算した値から設定したフレームレートになるように同期させる
     /// </summary>
-    void Control();
+    void Sync();
 private:
     static constexpr int AVERAGE_FRAME = 60;        //調節するフレームレートの値
 
