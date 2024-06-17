@@ -157,7 +157,6 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="SceneBase.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shot.cpp" />
     <ClCompile Include="ShotManager.cpp" />
     <ClCompile Include="TitleScene.cpp" />
