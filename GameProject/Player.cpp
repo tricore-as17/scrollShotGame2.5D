@@ -72,7 +72,7 @@ void Player::Initialize()
 /// <summary>
 /// 更新処理
 /// </summary>
-void Player::Update(bool keyStop,const Map &map, ShotManager& shotManager)
+void Player::Update(const Map &map, ShotManager& shotManager)
 {
 	// 入力状態を更新
 	// パッド１とキーボードから入力を得る
@@ -81,11 +81,11 @@ void Player::Update(bool keyStop,const Map &map, ShotManager& shotManager)
 	// プレイヤーの移動処理
 	// 左右の移動方向を出す
 	direction = VGet(0, 0, 0);
-	if (input & PAD_INPUT_LEFT && keyStop == false)
+	if (input & PAD_INPUT_LEFT)
 	{
 		direction = VAdd(direction, VGet(-1, 0, 0));
 	}
-	if (input & PAD_INPUT_RIGHT && keyStop == false)
+	if (input & PAD_INPUT_RIGHT)
 	{
 		direction = VAdd(direction, VGet(1, 0, 0));
 	}
@@ -109,7 +109,7 @@ void Player::Update(bool keyStop,const Map &map, ShotManager& shotManager)
 
 
 	// 地に足が着いている場合のみジャンプボタン(ボタン１ or Ｚキー)を見る
-	if (((isGround && !isHitTop)) && (input & PAD_INPUT_A) && keyStop == false)
+	if (((isGround && !isHitTop)) && (input & PAD_INPUT_A))
 	{
 		fallSpeed = JUMP_POWER;	// ジャンプボタンを押したら即座に上方向の力に代わる
 		isGround = false;			//接地判定を切る
@@ -199,7 +199,7 @@ void Player::Update(bool keyStop,const Map &map, ShotManager& shotManager)
     }
 
     //弾を撃つ処理
-    if (input & PAD_INPUT_10 && keyStop == false)
+    if (input & PAD_INPUT_10)
     {
         if (canShotFlag)
         {

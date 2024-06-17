@@ -1,4 +1,5 @@
 ﻿#include"DxLib.h"
+#include"Game.h"
 #include"Utility.h"
 #include"Camera.h"
 #include"Effect.h"
@@ -36,65 +37,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		DxLib_End();
 		return -1;
 	}
+    Game* game = new Game();
+    
 
-	
+	// 画面を初期化(真っ黒にする)
+	SetCameraNearFar(10.0f, 500.0f);	//nearとfarの設定
 
-	// 背景のスクロールをするためにテクスチャモードをラッピングに修正.
-	//SetTextureAddressMode(DX_TEXADDRESS_WRAP);
-
-	// グラフィックの描画先を裏画面にセット
-
-    //ゲームクラスのインスタンス化
-	Game* game = new Game;
-
-    //ゲーム中のフレームレートの初期化
-    game->InitializeFrameRate();
-    //ゲーム自体の初期化
-	game->Initialize();
-
-	
+    //ゲームループ
+    game->Update();		
 
 
-
-	// ゲームループ.
-	while (1)
-	{
-        //フレームレートを調整するための値の更新
-		game->UpdateFrameRate();
-		// 画面を初期化(真っ黒にする)
-		SetCameraNearFar(10.0f, 500.0f);	//nearとfarの設定
-		ClearDrawScreen();
-		game->Update();
-		game->Draw();
-
-		SetUseZBuffer3D(TRUE);
-		SetWriteZBuffer3D(TRUE);
-
-
-		/*int nowTime = GetNowCount();
-		DrawFormatString(600, 400, GetColor(255, 255, 255), "%d", nowTime);*/
-
-		// 裏画面の内容を表画面にコピーする（描画の確定）.
-		ScreenFlip();
-
-		// Windows 特有の面倒な処理をＤＸライブラリにやらせる
-		// マイナスの値（エラー値）が返ってきたらループを抜ける
-		if (ProcessMessage() < 0)
-		{
-			break;
-		}
-		// もしＥＳＣキーが押されていたらループから抜ける
-		else if ( CheckHitKey(KEY_INPUT_ESCAPE) == 1)
-		{
-			break;
-		}
-		//ここでフレームレートの調整
-		game->ControlFrameRate();
-		
-	};
-	//gameFinalize(game);
 	// Effekseerを終了する。
 	Effkseer_End();
+    //シーンマネージャーの解放
+    delete game;
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
 

@@ -27,9 +27,9 @@ public:
 	Player();
 	~Player();
 	//基本メソッド
-	void Initialize();								//初期化
-	void Update(bool keyStop,const Map& map, ShotManager& shotManager);	//更新
-	void Draw();								//描画
+	void Initialize();								        //初期化
+	void Update(const Map& map, ShotManager& shotManager);	//更新
+	void Draw();								            //描画
 
 	/// <summary>
 	/// プレイヤーモデルの座標移動、拡大、YXZの順で回転させる
@@ -51,6 +51,7 @@ public:
 	void SetIsHitTop(const bool inIsHitTop) { isHitTop = inIsHitTop; }		//天井へ当たっているかのセット
 	void SetFallSpeed(const float inFallSpeed) { fallSpeed = inFallSpeed; }	//落下スピードのセット
 	void SetIsGround(const bool inIsGround) { isGround = inIsGround; }		//接地判定の設定
+    const int GetLife() const { return life; }                              //プレイヤーの体力を返す
 	
 	//アニメーションの状態の定数
 	static enum ANIME_STATE
