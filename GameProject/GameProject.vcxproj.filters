@@ -55,6 +55,12 @@
     <Filter Include="ソース ファイル\FPS">
       <UniqueIdentifier>{76021b98-28e4-487d-a651-2949048f946d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Enemy\Base">
+      <UniqueIdentifier>{5e801147-cfcf-4690-bb99-8f0acf54a311}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Enemy\Sub">
+      <UniqueIdentifier>{0a5c6ece-71b9-4828-9ae1-0b7fd23346f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -84,9 +90,6 @@
     <ClCompile Include="EasyEnemy.cpp">
       <Filter>ソース ファイル\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="BaseEnemy.cpp">
-      <Filter>ソース ファイル\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyManager.cpp">
       <Filter>ソース ファイル\Enemy</Filter>
     </ClCompile>
@@ -104,9 +107,6 @@
     </ClCompile>
     <ClCompile Include="LeftShotEnemy.cpp">
       <Filter>ソース ファイル\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
     <ClCompile Include="GameScene.cpp">
       <Filter>ソース ファイル\Scene</Filter>
@@ -129,6 +129,12 @@
     <ClCompile Include="FrameRate.cpp">
       <Filter>ソース ファイル\FPS</Filter>
     </ClCompile>
+    <ClCompile Include="BaseEnemy.cpp">
+      <Filter>ソース ファイル\Enemy\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ShooterEnemy.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -150,9 +156,6 @@
       <Filter>ソース ファイル\Map</Filter>
     </ClInclude>
     <ClInclude Include="EasyEnemy.h">
-      <Filter>ソース ファイル\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseEnemy.h">
       <Filter>ソース ファイル\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="EnemyManager.h">
@@ -179,9 +182,6 @@
     <ClInclude Include="LeftShotEnemy.h">
       <Filter>ソース ファイル\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>ソース ファイル\Game</Filter>
-    </ClInclude>
     <ClInclude Include="GameScene.h">
       <Filter>ソース ファイル\Scene</Filter>
     </ClInclude>
@@ -202,6 +202,12 @@
     </ClInclude>
     <ClInclude Include="FrameRate.h">
       <Filter>ソース ファイル\FPS</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseEnemy.h">
+      <Filter>ソース ファイル\Enemy\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ShooterEnemy.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

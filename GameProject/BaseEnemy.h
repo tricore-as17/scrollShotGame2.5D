@@ -43,11 +43,6 @@ public:
     /// <param name="cameraPosition">カメラのポジション</param>
     /// <returns>入っていたら(true)入ってなかったら(false)</returns>
     virtual bool CanStartMove(const VECTOR& cameraPosition);
-    /// <summary>
-    /// 弾を撃てるようになるまでの間隔の設定
-    /// </summary>
-    /// <param name="INTERVAL_RIMIT">間隔の大きさ</param>
-    virtual void CountShotInterval(const int intervalRimit);
 	//ゲッターセッター
 	bool GetIsGround()const { return isGround; }		//接地判定の取得
     void SetIsGround(const bool inIsGroound) { isGround = inIsGroound; }	//接地判定の設定
@@ -67,8 +62,6 @@ protected:
     int life;               //体力
     int kind;               //自分の番号(エネミーかプレイヤーかを判断するための変数)
     int damage;             //敵に当たった時のダメージ
-    int shotIntervalCount;  //弾を撃つ間隔をカウントする変数
-    bool readyShotFlag;     //弾を撃つ準備が出来たか確認フラグ
 
 
 };
