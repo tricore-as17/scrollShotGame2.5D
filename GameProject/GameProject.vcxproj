@@ -157,6 +157,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="SceneBase.cpp" />
+    <ClCompile Include="ShooterEnemy.cpp" />
     <ClCompile Include="Shot.cpp" />
     <ClCompile Include="ShotManager.cpp" />
     <ClCompile Include="TitleScene.cpp" />
@@ -182,7 +183,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResultScene.h" />
     <ClInclude Include="SceneBase.h" />
-    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="ShooterEnemy.h" />
     <ClInclude Include="Shot.h" />
     <ClInclude Include="ShotManager.h" />
     <ClInclude Include="TitleScene.h" />

@@ -108,9 +108,6 @@
     <ClCompile Include="LeftShotEnemy.cpp">
       <Filter>ソース ファイル\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>ソース ファイル\Game</Filter>
-    </ClCompile>
     <ClCompile Include="GameScene.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
@@ -136,7 +133,7 @@
       <Filter>ソース ファイル\Enemy\Base</Filter>
     </ClCompile>
     <ClCompile Include="ShooterEnemy.cpp">
-      <Filter>ソース ファイル\Enemy\Base</Filter>
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,9 +182,6 @@
     <ClInclude Include="LeftShotEnemy.h">
       <Filter>ソース ファイル\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>ソース ファイル\Game</Filter>
-    </ClInclude>
     <ClInclude Include="GameScene.h">
       <Filter>ソース ファイル\Scene</Filter>
     </ClInclude>
@@ -213,7 +207,7 @@
       <Filter>ソース ファイル\Enemy\Base</Filter>
     </ClInclude>
     <ClInclude Include="ShooterEnemy.h">
-      <Filter>ソース ファイル\Enemy\Base</Filter>
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
