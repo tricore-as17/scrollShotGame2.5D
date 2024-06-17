@@ -1,7 +1,7 @@
-﻿#include"LeftShotEnemy.h"
-#include<fstream>
+﻿#include<fstream>
 #include<sstream>
 #include<iostream>
+#include"OneWayShotEnemy.h"
 #include"EnemyInformation.h"
 #include"EasyEnemy.h"
 #include"EnemyManager.h"
@@ -25,9 +25,9 @@ EnemyManager::EnemyManager()
         {
             enemy.emplace_back(new EasyEnemy(information));
         }
-        if (information->type == LEFT_SHOT)
+        if (information->type == ONE_WAY_SHOT)
         {
-            enemy.emplace_back(new LeftShotEnemy(information));
+            enemy.emplace_back(new OneWayShotEnemy(information));
         }
     }
     
@@ -117,6 +117,8 @@ void EnemyManager::LoadEnemyInformation(const string& fileName)
         string enemyType;
         string initializeX;
         string initializeY;
+        string initializeDirctionX;
+        string initializeDirctionY;
 
         //代入用のクラスを作成
         EnemyInformation information;
@@ -124,12 +126,16 @@ void EnemyManager::LoadEnemyInformation(const string& fileName)
         //inputStringで読み込んだ値を入れていく
         if (getline(inputString, enemyType, ',') &&
             getline(inputString, initializeX, ',') &&
-            getline(inputString, initializeY, ','))
+            getline(inputString, initializeY, ',') &&
+            getline(inputString,initializeDirctionX,',') &&
+            getline(inputString,initializeDirctionY,','))
         {
             //文字列をそれぞれの型に変更して代入
             information.type = stoi(enemyType);
             information.initializeX = stof(initializeX);
             information.initializeY = stof(initializeY);
+            information.shotDirectionX = stoi(initializeDirctionX);
+            information.shotDirectionY = stoi(initializeDirctionY);
         }
         //ベクターに追加
         enemyInformation.emplace_back(new EnemyInformation(information));

@@ -126,7 +126,7 @@
     <ClCompile Include="EnemyManager.cpp">
       <Filter>ソース ファイル\Enemy\Sub</Filter>
     </ClCompile>
-    <ClCompile Include="LeftShotEnemy.cpp">
+    <ClCompile Include="OneWayShotEnemy.cpp">
       <Filter>ソース ファイル\Enemy\Sub</Filter>
     </ClCompile>
   </ItemGroup>
@@ -200,7 +200,7 @@
     <ClInclude Include="EnemyManager.h">
       <Filter>ソース ファイル\Enemy\Sub</Filter>
     </ClInclude>
-    <ClInclude Include="LeftShotEnemy.h">
+    <ClInclude Include="OneWayShotEnemy.h">
       <Filter>ソース ファイル\Enemy\Sub</Filter>
     </ClInclude>
   </ItemGroup>

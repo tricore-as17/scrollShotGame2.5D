@@ -28,7 +28,7 @@ public:
     enum ENEMY_TYPE
     {
         EASY = 0,
-        LEFT_SHOT = 1
+        ONE_WAY_SHOT = 1
     };
     //getter,setter
     vector<BaseEnemy*> GetEnemy()const { return enemy; }
