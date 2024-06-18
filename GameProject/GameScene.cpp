@@ -20,7 +20,6 @@ GameScene::GameScene()
     player->Initialize();
     camera->Initialize();
     map->Initialize();
-    enemyManager->Initialize();
     shotManager->Initialize();
 }
 
@@ -50,7 +49,7 @@ void GameScene::Update(InputManager* inputManager)
     player->Update(*map, *shotManager);
     enemyManager->Update(*map, camera->GetPosition(),*shotManager);
     shotManager->Update();
-    player->IsReceiveDamage(enemyManager->GetEasyEnemy(), shotManager->GetShot());
+    player->IsReceiveDamage(enemyManager->GetEnemy(), shotManager->GetShot());
     shotManager->DeleteShot(camera->GetPosition());
     camera->Update(*map, *player);
     //次のループへの処理

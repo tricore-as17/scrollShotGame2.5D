@@ -38,5 +38,5 @@ void Shot::Update()
 void Shot::Draw()
 {
     //テスト用の描画のちのちは別の画像を使用
-    DrawSphere3D(position, radius, 32, GetColor(255, 0, 0), WHITE, TRUE);
+    DrawSphere3D(position, radius, 16, GetColor(255, 0, 0), WHITE, TRUE);
 }

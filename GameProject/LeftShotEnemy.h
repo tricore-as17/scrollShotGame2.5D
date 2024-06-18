@@ -6,6 +6,7 @@
 class ShooterEnemy;
 class ShotManager;
 class Map;
+struct EnemyInformation;
 
 /// <summary>
 /// 動かずに横向きに弾を撃つエネミー
@@ -19,18 +20,13 @@ public:
     static constexpr int MAX_LIFE = 2;              //体力の最大値
     static constexpr int INITIALIZE_DAMAGE = 1;           //与えるダメージ量
     static constexpr int SHOT_DIRCTION = -1;        //撃つ弾の方向
-    static constexpr int SHOT_INTERVAL_RIMIT = 80;  //弾を撃つ間隔
+    static constexpr int SHOT_INTERVAL_RIMIT = 120;  //弾を撃つ間隔
 
 
     //コンストラクタ
-    LeftShotEnemy();
+    LeftShotEnemy(EnemyInformation* enemyInformation);
     //デストラクタ
     virtual ~LeftShotEnemy();
-    /// <summary>
-    /// 初期化
-    /// </summary>
-    /// <param name="initializePosition">初期化用の座標</param>
-    void Initialize(const VECTOR& initializePosition)override;
     /// <summary>
     /// ゲーム中の更新処理
     /// </summary>

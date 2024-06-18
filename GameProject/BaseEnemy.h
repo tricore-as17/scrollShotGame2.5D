@@ -2,8 +2,10 @@
 #include"DxLib.h"
 #include"GameObject.h"
 
+//クラスや構造体のプロトタイプ宣言
 class Map;
 class ShotManager;
+struct EnemyInformation;
 
 /// <summary>
 /// エネミーの共通する部分をまとめた基底クラス
@@ -12,13 +14,8 @@ class BaseEnemy abstract :public GameObject
 {
 public:
 	//コンストラクタデストラクタ
-	BaseEnemy();
+	BaseEnemy(EnemyInformation* enemyInformation);
 	virtual ~BaseEnemy();
-    /// <summary>
-    /// ゲーム開始時の初期化
-    /// </summary>
-
-    virtual void Initialize(const VECTOR& initializePosition )abstract;
 
     /// <summary>
     /// ゲーム中の更新処理
