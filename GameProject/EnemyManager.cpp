@@ -1,7 +1,7 @@
-﻿#include<fstream>
+﻿#include"LeftShotEnemy.h"
+#include<fstream>
 #include<sstream>
 #include<iostream>
-#include"OneWayShotEnemy.h"
 #include"EnemyInformation.h"
 #include"EasyEnemy.h"
 #include"EnemyManager.h"
@@ -14,8 +14,9 @@
 /// </summary>
 EnemyManager::EnemyManager()
 {
+    vector<EnemyInformation*> enemyInformation;
     //エネミーの初期化情報の入ったcsvファイルを読み込む
-    LoadEnemyInformation("Information/InitializeEnemy.csv");
+    enemyInformation = LoadEnemyInformation("Information/InitializeEnemy.csv");
 
     //読み込んだエネミーの数だけまわす
     for (const auto& information : enemyInformation)
@@ -25,11 +26,17 @@ EnemyManager::EnemyManager()
         {
             enemy.emplace_back(new EasyEnemy(information));
         }
-        if (information->type == ONE_WAY_SHOT)
+        else if (information->type == LEFT_SHOT)
         {
-            enemy.emplace_back(new OneWayShotEnemy(information));
+            enemy.emplace_back(new LeftShotEnemy(information));
         }
     }
+    //確保した初期化情報の入った中身を解放
+    for (auto it : enemyInformation)
+    {
+        delete it;
+    }
+    enemyInformation.clear();
     
 }
 
@@ -43,13 +50,8 @@ EnemyManager::~EnemyManager()
     {
         delete it;
     }
-    //初期化情報の要素を削除
-    for (auto it : enemyInformation)
-    {
-        delete it;
-    }
+
     //それぞれのポインタが持ってる情報も削除
-    enemyInformation.clear();
     enemy.clear();
 
     
@@ -98,10 +100,12 @@ void EnemyManager::Draw()
 /// CSVファイルからエネミーのデータを読み込む
 /// </summary>
 /// <param name="fileName">ファイル名</param>
-void EnemyManager::LoadEnemyInformation(const string& fileName)
+vector<EnemyInformation*> EnemyManager::LoadEnemyInformation(const string& fileName)
 {
     //ファイルを入れる変数を作成
     ifstream file(fileName);
+    //引数として渡す用のベクター
+    vector<EnemyInformation*> enemyInformation;
 
     //ファイルが開けない場合の処理
     if (!file.is_open())
@@ -117,8 +121,6 @@ void EnemyManager::LoadEnemyInformation(const string& fileName)
         string enemyType;
         string initializeX;
         string initializeY;
-        string initializeDirctionX;
-        string initializeDirctionY;
 
         //代入用のクラスを作成
         EnemyInformation information;
@@ -126,16 +128,12 @@ void EnemyManager::LoadEnemyInformation(const string& fileName)
         //inputStringで読み込んだ値を入れていく
         if (getline(inputString, enemyType, ',') &&
             getline(inputString, initializeX, ',') &&
-            getline(inputString, initializeY, ',') &&
-            getline(inputString,initializeDirctionX,',') &&
-            getline(inputString,initializeDirctionY,','))
+            getline(inputString, initializeY, ','))
         {
             //文字列をそれぞれの型に変更して代入
             information.type = stoi(enemyType);
             information.initializeX = stof(initializeX);
             information.initializeY = stof(initializeY);
-            information.shotDirectionX = stoi(initializeDirctionX);
-            information.shotDirectionY = stoi(initializeDirctionY);
         }
         //ベクターに追加
         enemyInformation.emplace_back(new EnemyInformation(information));
@@ -143,6 +141,7 @@ void EnemyManager::LoadEnemyInformation(const string& fileName)
 
     //終わったのでファイルを閉じる
     file.close();
+    return enemyInformation;
 
 }
 
