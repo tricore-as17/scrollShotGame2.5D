@@ -42,7 +42,7 @@ OneWayShotEnemy::~OneWayShotEnemy()
 /// <param name="map">マップのインスタンス</param>
 /// <param name="cameraPosition">カメラの座標</param>
 /// <param name="shotManager">ショットを管理するクラス</param>
-void OneWayShotEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotManager& shotManager)
+void OneWayShotEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotManager& shotManager, const VECTOR& playerPosition)
 {
     //画面内に入ったかのチェック
     moveStartFlag = CanStartMove(cameraPosition);

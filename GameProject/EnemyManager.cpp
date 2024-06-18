@@ -1,9 +1,10 @@
-﻿#include"LeftShotEnemy.h"
+﻿#include"OneWayShotEnemy.h"
 #include<fstream>
 #include<sstream>
 #include<iostream>
 #include"EnemyInformation.h"
 #include"EasyEnemy.h"
+#include"FallingAttackEnemy.h"
 #include"EnemyManager.h"
 #include"ShotManager.h"
 #include"Map.h"
@@ -26,9 +27,13 @@ EnemyManager::EnemyManager()
         {
             enemy.emplace_back(new EasyEnemy(information));
         }
-        else if (information->type == LEFT_SHOT)
+        else if (information->type == ONE_WAY_SHOT)
         {
-            enemy.emplace_back(new LeftShotEnemy(information));
+            enemy.emplace_back(new OneWayShotEnemy(information));
+        }
+        else if (information->type == FALLING_ATTACK)
+        {
+            enemy.emplace_back(new FallingAttackEnemy(information));
         }
     }
     //確保した初期化情報の入った中身を解放
@@ -62,12 +67,12 @@ EnemyManager::~EnemyManager()
 /// <param name="map">マップのインスタンス</param>
 /// <param name="cameraPosition">カメラの座標</param>
 /// <param name="shotManager">ショットを管理するクラス</param>
-void EnemyManager::Update(const Map& map, const VECTOR& cameraPosition, ShotManager& shotManager)
+void EnemyManager::Update(const Map& map, const VECTOR& cameraPosition, ShotManager& shotManager,const VECTOR& playerPosition)
 {
     //エネミー全てのアップデートをまわす
     for (int i = 0; i < enemy.size(); i++)
     {
-        enemy[i]->Update(map, cameraPosition, shotManager);
+        enemy[i]->Update(map, cameraPosition, shotManager,playerPosition);
     }
 
     //体力が0になったら削除する
@@ -121,19 +126,25 @@ vector<EnemyInformation*> EnemyManager::LoadEnemyInformation(const string& fileN
         string enemyType;
         string initializeX;
         string initializeY;
+        string shotDirctionX;
+        string shotDirctionY;
 
         //代入用のクラスを作成
         EnemyInformation information;
 
         //inputStringで読み込んだ値を入れていく
-        if (getline(inputString, enemyType, ',') &&
-            getline(inputString, initializeX, ',') &&
-            getline(inputString, initializeY, ','))
+        if (getline(inputString, enemyType,     ',') &&
+            getline(inputString, initializeX,   ',') &&
+            getline(inputString, initializeY,   ',') &&
+            getline(inputString, shotDirctionX, ',') &&
+            getline(inputString, shotDirctionY, ',') )
         {
             //文字列をそれぞれの型に変更して代入
-            information.type = stoi(enemyType);
-            information.initializeX = stof(initializeX);
-            information.initializeY = stof(initializeY);
+            information.type           = stoi(enemyType);
+            information.initializeX    = stof(initializeX);
+            information.initializeY    = stof(initializeY);
+            information.shotDirectionX = stoi(shotDirctionX);
+            information.shotDirectionY = stoi(shotDirctionY);
         }
         //ベクターに追加
         enemyInformation.emplace_back(new EnemyInformation(information));

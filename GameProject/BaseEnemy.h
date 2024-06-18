@@ -23,7 +23,7 @@ public:
     /// <param name="map">マップのインスタンス</param>
     /// <param name="cameraPosition">カメラの座標</param>
     /// <param name="shotManager">ショットの管理クラス</param>
-    virtual void Update(const Map& map, const VECTOR& cameraPosition, ShotManager& shotManager)abstract;
+    virtual void Update(const Map& map, const VECTOR& cameraPosition, ShotManager& shotManager,const VECTOR& playerPosition)abstract;
     /// <summary>
     /// ゲーム中の描画
     /// </summary>
