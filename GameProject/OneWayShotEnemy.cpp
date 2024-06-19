@@ -8,7 +8,7 @@
 
 
 /// <summary>
-/// コンストラクト
+/// コンストラクタ
 /// </summary>
 /// <param name="enemyInformation">エネミーの初期化情報をまとめたもの</param>
 OneWayShotEnemy::OneWayShotEnemy(EnemyInformation* enemyInformation) : BaseEnemy(enemyInformation)
