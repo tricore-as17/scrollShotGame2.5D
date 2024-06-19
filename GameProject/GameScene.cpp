@@ -5,6 +5,7 @@
 #include"EnemyManager.h"
 #include"ShotManager.h"
 #include"InputManager.h"
+#include"BackGround.h"
 #include"ResultScene.h"
 
 
@@ -16,6 +17,7 @@ GameScene::GameScene()
     map          = new Map();
     enemyManager = new EnemyManager();
     shotManager  = new ShotManager();
+    backGround   = new BackGround();
 
     player->Initialize();
     camera->Initialize();
@@ -32,11 +34,13 @@ GameScene::~GameScene()
     delete map;
     delete enemyManager;
     delete shotManager;
+    delete backGround;
     player       = NULL;
     camera       = NULL;
     map          = NULL;
     enemyManager = NULL;
     shotManager  = NULL;
+    backGround   = NULL;
 }
 
 /// <summary>
@@ -69,6 +73,7 @@ void GameScene::Update(InputManager* inputManager)
 /// </summary>
 void GameScene::Draw(Font* font)
 {
+    backGround->Draw();
     map->Draw();
     player->Draw();
     shotManager->Draw();

@@ -9,7 +9,14 @@ public:
     BaseUI();
     //デストラクタ
     virtual ~BaseUI();
+    /// <summary>
+    /// 更新処理
+    /// </summary>
     virtual void Update() abstract;
+    /// <summary>
+    /// 描画処理
+    /// </summary>
+    /// <param name="font">フォントの格納クラス</param>
     virtual void Draw(Font* font) abstract;
 
     /// <summary>

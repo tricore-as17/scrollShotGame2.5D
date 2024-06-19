@@ -8,6 +8,7 @@ class Map;
 class EnemyManager;
 class ShotManager;
 class InputManager;
+class BackGround;
 
 /// <summary>
 /// ゲームシーン
@@ -32,6 +33,7 @@ private:
     Player*       player;         //プレイヤー
     Camera*       camera;         //カメラ
     Map*          map;            //マップ
+    BackGround*   backGround;     //背景         
     EnemyManager* enemyManager;   //エネミーマネージャー
     ShotManager*  shotManager;    //ショットマネージャー
     

@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BaseEnemy.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Colision.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="BaseUI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BackGround.h" />
     <ClInclude Include="BaseEnemy.h" />
     <ClInclude Include="BaseUI.h" />
     <ClInclude Include="Effect.h" />
