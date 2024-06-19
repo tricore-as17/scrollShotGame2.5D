@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include"InputManager.h"
+#include"Font.h"
 
 /// <summary>
 /// それぞれのシーンで継承する基底クラス
@@ -19,7 +20,7 @@ public:
     /// <param name="inputManager">入力管理クラス</param>
     virtual void Update(InputManager* inputManager)abstract;
 
-    virtual void Draw() = 0;
+    virtual void Draw(Font* font) abstract;
 
     SceneBase* inputScene;      //次のループでのシーンを入れる変数
 

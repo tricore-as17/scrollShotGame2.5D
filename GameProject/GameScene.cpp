@@ -67,7 +67,7 @@ void GameScene::Update(InputManager* inputManager)
 /// <summary>
 /// ゲーム中の描画
 /// </summary>
-void GameScene::Draw()
+void GameScene::Draw(Font* font)
 {
     map->Draw();
     player->Draw();

@@ -27,7 +27,7 @@ public:
     /// <summary>
     /// 描画
     /// </summary>
-    void Draw() override;
+    void Draw(Font* font) override;
 private:
     Player*       player;         //プレイヤー
     Camera*       camera;         //カメラ

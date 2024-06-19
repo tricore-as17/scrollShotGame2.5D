@@ -43,7 +43,7 @@ void ResultScene::Update(InputManager* inputManager)
 /// <summary>
 /// 描画処理
 /// </summary>
-void ResultScene::Draw()
+void ResultScene::Draw(Font* font)
 {
     //TODO
     //テスト用の描画(リザルトを実装していないためわかりやすく描画)

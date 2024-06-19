@@ -20,7 +20,7 @@ public:
     /// <summary>
     /// 描画処理
     /// </summary>
-    void Draw() override;
+    void Draw(Font* font) override;
 private:
 };
 

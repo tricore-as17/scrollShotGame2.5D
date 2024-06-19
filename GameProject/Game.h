@@ -7,6 +7,7 @@
 class SceneBase;
 class FrameRate;
 class InputManager;
+class Font;
 
 class Game
 {
@@ -40,8 +41,8 @@ private:
 
     FrameRate* frameRate;       //フレームレート計算用クラス
     InputManager* inputManager; //入力を管理するクラス
-
-
+    
+    Font* font;                 //フォントを管理するクラス
 
 
 

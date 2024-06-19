@@ -160,6 +160,7 @@
     <ClCompile Include="Shot.cpp" />
     <ClCompile Include="ShotManager.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="TitleUI.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="WorldSprite.cpp" />
   </ItemGroup>
@@ -187,6 +188,7 @@
     <ClInclude Include="Shot.h" />
     <ClInclude Include="ShotManager.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="TitleUI.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="WorldSprite.h" />
   </ItemGroup>

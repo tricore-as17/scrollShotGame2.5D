@@ -3,6 +3,7 @@
 #include"InputManager.h"
 #include"SceneBase.h"
 #include"TitleScene.h"
+#include"Font.h"
 #include"Game.h"
 
 /// <summary>
@@ -16,6 +17,7 @@ Game::Game()
 
     frameRate = new FrameRate();
     inputManager = new InputManager();
+    font = new Font();
 
 
 
@@ -32,6 +34,7 @@ Game::~Game()
     delete nowScene;
     delete frameRate;
     delete inputManager;
+    delete font;
 }
 
 /// <summary>
@@ -48,7 +51,7 @@ void Game::Update()
         nowScene->Update(inputManager);
         //更新処理の後次のループでのシーンを代入する
         nextScene = nowScene->GetNextScene();
-        nowScene->Draw();
+        nowScene->Draw(font);
         ScreenFlip();
         //フレームレートを設定した値に同期させる
         frameRate->Sync();
