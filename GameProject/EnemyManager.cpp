@@ -1,9 +1,9 @@
-﻿#include"LeftShotEnemy.h"
-#include<fstream>
+﻿#include<fstream>
 #include<sstream>
 #include<iostream>
 #include"EnemyInformation.h"
 #include"EasyEnemy.h"
+#include"OneWayShotEnemy.h"
 #include"EnemyManager.h"
 #include"ShotManager.h"
 #include"Map.h"
@@ -26,9 +26,9 @@ EnemyManager::EnemyManager()
         {
             enemy.emplace_back(new EasyEnemy(information));
         }
-        else if (information->type == LEFT_SHOT)
+        else if (information->type == ONE_WAY_SHOT)
         {
-            enemy.emplace_back(new LeftShotEnemy(information));
+            enemy.emplace_back(new OneWayShotEnemy(information));
         }
     }
     //確保した初期化情報の入った中身を解放
