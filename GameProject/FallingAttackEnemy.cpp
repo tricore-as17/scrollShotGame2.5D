@@ -35,9 +35,9 @@ FallingAttackEnemy::~FallingAttackEnemy()
 /// <summary>
 /// 下降しながらプレイヤーに近づいてくる敵
 /// </summary>
-/// <param name="map"></param>
-/// <param name="cameraPosition"></param>
-/// <param name="shotManager"></param>
+/// <param name="map">マップのインスタンス</param>
+/// <param name="cameraPosition">カメラの座標</param>
+/// <param name="shotManager">ショットの管理クラス</param>
 void FallingAttackEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotManager& shotManager, const VECTOR& playerPosition)
 {
 
