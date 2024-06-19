@@ -30,7 +30,7 @@ class Utility
 {
 public:
 	//定数群
-	static constexpr float GRAVITY = 0.005f;			//重力の値
+	static constexpr float GRAVITY = 0.012f;			//重力の値
 	static const float CONVERSION_RADIAN ;				//角度をラジアンに変換する際にしようする定数
     static constexpr float WORLD_SCREEN_WIDTH_SIZE = 29.0f;    //ワールド座標に合わせたスクリーンの幅
     static constexpr float WORLD_SCREEN_HEIGHT_SIZE = 18.125f;  //ワールド座標に合わせたスクリーンの高さ
@@ -59,6 +59,7 @@ public:
     /// </summary>
     /// <param name="setSpeed">代入するスピード</param>
     static float CalculationSpeed(const float setSpeed);
+
 	//更新処理
 	void Update();
 private:

@@ -32,7 +32,7 @@ public:
     /// <param name="map">マップのインスタンス</param>
     /// <param name="cameraPosition">カメラの座標</param>
     /// <param name="shotManager">ショットを管理するクラス</param>
-    void Update(const Map& map, const VECTOR& cameraPosition, ShotManager& shotManager)override;
+    void Update(const Map& map, const VECTOR& cameraPosition, ShotManager& shotManager, const VECTOR& playerPosition)override;
 private:
     int           dirctionX;         //弾のX方向
     int           dirctionY;         //弾のY方向

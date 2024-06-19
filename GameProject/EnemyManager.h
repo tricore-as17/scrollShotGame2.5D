@@ -27,8 +27,9 @@ public:
     /// </summary>
     enum ENEMY_TYPE
     {
-        EASY = 0,
-        ONE_WAY_SHOT = 1
+        EASY           = 0,
+        ONE_WAY_SHOT   = 1,
+        FALLING_ATTACK = 2
     };
     //getter,setter
     vector<BaseEnemy*> GetEnemy()const { return enemy; }
@@ -39,7 +40,7 @@ public:
     /// </summary>
     /// <param name="map">マップのインスタンス</param>
     /// <param name="cameraPosition">カメラの座標</param>
-	void Update(const Map&map, const VECTOR& cameraPosition, ShotManager& shotManager);
+	void Update(const Map&map, const VECTOR& cameraPosition, ShotManager& shotManager,const VECTOR& playerPosition);
 	/// <summary>
 	/// エネミーの描画
 	/// </summary>

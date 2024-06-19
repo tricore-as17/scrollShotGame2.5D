@@ -63,7 +63,7 @@ public:
 	static constexpr float PLAYER_WIDTH = 0.725f;			//プレイヤー横サイズ
 	static constexpr float PLAYER_HEIGHT = 2.175f;			//プレイヤーの縦サイズ
     static constexpr float ANIMETION_SPEED = 0.7f;      //プレイヤーのアニメーションの速度
-	static constexpr float JUMP_POWER = 0.25f;			//キャラのジャンプ力
+	static constexpr float JUMP_POWER = 0.35f;			//キャラのジャンプ力
 	static constexpr int ANIME_STATE_SUM = 4;			//合計アニメーションの数
 	static const MATRIX SCALE_MATRIX;					//キャラの拡大率を設定するための行列
     static constexpr int INITIALIZE_LIFE = 5;                 //ゲーム開始時の体力

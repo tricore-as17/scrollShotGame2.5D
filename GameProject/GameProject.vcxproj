@@ -145,6 +145,7 @@
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EasyEnemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="FallingAttackEnemy.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FrameRate.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="EasyEnemy.h" />
     <ClInclude Include="EnemyInformation.h" />
     <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="FallingAttackEnemy.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Colision.h" />
