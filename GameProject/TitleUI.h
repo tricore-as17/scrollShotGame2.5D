@@ -1,12 +1,13 @@
 ﻿#pragma once
 #include"DxLib.h"
+#include"BaseUI.h"
 
 class Font;
 
 /// <summary>
 /// タイトルのUIをまとめたクラス
 /// </summary>
-class TitleUI
+class TitleUI:public BaseUI
 {
 public:
 
@@ -17,22 +18,12 @@ public:
     /// <summary>
     /// 更新処理
     /// </summary>
-    void Update();
+    void Update() override;
     //描画
-    void Draw(Font* font);
+    void Draw(Font* font) override;
 
-    /// <summary>
-    /// 文字の点滅表示のカウント
-    /// </summary>
-    void CountBlinkingString();
 
 private:
-    //定数
-    static constexpr int DISPLAY_TIME = 15;
-    static constexpr int INVISIBLE_TIME = 30;
 
-    int BackGroundGraph ;        //背景画像
-    int blinkingCount;           //点滅させるカウント
-    bool isDisplay;              //表示させるかのフラグ
 };
 

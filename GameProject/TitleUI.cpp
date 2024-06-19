@@ -6,8 +6,6 @@
 /// コンストラクタ
 /// </summary>
 TitleUI::TitleUI()
-    :blinkingCount(0)
-    ,isDisplay(true)
 {
     //タイトルで使う画像のロード
     BackGroundGraph = LoadGraph("img/BG/TitleBG.png");
@@ -45,25 +43,6 @@ void TitleUI::Draw(Font* font)
     }
 }
 
-/// <summary>
-/// 文字の点滅表示のカウント
-/// </summary>
-void TitleUI::CountBlinkingString()
-{
-    blinkingCount++;
-    //点滅のタイミングを超えたら
-    if (blinkingCount <= DISPLAY_TIME)
-    {
-        isDisplay     = true;
-    }
-    else if (blinkingCount > DISPLAY_TIME && blinkingCount <= INVISIBLE_TIME)
-    {
-        isDisplay = false;
-        if (blinkingCount == INVISIBLE_TIME)
-        {
-            blinkingCount = 0;
-        }
-    }
-}
+
 
 

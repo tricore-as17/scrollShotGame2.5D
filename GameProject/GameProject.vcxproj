@@ -163,9 +163,11 @@
     <ClCompile Include="TitleUI.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="WorldSprite.cpp" />
+    <ClCompile Include="BaseUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseEnemy.h" />
+    <ClInclude Include="BaseUI.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="EasyEnemy.h" />
     <ClInclude Include="EnemyInformation.h" />
