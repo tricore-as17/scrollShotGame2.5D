@@ -17,7 +17,7 @@ public:
     /// 描画処理
     /// </summary>
     /// <param name="font">フォントの格納クラス</param>
-    virtual void Draw(Font* font) abstract;
+    virtual void Draw(Font* font) {}
 
     /// <summary>
     /// 文字の点滅表示のカウント
@@ -28,7 +28,6 @@ protected:
     static constexpr int DISPLAY_TIME = 15;     //描画する時間
     static constexpr int INVISIBLE_TIME = 30;   //消している時間
 
-    int BackGroundGraph;        //背景画像
     int blinkingCount;           //点滅させるカウント
     bool isDisplay;              //表示させるかのフラグ
 };

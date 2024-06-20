@@ -59,7 +59,9 @@ public:
 		//1から開始
 		IDLE = 1, MAGIC, RUN
 	};
-	//定数群	
+	//定数群
+    static constexpr float PLAYER_FIRST_X = 13.2;        //プレイヤーの初期X座標
+    static constexpr float PLAYER_FIRST_Y = 4.8;           //プレイヤーの初期Y座標
 	static constexpr float PLAYER_WIDTH = 0.725f;			//プレイヤー横サイズ
 	static constexpr float PLAYER_HEIGHT = 2.175f;			//プレイヤーの縦サイズ
     static constexpr float ANIMETION_SPEED = 0.7f;      //プレイヤーのアニメーションの速度

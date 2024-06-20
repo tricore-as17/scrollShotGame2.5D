@@ -8,7 +8,7 @@
 TitleUI::TitleUI()
 {
     //タイトルで使う画像のロード
-    BackGroundGraph = LoadGraph("img/BG/TitleBG.png");
+    backGroundGraph = LoadGraph("img/BG/TitleBG.png");
 }
 
 /// <summary>
@@ -17,7 +17,7 @@ TitleUI::TitleUI()
 TitleUI::~TitleUI()
 {
     //読み込んだ画像の解放
-    DeleteGraph(BackGroundGraph);
+    DeleteGraph(backGroundGraph);
 }
 
 /// <summary>
@@ -35,11 +35,11 @@ void TitleUI::Update()
 void TitleUI::Draw(Font* font)
 {
     //背景画像の描画
-    DrawGraph(0, 0, BackGroundGraph, TRUE);
+    DrawGraph(0, 0, backGroundGraph, TRUE);
     //タイトルでの説明文の追加
     if (isDisplay)
     {
-        DrawStringToHandle(300, 500, "SPACEボタンでスタート！", Font::FONT_COLOR_GRAY, font->GetTitleExplanetionHandle());
+        DrawStringToHandle(200, 500, "SPACEボタンでスタート！", Font::FONT_COLOR_GRAY, font->GetTitleExplanetionHandle());
     }
 }
 

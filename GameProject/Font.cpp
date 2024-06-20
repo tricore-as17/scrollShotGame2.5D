@@ -1,7 +1,7 @@
 ﻿#include"DxLib.h"
 #include"Font.h"
 
-const int Font::FONT_COLOR_GRAY = GetColor(170, 170, 170);
+const int Font::FONT_COLOR_GRAY = GetColor(210, 210, 210);
 
 //コンストラクタ
 Font::Font()
@@ -14,6 +14,7 @@ Font::Font()
 
     //フォントハンドルの設定
     titleExplanationHandle = CreateFontToHandle(SuimenjiFontName, TITLE_EXPLANETION_SIZE, 9, DX_FONTTYPE_NORMAL);
+    playerLifeHandle       = CreateFontToHandle(SuimenjiFontName, PLAYER_LIFE_SIZE, 9, DX_FONTTYPE_NORMAL);
 }
 //デストラクト
 //フォントデータを解放するようになったら使用(ゲームの途中で破棄しないなら使わない)

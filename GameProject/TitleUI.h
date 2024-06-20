@@ -22,8 +22,8 @@ public:
     //描画
     void Draw(Font* font) override;
 
-
 private:
+    int backGroundGraph;        //背景画像
 
 };
 

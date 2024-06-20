@@ -6,6 +6,7 @@
 #include"ShotManager.h"
 #include"InputManager.h"
 #include"BackGround.h"
+#include"GameSceneUI.h"
 #include"ResultScene.h"
 
 
@@ -18,6 +19,7 @@ GameScene::GameScene()
     enemyManager = new EnemyManager();
     shotManager  = new ShotManager();
     backGround   = new BackGround();
+    gameSceneUI  = new GameSceneUI();
 
     player->Initialize();
     camera->Initialize();
@@ -35,12 +37,14 @@ GameScene::~GameScene()
     delete enemyManager;
     delete shotManager;
     delete backGround;
+    delete gameSceneUI;
     player       = NULL;
     camera       = NULL;
     map          = NULL;
     enemyManager = NULL;
     shotManager  = NULL;
     backGround   = NULL;
+    gameSceneUI  = NULL;
 }
 
 /// <summary>
@@ -73,9 +77,11 @@ void GameScene::Update(InputManager* inputManager)
 /// </summary>
 void GameScene::Draw(Font* font)
 {
+    //それぞれのクラスの描画処理
     backGround->Draw();
     map->Draw();
     player->Draw();
     shotManager->Draw();
     enemyManager->Draw();
+    gameSceneUI->Draw(font,player->GetLife());
 }

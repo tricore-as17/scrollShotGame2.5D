@@ -9,6 +9,7 @@ class EnemyManager;
 class ShotManager;
 class InputManager;
 class BackGround;
+class GameSceneUI;
 
 /// <summary>
 /// ゲームシーン
@@ -36,6 +37,7 @@ private:
     BackGround*   backGround;     //背景         
     EnemyManager* enemyManager;   //エネミーマネージャー
     ShotManager*  shotManager;    //ショットマネージャー
+    GameSceneUI*  gameSceneUI;    //ゲームシーンのUI      
     
 
 };
