@@ -43,10 +43,10 @@ void EasyEnemy::Update(const Map& map,const VECTOR& cameraPosition,ShotManager& 
 {
 
     //画面内に入ったかのチェック
-    moveStartFlag = CanStartMove(cameraPosition);
+    isMoveStart = CanStartMove(cameraPosition,0,0);
     
 	//移動開始フラグがたっていたら移動させる
-	if (moveStartFlag)
+	if (isMoveStart)
 	{
 		direction = VAdd(direction, VGet(-1, 0, 0));
 	}

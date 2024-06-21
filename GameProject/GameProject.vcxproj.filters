@@ -141,6 +141,9 @@
     <ClCompile Include="GameSceneUI.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
+    <ClCompile Include="BossEnemy.cpp">
+      <Filter>ソース ファイル\Enemy\Sub</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -226,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="GameSceneUI.h">
       <Filter>ソース ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="BossEnemy.h">
+      <Filter>ソース ファイル\Enemy\Sub</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

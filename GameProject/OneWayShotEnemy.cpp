@@ -45,10 +45,10 @@ OneWayShotEnemy::~OneWayShotEnemy()
 void OneWayShotEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotManager& shotManager, const VECTOR& playerPosition)
 {
     //画面内に入ったかのチェック
-    moveStartFlag = CanStartMove(cameraPosition);
+    isMoveStart = CanStartMove(cameraPosition,0,0);
 
     //画面内に入ったフラグが立っていれば撃つ
-    if (moveStartFlag)
+    if (isMoveStart)
     {
         //前撃ってから一定の間隔が経っていれば撃つ
         shooterEnemy->CountShotInterval();

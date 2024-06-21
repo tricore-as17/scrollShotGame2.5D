@@ -63,6 +63,11 @@ void GameScene::Update(InputManager* inputManager)
     shotManager->Update();
     player->IsReceiveDamage(enemyManager->GetEnemy(), shotManager->GetShot());
     shotManager->DeleteShot(camera->GetPosition());
+    //ボスが移動を始めたらカメラの移動を止める
+    if (enemyManager->GetIsBossActive())
+    {
+        camera->StopCameraMove();
+    }
     camera->Update(*map, *player);
     //次のループへの処理
     //プレイヤーの体力が0以下になったらリザルト画面に移行

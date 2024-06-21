@@ -5,6 +5,7 @@
 #include"EnemyInformation.h"
 #include"EasyEnemy.h"
 #include"FallingAttackEnemy.h"
+#include"BossEnemy.h"
 #include"EnemyManager.h"
 #include"ShotManager.h"
 #include"Map.h"
@@ -14,6 +15,7 @@
 /// コンストラクタ
 /// </summary>
 EnemyManager::EnemyManager()
+    :isBossActive(false)
 {
     vector<EnemyInformation*> enemyInformation;
     //エネミーの初期化情報の入ったcsvファイルを読み込む
@@ -34,6 +36,10 @@ EnemyManager::EnemyManager()
         else if (information->type == FALLING_ATTACK)
         {
             enemy.emplace_back(new FallingAttackEnemy(information));
+        }
+        else if (information->type == BOSS)
+        {
+            enemy.emplace_back(new BossEnemy(information));
         }
     }
     //確保した初期化情報の入った中身を解放
@@ -73,6 +79,11 @@ void EnemyManager::Update(const Map& map, const VECTOR& cameraPosition, ShotMana
     for (int i = 0; i < enemy.size(); i++)
     {
         enemy[i]->Update(map, cameraPosition, shotManager,playerPosition);
+        //ボスが動き出したかをチェックする
+        if (enemy[i]->GetType() == BOSS)
+        {
+            isBossActive = enemy[i]->GetIsMoveStart();
+        }
     }
 
     //体力が0になったら削除する

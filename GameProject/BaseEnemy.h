@@ -38,21 +38,26 @@ public:
     /// エネミーのスクロールを始めるかのチェック(画面に入ったかでチェック)
     /// </summary>
     /// <param name="cameraPosition">カメラのポジション</param>
+    /// <param name="adjustRightPosition">カメラの右端を調節する</param>
+    /// <param name="adjustLeftPosition">カメラの左端を調節する</param>
     /// <returns>入っていたら(true)入ってなかったら(false)</returns>
-    virtual bool CanStartMove(const VECTOR& cameraPosition);
+    virtual bool CanStartMove(const VECTOR& cameraPosition, const float adjustRightPosition, const float adjustLeftPosition);
 	//ゲッターセッター
 	bool GetIsGround()const { return isGround; }		//接地判定の取得
     void SetIsGround(const bool inIsGroound) { isGround = inIsGroound; }	//接地判定の設定
 	bool GetIsHitTop()const { return isHitTop; }		//頭上判定の取得
 	void SetIsHitTop(const bool inIsHitTop) { isHitTop = inIsHitTop; }	//頭上判定の設定
-    int GetLife()const { return life; }                 //体力の値を返す
-    int GetDamage()const { return damage; }             //ダメージの値を返す
+    int GetLife()const { return life; }                        //体力の値を返す
+    int GetDamage()const { return damage; }                    //ダメージの値を返す
+    const int GetType()const { return type; }                  //タイプを返す
+    const bool GetIsMoveStart()const { return isMoveStart; }   //移動を開始するかを返す
     
 
 
 
 protected:
-	bool moveStartFlag;	    //移動を開始させるフラグ
+    int  type;              //自身のタイプ
+	bool isMoveStart;	    //移動を開始させるフラグ
 	bool isGround;		    //接地しているか
 	bool isHitTop;		    //天井にぶつかっているか
 	int firstX;			    //初期X座標

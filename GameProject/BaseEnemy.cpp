@@ -8,9 +8,11 @@
 /// コンストラクタ
 /// </summary>
 BaseEnemy::BaseEnemy(EnemyInformation* enemyInformation)
-    :moveStartFlag(false)
+    :isMoveStart(false)
     ,kind(Utility::KIND_ENEMY)
 {
+    //エネミーのタイプを判断
+    type = enemyInformation->type;
     //座標の初期化
     position.x = enemyInformation->initializeX;
     position.y = enemyInformation->initializeY;
@@ -67,14 +69,14 @@ void BaseEnemy::Move(const Map& map,const float& speed)
 /// エネミーが行動を始めるかのチェック(画面に入ったかでチェック)
 /// </summary>
 /// <param name="cameraPosition">カメラの座標</param>
-bool BaseEnemy::CanStartMove(const VECTOR& cameraPosition)
+bool BaseEnemy::CanStartMove(const VECTOR& cameraPosition,const float adjustRightPosition,const float adjustLeftPosition)
 {
     //座標が入っているかのチェック用フラグ
     bool isInScreen;
     //画面右端の座標
-    float RightLimit = cameraPosition.x +Utility::WORLD_SCREEN_WIDTH_SIZE * 0.5;
+    float RightLimit = (cameraPosition.x +Utility::WORLD_SCREEN_WIDTH_SIZE * 0.5)+adjustRightPosition;
     //画面左端の座標
-    float LeftLimit = cameraPosition.x - Utility::WORLD_SCREEN_WIDTH_SIZE * 0.5;
+    float LeftLimit = (cameraPosition.x - Utility::WORLD_SCREEN_WIDTH_SIZE * 0.5) + adjustLeftPosition;
     //画面内に座標があるかのチェック
     if (position.x < RightLimit && LeftLimit < position.x)
     {
