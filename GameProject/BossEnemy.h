@@ -17,9 +17,6 @@ public:
     static constexpr float HEIGHT = 2.175f;    //高さ
     static constexpr int   MAX_LIFE = 5;         //体力の最大値
     static constexpr int   INITIALIZE_DAMAGE = 1;         //接触時の与えるダメージ
-    //getter,setter
-    void SetScreenLeftLimit(const float screenLeftLimit) { this->screenLeftLimit = screenLeftLimit; }
-    void SetScreenRightLimit(const float screenRightLimit) { this->screenRightLimit = screenRightLimit; }
     //コンストラクタ
     BossEnemy(EnemyInformation* enemyInformation);
     //デストラクタ
@@ -28,10 +25,9 @@ public:
     void Update(const Map& map, const VECTOR& cameraPosition, ShotManager& shotManager, const VECTOR& playerPosition)override;
 
 private:
+    //定数
+    static constexpr float ADJUST_RIGHT_LIMIT = -4.0f;
 
-    float screenLeftLimit;              //移動できる左端の限界値
-    float screenRightLimit;             //移動できる右端の限界値
-    bool isInAction;                    //何らかの行動中か
 
 
 

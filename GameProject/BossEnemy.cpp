@@ -38,17 +38,11 @@ void BossEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotManager
     if (!isMoveStart)
     {
         //画面内に入ったかのチェック
-        isMoveStart = CanStartMove(cameraPosition, -4.0f, 0);
+        isMoveStart = CanStartMove(cameraPosition, ADJUST_RIGHT_LIMIT, 0);
     }
     if (isMoveStart)
     {
-        //プレイヤーと敵のx座標の距離を計算
-        float distanse = fabsf(playerPosition.x - position.x);
-        //プレイヤーとの距離で行動を変える
-        if (!isInAction)
-        {
-
-        }
+        
     }
 
 }

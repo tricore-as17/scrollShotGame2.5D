@@ -58,7 +58,7 @@ GameScene::~GameScene()
 void GameScene::Update(InputManager* inputManager)
 {
 
-    player->Update(*map, *shotManager);
+    player->Update(*map, *shotManager,camera->GetPosition());
     enemyManager->Update(*map, camera->GetPosition(),*shotManager,player->GetPosition());
     shotManager->Update();
     player->IsReceiveDamage(enemyManager->GetEnemy(), shotManager->GetShot());

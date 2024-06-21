@@ -72,7 +72,7 @@ void Player::Initialize()
 /// <summary>
 /// 更新処理
 /// </summary>
-void Player::Update(const Map &map, ShotManager& shotManager)
+void Player::Update(const Map &map, ShotManager& shotManager,const VECTOR cameraPosition)
 {
 	// 入力状態を更新
 	// パッド１とキーボードから入力を得る
@@ -122,10 +122,7 @@ void Player::Update(const Map &map, ShotManager& shotManager)
 	// 当たり判定をして、壁にめり込まないようにvelocityを操作する
 	velocity = Colision::IsHitMapAdjustmentVector(map,velocity,position,PLAYER_WIDTH,PLAYER_HEIGHT);
 
-	
-	//FIXME:マップをスクロールするために使用しているがその使用は辞めたので
-	//出た値を保存する
-	keepVelocity = velocity;
+    velocity = Colision::IsHitWallAdjustmentVector(cameraPosition, velocity, position, PLAYER_WIDTH, PLAYER_HEIGHT);
 
 
 	// 移動

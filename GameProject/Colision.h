@@ -37,8 +37,21 @@ public:
     /// <param name="circlePosition">円の中心座標</param>
     /// <param name="circleR">円の半径</param>
     /// <returns>当たったかの判定結果</returns>
-    static bool IsHitCircleWithRectangles(const VECTOR& rectPosition, const float rectW, const float rectH, const VECTOR& circlePosition, const float circleR);
+    static bool IsHitCircleWithRectangles(const VECTOR& rectPosition, const float rectWidth, const float rectHeight, const VECTOR& circlePosition, const float circleR);
 
+
+    static bool IsHitRectWithWall(const VECTOR& rectPosition, const float rectWidth, const float wallRight, const float wallLeft);
+
+    /// <summary>
+    /// 壁とキャラの次の向きから壁に当たらないように調整して返す
+    /// </summary>
+    /// <param name="cameraPosition">カメラの座標</param>
+    /// <param name="nowVector">調整前のベクトル</param>
+    /// <param name="position">キャラの座標</param>
+    /// <param name="width">キャラの幅</param>
+    /// <param name="height">キャラの高さ</param>
+    /// <returns>調整したベクトル</returns>
+    static VECTOR IsHitWallAdjustmentVector(const VECTOR cameraPosition, VECTOR velocity, const VECTOR& position, const float width, const float height);
 
     /// <summary>
     /// マップとプレイヤーやエネミーの当たり判定
@@ -92,6 +105,7 @@ public:
     /// <param name="objectLife">オブジェクトの体力</param>
     /// <param name="objectKind">オブジェクトの種類(誰が発射した弾か)</param>
     static bool ColisionShot(list<Shot*> shot, const VECTOR& objectPosition, const float objectW, const float objectH, int& objectLife, const int objectKind);
+
 
 
 };
