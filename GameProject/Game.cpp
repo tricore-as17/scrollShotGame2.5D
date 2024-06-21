@@ -17,9 +17,6 @@ Game::Game()
     frameRate = new FrameRate();
     inputManager = new InputManager();
 
-
-
-
 }
 
 

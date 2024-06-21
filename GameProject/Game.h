@@ -40,8 +40,7 @@ private:
 
     FrameRate* frameRate;       //フレームレート計算用クラス
     InputManager* inputManager; //入力を管理するクラス
-
-
+    
 
 
 

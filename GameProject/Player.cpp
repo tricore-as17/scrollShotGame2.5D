@@ -45,7 +45,7 @@ Player::~Player()
 void Player::Initialize()
 {
 	//座標の初期化と移動方向の初期化
-	position = VGet(10,8, 0);
+	position = VGet(PLAYER_FIRST_X,PLAYER_FIRST_Y, 0);
 	direction = VGet(0, 0, 0);
 	fallSpeed = 0;
 	isHitTop, isGround = false;
@@ -222,9 +222,6 @@ void Player::Draw()
 {
 	//プレイヤーモデルの描画
 	MV1DrawModel(modelHandle);
-    //NOTE
-    //確認用で追加しています(UIを作ったら削除)
-    DrawFormatString(300,400,WHITE,"life:%d", life);
 
 }
 

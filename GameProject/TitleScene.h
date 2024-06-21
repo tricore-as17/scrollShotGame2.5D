@@ -2,7 +2,8 @@
 
 class SceneBase;
 class InputManager;
-
+class TitleUI;
+class Font;
 /// <summary>
 /// タイトのシーン
 /// </summary>
@@ -23,6 +24,9 @@ public:
     /// </summary>
     void Draw() override;
 private:
+    //メンバクラス
+    TitleUI* titleUI;
+    
 
 
 

@@ -8,6 +8,8 @@ class Map;
 class EnemyManager;
 class ShotManager;
 class InputManager;
+class BackGround;
+class GameSceneUI;
 
 /// <summary>
 /// ゲームシーン
@@ -29,11 +31,16 @@ public:
     /// </summary>
     void Draw() override;
 private:
+    //メンバクラス
     Player*       player;         //プレイヤー
     Camera*       camera;         //カメラ
     Map*          map;            //マップ
     EnemyManager* enemyManager;   //エネミーマネージャー
     ShotManager*  shotManager;    //ショットマネージャー
+    GameSceneUI*  gameSceneUI;    //ゲームシーンのUI
+
+    //メンバ変数
+    int backGroundModel;          //背景用のスカイドームのモデル
     
 
 };

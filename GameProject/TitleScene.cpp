@@ -1,8 +1,10 @@
 ﻿#include"DxLib.h"
+#include"TitleUI.h"
 #include"SceneBase.h"
 #include "TitleScene.h"
 #include"GameScene.h"
 #include"InputManager.h"
+#include"Font.h"
 #include"Utility.h"
 
 
@@ -11,7 +13,8 @@
 /// </summary>
 TitleScene::TitleScene()
 {
-    //処理なし
+    //メモリの確保
+    titleUI = new TitleUI();
 }
 
 /// <summary>
@@ -20,6 +23,7 @@ TitleScene::TitleScene()
 TitleScene::~TitleScene()
 {
     //処理なし
+    delete titleUI;
 }
 
 /// <summary>
@@ -47,7 +51,5 @@ void TitleScene::Update(InputManager* inputManager)
 /// </summary>
 void TitleScene::Draw()
 {
-    //TODO
-    //テスト用の描画(タイトルを実装していないためわかりやすく描画)
-    DrawString(500, 500, "タイトル", WHITE);
+    titleUI->Draw();
 }
