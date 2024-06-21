@@ -1,13 +1,14 @@
 ﻿#pragma once
 #include"DxLib.h"
-#include"BaseUI.h"
 
+//クラスのプロトタイプ宣言
 class Font;
+class BlinkingString;
 
 /// <summary>
 /// タイトルのUIをまとめたクラス
 /// </summary>
-class TitleUI:public BaseUI
+class TitleUI
 {
 public:
 
@@ -16,14 +17,14 @@ public:
     //デストラクタ
     ~TitleUI();
     /// <summary>
-    /// 更新処理
+    /// 描画
     /// </summary>
-    void Update() override;
-    //描画
-    void Draw(Font* font) override;
+    void Draw();
 
 private:
-    int backGroundGraph;        //背景画像
+    int             backGroundGraph;//背景画像
+    BlinkingString* blinkingString; //文字の点滅表示用のクラス
+    Font*           font;           //フォントハンドルの格納クラス              
 
 };
 

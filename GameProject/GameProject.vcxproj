@@ -139,8 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BaseEnemy.cpp" />
+    <ClCompile Include="BlinkingDrawString.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Colision.cpp" />
     <ClCompile Include="Effect.cpp" />
@@ -165,12 +165,10 @@
     <ClCompile Include="TitleUI.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="WorldSprite.cpp" />
-    <ClCompile Include="BaseUI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BackGround.h" />
     <ClInclude Include="BaseEnemy.h" />
-    <ClInclude Include="BaseUI.h" />
+    <ClInclude Include="BlinkingDrawString.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="EasyEnemy.h" />
     <ClInclude Include="EnemyInformation.h" />

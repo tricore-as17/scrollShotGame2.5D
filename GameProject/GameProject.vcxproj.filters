@@ -129,6 +129,18 @@
     <ClCompile Include="OneWayShotEnemy.cpp">
       <Filter>ソース ファイル\Enemy\Sub</Filter>
     </ClCompile>
+    <ClCompile Include="FallingAttackEnemy.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="BlinkingDrawString.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleUI.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSceneUI.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -202,6 +214,18 @@
     </ClInclude>
     <ClInclude Include="OneWayShotEnemy.h">
       <Filter>ソース ファイル\Enemy\Sub</Filter>
+    </ClInclude>
+    <ClInclude Include="FallingAttackEnemy.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="BlinkingDrawString.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleUI.h">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSceneUI.h">
+      <Filter>ソース ファイル\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

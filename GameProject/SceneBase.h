@@ -20,7 +20,7 @@ public:
     /// <param name="inputManager">入力管理クラス</param>
     virtual void Update(InputManager* inputManager)abstract;
 
-    virtual void Draw(Font* font) abstract;
+    virtual void Draw() abstract;
 
     SceneBase* inputScene;      //次のループでのシーンを入れる変数
 

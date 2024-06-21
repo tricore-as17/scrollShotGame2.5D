@@ -34,7 +34,6 @@ void TitleScene::Update(InputManager* inputManager)
 {
     //スペースキーが押されたかのチェック
     bool isKeyRelease = inputManager->IsReleaseKey(PAD_INPUT_10);
-    titleUI->Update();
 
     //スペースキーが押されていればゲームを始める
     if (isKeyRelease)
@@ -50,7 +49,7 @@ void TitleScene::Update(InputManager* inputManager)
 /// <summary>
 /// 描画処理
 /// </summary>
-void TitleScene::Draw(Font* font)
+void TitleScene::Draw()
 {
-    titleUI->Draw(font);
+    titleUI->Draw();
 }

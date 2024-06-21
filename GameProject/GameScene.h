@@ -29,15 +29,18 @@ public:
     /// <summary>
     /// 描画
     /// </summary>
-    void Draw(Font* font) override;
+    void Draw() override;
 private:
+    //メンバクラス
     Player*       player;         //プレイヤー
     Camera*       camera;         //カメラ
     Map*          map;            //マップ
-    BackGround*   backGround;     //背景         
     EnemyManager* enemyManager;   //エネミーマネージャー
     ShotManager*  shotManager;    //ショットマネージャー
-    GameSceneUI*  gameSceneUI;    //ゲームシーンのUI      
+    GameSceneUI*  gameSceneUI;    //ゲームシーンのUI
+
+    //メンバ変数
+    int backGroundModel;          //背景用のスカイドームのモデル
     
 
 };

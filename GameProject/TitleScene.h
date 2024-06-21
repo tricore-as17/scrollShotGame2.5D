@@ -22,7 +22,7 @@ public:
     /// <summary>
     /// 描画処理
     /// </summary>
-    void Draw(Font* font) override;
+    void Draw() override;
 private:
     //メンバクラス
     TitleUI* titleUI;
