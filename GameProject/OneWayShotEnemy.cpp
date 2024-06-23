@@ -52,10 +52,10 @@ void OneWayShotEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotM
     {
         //前撃ってから一定の間隔が経っていれば撃つ
         shooterEnemy->CountShotInterval();
-        if (shooterEnemy->GetIsAbleShot())
+        if (shooterEnemy->GetCanShot())
         {
             shotManager.CreateShot(position, VGet(dirctionX, dirctionY, 0), LEFT_ENEMY_SHOT, damage);
-            shooterEnemy->SetIsAbleShot(false);
+            shooterEnemy->SetCanShot(false);
         }
     }
     //弾と当たっているかを判定して体力などを減らす処理

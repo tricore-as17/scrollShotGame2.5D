@@ -22,7 +22,6 @@ GameScene::GameScene()
     player->Initialize();
     camera->Initialize();
     map->Initialize();
-    shotManager->Initialize();
 
     //背景モデルのロード
     backGroundModel = MV1LoadModel("mv1/NightDome.pmx");
