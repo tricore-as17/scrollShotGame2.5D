@@ -65,13 +65,14 @@ void ShotManager::Update()
 /// <param name="direction">弾の方向</param>
 /// <param name="shotKinds">どの弾を撃ったか</param>
 /// <param name="shotDamage">弾のダメージ</param>
-void ShotManager::CreateShot(const VECTOR& position, const VECTOR& direction,const int shotKinds,const int shotDamage)
+/// <param name="shooterKinds">弾を撃ったキャラの種類</param>
+void ShotManager::CreateShot(const VECTOR& position, const VECTOR& direction,const int shotKinds,const int shotDamage,const int shooterKinds)
 {
     //オブジェクトプールを使ってactivShotを有効か
     activeShot.splice(activeShot.end(), inactiveShot, inactiveShot.begin());
     //差し込んだ位置のイテレータを用意してそこで初期化する
     auto it = prev(activeShot.end());    
-    (*it)->Initialize(position, direction, SHOT_SPEED[shotKinds], SHOT_RADIUS[shotKinds], shotKinds, shotDamage);
+    (*it)->Initialize(position, direction, SHOT_SPEED[shotKinds], SHOT_RADIUS[shotKinds], shotKinds, shotDamage,shooterKinds);
 }
 
 /// <summary>

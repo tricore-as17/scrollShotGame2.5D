@@ -200,7 +200,7 @@ void Player::Update(const Map &map, ShotManager& shotManager,const VECTOR camera
     {
         if (canShotFlag)
         {
-            shotManager.CreateShot(position, shotDirction, PLAYER_USUALLY,SHOT_DAMAGE);
+            shotManager.CreateShot(position, shotDirction, PLAYER_USUALLY,SHOT_DAMAGE,Utility::KIND_PLAYER);
             canShotFlag = false;
         }
     }

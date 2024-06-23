@@ -100,7 +100,9 @@ void BossEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotManager
         velocity = Colision::IsHitWallAdjustmentVector(cameraPosition, velocity, position, width, height);
 
         // 移動
-        position = VAdd(position, velocity);     
+        position = VAdd(position, velocity);
+        //弾と当たっているかを判定して体力などを減らす処理
+        Colision::ColisionShot(shotManager.GetShot(), position, width, height, life, kind);
 
     }
 
@@ -239,7 +241,7 @@ void BossEnemy::ShootAtThePlayer(const VECTOR& playerPosition,ShotManager& shotM
         VECTOR shotDirection = VSub(playerPosition, position);
 
         shotDirection = VNorm(shotDirection);
-        shotManager.CreateShot(position, shotDirection, BOSS_SHOT, damage);
+        shotManager.CreateShot(position, shotDirection, BOSS_SHOT, damage,kind);
         shooterEnemy->SetCanShot(false);
         //弾を撃った数を増やす
         shotCount++;

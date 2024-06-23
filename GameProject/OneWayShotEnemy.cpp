@@ -54,7 +54,7 @@ void OneWayShotEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotM
         shooterEnemy->CountShotInterval();
         if (shooterEnemy->GetCanShot())
         {
-            shotManager.CreateShot(position, VGet(dirctionX, dirctionY, 0), LEFT_ENEMY_SHOT, damage);
+            shotManager.CreateShot(position, VGet(dirctionX, dirctionY, 0), LEFT_ENEMY_SHOT, damage,kind);
             shooterEnemy->SetCanShot(false);
         }
     }

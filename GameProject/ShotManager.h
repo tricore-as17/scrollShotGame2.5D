@@ -45,7 +45,8 @@ public:
     /// <param name="direction">弾の方向</param>
     /// <param name="shotKinds">どの弾を撃ったか</param>
     /// <param name="shotDamage">弾のダメージ</param>
-    void CreateShot(const VECTOR& position,const VECTOR& direction, const int shotKinds, const int shotDamage);
+    /// <param name="shooterKinds">弾を撃ったキャラの種類</param>
+    void CreateShot(const VECTOR& position,const VECTOR& direction, const int shotKinds, const int shotDamage,const int shooterKinds);
     /// <summary>
     /// 弾の削除(画面外に出たら削除)
     /// </summary>

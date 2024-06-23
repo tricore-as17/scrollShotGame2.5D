@@ -23,7 +23,8 @@ public:
     /// <param name="initializeRadius">半径</param>
     /// <param name="initializeKinds">種類</param>
     /// <param name="initializeDamage">ダメージ</param>
-    void Initialize(const VECTOR& initializePosition, const VECTOR& initializeDirection, const float& initializeSpeed, const float& initializeRadius, const int initializeKinds, const int initializeDamage);
+    /// <param name="shooterKinds">弾を撃ったキャラの種類</param>
+    void Initialize(const VECTOR& initializePosition, const VECTOR& initializeDirection, const float& initializeSpeed, const float& initializeRadius, const int initializeKinds, const int initializeDamage, const int shooterKinds);
     void Update();
     void Draw();
 private:
