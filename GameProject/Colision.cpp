@@ -151,9 +151,9 @@ VECTOR Colision::IsHitWallAdjustmentVector(const VECTOR cameraPosition, VECTOR n
     VECTOR adjustVector = nowVector;
 
     //画面右端の座標を持ってくる
-    float screenRightLimit = cameraPosition.x + Utility::WORLD_SCREEN_WIDTH_SIZE * 0.5f;
+    float screenRightLimit = (cameraPosition.x + Utility::WORLD_SCREEN_WIDTH_SIZE * 0.5f) - (width * 0.5f);
     //画面左端の座標をもってくる
-    float screenLeftLimit = cameraPosition.x - Utility::WORLD_SCREEN_WIDTH_SIZE * 0.5f;
+    float screenLeftLimit = (cameraPosition.x - Utility::WORLD_SCREEN_WIDTH_SIZE * 0.5f) + (width *0.5f);
 
 
 
