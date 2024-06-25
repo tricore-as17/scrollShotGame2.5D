@@ -45,7 +45,7 @@ OneWayShotEnemy::~OneWayShotEnemy()
 void OneWayShotEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotManager& shotManager, const VECTOR& playerPosition)
 {
     //画面内に入ったかのチェック
-    isMoveStart = CanStartMove(cameraPosition,0,0);
+    isMoveStart = CanStartMove(cameraPosition);
 
     //画面内に入ったフラグが立っていれば撃つ
     if (isMoveStart)

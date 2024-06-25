@@ -14,7 +14,7 @@ const float BossEnemy::REFERENCE_DISTANCE = Utility::WORLD_SCREEN_WIDTH_SIZE / 4
 /// コンストラクタ
 /// </summary>
 BossEnemy::BossEnemy(EnemyInformation* enemyInformation)
-    :BaseEnemy(enemyInformation)
+    :BaseEnemy(enemyInformation, ADJUST_RIGHT_LIMIT)
     ,isInAction(false)
     ,isInSideMove(false)
     ,switchDirectionCount(0)
@@ -66,7 +66,7 @@ void BossEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotManager
     if (!isMoveStart)
     {
         //画面内に入ったかのチェック
-        isMoveStart = CanStartMove(cameraPosition, ADJUST_RIGHT_LIMIT, 0);
+        isMoveStart = CanStartMove(cameraPosition);
     }
     if (isMoveStart)
     {

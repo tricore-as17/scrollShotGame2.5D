@@ -44,7 +44,7 @@ void FallingAttackEnemy::Update(const Map& map, const VECTOR& cameraPosition, Sh
     if (!isMoveStart)
     {
         //画面内に入ったかのチェック
-        isMoveStart = CanStartMove(cameraPosition,0,0);
+        isMoveStart = CanStartMove(cameraPosition);
     }
     //一度画面内に入ったら動き続ける
     if (isMoveStart)

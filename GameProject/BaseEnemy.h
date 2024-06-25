@@ -14,7 +14,7 @@ class BaseEnemy abstract :public GameObject
 {
 public:
 	//コンストラクタデストラクタ
-	BaseEnemy(EnemyInformation* enemyInformation);
+	BaseEnemy(EnemyInformation* enemyInformation, const int adjustRightLimit = 0);
 	virtual ~BaseEnemy();
 
     /// <summary>
@@ -38,10 +38,8 @@ public:
     /// エネミーのスクロールを始めるかのチェック(画面に入ったかでチェック)
     /// </summary>
     /// <param name="cameraPosition">カメラのポジション</param>
-    /// <param name="adjustRightPosition">カメラの右端を調節する</param>
-    /// <param name="adjustLeftPosition">カメラの左端を調節する</param>
     /// <returns>入っていたら(true)入ってなかったら(false)</returns>
-    virtual bool CanStartMove(const VECTOR& cameraPosition, const float adjustRightPosition, const float adjustLeftPosition);
+    virtual bool CanStartMove(const VECTOR& cameraPosition);
 	//ゲッターセッター
 	bool GetIsGround()const { return isGround; }		//接地判定の取得
     void SetIsGround(const bool inIsGroound) { isGround = inIsGroound; }	//接地判定の設定
@@ -64,6 +62,7 @@ protected:
     int life;               //体力
     int kind;               //自分の番号(エネミーかプレイヤーかを判断するための変数)
     int damage;             //敵に当たった時のダメージ
+    float adjustRightLimit; //スクリーンに入る際の調節用
 
 
 };
