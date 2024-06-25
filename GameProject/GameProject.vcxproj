@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="BaseEnemy.cpp" />
     <ClCompile Include="BlinkingDrawString.cpp" />
+    <ClCompile Include="BossEnemy.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Colision.cpp" />
     <ClCompile Include="Effect.cpp" />
@@ -169,6 +170,7 @@
   <ItemGroup>
     <ClInclude Include="BaseEnemy.h" />
     <ClInclude Include="BlinkingDrawString.h" />
+    <ClInclude Include="BossEnemy.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="EasyEnemy.h" />
     <ClInclude Include="EnemyInformation.h" />

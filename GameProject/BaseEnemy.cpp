@@ -7,10 +7,13 @@
 /// <summary>
 /// コンストラクタ
 /// </summary>
-BaseEnemy::BaseEnemy(EnemyInformation* enemyInformation)
-    :moveStartFlag(false)
+BaseEnemy::BaseEnemy(EnemyInformation* enemyInformation, int adjustRightLimit )
+    :isMoveStart(false)
+    , adjustRightLimit(adjustRightLimit)
     ,kind(Utility::KIND_ENEMY)
 {
+    //エネミーのタイプを判断
+    type = enemyInformation->type;
     //座標の初期化
     position.x = enemyInformation->initializeX;
     position.y = enemyInformation->initializeY;
@@ -72,7 +75,7 @@ bool BaseEnemy::CanStartMove(const VECTOR& cameraPosition)
     //座標が入っているかのチェック用フラグ
     bool isInScreen;
     //画面右端の座標
-    float RightLimit = cameraPosition.x +Utility::WORLD_SCREEN_WIDTH_SIZE * 0.5;
+    float RightLimit = (cameraPosition.x +Utility::WORLD_SCREEN_WIDTH_SIZE * 0.5)+adjustRightLimit;
     //画面左端の座標
     float LeftLimit = cameraPosition.x - Utility::WORLD_SCREEN_WIDTH_SIZE * 0.5;
     //画面内に座標があるかのチェック

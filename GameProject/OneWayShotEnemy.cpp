@@ -45,17 +45,17 @@ OneWayShotEnemy::~OneWayShotEnemy()
 void OneWayShotEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotManager& shotManager, const VECTOR& playerPosition)
 {
     //画面内に入ったかのチェック
-    moveStartFlag = CanStartMove(cameraPosition);
+    isMoveStart = CanStartMove(cameraPosition);
 
     //画面内に入ったフラグが立っていれば撃つ
-    if (moveStartFlag)
+    if (isMoveStart)
     {
         //前撃ってから一定の間隔が経っていれば撃つ
         shooterEnemy->CountShotInterval();
-        if (shooterEnemy->GetIsAbleShot())
+        if (shooterEnemy->GetCanShot())
         {
-            shotManager.CreateShot(position, VGet(dirctionX, dirctionY, 0), LEFT_ENEMY_SHOT, damage);
-            shooterEnemy->SetIsAbleShot(false);
+            shotManager.CreateShot(position, VGet(dirctionX, dirctionY, 0), LEFT_ENEMY_SHOT, damage,kind);
+            shooterEnemy->SetCanShot(false);
         }
     }
     //弾と当たっているかを判定して体力などを減らす処理

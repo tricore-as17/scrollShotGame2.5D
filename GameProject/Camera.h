@@ -25,8 +25,14 @@ public:
     /// <param name="map">マップのインスタンス</param>
     /// <param name="player">プレイヤーのインスタンス</param>
     void Update(const Map& map, const Player& player);
+
+    /// <summary>
+    /// カメラの移動を止める
+    /// </summary>
+    void StopCameraMove();
     //ポジションのgetter/setter
     const VECTOR& GetPosition() const { return position; }
 private:   
     VECTOR position;         //座標
+    bool  isMoveStop;       //カメラの移動を止めるかのフラグ
 };

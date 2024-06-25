@@ -15,6 +15,7 @@ enum ShotKinds
 {
     PLAYER_USUALLY,
     LEFT_ENEMY_SHOT,
+    BOSS_SHOT,
     //ショットの合計数(新しい種類を追加する際はこの上に追加)
     SHOT_KINDS_NUM
 };
@@ -34,10 +35,6 @@ public:
     //getter,setter
     list<Shot*> GetShot()const { return activeShot; }
     /// <summary>
-    /// ゲーム開始ごとの初期化
-    /// </summary>
-    void Initialize();
-    /// <summary>
     /// 弾の移動などの更新処理
     /// </summary>
     void Update();
@@ -48,7 +45,8 @@ public:
     /// <param name="direction">弾の方向</param>
     /// <param name="shotKinds">どの弾を撃ったか</param>
     /// <param name="shotDamage">弾のダメージ</param>
-    void CreateShot(const VECTOR& position,const VECTOR& direction, const int shotKinds, const int shotDamage);
+    /// <param name="shooterKinds">弾を撃ったキャラの種類</param>
+    void CreateShot(const VECTOR& position,const VECTOR& direction, const int shotKinds, const int shotDamage,const int shooterKinds);
     /// <summary>
     /// 弾の削除(画面外に出たら削除)
     /// </summary>
@@ -70,14 +68,11 @@ public:
     /// </summary>
     void DeleteAllShot();
     //定数
-    static constexpr int INTERVAL[SHOT_KINDS_NUM] = { 50,80 };     //それぞれの弾の発射間隔
     static const float SHOT_SPEED[SHOT_KINDS_NUM];                  //それぞれの弾のスピード
     static const float SHOT_RADIUS[SHOT_KINDS_NUM];                 //それぞれの弾の半径
     static constexpr int INACTIVE_SHOT_NUM = 20;                    //最初に用意するショットのインスタンスの数
     
 private:
-    bool readyFlag[SHOT_KINDS_NUM];                  //弾を撃てる状態かの判定フラグ
-    int intervalCount[SHOT_KINDS_NUM];              //弾を撃てる間隔を測定するためのカウント(弾の種類だけ作る)
     list<Shot*> inactiveShot;                             //弾を格納する配列（未使用)
     list<Shot*> activeShot;                              //弾を格納する配列(使用中)
 };

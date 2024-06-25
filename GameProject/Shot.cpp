@@ -5,20 +5,21 @@
 /// <summary>
 /// 引数として値を受け取って初期化
 /// </summary>
-/// <param name="position">座標</param>
+/// <param name="initializePosition">座標</param>
 /// <param name="initializeDirection">方向</param>
 /// <param name="initializeSpeed">スピード</param>
 /// <param name="initializeRadius">半径</param>
 /// <param name="initializeKinds">種類</param>
 /// <param name="initializeDamage">ダメージ</param>
-void Shot::Initialize(const VECTOR& initializePosition, const VECTOR& initializeDirection, const float& initializeSpeed, const float& initializeRadius, const int initializeKinds, const int initializeDamage)
+/// <param name="shooterKinds">弾を撃ったキャラの種類</param>
+void Shot::Initialize(const VECTOR& initializePosition, const VECTOR& initializeDirection, const float& initializeSpeed, const float& initializeRadius, const int initializeKinds, const int initializeDamage,const int shooterKinds)
 {
     survivalFlag = true;
     position = initializePosition;
     direction = initializeDirection;
     speed = initializeSpeed;
     radius = initializeRadius;
-    kinds = initializeKinds;
+    kinds = shooterKinds;
     damage = initializeDamage;
 }
 

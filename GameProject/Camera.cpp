@@ -6,6 +6,7 @@
 /// コンストラクタ
 /// </summary>
 Camera::Camera()
+    :isMoveStop(false)
 {
     //奥行0.1～1000までをカメラの描画範囲とする
     SetCameraNearFar(0.1f, 1000.0f);
@@ -38,6 +39,10 @@ void Camera::Initialize()
 /// <param name="player">プレイヤのインスタンス</param>
 void Camera::Update(const Map& map, const Player& player)
 {
+    if (isMoveStop)
+    {
+        return;
+    }
     //プレイヤーとマップの座標を持ってくる
     VECTOR playerPosition = player.GetPosition();
     int mapYNum = map.getMapYNum();
@@ -57,4 +62,13 @@ void Camera::Update(const Map& map, const Player& player)
     // カメラに位置を反映.
     SetCameraPositionAndTarget_UpVecY(position, lookPosition);
     
+}
+
+/// <summary>
+/// カメラの移動を止める
+/// </summary>
+void Camera::StopCameraMove()
+{
+    //止めるフラグを立てる
+    isMoveStop = true;
 }

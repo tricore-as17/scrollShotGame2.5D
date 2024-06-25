@@ -10,11 +10,14 @@
 //プレイヤーの通常弾の速度
 const float ShotManager::SHOT_SPEED[SHOT_KINDS_NUM] = { Utility::CalculationSpeed(35000.0f),
 //左に撃つ敵の弾の通常速度
-Utility::CalculationSpeed(25000.0f)};
+Utility::CalculationSpeed(25000.0f),
+//ボスの弾の速度
+Utility::CalculationSpeed(40000.0f) };
 
 //プレイヤーの通常弾の半径(マップチップのサイズの4分の一)
 const float ShotManager::SHOT_RADIUS[SHOT_KINDS_NUM] = { Map::CHIP_SIZE / 4,
 //敵の通常弾の半径(マップチップのサイズの4分の一)
+Map::CHIP_SIZE/4,
 Map::CHIP_SIZE/4};
 
 
@@ -39,16 +42,7 @@ ShotManager::~ShotManager()
     DeleteAllShot();
 }
 
-//NOTE
-//staticを辞めたらコンストラクタで行うので消す
-void ShotManager::Initialize()
-{
-    for (int i = 0; i < SHOT_KINDS_NUM; i++)
-    {
-        readyFlag[i] = false;
-        intervalCount[i] = 0;
-    }
-}
+
 
 
 /// <summary>
@@ -71,13 +65,14 @@ void ShotManager::Update()
 /// <param name="direction">弾の方向</param>
 /// <param name="shotKinds">どの弾を撃ったか</param>
 /// <param name="shotDamage">弾のダメージ</param>
-void ShotManager::CreateShot(const VECTOR& position, const VECTOR& direction,const int shotKinds,const int shotDamage)
+/// <param name="shooterKinds">弾を撃ったキャラの種類</param>
+void ShotManager::CreateShot(const VECTOR& position, const VECTOR& direction,const int shotKinds,const int shotDamage,const int shooterKinds)
 {
     //オブジェクトプールを使ってactivShotを有効か
     activeShot.splice(activeShot.end(), inactiveShot, inactiveShot.begin());
     //差し込んだ位置のイテレータを用意してそこで初期化する
     auto it = prev(activeShot.end());    
-    (*it)->Initialize(position, direction, SHOT_SPEED[shotKinds], SHOT_RADIUS[shotKinds], shotKinds, shotDamage);
+    (*it)->Initialize(position, direction, SHOT_SPEED[shotKinds], SHOT_RADIUS[shotKinds], shotKinds, shotDamage,shooterKinds);
 }
 
 /// <summary>

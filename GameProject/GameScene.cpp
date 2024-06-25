@@ -22,7 +22,6 @@ GameScene::GameScene()
     player->Initialize();
     camera->Initialize();
     map->Initialize();
-    shotManager->Initialize();
 
     //背景モデルのロード
     backGroundModel = MV1LoadModel("mv1/NightDome.pmx");
@@ -58,11 +57,16 @@ GameScene::~GameScene()
 void GameScene::Update(InputManager* inputManager)
 {
 
-    player->Update(*map, *shotManager);
+    player->Update(*map, *shotManager,camera->GetPosition());
     enemyManager->Update(*map, camera->GetPosition(),*shotManager,player->GetPosition());
     shotManager->Update();
     player->IsReceiveDamage(enemyManager->GetEnemy(), shotManager->GetShot());
     shotManager->DeleteShot(camera->GetPosition());
+    //ボスが移動を始めたらカメラの移動を止める
+    if (enemyManager->GetIsBossActive())
+    {
+        camera->StopCameraMove();
+    }
     camera->Update(*map, *player);
     //次のループへの処理
     //プレイヤーの体力が0以下になったらリザルト画面に移行

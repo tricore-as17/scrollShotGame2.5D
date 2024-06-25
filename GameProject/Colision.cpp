@@ -1,6 +1,8 @@
 ﻿#include"DxLib.h"
 #include"Colision.h"
 #include"GameObject.h"
+#include"Camera.h"
+#include"Utility.h"
 #include"Shot.h"
 #include"Map.h"
 
@@ -129,6 +131,103 @@ bool Colision::IsHitCircleWithRectangles(const VECTOR& rectPosition, const float
 }
 
 /// <summary>
+/// 壁とキャラの次の向きから壁に当たらないように調整して返す
+/// </summary>
+/// <param name="cameraPosition">カメラの座標</param>
+/// <param name="nowVector">調整前のベクトル</param>
+/// <param name="position">キャラの座標</param>
+/// <param name="width">キャラの幅</param>
+/// <param name="height">キャラの高さ</param>
+/// <returns>調整したベクトル</returns>
+VECTOR Colision::IsHitWallAdjustmentVector(const VECTOR cameraPosition, VECTOR nowVector, const VECTOR& position, const float width, const float height)
+{
+    // サイズが最初から0なら動かさず早期adjustVectorurn
+    if (VSize(nowVector) == 0)		//VSizeでベクトルのサイズをとっている0なら動いてないなのでここで返す
+    {
+        return nowVector;
+    }
+
+    //調節して返ベクトルを用意
+    VECTOR adjustVector = nowVector;
+
+    //画面右端の座標を持ってくる
+    float screenRightLimit = (cameraPosition.x + Utility::WORLD_SCREEN_WIDTH_SIZE * 0.5f) - (width * 0.5f);
+    //画面左端の座標をもってくる
+    float screenLeftLimit = (cameraPosition.x - Utility::WORLD_SCREEN_WIDTH_SIZE * 0.5f) + (width *0.5f);
+
+
+
+    //当たらなくなるまで繰り返す
+    bool isLoop = true;
+    bool isFirstHit = true; //初回で当たったか
+    while (isLoop)
+    {
+        isLoop = false;
+        bool isHit= false;
+        //ベクトルと未来のポジションを出す
+        VECTOR futurePosition = VAdd(position, adjustVector);
+        isHit = IsHitRectWithWall(futurePosition, width, screenRightLimit, screenLeftLimit);
+        // 初回に当たったとき
+        if (isHit && isFirstHit)
+        {
+
+            isFirstHit = false;
+            isLoop = true;	// ループ継続
+        }
+        // 当たった時点でマップチップのループからぬけるが、当たらなくなるまで繰り返すループは継続
+        if (isHit && !isFirstHit)
+        {
+            float absoluteX = fabsf(adjustVector.x);	// velocityのx成分の絶対値
+
+            // x成分を縮め切っていなければx成分を縮める
+            bool shrinkX = (absoluteX != 0.0f);	// x成分を縮めるかどうか
+
+            if (shrinkX)
+            {
+                if (adjustVector.x > 0.0f)
+                {
+                    adjustVector.x -= Map::ONE_PIXEL_SIZE;
+                }
+                else
+                {
+                    adjustVector.x += Map::ONE_PIXEL_SIZE;
+                }
+
+                // 縮め切ったら消す
+                if (fabs(adjustVector.x) < Map::ONE_PIXEL_SIZE)
+                {
+                    adjustVector.x = 0.0f;
+                }
+                isLoop = true;
+            }
+        }
+    }
+    return adjustVector;
+}
+
+/// <summary>
+/// 壁と当たっているかを調べる
+/// </summary>
+/// <param name="rectPosition">オブジェクトの座標</param>
+/// <param name="rectWidth">オブジェクトの幅</param>
+/// <param name="wallRight">壁の右側の座標</param>
+/// <param name="wallLeft">壁の左側の座標</param>
+/// <returns></returns>
+bool Colision::IsHitRectWithWall(const VECTOR& rectPosition, const float rectWidth, const float wallRight, const float wallLeft)
+{
+    //当たったかのフラグ
+    bool isHit = false;
+    //矩形の4つの頂点を出す
+    float left = rectPosition.x - rectWidth * 0.5f;      //左
+    float right = rectPosition.x + rectWidth * 0.5f;     //右
+    if (left < wallLeft || right > wallRight)
+    {
+        isHit = true;
+    }
+    return isHit;
+}
+
+/// <summary>
 /// マップとプレイヤーやエネミーの当たり判定
 /// </summary>
 /// <param name="map">マップのインスタンス</param>
@@ -137,7 +236,7 @@ bool Colision::IsHitCircleWithRectangles(const VECTOR& rectPosition, const float
 /// <param name="w">オブジェクトの幅</param>
 /// <param name="h">オブジェクトの高さ</param>
 /// <returns>調節したベクトル</returns>
-VECTOR Colision::IsHitMapAdjustmentVector(const Map& map, VECTOR velocity, const VECTOR& position,const float w,const float h)
+VECTOR Colision::IsHitMapAdjustmentVector(const Map& map, VECTOR velocity, const VECTOR& position,const float width,const float height)
 {
     // サイズが最初から0なら動かさず早期return
     if (VSize(velocity) == 0)		//VSizeでベクトルのサイズをとっている0なら動いてないなのでここで返す
@@ -180,7 +279,7 @@ VECTOR Colision::IsHitMapAdjustmentVector(const Map& map, VECTOR velocity, const
                 else
                 {
                     //オブジェクトとマップの当たり判定をみる
-                    isHit =IsHitRectangles(futurePosition, w,h, mapChipPosition,Map::CHIP_SIZE,Map::CHIP_SIZE);
+                    isHit =IsHitRectangles(futurePosition, width,height, mapChipPosition,Map::CHIP_SIZE,Map::CHIP_SIZE);
                 }
 
                 // 初回に当たったとき

@@ -14,7 +14,7 @@ class BaseEnemy abstract :public GameObject
 {
 public:
 	//コンストラクタデストラクタ
-	BaseEnemy(EnemyInformation* enemyInformation);
+	BaseEnemy(EnemyInformation* enemyInformation, const int adjustRightLimit = 0);
 	virtual ~BaseEnemy();
 
     /// <summary>
@@ -45,20 +45,24 @@ public:
     void SetIsGround(const bool inIsGroound) { isGround = inIsGroound; }	//接地判定の設定
 	bool GetIsHitTop()const { return isHitTop; }		//頭上判定の取得
 	void SetIsHitTop(const bool inIsHitTop) { isHitTop = inIsHitTop; }	//頭上判定の設定
-    int GetLife()const { return life; }                 //体力の値を返す
-    int GetDamage()const { return damage; }             //ダメージの値を返す
+    int GetLife()const { return life; }                        //体力の値を返す
+    int GetDamage()const { return damage; }                    //ダメージの値を返す
+    const int GetType()const { return type; }                  //タイプを返す
+    const bool GetIsMoveStart()const { return isMoveStart; }   //移動を開始するかを返す
     
 
 
 
 protected:
-	bool moveStartFlag;	    //移動を開始させるフラグ
+    int  type;              //自身のタイプ
+	bool isMoveStart;	    //移動を開始させるフラグ
 	bool isGround;		    //接地しているか
 	bool isHitTop;		    //天井にぶつかっているか
 	int firstX;			    //初期X座標
     int life;               //体力
     int kind;               //自分の番号(エネミーかプレイヤーかを判断するための変数)
     int damage;             //敵に当たった時のダメージ
+    float adjustRightLimit; //スクリーンに入る際の調節用
 
 
 };

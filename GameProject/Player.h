@@ -28,7 +28,7 @@ public:
 	~Player();
 	//基本メソッド
 	void Initialize();								        //初期化
-	void Update(const Map& map, ShotManager& shotManager);	//更新
+	void Update(const Map& map, ShotManager& shotManage,const VECTOR cameraPositionr);	//更新
 	void Draw();								            //描画
 
 	/// <summary>

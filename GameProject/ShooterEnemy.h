@@ -8,8 +8,8 @@ class ShooterEnemy
 public:
     //getter,setter
     void SetRimitShotInterval(const int rimitShotInterval) { this->rimitShotInterval = rimitShotInterval; }
-    const bool GetIsAbleShot()const { return canShot; }
-    void SetIsAbleShot(const bool isAbleShot) { this->canShot = isAbleShot; }
+    const bool GetCanShot()const { return canShot; }
+    void SetCanShot(const bool isAbleShot) { this->canShot = isAbleShot; }
     //コンストラクタ
     ShooterEnemy();
     //デストラクタ

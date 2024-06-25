@@ -29,10 +29,12 @@ public:
     {
         EASY           = 0,
         ONE_WAY_SHOT   = 1,
-        FALLING_ATTACK = 2
+        FALLING_ATTACK = 2,
+        BOSS           = 3 
     };
     //getter,setter
     vector<BaseEnemy*> GetEnemy()const { return enemy; }
+    const bool GetIsBossActive()const { return isBossActive; }
 	EnemyManager();		//コンストラクタ
 	~EnemyManager();	//デストラクタ
     /// <summary>
@@ -54,4 +56,5 @@ public:
 
 private:
     vector<BaseEnemy*>        enemy;            //敵のインスタンスをまとめたもの
+    bool isBossActive;                          //ボスが動き出したかどうか
 };
