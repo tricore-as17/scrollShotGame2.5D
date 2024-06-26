@@ -15,8 +15,10 @@ Map::Map()
 {
 	//マップタイルと配置のcsvファイルの読み込み
 
-	tileGraph =LoadGraph("img/MapTile/Terrain (32x32).png");
-	LoadMapChip("Map/stage1.csv");
+	tileGraph =LoadGraph("img/MapTile/map32x32.png");
+    //当たり判定と描画用のマップデータをcsvファイルからそれぞれ読み込む
+	LoadMapChip("Map/Colision.csv",colisionMapData);
+    LoadMapChip("Map/Display.csv", drawMapData);
 }
 //デストラクタ
 Map::~Map()
@@ -24,11 +26,14 @@ Map::~Map()
 	//マップデータのメモリ解放
 	for (int i = 0; i < mapXNum; i++)
 	{
-		delete[] mapData[i];
+		delete[] colisionMapData[i];
+        delete[] drawMapData[i];
 	}
 	
 	//解放
 	sprites.clear();
+    colisionMapData = NULL;
+    drawMapData = NULL;
 }
 /// <summary>
 /// マップの位置の初期化
@@ -47,7 +52,7 @@ void Map::Initialize()
 		{
 			auto sprite = new WorldSprite();
 			//画像、チップのサイズ32,現在の配列データ
-			sprite->Initialize(tileGraph, CHIP_PIXEL_SIZE, mapData[yIndex][xIndex]);
+			sprite->Initialize(tileGraph, CHIP_PIXEL_SIZE, drawMapData[yIndex][xIndex]);
 
 			
 			VECTOR chipPosition = VAdd(VGet(xIndex * CHIP_SIZE, (-yIndex - 1) * CHIP_SIZE, 0), chipHalfOffset);	// 真ん中ピボットなのでマップチップ半分サイズずらす+地面なので一つ下に
@@ -86,7 +91,7 @@ void Map::Draw()
 /// csvファイルからマップチップのデータを読み込み
 /// </summary>
 /// <param name="mapCSVFileName">csvファイルネーム</param>
-void Map::LoadMapChip(const char* mapCSVFileName)
+void Map::LoadMapChip(const char* mapCSVFileName,int**&mapData)
 {
 	mapData = NULL;
 	mapXNum = 0;

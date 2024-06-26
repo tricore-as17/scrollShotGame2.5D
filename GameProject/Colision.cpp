@@ -248,7 +248,7 @@ VECTOR Colision::IsHitMapAdjustmentVector(const Map& map, VECTOR velocity, const
     int mapXNum = map.getMapXNum();
     int mapYNum = map.getMapYNum();
     //マップデータを持ってくる
-    int** mapData = map.getMapData();
+    int** mapData = map.GetColisionMapData();
     VECTOR mapLeftPosition = map.GetChipLeftPosition();
 
 
@@ -363,7 +363,7 @@ bool Colision::IsGround(const Map& map, const VECTOR& objectPosition,const float
     int mapXnum = map.getMapXNum();
     int mapYNum = map.getMapYNum();
     //マップデータを持ってくる
-    int** mapData = map.getMapData();
+    int** mapData = map.GetColisionMapData();
     VECTOR mapLeftPosition = map.GetChipLeftPosition();
 
 
@@ -429,7 +429,7 @@ bool Colision::IsTopHit(const Map& map, const VECTOR& objectPosition, const floa
     int mapXnum = map.getMapXNum();
     int mapYNum = map.getMapYNum();
     //マップデータを持ってくる
-    int** mapData = map.getMapData();
+    int** mapData = map.GetColisionMapData();
     VECTOR mapLeftPosition = map.GetChipLeftPosition();
 
     // 1ドット上にずらして当たっていれば天井にぶつかっている
