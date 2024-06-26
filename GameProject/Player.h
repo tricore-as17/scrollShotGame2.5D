@@ -53,38 +53,20 @@ public:
 	void SetIsGround(const bool inIsGround) { isGround = inIsGround; }		//接地判定の設定
     const int GetLife() const { return life; }                              //プレイヤーの体力を返す
 	
-	//アニメーションの状態の定数
-	static enum ANIME_STATE
-	{
-		//1から開始
-		IDLE = 1, MAGIC, RUN
-	};
+
 	//定数群
     static constexpr float PLAYER_FIRST_X = 13.2f;        //プレイヤーの初期X座標
     static constexpr float PLAYER_FIRST_Y = 4.8f;           //プレイヤーの初期Y座標
-	static constexpr float PLAYER_WIDTH = 0.725f;			//プレイヤー横サイズ
-	static constexpr float PLAYER_HEIGHT = 2.175f;			//プレイヤーの縦サイズ
-    static constexpr float ANIMETION_SPEED = 0.7f;      //プレイヤーのアニメーションの速度
+	static constexpr float PLAYER_WIDTH = 1.45f;			//プレイヤー横サイズ
+	static constexpr float PLAYER_HEIGHT = 1.45f;			//プレイヤーの縦サイズ
 	static constexpr float JUMP_POWER = 0.35f;			//キャラのジャンプ力
-	static constexpr int ANIME_STATE_SUM = 4;			//合計アニメーションの数
 	static const MATRIX SCALE_MATRIX;					//キャラの拡大率を設定するための行列
     static constexpr int INITIALIZE_LIFE = 5;                 //ゲーム開始時の体力
     static constexpr int INVINCIBLE_TIME = 50;          //無敵時間の長さ
     static constexpr int INTERVAL_RIMIT = 50;           //弾を撃てるようになるまでの間隔
 
 private:
-
-	//アニメーションフラグを全てリセット
-	void ResetAnimeFlag();
-	//アニメションのセット
-	void AnimeSet(int setState);
     int modelHandle;					//キャラのモデルハンドル
-	int attachIndex;					//アニメーションアタッチ用インデックス
-	float totalAnimeTime;				//アニメーションのトータル再生時間
-	float playTime;						//アニメーションの現在の再生時間
-	bool animeState[ANIME_STATE_SUM];	//アニメーションの状態
-	
-
 	VECTOR velocity;					//移動量
 	VECTOR keepVelocity;				//プレイヤーの移動量の保存用
 	VECTOR rotaVector;					//回転率を保存するためのベクトル
@@ -99,7 +81,7 @@ private:
     bool canShotFlag;                   //弾を撃つ準備が出来たか確認フラグ
 
 	//静的定数
-	static constexpr float SCALE = 0.01f;	//プレイヤーの大きさ
+	static constexpr float SCALE = 0.012f;	//プレイヤーの大きさ
 	static const float SPEED;				//プレイヤーの速度
     static constexpr int SHOT_DAMAGE = 1;   //弾のダメージ
 

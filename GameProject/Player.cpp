@@ -21,13 +21,9 @@ Player::Player():isHitTop(false),isGround(false),rotaModelY(-90.0f)
 	position = VGet(0, 0, 0);
 	direction = VGet(0, 0, 1);
 	fallSpeed = 0;
-	playTime = 0.0f;
 	//モデルハンドルに代入
-	modelHandle = MV1LoadModel("mv1/Player/playerModel.mv1");
-	//3Dモデルの1番目のアニメーションをアタッチする
-	attachIndex = MV1AttachAnim(modelHandle, IDLE, -1, FALSE);
-	//アタッチしたアニメションの総再生時間を取得
-	totalAnimeTime = MV1GetAttachAnimTotalTime(modelHandle, attachIndex);
+	modelHandle = MV1LoadModel("mv1/Player/slime.mv1");
+
 	//回転率の初期設定(左向きにさせる)
 	rotaVector= VGet(20.0f, rotaModelY, 0.0f);
 
@@ -56,16 +52,7 @@ void Player::Initialize()
     shotIntervalCount = 0;      //ショットの弾を撃つ間隔をカウント
 	//回転率の初期設定(左向きにさせる)
 	rotaVector = VGet(20.0f, rotaModelY, 0.0f);
-	//アニメーション関連の初期化
-	playTime = 0.0f;
-	for (int i = 0; i < ANIME_STATE_SUM; i++)
-	{
-		if (i == IDLE)
-		{
-			animeState[i] = true;
-		}
-		animeState[i] = false;
-	}
+
 
 }
 
@@ -104,7 +91,7 @@ void Player::Update(const Map &map, ShotManager& shotManager,const VECTOR camera
 
 	// HACK: 先に設定判定をすることでfallSpeed修正＋接地フラグ更新
 	isGround = Colision::IsGround(map,position,PLAYER_WIDTH,PLAYER_HEIGHT,fallSpeed);
-    isHitTop = Colision::IsTopHit(map, position, PLAYER_WIDTH, PLAYER_HEIGHT, fallSpeed);
+    isHitTop = Colision::IsTopHit(map, position, PLAYER_WIDTH, PLAYER_HEIGHT, fallSpeed,isHitTop);
 
 
 
@@ -150,26 +137,7 @@ void Player::Update(const Map &map, ShotManager& shotManager,const VECTOR camera
 	MV1SetMatrix(modelHandle, modelMatrix);
 
 
-	//アニメーションの更新
-	//左右どちらかに動いていたら走りのアニメーションを有効にする
-	if (velocity.x != 0.0f)
-	{
-		AnimeSet(RUN);
-	}
-	//動いていないので待機アニメーションを有効にする
-	else
-	{
-		AnimeSet(IDLE);
-	}
 
-	//アニメーションカウントの更新(１回の再生時間を超えたらリセット)
-	playTime += ANIMETION_SPEED;
-	if (playTime >= totalAnimeTime)
-	{
-		playTime = 0.0f;
-	}
-	//再生時間のセット
-	MV1SetAttachAnimTime(modelHandle, attachIndex, playTime);
 
     //ショットに引数として渡す用の方向変数の宣言
     VECTOR shotDirction;
@@ -222,37 +190,9 @@ void Player::Draw()
 
 }
 
-/// <summary>
-/// アニメーションフラグを全てfalseに
-/// </summary>
-void Player::ResetAnimeFlag()
-{
-	for (int i = 0; i < ANIME_STATE_SUM; i++)
-	{
-		animeState[i] = false;
-	}
-}
 
-/// <summary>
-/// アニメーションのセット
-/// </summary>
-/// <param name="setState">セットするステート</param>
-void Player::AnimeSet(int setState)
-{
-	//現在そのアニメーションが再生されていなければセット
-	if (animeState[setState]!= true)
-	{
-		MV1DetachAnim(modelHandle, attachIndex);
-		//3Dモデルの1番目のアニメーションをアタッチする
-		attachIndex = MV1AttachAnim(modelHandle, setState, -1, FALSE);
-		//アタッチしたアニメションの総再生時間を取得
-		totalAnimeTime = MV1GetAttachAnimTotalTime(modelHandle, attachIndex);
-		playTime = 0.0f;
-		//一度アニメーションフラグをリセット
-		ResetAnimeFlag();
-		animeState[setState] = true;
-	}
-}
+
+
 
 /// <summary>
 /// プレイヤーモデルの座標移動、拡大、YXZの順で回転させる

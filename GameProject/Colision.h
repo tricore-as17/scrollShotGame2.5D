@@ -82,8 +82,9 @@ public:
     /// <param name="objectW">オブジェクトの幅</param>
     /// <param name="objectH">オブジェクトの高さ</param>
     /// <param name="fallSpeed">オブジェクトの落下速度</param>
+    /// <param name="isHitTop">頭上に当たっているか</param>
     /// <returns>当たっているか</returns>
-    static bool IsTopHit(const Map& map, const VECTOR& objectPosition, const float objectW, const float objectH, float& fallSpeed);
+    static bool IsTopHit(const Map& map, const VECTOR& objectPosition, const float objectW, const float objectH, float& fallSpeed, const bool m_isHitTop);
 
     /// <summary>
     /// 二点間の距離を2乗した値を計算

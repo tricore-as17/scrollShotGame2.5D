@@ -50,7 +50,7 @@ void BaseEnemy::Move(const Map& map,const float& speed)
     // HACK: 先に設定判定をすることでfallSpeed修正＋接地フラグ更新
 
     Colision::IsGround(map,position,width,height,fallSpeed);
-    Colision::IsTopHit(map, position,width,height,fallSpeed);
+    Colision::IsTopHit(map, position,width,height,fallSpeed,isHitTop);
 
 
     // 落下速度を移動量に加える

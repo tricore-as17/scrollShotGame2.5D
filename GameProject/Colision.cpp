@@ -415,12 +415,13 @@ bool Colision::IsGround(const Map& map, const VECTOR& objectPosition,const float
 /// 天井に頭がぶつかっているか
 /// </summary>
 /// <param name="map">マップのインスタンス</param>
-/// <param name="objectposition">調べるオブジェクトの座標</param>
+/// <param name="objectPosition">調べるオブジェクトの座標</param>
 /// <param name="objectW">オブジェクトの幅</param>
 /// <param name="objectH">オブジェクトの高さ</param>
 /// <param name="fallSpeed">オブジェクトの落下速度</param>
+/// <param name="isHitTop">頭上に当たっているか</param>
 /// <returns>当たっているか</returns>
-bool Colision::IsTopHit(const Map& map, const VECTOR& objectPosition, const float objectW, const float objectH, float& fallSpeed)
+bool Colision::IsTopHit(const Map& map, const VECTOR& objectPosition, const float objectW, const float objectH, float& fallSpeed,const bool m_isHitTop)
 {
     //天井への接触判定用フラグ
     bool isTopHit = false;
@@ -463,10 +464,14 @@ bool Colision::IsTopHit(const Map& map, const VECTOR& objectPosition, const floa
     }
     if (isHit)
     {
-        //接地判定をtrueに
-        isTopHit = true;
-        // fallSpeedをゼロにし、急激な落下を防ぐ
-        fallSpeed = 0.0f;
+        if (!m_isHitTop)
+        {
+            //接地判定をtrueに
+            isTopHit = true;
+            // fallSpeedをゼロにし、急激な落下を防ぐ
+            fallSpeed = 0.0f;
+
+        }
     }
     else
     {
