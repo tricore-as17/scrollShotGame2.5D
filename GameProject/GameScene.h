@@ -10,6 +10,7 @@ class ShotManager;
 class InputManager;
 class BackGround;
 class GameSceneUI;
+class BackGround;
 
 /// <summary>
 /// ゲームシーン
@@ -38,9 +39,8 @@ private:
     EnemyManager* enemyManager;   //エネミーマネージャー
     ShotManager*  shotManager;    //ショットマネージャー
     GameSceneUI*  gameSceneUI;    //ゲームシーンのUI
+    BackGround*   backGround;     //背景
 
-    //メンバ変数
-    int backGroundModel;          //背景用のスカイドームのモデル
     
 
 };
