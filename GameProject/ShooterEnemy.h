@@ -23,7 +23,7 @@ public:
 private:
     //メンバ変数
     int  countShotInterval;              //ショットを撃った後の待ち時間のカウント用
-    bool canShot;                     //弾を撃てるようになっているか
+    bool canShot;                        //弾を撃てるようになっているか
     int rimitShotInterval;
 
 };

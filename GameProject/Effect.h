@@ -6,7 +6,7 @@ class Player;
 class Effect
 {
 public:
-	//コンストラクタ・デストラクタ
+    //コンストラクタ・デストラクタ
 	Effect(const char* fileName);
 	virtual ~Effect();
 	//ゲッター

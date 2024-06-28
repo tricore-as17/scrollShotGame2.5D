@@ -28,8 +28,8 @@ public:
 	const VECTOR& Getposition()const { return position; }
 
 private:
-	int			textureGraph;	// スプライトを作成する元テクスチャのグラフィックハンドル
-	VECTOR		position;			// 描画ポジション
-	VERTEX3D	Vertex[4];		// 頂点バッファ
-	WORD		Index[6];		// インデックスバッファ
+	int       textureGraph;  //スプライトを作成する元テクスチャのグラフィックハンドル
+	VECTOR    position;      //描画ポジション
+	VERTEX3D  Vertex[4];     //頂点バッファ
+	WORD      Index[6];      //インデックスバッファ
 };
