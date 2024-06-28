@@ -424,7 +424,7 @@ bool Colision::IsGround(const Map& map, const VECTOR& objectPosition,const float
 bool Colision::IsTopHit(const Map& map, const VECTOR& objectPosition, const float objectW, const float objectH, float& fallSpeed,const bool isHitTopViewOnly)
 {
     //天井への接触判定用フラグ
-    bool isTopHit = false;
+    bool isHitTop = false;
     //横と縦のマップチップの数を持ってくる
     int mapXnum = map.getMapXNum();
     int mapYNum = map.getMapYNum();
@@ -467,7 +467,7 @@ bool Colision::IsTopHit(const Map& map, const VECTOR& objectPosition, const floa
         if (!isHitTopViewOnly)
         {
             //接地判定をtrueに
-            isTopHit = true;
+            isHitTop = true;
             // fallSpeedをゼロにし、急激な落下を防ぐ
             fallSpeed = 0.0f;
 
@@ -475,9 +475,9 @@ bool Colision::IsTopHit(const Map& map, const VECTOR& objectPosition, const floa
     }
     else
     {
-        isTopHit = false;
+        isHitTop = false;
     }
-    return isTopHit;
+    return isHitTop;
 }
 
 /// <summary>
