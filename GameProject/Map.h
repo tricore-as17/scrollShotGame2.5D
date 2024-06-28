@@ -41,23 +41,23 @@ public:
 
 
 	//定数群
-	static constexpr int CHIP_PIXEL_SIZE = 32;		//マップチップ一つのサイズ
-	static constexpr float CHIP_SIZE = 0.725f;		//ワールド座標での32ピクセルのサイズ
-	static const float ONE_PIXEL_SIZE;				//ワールド座標での1ピクセルのサイズ
-	static constexpr int TILE_DIV_W = 26;			//マップタイルの横方向分割数
-	static constexpr int TILE_DIV_H = 30;			//マップタイルの縦方向分割数
+    static constexpr int CHIP_PIXEL_SIZE = 32;		//マップチップ一つのサイズ
+    static constexpr float CHIP_SIZE = 0.725f;		//ワールド座標での32ピクセルのサイズ
+    static const float ONE_PIXEL_SIZE;				//ワールド座標での1ピクセルのサイズ
+    static constexpr int TILE_DIV_W = 26;			//マップタイルの横方向分割数
+    static constexpr int TILE_DIV_H = 30;			//マップタイルの縦方向分割数
     static constexpr int BLANK_CHIP_NUMBER = 452;    //マップタイルの中の空白になっている番号
     static const VECTOR CHIP_HALF_OFFSET;             //マップチップを左下に下げるためのベクトル
 
 
 private:
-	int tileGraph = -1;								//マップチップデータの画像
-	int** colisionMapData;							//当たり判定のマップデータ(CSVで管理)
+    int tileGraph = -1;								//マップチップデータの画像
+    int** colisionMapData;							//当たり判定のマップデータ(CSVで管理)
     int** drawMapData;                              //描画用のマップデータ
-	int mapXNum;									//横方向のマップチップの数
-	int mapYNum;									//縦方向のマップチップの数
-	VECTOR chipLeftTopPosition;						//ワールドスプライトの左上座標
-	vector<WorldSprite*> sprites;					//ワールドスプライトのインスタンス
-
+    int mapXNum;									//横方向のマップチップの数
+    int mapYNum;									//縦方向のマップチップの数
+    VECTOR chipLeftTopPosition;						//ワールドスプライトの左上座標
+    vector<WorldSprite*> sprites;					//ワールドスプライトのインスタンス
+    
 
 };
