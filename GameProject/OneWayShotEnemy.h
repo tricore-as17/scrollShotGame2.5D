@@ -31,6 +31,7 @@ public:
     static constexpr int CHIP_SIZE = 44;            //チップサイズ
     static constexpr int ANIMETION_NUM = 3;         //アニメーションの種類
     static constexpr int DRAW_SIZE = 70;            //描画する時のサイズ
+    static constexpr int SHOT_ANIMETION_MOMENT = 4; //アニメーションの中で実際に撃っている瞬間の画像番号
     //分割数
     static constexpr int IDLE_SPLIT_NUM   = 11;     //待機 
     static constexpr int ATTACK_SPLIT_NUM = 8;      //攻撃

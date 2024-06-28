@@ -46,6 +46,22 @@ public:
     /// </summary>
     void UpdateAnimetion();
 
+    ///// <summary>
+    /// 弾が当たった際のアニメーション切り替え処理
+    /// </summary>
+    /// <param name="hitAnimetionState">ヒット時のアニメーションの添え字</param>
+    /// <param name="shotManager">ショット管理クラス</param>
+    void ChangeHitAnimetion(const int hitAnimetionState, const ShotManager& shotManager);
+
+    /// <summary>
+    /// ヒット時のアニメーションの更新
+    /// </summary>
+    /// <param name="hitAnimetionState">ヒット時のアニメーションの添え字</param>
+    /// <param name="roopAnimetionState">ループアニメーションの添え字</param>
+    virtual void HitAnimetion(const int hitAnimetionState, const int roopAnimetionState);
+
+
+
 	//ゲッターセッター
 	bool GetIsGround()const { return isGround; }		//接地判定の取得
     void SetIsGround(const bool inIsGroound) { isGround = inIsGroound; }	//接地判定の設定
@@ -55,6 +71,7 @@ public:
     int GetDamage()const { return damage; }                    //ダメージの値を返す
     const int GetType()const { return type; }                  //タイプを返す
     const bool GetIsMoveStart()const { return isMoveStart; }   //移動を開始するかを返す
+    const bool GetIsDead()const { return isDead; }             //撃破されたかを返す
     
 
 
@@ -73,9 +90,12 @@ protected:
     float chipSize;           //画像のチップサイズ
     float imageRotationRate;  //画像の回転率  
     int *animetionCouut;     //アニメーションカウント
-    int *animetionCountLimit;//アニメーションの
-    int animetionState;     //現在のアニメーションの状態
+    int *animetionCountLimit;//アニメーションの上限値
+    bool *isRoopAnimetion;   //ループするアニメーション判断
+    bool *isEndAnimetion;    //ループしないアニメーションの再生が終了したフラグ
+    int animetionState;      //現在のアニメーションの状態
     int animetionSpeed;      //アニメーションを切り替えるスピード
-
+    bool isTurn;             //ターンするかのフラグ
+    bool isDead;            //撃破フラグ
 };
 

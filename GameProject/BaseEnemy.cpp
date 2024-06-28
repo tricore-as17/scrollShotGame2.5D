@@ -1,5 +1,6 @@
 ﻿#include"BaseEnemy.h"
 #include"EnemyInformation.h"
+#include"ShotManager.h"
 #include"Colision.h"
 #include"Utility.h"
 #include"Map.h"
@@ -11,6 +12,8 @@ BaseEnemy::BaseEnemy(EnemyInformation* enemyInformation, int adjustRightLimit )
     :isMoveStart(false)
     , adjustRightLimit(adjustRightLimit)
     ,kind(Utility::KIND_ENEMY)
+    ,isDead(false)
+    ,isTurn(false)
 {
     //エネミーのタイプを判断
     type = enemyInformation->type;
@@ -102,7 +105,22 @@ void BaseEnemy::Draw()
     if (animetionCouut!=NULL && image[animetionState] != NULL && image!=NULL)
     {
         //描画
-        DrawBillboard3D(position, 0.5f, 0.5f, chipSize, imageRotationRate, image[animetionState][animetionCouut[animetionState] / animetionSpeed], TRUE);
+        DrawBillboard3D(position, 0.5f, 0.5f, chipSize, imageRotationRate, image[animetionState][animetionCouut[animetionState] / animetionSpeed], TRUE,isTurn);
+    }
+}
+/// <summary>
+/// 弾が当たった際のアニメーション切り替え処理
+/// </summary>
+/// <param name="hitAnimetionState">ヒット時のアニメーションの添え字</param>
+/// <param name="shotManager">ショット管理クラス</param>
+void BaseEnemy::ChangeHitAnimetion(const int hitAnimetionState,const ShotManager& shotManager)
+{
+    bool isHit = false;
+    //弾と当たっているかを判定して体力などを減らす処理
+    isHit = Colision::ColisionShot(shotManager.GetShot(), position, width, height, life, kind);
+    if (isHit)
+    {
+        animetionState = hitAnimetionState;
     }
 }
 
@@ -112,17 +130,51 @@ void BaseEnemy::Draw()
 void BaseEnemy::UpdateAnimetion()
 {
     //NULLチェック
-    if (animetionCountLimit!=NULL && animetionCouut != NULL)
+    if (animetionCountLimit!=NULL && animetionCouut != NULL && isRoopAnimetion != NULL && isEndAnimetion != NULL)
     {
         //アニメーションのカウントを進める
         animetionCouut[animetionState]++;
-        if (animetionCouut[animetionState] >= animetionCountLimit[animetionState])
+        //ループアニメーションの処理
+        if (animetionCouut[animetionState] >= animetionCountLimit[animetionState] && isRoopAnimetion[animetionState])
         {
             animetionCouut[animetionState] = 0;
+        }
+        //ループしないアニメーションの処理
+        else if (animetionCouut[animetionState] >= animetionCountLimit[animetionState] && !isRoopAnimetion[animetionState])
+        {
+            animetionCouut[animetionState] = 0;
+            isEndAnimetion[animetionState] = true;
         }
     }
 
 }
+
+/// <summary>
+/// ヒット時のアニメーションの更新
+/// </summary>
+/// <param name="hitAnimetionState">ヒット時のアニメーションの添え字</param>
+/// <param name="roopAnimetionState">ループアニメーションの添え字</param>
+void BaseEnemy::HitAnimetion(const int hitAnimetionState, const int roopAnimetionState)
+{
+    //被弾時のアニメーションが終了した際の処理
+    if (isEndAnimetion[hitAnimetionState])
+    {
+        //体力が0になっていれば撃破フラグをたてる
+        if (life <= 0)
+        {
+            isDead = true;
+        }
+        //体力が余っていればアニメーションを変更
+        else
+        {
+            animetionState = roopAnimetionState;
+            animetionCouut[hitAnimetionState] = 0;
+            isEndAnimetion[hitAnimetionState] = false;
+        }
+    }
+}
+
+
 
 
 

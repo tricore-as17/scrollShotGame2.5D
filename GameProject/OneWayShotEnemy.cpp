@@ -33,6 +33,8 @@ OneWayShotEnemy::OneWayShotEnemy(EnemyInformation* enemyInformation) : BaseEnemy
     image[HIT]          = new int  [HIT_SPLIT_NUM];
     animetionCouut      = new int  [ANIMETION_NUM];
     animetionCountLimit = new int  [ANIMETION_NUM];
+    isRoopAnimetion     = new bool [ANIMETION_NUM];
+    isEndAnimetion      = new bool [ANIMETION_NUM];
     //アニメーション関連の初期化
     animetionSpeed = 7;
     animetionState = IDLE;
@@ -42,21 +44,21 @@ OneWayShotEnemy::OneWayShotEnemy(EnemyInformation* enemyInformation) : BaseEnemy
     animetionCountLimit[IDLE]   = IDLE_SPLIT_NUM   * animetionSpeed;
     animetionCountLimit[ATTACK] = ATTACK_SPLIT_NUM * animetionSpeed;
     animetionCountLimit[HIT]    = HIT_SPLIT_NUM    * animetionSpeed;
+    //ループするアニメーションかどうかを入力
+    isRoopAnimetion[IDLE]   = true;
+    isRoopAnimetion[ATTACK] = false;
+    isRoopAnimetion[HIT]    = false;
     chipSize = Map::ONE_PIXEL_SIZE * 70;
     for (int i = 0; i < ANIMETION_NUM; i++)
     {
         animetionCouut[i] = 0;
+        isEndAnimetion[i] = false;
     }
 
     //画像の読み込み
     LoadDivGraph("img/Enemy/shot/Idle (44x44).png", IDLE_SPLIT_NUM, IDLE_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[IDLE]);
     LoadDivGraph("img/Enemy/shot/Attack (44x44).png", ATTACK_SPLIT_NUM, ATTACK_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[ATTACK]);
     LoadDivGraph("img/Enemy/shot/Hit (44x44).png", HIT_SPLIT_NUM, HIT_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[HIT]);
-
-
-
-
-    
 
 }
 
@@ -80,18 +82,39 @@ void OneWayShotEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotM
     isMoveStart = CanStartMove(cameraPosition);
 
     //画面内に入ったフラグが立っていれば撃つ
-    if (isMoveStart)
+    if (isMoveStart && life > 0)
     {
         //前撃ってから一定の間隔が経っていれば撃つ
         shooterEnemy->CountShotInterval();
         if (shooterEnemy->GetCanShot())
         {
-            shotManager.CreateShot(position, VGet(dirctionX, dirctionY, 0), LEFT_ENEMY_SHOT, damage,kind);
-            shooterEnemy->SetCanShot(false);
+            //アニメーションの状態を撃っているように
+            animetionState = ATTACK;
         }
     }
-    //弾と当たっているかを判定して体力などを減らす処理
-    Colision::ColisionShot(shotManager.GetShot(), position, width, height, life, kind);
+
+    //ヒット時のアニメーション切り替え処理
+    ChangeHitAnimetion(HIT, shotManager);
     //アニメーションの更新
     UpdateAnimetion();
+
+    //ヒット時の処理
+    HitAnimetion(HIT, IDLE);
+
+    //アニメーションが撃つタイミングになった瞬間
+    //アニメーションの中間に撃っているモーションが入っているためここで調節している
+    if (animetionCouut[ATTACK] ==  SHOT_ANIMETION_MOMENT * animetionSpeed)
+    {
+        shotManager.CreateShot(position, VGet(dirctionX, dirctionY, 0), LEFT_ENEMY_SHOT, damage, kind);
+        shooterEnemy->SetCanShot(false);
+    }
+
+    //攻撃アニメーションが終了した際の処理
+    //アニメーションを待機に戻してATTACkで使っていたものを初期化
+    if (isEndAnimetion[ATTACK])
+    {
+        animetionState = IDLE;
+        animetionCouut[ATTACK] = 0;
+        isEndAnimetion[ATTACK] = false;
+    }
 }

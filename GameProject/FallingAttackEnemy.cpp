@@ -29,6 +29,8 @@ FallingAttackEnemy::FallingAttackEnemy(EnemyInformation* enemyInformation)
     image[HIT]          = new int  [HIT_SPLIT_NUM];
     animetionCouut      = new int  [ANIMETION_NUM];
     animetionCountLimit = new int  [ANIMETION_NUM];
+    isRoopAnimetion     = new bool [ANIMETION_NUM];
+    isEndAnimetion      = new bool [ANIMETION_NUM];
     //アニメーション関連の初期化
     animetionSpeed = 7;
     animetionState = FLY;
@@ -36,10 +38,13 @@ FallingAttackEnemy::FallingAttackEnemy(EnemyInformation* enemyInformation)
     //アニメーションカウントの限界値の設定
     animetionCountLimit[FLY] = FLY_SPLIT_NUM * animetionSpeed;
     animetionCountLimit[HIT] = HIT_SPLIT_NUM * animetionSpeed;
+    isRoopAnimetion[FLY] = true;
+    isRoopAnimetion[HIT] = false;
     chipSize = Map::CHIP_SIZE * 2;
     for (int i = 0; i < ANIMETION_NUM; i++)
     {
         animetionCouut[i] = 0;
+        isEndAnimetion[i] = false;
     }
 
     //画像の読み込み
@@ -72,7 +77,7 @@ void FallingAttackEnemy::Update(const Map& map, const VECTOR& cameraPosition, Sh
         isMoveStart = CanStartMove(cameraPosition);
     }
     //一度画面内に入ったら動き続ける
-    if (isMoveStart)
+    if (isMoveStart && animetionState == FLY)
     {
         //0.0fの処理は最初だけ行う
         if (endCount == 0.0f)
@@ -96,10 +101,13 @@ void FallingAttackEnemy::Update(const Map& map, const VECTOR& cameraPosition, Sh
         }
     }
 
+    //被弾時のアニメーションの変更処理
+    ChangeHitAnimetion(HIT, shotManager);
+
     //アニメーションの更新処理
     UpdateAnimetion();
 
-    //弾と当たっているかを判定して体力などを減らす処理
-    Colision::ColisionShot(shotManager.GetShot(), position, width, height, life, kind);
+    //ヒット時の処理
+    HitAnimetion(HIT, FLY);
 
 }

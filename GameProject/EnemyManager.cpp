@@ -86,10 +86,10 @@ void EnemyManager::Update(const Map& map, const VECTOR& cameraPosition, ShotMana
         }
     }
 
-    //体力が0になったら削除する
+    //撃破フラグが立っているエネミーを削除する
     for (auto it = enemy.begin(); it != enemy.end();)
     {
-        if ((*it)->GetLife() <= 0)
+        if ((*it)->GetIsDead())
         {
             it = enemy.erase(it);
         }
