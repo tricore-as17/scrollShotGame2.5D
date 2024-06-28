@@ -60,6 +60,13 @@ public:
     /// <param name="setSpeed">代入するスピード</param>
     static float CalculationSpeed(const float setSpeed);
 
+    /// <summary>
+    /// 角度をもらってラジアンに変換する
+    /// </summary>
+    /// <param name="rotationRate">角度</param>
+    /// <returns>変換した値</returns>
+    static float ConversionRadian(const float rotationRate);
+
 	//更新処理
 	void Update();
 private:

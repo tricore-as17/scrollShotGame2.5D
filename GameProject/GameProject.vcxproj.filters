@@ -132,9 +132,6 @@
     <ClCompile Include="OneWayShotEnemy.cpp">
       <Filter>ソース ファイル\Enemy\Sub</Filter>
     </ClCompile>
-    <ClCompile Include="FallingAttackEnemy.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="BlinkingDrawString.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -149,6 +146,9 @@
     </ClCompile>
     <ClCompile Include="BackGround.cpp">
       <Filter>ソース ファイル\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="FallingAttackEnemy.cpp">
+      <Filter>ソース ファイル\Enemy\Sub</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -224,9 +224,6 @@
     <ClInclude Include="OneWayShotEnemy.h">
       <Filter>ソース ファイル\Enemy\Sub</Filter>
     </ClInclude>
-    <ClInclude Include="FallingAttackEnemy.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="BlinkingDrawString.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -241,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="BackGround.h">
       <Filter>ソース ファイル\BG</Filter>
+    </ClInclude>
+    <ClInclude Include="FallingAttackEnemy.h">
+      <Filter>ソース ファイル\Enemy\Sub</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

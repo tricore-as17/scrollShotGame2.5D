@@ -28,6 +28,16 @@ public:
         SHOOT     = 1,
         JUMP      = 2
     };
+    /// <summary>
+    /// アニメーションの状態
+    /// </summary>
+    enum ANIMETION_STATE
+    {
+        START  = 0,
+        RUN    = 1,
+        ATTACK = 2,
+        DEAD   = 3,
+    };
     //コンストラクタ
     BossEnemy(EnemyInformation* enemyInformation);
     //デストラクタ
@@ -84,6 +94,16 @@ private:
     static constexpr float JUMP_COUNT_SPEED = 0.016f;   //ジャンプした際に1フレームですすむカウント
     static const float SPEED;                           //通常移動のスピード
     static const float REFERENCE_DISTANCE;
+
+    //アニメーション関連
+    static constexpr int CHIP_SIZE = 96;          //チップの大きさ
+    static constexpr int ANIMETION_NUM = 4;       //アニメーションの種類
+    static constexpr int DRAW_SIZE = 240;
+    //分割数
+    static constexpr int START_SPLIT_NUM  = 6;       //登場時
+    static constexpr int RUN_SPLIT_NUM    = 8;       //走り
+    static constexpr int ATTACK_SPLIT_NUM = 9;       //攻撃
+    static constexpr int DEAD_SPLIT_NUM   = 6;       //撃破時
     //メンバ変数
     bool isInAction;             //ボスが何かしらの行動中か
 

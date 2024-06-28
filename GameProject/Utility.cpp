@@ -59,6 +59,16 @@ float Utility::CalculationSpeed(const float setSpeed)
 }
 
 /// <summary>
+/// 角度をもらってラジアンに変換する
+/// </summary>
+/// <param name="rotationRate">角度</param>
+/// <returns>変換した値</returns>
+float Utility::ConversionRadian(const float rotationRate)
+{
+    return rotationRate * (DX_PI_F / 180);
+}
+
+/// <summary>
 /// カウントなどの更新処理
 /// </summary>
 void Utility::Update()

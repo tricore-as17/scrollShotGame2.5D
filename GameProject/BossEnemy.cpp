@@ -3,6 +3,7 @@
 #include"Utility.h"
 #include"Colision.h"
 #include"ShooterEnemy.h"
+#include"Map.h"
 #include"ShotManager.h"
 
 //スピードの計算
@@ -44,6 +45,36 @@ BossEnemy::BossEnemy(EnemyInformation* enemyInformation)
     //ここでセッターを使う形にしてしまいました。
     //時間があれば修正します。
     shooterEnemy->SetRimitShotInterval(SHOT_INTERVAL_RIMIT);
+
+    //アニメーションの種類と種類ごとの分割数で確保する
+    image               = new int* [ANIMETION_NUM];
+    image[START]        = new int  [START_SPLIT_NUM];
+    image[RUN]          = new int  [RUN_SPLIT_NUM];
+    image[ATTACK]       = new int  [ATTACK_SPLIT_NUM];
+    image[DEAD]         = new int  [DEAD_SPLIT_NUM];
+    animetionCouut      = new int  [ANIMETION_NUM];
+    animetionCountLimit = new int  [ANIMETION_NUM];
+    //アニメーション関連の初期化
+    animetionSpeed = 7;
+    animetionState = START;
+    imageRotationRate = 0;
+    //アニメーションカウントの限界値の設定
+    animetionCountLimit[START] = START_SPLIT_NUM * animetionSpeed;
+    animetionCountLimit[RUN] = RUN_SPLIT_NUM * animetionSpeed;
+    chipSize = Map::ONE_PIXEL_SIZE * DRAW_SIZE;
+    for (int i = 0; i < ANIMETION_NUM; i++)
+    {
+        animetionCouut[i] = 0;
+    }
+
+
+    //画像の読み込み
+    LoadDivGraph("img/Enemy/boss/start.png", START_SPLIT_NUM, START_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[START]);
+    LoadDivGraph("img/Enemy/boss/Run.png", RUN_SPLIT_NUM, RUN_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[RUN]);
+    LoadDivGraph("img/Enemy/boss/Attack.png", ATTACK_SPLIT_NUM, ATTACK_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[ATTACK]);
+    LoadDivGraph("img/Enemy/boss/dead.png", DEAD_SPLIT_NUM, DEAD_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[DEAD]);
+
+
 }
 
 /// <summary>
@@ -106,6 +137,8 @@ void BossEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotManager
 
     }
 
+        //アニメーションの更新
+        UpdateAnimetion();
 
 }
 

@@ -26,6 +26,38 @@ OneWayShotEnemy::OneWayShotEnemy(EnemyInformation* enemyInformation) : BaseEnemy
     dirctionY = enemyInformation->shotDirectionY;
     //インターバルをセット
     shooterEnemy->SetRimitShotInterval(SHOT_INTERVAL_RIMIT);
+    //アニメーションの種類と種類ごとの分割数で確保する
+    image               = new int* [ANIMETION_NUM];
+    image[IDLE]         = new int  [IDLE_SPLIT_NUM];
+    image[ATTACK]       = new int  [ATTACK_SPLIT_NUM];
+    image[HIT]          = new int  [HIT_SPLIT_NUM];
+    animetionCouut      = new int  [ANIMETION_NUM];
+    animetionCountLimit = new int  [ANIMETION_NUM];
+    //アニメーション関連の初期化
+    animetionSpeed = 7;
+    animetionState = IDLE;
+    //角度をラジアンに変換して代入
+    imageRotationRate = Utility::ConversionRadian(enemyInformation->imageRotationRate);
+    //アニメーションカウントの限界値の設定
+    animetionCountLimit[IDLE]   = IDLE_SPLIT_NUM   * animetionSpeed;
+    animetionCountLimit[ATTACK] = ATTACK_SPLIT_NUM * animetionSpeed;
+    animetionCountLimit[HIT]    = HIT_SPLIT_NUM    * animetionSpeed;
+    chipSize = Map::ONE_PIXEL_SIZE * 70;
+    for (int i = 0; i < ANIMETION_NUM; i++)
+    {
+        animetionCouut[i] = 0;
+    }
+
+    //画像の読み込み
+    LoadDivGraph("img/Enemy/shot/Idle (44x44).png", IDLE_SPLIT_NUM, IDLE_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[IDLE]);
+    LoadDivGraph("img/Enemy/shot/Attack (44x44).png", ATTACK_SPLIT_NUM, ATTACK_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[ATTACK]);
+    LoadDivGraph("img/Enemy/shot/Hit (44x44).png", HIT_SPLIT_NUM, HIT_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[HIT]);
+
+
+
+
+    
+
 }
 
 /// <summary>
@@ -60,4 +92,6 @@ void OneWayShotEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotM
     }
     //弾と当たっているかを判定して体力などを減らす処理
     Colision::ColisionShot(shotManager.GetShot(), position, width, height, life, kind);
+    //アニメーションの更新
+    UpdateAnimetion();
 }

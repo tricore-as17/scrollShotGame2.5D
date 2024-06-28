@@ -40,6 +40,12 @@ public:
     /// <param name="cameraPosition">カメラのポジション</param>
     /// <returns>入っていたら(true)入ってなかったら(false)</returns>
     virtual bool CanStartMove(const VECTOR& cameraPosition);
+
+    /// <summary>
+    /// アニメーションの更新処理
+    /// </summary>
+    void UpdateAnimetion();
+
 	//ゲッターセッター
 	bool GetIsGround()const { return isGround; }		//接地判定の取得
     void SetIsGround(const bool inIsGroound) { isGround = inIsGroound; }	//接地判定の設定
@@ -63,7 +69,13 @@ protected:
     int kind;               //自分の番号(エネミーかプレイヤーかを判断するための変数)
     int damage;             //敵に当たった時のダメージ
     float adjustRightLimit; //スクリーンに入る際の調節用
-
+    int** image;            //画像ハンドル
+    float chipSize;           //画像のチップサイズ
+    float imageRotationRate;  //画像の回転率  
+    int *animetionCouut;     //アニメーションカウント
+    int *animetionCountLimit;//アニメーションの
+    int animetionState;     //現在のアニメーションの状態
+    int animetionSpeed;      //アニメーションを切り替えるスピード
 
 };
 

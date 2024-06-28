@@ -20,6 +20,8 @@ BaseEnemy::BaseEnemy(EnemyInformation* enemyInformation, int adjustRightLimit )
     position.z = 0;
     //落下速度の初期化
     fallSpeed = 0;
+
+
 }
 
 /// <summary>
@@ -96,10 +98,32 @@ bool BaseEnemy::CanStartMove(const VECTOR& cameraPosition)
 /// </summary>
 void BaseEnemy::Draw()
 {
-    //テスト用
-    //当たり判定の描画
-    Utility::DrawSquareCollisionDetection(position, width, height);
+    //NULLチェック
+    if (animetionCouut!=NULL && image[animetionState] != NULL && image!=NULL)
+    {
+        //描画
+        DrawBillboard3D(position, 0.5f, 0.5f, chipSize, imageRotationRate, image[animetionState][animetionCouut[animetionState] / animetionSpeed], TRUE);
+    }
+}
+
+/// <summary>
+/// アニメーションの更新処理
+/// </summary>
+void BaseEnemy::UpdateAnimetion()
+{
+    //NULLチェック
+    if (animetionCountLimit!=NULL && animetionCouut != NULL)
+    {
+        //アニメーションのカウントを進める
+        animetionCouut[animetionState]++;
+        if (animetionCouut[animetionState] >= animetionCountLimit[animetionState])
+        {
+            animetionCouut[animetionState] = 0;
+        }
+    }
 
 }
+
+
 
 

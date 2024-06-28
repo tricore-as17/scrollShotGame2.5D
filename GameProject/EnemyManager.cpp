@@ -109,6 +109,7 @@ void EnemyManager::Draw()
     {
         enemy[i]->Draw();
     }
+
 }
 
 
@@ -139,6 +140,7 @@ vector<EnemyInformation*> EnemyManager::LoadEnemyInformation(const string& fileN
         string initializeY;
         string shotDirctionX;
         string shotDirctionY;
+        string rotationRate;
 
         //代入用のクラスを作成
         EnemyInformation information;
@@ -148,14 +150,16 @@ vector<EnemyInformation*> EnemyManager::LoadEnemyInformation(const string& fileN
             getline(inputString, initializeX,   ',') &&
             getline(inputString, initializeY,   ',') &&
             getline(inputString, shotDirctionX, ',') &&
-            getline(inputString, shotDirctionY, ',') )
+            getline(inputString, shotDirctionY, ',') &&
+            getline(inputString, rotationRate,  ',') )
         {
             //文字列をそれぞれの型に変更して代入
-            information.type           = stoi(enemyType);
-            information.initializeX    = stof(initializeX);
-            information.initializeY    = stof(initializeY);
-            information.shotDirectionX = stoi(shotDirctionX);
-            information.shotDirectionY = stoi(shotDirctionY);
+            information.type              = stoi(enemyType);
+            information.initializeX       = stof(initializeX);
+            information.initializeY       = stof(initializeY);
+            information.shotDirectionX    = stoi(shotDirctionX);
+            information.shotDirectionY    = stoi(shotDirctionY);
+            information.imageRotationRate = stof(rotationRate);
         }
         //ベクターに追加
         enemyInformation.emplace_back(new EnemyInformation(information));

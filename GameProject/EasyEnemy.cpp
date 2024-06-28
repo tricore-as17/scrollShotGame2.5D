@@ -23,13 +23,45 @@ EasyEnemy::EasyEnemy(EnemyInformation* enemyInformation):BaseEnemy(enemyInformat
     life = MAX_LIFE;
     //ダメージの値を初期化
     damage = INITIALIZE_DAMAGE;
+
+    //アニメーション関連の変数のメモリ確保
+    //アニメーションの種類と種類ごとの分割数で確保する
+    image = new int* [ANIMETION_NUM];
+    image[RUN] = new int[RUN_SPLIT_NUM];
+    image[HIT] = new int[HIT_SPLIT_NUM];
+    animetionCouut = new int[ANIMETION_NUM];
+    animetionCountLimit = new int[ANIMETION_NUM];
+    //アニメーション関連の初期化
+    animetionSpeed = 5;           
+    animetionState = RUN;
+    imageRotationRate = 0;
+    animetionCountLimit[RUN] = RUN_SPLIT_NUM * animetionSpeed;
+    animetionCountLimit[HIT] = HIT_SPLIT_NUM * animetionSpeed;
+    chipSize = Map::CHIP_SIZE * 2;
+    for (int i = 0; i < ANIMETION_NUM; i++)
+    {
+        animetionCouut[i] = 0;
+    }
+    //画像のロード
+    //走りアニメーション
+    LoadDivGraph("img/Enemy/eazy/Run (64x64).png", RUN_SPLIT_NUM, RUN_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[RUN]);
+    //ヒット時のアニメーション
+    LoadDivGraph("img/Enemy/eazy/Hit64.png", HIT_SPLIT_NUM, HIT_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[HIT]);
+
+    
 }
 /// <summary>
 /// デストラクタ
 /// </summary>
 EasyEnemy::~EasyEnemy()
 {
-	//処理なし
+    //メモリの解放
+    for (int i = 0; i < ANIMETION_NUM; i++)
+    {
+        delete[] image;
+    }
+    delete animetionCouut;
+    delete animetionCountLimit;
 }
 
 
@@ -55,6 +87,8 @@ void EasyEnemy::Update(const Map& map,const VECTOR& cameraPosition,ShotManager& 
 
     //弾と当たっているかを判定して体力などを減らす処理
     Colision::ColisionShot(shotManager.GetShot(), position, width, height, life, kind);
+    //アニメーションの更新処理
+    UpdateAnimetion();
 
 }
 
