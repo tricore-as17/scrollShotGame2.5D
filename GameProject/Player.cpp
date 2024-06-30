@@ -5,6 +5,7 @@
 #include"EnemyManager.h"
 #include"BaseEnemy.h"
 #include"EasyEnemy.h"
+#include"Map.h"
 #include"Utility.h"
 
 // 静的定数
@@ -12,10 +13,22 @@
 // 10000m ÷ 時間 ÷ 分 ÷ 秒 ÷ フレーム
 const float Player::SPEED = Utility::CalculationSpeed(17000.0f);
 //拡大率の設定
-const MATRIX Player::SCALE_MATRIX = MGetScale(VGet(SCALE, SCALE, SCALE));
+const MATRIX Player::INITIAL_SCALE_MATRIX = MGetScale(VGet(SCALE, SCALE, SCALE));
 
 //コンストラクタ
-Player::Player():isHitTop(false),isGround(false),rotaModelY(-90.0f)
+Player::Player()
+    :isHitTop(false)
+    ,isGround(false)
+    ,rotaModelY(-90.0f)
+    ,isMoveAnimetionUpY(false)
+    ,differencePositionY(0)
+    ,modelScale(INITIAL_SCALE_MATRIX)
+    ,isShotAnimetionUpY(false)
+    ,isShot(false)
+    ,shotModelScaleZ(SCALE)
+    ,shotModelScaleY(SCALE)
+    ,moveModelScaleY(SCALE)
+    ,moveModelScaleZ(SCALE)
 {
     //座標の初期化
     position = VGet(0, 0, 0);
@@ -48,7 +61,7 @@ void Player::Initialize()
     damageFlag = false;         //ダメージを受けていない状態に
     invincibleCount = 0;        //無敵カウントを0に
     life = INITIALIZE_LIFE;     //体力を初期値に
-    canShotFlag = true;         //ショットを撃てるかどうかのフラグ
+    canShot = true;         //ショットを撃てるかどうかのフラグ
     shotIntervalCount = 0;      //ショットの弾を撃つ間隔をカウント
     //回転率の初期設定(左向きにさせる)
     rotaVector = VGet(20.0f, rotaModelY, 0.0f);
@@ -102,6 +115,7 @@ void Player::Update(const Map &map, ShotManager& shotManager,const VECTOR camera
         isGround = false;       //接地判定を切る
     }
 
+
     // 落下速度を移動量に加える
     auto fallVelocity = VGet(0, fallSpeed, 0);  //落下をベクトルに。y座標しか変化しないので最後にベクトルにする
     velocity = VAdd(velocity, fallVelocity);
@@ -119,9 +133,16 @@ void Player::Update(const Map &map, ShotManager& shotManager,const VECTOR camera
     VECTOR playerOffset = VGet(0, -PLAYER_HEIGHT*0.5, 0);
     VECTOR addPosition = VAdd(position, playerOffset);
 
+    //接地していて移動していればアニメーションを流す
+    if (isGround && velocity.x != 0 || differencePositionY > 0)
+    {
+        //移動アニメーションの更新処理
+        UpdateMoveAnimetion();
+    }
 
+    addPosition.y += differencePositionY;
 
-
+    //モデルの向いている向きの計算
     if (velocity.x > 0)
     {
         rotaModelY = -90.0f;
@@ -130,15 +151,6 @@ void Player::Update(const Map &map, ShotManager& shotManager,const VECTOR camera
     {
         rotaModelY = 90.0f;
     }
-    //右回転の行列を設定;
-    rotaVector = VGet(rotaVector.x, rotaModelY, rotaVector.z);
-    //モデルに拡大率、座標移動、回転率を与えるための行列を作成して反映させる
-    MATRIX modelMatrix = CalculationModelMatrixYXZ(SCALE_MATRIX, addPosition, rotaVector);
-    MV1SetMatrix(modelHandle, modelMatrix);
-
-
-
-
     //ショットに引数として渡す用の方向変数の宣言
     VECTOR shotDirction;
 
@@ -153,12 +165,12 @@ void Player::Update(const Map &map, ShotManager& shotManager,const VECTOR camera
     }
 
     //ショットの撃てるタイミングを計算
-    if (!canShotFlag)
+    if (!canShot)
     {
         shotIntervalCount++;
         if (shotIntervalCount >= INTERVAL_RIMIT)
         {
-            canShotFlag = true;
+            canShot = true;
             shotIntervalCount = 0;
         }
     }
@@ -166,18 +178,29 @@ void Player::Update(const Map &map, ShotManager& shotManager,const VECTOR camera
     //弾を撃つ処理
     if (input & PAD_INPUT_10)
     {
-        if (canShotFlag)
+        if (canShot)
         {
-            shotManager.CreateShot(position, shotDirction, PLAYER_USUALLY,SHOT_DAMAGE,Utility::KIND_PLAYER);
-            canShotFlag = false;
+            //弾を撃った際のフラグの変更やや弾の生成処理
+            isShot = true;
+            isShotAnimetionUpY = true;
+            //弾の生成
+            shotManager.CreateShot(position, shotDirction, PLAYER_USUALLY, SHOT_DAMAGE, Utility::KIND_PLAYER);
+            canShot = false;
+
         }
     }
 
+    //弾を実際に撃った後のアニメーションの処理
+    UpdateShotAnimetion();
 
 
+    //右回転の行列を設定;
+    rotaVector = VGet(rotaVector.x, rotaModelY, rotaVector.z);
+    //モデルに拡大率、座標移動、回転率を与えるための行列を作成して反映させる
+    MATRIX modelMatrix = CalculationModelMatrixYXZ(modelScale, addPosition, rotaVector);
+    MV1SetMatrix(modelHandle, modelMatrix);
 
 
-    
 }
 
 /// <summary>
@@ -185,8 +208,11 @@ void Player::Update(const Map &map, ShotManager& shotManager,const VECTOR camera
 /// </summary>
 void Player::Draw()
 {
-    //プレイヤーモデルの描画
-    MV1DrawModel(modelHandle);
+    //描画フラグによって描画するかを決める
+    if (isDraw)
+    {
+        MV1DrawModel(modelHandle);
+    }
 
 }
 
@@ -256,9 +282,110 @@ void Player::IsReceiveDamage(const vector<BaseEnemy*> enemy,const list<Shot*> sh
         if (invincibleCount >= INVINCIBLE_TIME)
         {
             invincibleCount = 0;
+            isDraw = true;
             damageFlag = false;
+        }
+        else
+        {
+            //無敵時間中にキャラを点滅表示させるためのカウントを計算
+            modelBlinking();
         }
     }
 }
+
+/// <summary>
+/// 移動時のアニメーションの更新処理(ジャンプしながら移動している処理)
+/// </summary>
+void Player::UpdateMoveAnimetion()
+{
+    //移動アニメーションの中でジャンプ中なら
+    if (isMoveAnimetionUpY)
+    {
+        //Y座標を上げながら
+        //Yのスケールを上げてZスケールを縮めることでジャンプしてるように見せる
+        moveModelScaleY += MOVE_ADDITION_SCALE;
+        moveModelScaleZ -= MOVE_ADDITION_SCALE;
+        differencePositionY += MOVE_ADDITION_POSITION_Y;
+        //マップチップ1個分ジャンプしたら(一定の値にして下降する処理に切り替える)
+        if (differencePositionY >= Map::CHIP_SIZE)
+        {
+            isMoveAnimetionUpY = false;
+            differencePositionY = Map::CHIP_SIZE;
+            moveModelScaleY = SCALE + MOVE_GOAL_DIFFERENCE_SCALE;
+            moveModelScaleZ = SCALE - MOVE_GOAL_DIFFERENCE_SCALE;
+        }
+    }
+    //移動アニメーションの下降状態なら
+    else
+    {
+        //Y座標を下げながら
+        //Yのスケールを下げてZスケールを上げることで下降してるように見せる
+        differencePositionY -= MOVE_SUBTRACTION_POSITION_Y;
+        moveModelScaleY -= MOVE_SUBTRACTION_SCALE;
+        moveModelScaleZ += MOVE_SUBTRACTION_SCALE;
+        //規定値になったらまたジャンプに戻るようにフラグを切り替える
+        if (differencePositionY <= 0)
+        {
+            isMoveAnimetionUpY = true;
+            differencePositionY = 0;
+            moveModelScaleY = SCALE;
+            moveModelScaleZ = SCALE;
+        }
+    }
+    //調整したスケールを反映させる
+    modelScale = MGetScale(VGet(SCALE, moveModelScaleY, moveModelScaleZ));
+}
+
+/// <summary>
+/// 撃つアニメーションの更新処理
+/// </summary>
+void Player::UpdateShotAnimetion()
+{
+    if (isShot)
+    {
+        //弾を打ち出す際のスケールの処理
+        if (isShotAnimetionUpY)
+        {
+            shotModelScaleZ -= SHOT_ADDITION_SCALE;
+            shotModelScaleY += SHOT_ADDITION_SCALE;
+            if (shotModelScaleZ <= SCALE - SHOT_GOAL_DIFFERENCE_SCALE)
+            {
+                isShotAnimetionUpY = false;
+            }
+        }
+        //弾を撃ち終わった後の元のスケールに戻す処理
+        else
+        {
+            shotModelScaleZ += SHOT_SUBTRACTION_SCALE;
+            shotModelScaleY -= SHOT_SUBTRACTION_SCALE;
+            if (shotModelScaleZ >= SCALE)
+            {
+                shotModelScaleZ = SCALE;
+                shotModelScaleY = SCALE;
+                isShot = false;
+            }
+        }
+        //調整したモデルのスケールを反映させる
+        modelScale = MGetScale(VGet(SCALE, shotModelScaleY, shotModelScaleZ));
+    }
+
+}
+
+/// <summary>
+/// ダメージを受けた際の点滅表示に関する計算
+/// </summary>
+void Player::modelBlinking()
+{
+    if ((invincibleCount / BLINKING_SPEED) % 2 == 0)
+    {
+        isDraw = false;
+    }
+    else
+    {
+        isDraw = true;
+    }
+}
+
+
 
 
