@@ -73,18 +73,18 @@ public:
     const bool GetIsDead()const { return isDead; }                          //撃破されたかを返す
 
 protected:
-    int  type;              //自身のタイプ
-    bool isMoveStart;       //移動を開始させるフラグ
-    bool isGround;          //接地しているか
-    bool isHitTop;          //天井にぶつかっているか
-    int firstX;             //初期X座標
-    int life;               //体力
-    int kind;               //自分の番号(エネミーかプレイヤーかを判断するための変数)
-    int damage;             //敵に当たった時のダメージ
-    float adjustRightLimit; //スクリーンに入る際の調節用
-    int** image;            //画像ハンドル
-    float chipSize;           //画像のチップサイズ
-    float imageRotationRate;  //画像の回転率  
+    int  type;               //自身のタイプ
+    bool isMoveStart;        //移動を開始させるフラグ
+    bool isGround;           //接地しているか
+    bool isHitTop;           //天井にぶつかっているか
+    int firstX;              //初期X座標
+    int life;                //体力
+    int kind;                //自分の番号(エネミーかプレイヤーかを判断するための変数)
+    int damage;              //敵に当たった時のダメージ
+    float adjustRightLimit;  //スクリーンに入る際の調節用
+    int** image;             //画像ハンドル
+    float chipSize;          //画像のチップサイズ
+    float imageRotationRate; //画像の回転率  
     int *animetionCouut;     //アニメーションカウント
     int *animetionCountLimit;//アニメーションの上限値
     bool *isRoopAnimetion;   //ループするアニメーション判断
@@ -92,6 +92,6 @@ protected:
     int animetionState;      //現在のアニメーションの状態
     int animetionSpeed;      //アニメーションを切り替えるスピード
     bool isTurn;             //ターンするかのフラグ
-    bool isDead;            //撃破フラグ
+    bool isDead;             //撃破フラグ
 };
 
