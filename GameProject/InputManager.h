@@ -23,4 +23,3 @@ private:
     bool onPrevKey;         //キーが押され続けているか
     
 };
-

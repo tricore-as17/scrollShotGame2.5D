@@ -17,22 +17,22 @@ const MATRIX Player::SCALE_MATRIX = MGetScale(VGet(SCALE, SCALE, SCALE));
 //コンストラクタ
 Player::Player():isHitTop(false),isGround(false),rotaModelY(-90.0f)
 {
-	//座標の初期化
-	position = VGet(0, 0, 0);
-	direction = VGet(0, 0, 1);
-	fallSpeed = 0;
-	//モデルハンドルに代入
-	modelHandle = MV1LoadModel("mv1/Player/slime.mv1");
+    //座標の初期化
+    position = VGet(0, 0, 0);
+    direction = VGet(0, 0, 1);
+    fallSpeed = 0;
+    //モデルハンドルに代入
+    modelHandle = MV1LoadModel("mv1/Player/slime.mv1");
 
-	//回転率の初期設定(左向きにさせる)
-	rotaVector= VGet(20.0f, rotaModelY, 0.0f);
+    //回転率の初期設定(左向きにさせる)
+    rotaVector= VGet(20.0f, rotaModelY, 0.0f);
 
 
 }
 //デストラクタ
 Player::~Player()
 {
-	MV1DeleteModel(modelHandle);
+    MV1DeleteModel(modelHandle);
 }
 
 /// <summary>
@@ -40,18 +40,18 @@ Player::~Player()
 /// </summary>
 void Player::Initialize()
 {
-	//座標の初期化と移動方向の初期化
-	position = VGet(PLAYER_FIRST_X,PLAYER_FIRST_Y, 0);
-	direction = VGet(0, 0, 0);
-	fallSpeed = 0;
-	isHitTop, isGround = false;
+    //座標の初期化と移動方向の初期化
+    position = VGet(PLAYER_FIRST_X,PLAYER_FIRST_Y, 0);
+    direction = VGet(0, 0, 0);
+    fallSpeed = 0;
+    isHitTop, isGround = false;
     damageFlag = false;         //ダメージを受けていない状態に
     invincibleCount = 0;        //無敵カウントを0に
-    life = INITIALIZE_LIFE;           //体力を初期値に
+    life = INITIALIZE_LIFE;     //体力を初期値に
     canShotFlag = true;         //ショットを撃てるかどうかのフラグ
     shotIntervalCount = 0;      //ショットの弾を撃つ間隔をカウント
-	//回転率の初期設定(左向きにさせる)
-	rotaVector = VGet(20.0f, rotaModelY, 0.0f);
+    //回転率の初期設定(左向きにさせる)
+    rotaVector = VGet(20.0f, rotaModelY, 0.0f);
 
 
 }
@@ -61,80 +61,80 @@ void Player::Initialize()
 /// </summary>
 void Player::Update(const Map &map, ShotManager& shotManager,const VECTOR cameraPosition)
 {
-	// 入力状態を更新
-	// パッド１とキーボードから入力を得る
-	auto input = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+    // 入力状態を更新
+    // パッド１とキーボードから入力を得る
+    auto input = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 
-	// プレイヤーの移動処理
-	// 左右の移動方向を出す
-	direction = VGet(0, 0, 0);
-	if (input & PAD_INPUT_LEFT)
-	{
-		direction = VAdd(direction, VGet(-1, 0, 0));
-	}
-	if (input & PAD_INPUT_RIGHT)
-	{
-		direction = VAdd(direction, VGet(1, 0, 0));
-	}
+    // プレイヤーの移動処理
+    // 左右の移動方向を出す
+    direction = VGet(0, 0, 0);
+    if (input & PAD_INPUT_LEFT)
+    {
+        direction = VAdd(direction, VGet(-1, 0, 0));
+    }
+    if (input & PAD_INPUT_RIGHT)
+    {
+        direction = VAdd(direction, VGet(1, 0, 0));
+    }
 
-	// 正規化
-	if (VSquareSize(direction) > 0)		//directionのサイズを2乗にして返す(二乗にすることでdirectionに値が入っていればifに入る
-	{
-		direction = VNorm(direction);			//各成分のサイズを１にする
-	}
+    // 正規化
+    if (VSquareSize(direction) > 0)      //directionのサイズを2乗にして返す(二乗にすることでdirectionに値が入っていればifに入る
+    {
+        direction = VNorm(direction);    //各成分のサイズを１にする
+    }
 
-	// 移動量を出す
-	velocity = VScale(direction, SPEED);		//directionの各成分にspeedを掛ける
+    // 移動量を出す
+    velocity = VScale(direction, SPEED); //directionの各成分にspeedを掛ける
 
-	fallSpeed -= Utility::GRAVITY;
+    fallSpeed -= Utility::GRAVITY;
 
 
-	// HACK: 先に設定判定をすることでfallSpeed修正＋接地フラグ更新
-	isGround = Colision::IsGround(map,position,PLAYER_WIDTH,PLAYER_HEIGHT,fallSpeed);
+    // HACK: 先に設定判定をすることでfallSpeed修正＋接地フラグ更新
+    isGround = Colision::IsGround(map,position,PLAYER_WIDTH,PLAYER_HEIGHT,fallSpeed);
     isHitTop = Colision::IsTopHit(map, position, PLAYER_WIDTH, PLAYER_HEIGHT, fallSpeed,isHitTop);
 
 
 
-	// 地に足が着いている場合のみジャンプボタン(ボタン１ or Ｚキー)を見る
-	if (((isGround && !isHitTop)) && (input & PAD_INPUT_A))
-	{
-		fallSpeed = JUMP_POWER;	// ジャンプボタンを押したら即座に上方向の力に代わる
-		isGround = false;			//接地判定を切る
-	}
+    // 地に足が着いている場合のみジャンプボタン(ボタン１ or Ｚキー)を見る
+    if (((isGround && !isHitTop)) && (input & PAD_INPUT_A))
+    {
+        fallSpeed = JUMP_POWER; //ジャンプボタンを押したら即座に上方向の力に代わる
+        isGround = false;       //接地判定を切る
+    }
 
-	// 落下速度を移動量に加える
-	auto fallVelocity = VGet(0, fallSpeed, 0);	// 落下をベクトルに。y座標しか変化しないので最後にベクトルにする
-	velocity = VAdd(velocity, fallVelocity);
+    // 落下速度を移動量に加える
+    auto fallVelocity = VGet(0, fallSpeed, 0);  //落下をベクトルに。y座標しか変化しないので最後にベクトルにする
+    velocity = VAdd(velocity, fallVelocity);
 
-	// 当たり判定をして、壁にめり込まないようにvelocityを操作する
-	velocity = Colision::IsHitMapAdjustmentVector(map,velocity,position,PLAYER_WIDTH,PLAYER_HEIGHT);
+    // 当たり判定をして、壁にめり込まないようにvelocityを操作する
+    velocity = Colision::IsHitMapAdjustmentVector(map,velocity,position,PLAYER_WIDTH,PLAYER_HEIGHT);
 
     velocity = Colision::IsHitWallAdjustmentVector(cameraPosition, velocity, position, PLAYER_WIDTH, PLAYER_HEIGHT);
 
 
-	// 移動
-	position = VAdd(position, velocity);
+    // 移動
+    position = VAdd(position, velocity);
 
-	//そのまま位置を設定するとモデルの位置がぶれるので微調整
-	VECTOR playerOffset = VGet(0, -PLAYER_HEIGHT*0.5, 0);
-	VECTOR addPosition = VAdd(position, playerOffset);
-
-
+    //そのまま位置を設定するとモデルの位置がぶれるので微調整
+    VECTOR playerOffset = VGet(0, -PLAYER_HEIGHT*0.5, 0);
+    VECTOR addPosition = VAdd(position, playerOffset);
 
 
-	if (velocity.x > 0)
-	{
+
+
+    if (velocity.x > 0)
+    {
         rotaModelY = -90.0f;
-	}
-	else if (velocity.x < 0)
-	{
+    }
+    else if (velocity.x < 0)
+    {
         rotaModelY = 90.0f;
-	}
+    }
     //右回転の行列を設定;
     rotaVector = VGet(rotaVector.x, rotaModelY, rotaVector.z);
-	//モデルに拡大率、座標移動、回転率を与えるための行列を作成して反映させる
-	MATRIX modelMatrix = CalculationModelMatrixYXZ(SCALE_MATRIX, addPosition, rotaVector);
-	MV1SetMatrix(modelHandle, modelMatrix);
+    //モデルに拡大率、座標移動、回転率を与えるための行列を作成して反映させる
+    MATRIX modelMatrix = CalculationModelMatrixYXZ(SCALE_MATRIX, addPosition, rotaVector);
+    MV1SetMatrix(modelHandle, modelMatrix);
 
 
 
@@ -177,7 +177,7 @@ void Player::Update(const Map &map, ShotManager& shotManager,const VECTOR camera
 
 
 
-	
+    
 }
 
 /// <summary>
@@ -185,8 +185,8 @@ void Player::Update(const Map &map, ShotManager& shotManager,const VECTOR camera
 /// </summary>
 void Player::Draw()
 {
-	//プレイヤーモデルの描画
-	MV1DrawModel(modelHandle);
+    //プレイヤーモデルの描画
+    MV1DrawModel(modelHandle);
 
 }
 
@@ -203,13 +203,13 @@ void Player::Draw()
 /// <returns>計算した行列</returns>
 MATRIX Player::CalculationModelMatrixYXZ(const MATRIX& scale, const VECTOR& translate, const VECTOR& rota)
 {
-	//マトリックスに移動する値をセット
-	MATRIX translateMatrix = MGetTranslate(translate);	
-	//YXZの順で回転行列を掛けて回転させる
-	MATRIX rotaMatrix = MMult(MMult(MGetRotY(rota.y * Utility::CONVERSION_RADIAN),
-		MGetRotX(rota.x * Utility::CONVERSION_RADIAN)), MGetRotZ(rota.z));
-	//スケールを追加した状態で計算して返り値にする
-	return MMult(MMult(scale, rotaMatrix), translateMatrix);
+    //マトリックスに移動する値をセット
+    MATRIX translateMatrix = MGetTranslate(translate);	
+    //YXZの順で回転行列を掛けて回転させる
+    MATRIX rotaMatrix = MMult(MMult(MGetRotY(rota.y * Utility::CONVERSION_RADIAN),
+        MGetRotX(rota.x * Utility::CONVERSION_RADIAN)), MGetRotZ(rota.z));
+    //スケールを追加した状態で計算して返り値にする
+    return MMult(MMult(scale, rotaMatrix), translateMatrix);
 }
 
 /// <summary>

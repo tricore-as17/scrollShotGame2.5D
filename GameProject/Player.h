@@ -5,7 +5,9 @@
 #include"GameObject.h"
 
 
+
 const int PLAYER_STATE_NUM = 4;             //プレイヤーの状態の数
+
 
 //クラスのプロトタイプ宣言
 class Map;
@@ -30,6 +32,7 @@ public:
     void Initialize();                     //初期化
     void Update(const Map& map, ShotManager& shotManage,const VECTOR cameraPositionr);  //更新
     void Draw();                           //描画
+
 
     /// <summary>
     /// プレイヤーモデルの座標移動、拡大、YXZの順で回転させる
@@ -66,6 +69,7 @@ public:
     static constexpr int INTERVAL_RIMIT = 50;             //弾を撃てるようになるまでの間隔
 
 private:
+
     int modelHandle;                    //キャラのモデルハンドル
     VECTOR velocity;                    //移動量
     VECTOR keepVelocity;                //プレイヤーの移動量の保存用
