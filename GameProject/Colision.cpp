@@ -172,15 +172,15 @@ VECTOR Colision::IsHitWallAdjustmentVector(const VECTOR cameraPosition, VECTOR n
         {
 
             isFirstHit = false;
-            isLoop = true;	// ループ継続
+            isLoop = true;   // ループ継続
         }
         // 当たった時点でマップチップのループからぬけるが、当たらなくなるまで繰り返すループは継続
         if (isHit && !isFirstHit)
         {
-            float absoluteX = fabsf(adjustVector.x);	// velocityのx成分の絶対値
+            float absoluteX = fabsf(adjustVector.x);     // velocityのx成分の絶対値
 
             // x成分を縮め切っていなければx成分を縮める
-            bool shrinkX = (absoluteX != 0.0f);	// x成分を縮めるかどうか
+            bool shrinkX = (absoluteX != 0.0f);          // x成分を縮めるかどうか
 
             if (shrinkX)
             {
@@ -287,7 +287,7 @@ VECTOR Colision::IsHitMapAdjustmentVector(const Map& map, VECTOR velocity, const
                 {
 
                     isFirstHit = false;
-                    loop = true;	// ループ継続
+                    loop = true;        // ループ継続
                 }
 
                 // 当たった時点でマップチップのループからぬけるが、当たらなくなるまで繰り返すループは継続
@@ -297,11 +297,11 @@ VECTOR Colision::IsHitMapAdjustmentVector(const Map& map, VECTOR velocity, const
                     // そのまま縮めてしまうと、斜めのベクトルのとき（例えば壁に向かってジャンプしたとき）にジャンプの勢いも縮めてしまう
                     // これを防ぐために、
                     // 横成分から縮めていくことで、問題を回避する
-                    float absX = fabsf(ret.x);	// velocityのx成分の絶対値
-                    float absY = fabsf(ret.y);	// velocityのy成分の絶対値
+                    float absX = fabsf(ret.x);    // velocityのx成分の絶対値
+                    float absY = fabsf(ret.y);    // velocityのy成分の絶対値
 
                     // x成分を縮め切っていなければx成分を縮める
-                    bool shrinkX = (absX != 0.0f);	// x成分を縮めるかどうか
+                    bool shrinkX = (absX != 0.0f);   // x成分を縮めるかどうか
 
                     if (shrinkX)
                     {
@@ -419,12 +419,12 @@ bool Colision::IsGround(const Map& map, const VECTOR& objectPosition,const float
 /// <param name="objectW">オブジェクトの幅</param>
 /// <param name="objectH">オブジェクトの高さ</param>
 /// <param name="fallSpeed">オブジェクトの落下速度</param>
-/// <param name="isHitTop">頭上に当たっているか</param>
+/// <param name="isHitTopViewOnly">頭上に当たっているか</param>
 /// <returns>当たっているか</returns>
-bool Colision::IsTopHit(const Map& map, const VECTOR& objectPosition, const float objectW, const float objectH, float& fallSpeed,const bool m_isHitTop)
+bool Colision::IsTopHit(const Map& map, const VECTOR& objectPosition, const float objectW, const float objectH, float& fallSpeed,const bool isHitTopBeforeFrame)
 {
     //天井への接触判定用フラグ
-    bool isTopHit = false;
+    bool isHitTop = false;
     //横と縦のマップチップの数を持ってくる
     int mapXnum = map.getMapXNum();
     int mapYNum = map.getMapYNum();
@@ -464,10 +464,11 @@ bool Colision::IsTopHit(const Map& map, const VECTOR& objectPosition, const floa
     }
     if (isHit)
     {
-        if (!m_isHitTop)
+        //前回のフレームで当たっているか
+        if (!isHitTopBeforeFrame)
         {
             //接地判定をtrueに
-            isTopHit = true;
+            isHitTop = true;
             // fallSpeedをゼロにし、急激な落下を防ぐ
             fallSpeed = 0.0f;
 
@@ -475,9 +476,9 @@ bool Colision::IsTopHit(const Map& map, const VECTOR& objectPosition, const floa
     }
     else
     {
-        isTopHit = false;
+        isHitTop = false;
     }
-    return isTopHit;
+    return isHitTop;
 }
 
 /// <summary>
