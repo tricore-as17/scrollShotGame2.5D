@@ -35,18 +35,20 @@ public:
     //getter,setter
     vector<BaseEnemy*> GetEnemy()const { return enemy; }
     const bool GetIsBossActive()const { return isBossActive; }
-	EnemyManager();		//コンストラクタ
-	~EnemyManager();	//デストラクタ
+    //コンストラクタ
+    EnemyManager();
+    //デストラクタ
+    ~EnemyManager();
     /// <summary>
     /// エネミー全体の更新処理
     /// </summary>
     /// <param name="map">マップのインスタンス</param>
     /// <param name="cameraPosition">カメラの座標</param>
-	void Update(const Map&map, const VECTOR& cameraPosition, ShotManager& shotManager,const VECTOR& playerPosition);
-	/// <summary>
-	/// エネミーの描画
-	/// </summary>
-	void Draw();
+    void Update(const Map&map, const VECTOR& cameraPosition, ShotManager& shotManager,const VECTOR& playerPosition);
+    /// <summary>
+    /// エネミーの描画
+    /// </summary>
+    void Draw();
 
     /// <summary>
     /// CSVファイルからエネミーのデータを読み込む

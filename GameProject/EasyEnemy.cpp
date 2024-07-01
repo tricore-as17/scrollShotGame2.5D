@@ -23,13 +23,50 @@ EasyEnemy::EasyEnemy(EnemyInformation* enemyInformation):BaseEnemy(enemyInformat
     life = MAX_LIFE;
     //ダメージの値を初期化
     damage = INITIALIZE_DAMAGE;
+
+    //アニメーション関連の変数のメモリ確保
+    //アニメーションの種類と種類ごとの分割数で確保する
+    image               = new int* [ANIMETION_NUM];
+    image[RUN]          = new int  [RUN_SPLIT_NUM];
+    image[HIT]          = new int  [HIT_SPLIT_NUM];
+    animetionCouut      = new int  [ANIMETION_NUM];
+    animetionCountLimit = new int  [ANIMETION_NUM];
+    isRoopAnimetion     = new bool [ANIMETION_NUM];
+    isEndAnimetion      = new bool [ANIMETION_NUM];
+    //アニメーション関連の初期化
+    animetionSpeed = 5;           
+    animetionState = RUN;
+    imageRotationRate = 0;
+    animetionCountLimit[RUN] = RUN_SPLIT_NUM * animetionSpeed;
+    animetionCountLimit[HIT] = HIT_SPLIT_NUM * animetionSpeed;
+    isRoopAnimetion[RUN] = true;
+    isRoopAnimetion[HIT] = false;
+    chipSize = Map::CHIP_SIZE * 2;
+    for (int i = 0; i < ANIMETION_NUM; i++)
+    {
+        animetionCouut[i] = 0;
+        isEndAnimetion[i] = false;
+    }
+    //画像のロード
+    //走りアニメーション
+    LoadDivGraph("img/Enemy/eazy/Run (64x64).png", RUN_SPLIT_NUM, RUN_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[RUN]);
+    //ヒット時のアニメーション
+    LoadDivGraph("img/Enemy/eazy/Hit64.png", HIT_SPLIT_NUM, HIT_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[HIT]);
+
+    
 }
 /// <summary>
 /// デストラクタ
 /// </summary>
 EasyEnemy::~EasyEnemy()
 {
-	//処理なし
+    //メモリの解放
+    for (int i = 0; i < ANIMETION_NUM; i++)
+    {
+        delete[] image;
+    }
+    delete animetionCouut;
+    delete animetionCountLimit;
 }
 
 
@@ -45,16 +82,28 @@ void EasyEnemy::Update(const Map& map,const VECTOR& cameraPosition,ShotManager& 
     //画面内に入ったかのチェック
     isMoveStart = CanStartMove(cameraPosition);
     
-	//移動開始フラグがたっていたら移動させる
-	if (isMoveStart)
-	{
-		direction = VAdd(direction, VGet(-1, 0, 0));
-	}
+    //移動開始フラグがたっていたら移動させる
+    if (isMoveStart && animetionState == RUN)
+    {
+        direction = VAdd(direction, VGet(-1, 0, 0));
+    }
+    else
+    {
+        direction = VGet(0, 0, 0);
+    }
     //当たり判定や移動処理などのエネミー共通処理を呼ぶ
     Move(map, SPEED);
 
-    //弾と当たっているかを判定して体力などを減らす処理
-    Colision::ColisionShot(shotManager.GetShot(), position, width, height, life, kind);
+    //ヒット時のアニメーション切り替え処理
+    ChangeHitAnimetion(HIT, shotManager);
+
+    //アニメーションの更新処理
+    UpdateAnimetion();
+
+    //ヒット時のアニメーションの処理
+    HitAnimetion(HIT, RUN);
+
+
 
 }
 

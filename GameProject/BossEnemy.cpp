@@ -3,6 +3,7 @@
 #include"Utility.h"
 #include"Colision.h"
 #include"ShooterEnemy.h"
+#include"Map.h"
 #include"ShotManager.h"
 
 //スピードの計算
@@ -16,6 +17,7 @@ const float BossEnemy::REFERENCE_DISTANCE = Utility::WORLD_SCREEN_WIDTH_SIZE / 4
 BossEnemy::BossEnemy(EnemyInformation* enemyInformation)
     :BaseEnemy(enemyInformation, ADJUST_RIGHT_LIMIT)
     ,isInAction(false)
+    ,isHIt(false)
     ,isInSideMove(false)
     ,switchDirectionCount(0)
     ,switchDirection(0)
@@ -28,6 +30,8 @@ BossEnemy::BossEnemy(EnemyInformation* enemyInformation)
     ,jumpVertex(VGet(0,0,0))
     ,jumpStartPosition(VGet(0,0,0))
     ,coefficient(0)
+    ,isDraw(true)
+    ,blinkingCount(0)
 {
     shooterEnemy = new ShooterEnemy();
     //幅と高さの代入
@@ -44,6 +48,48 @@ BossEnemy::BossEnemy(EnemyInformation* enemyInformation)
     //ここでセッターを使う形にしてしまいました。
     //時間があれば修正します。
     shooterEnemy->SetRimitShotInterval(SHOT_INTERVAL_RIMIT);
+
+    //アニメーションの種類と種類ごとの分割数で確保する
+    image               = new int* [ANIMETION_NUM];
+    image[START]        = new int  [START_SPLIT_NUM];
+    image[RUN]          = new int  [RUN_SPLIT_NUM];
+    image[ATTACK]       = new int  [ATTACK_SPLIT_NUM];
+    image[DEAD]         = new int  [DEAD_SPLIT_NUM];
+    isRoopAnimetion     = new bool [ANIMETION_NUM];
+    animetionCouut      = new int  [ANIMETION_NUM];
+    animetionCountLimit = new int  [ANIMETION_NUM];
+    isEndAnimetion      = new bool [ANIMETION_NUM];
+    //アニメーション関連の初期化
+    animetionSpeed    = 7;
+    animetionState    = START;
+    imageRotationRate = 0;
+    //アニメーションカウントの限界値の設定
+    animetionCountLimit[START]  = START_SPLIT_NUM * animetionSpeed;
+    animetionCountLimit[RUN]    = RUN_SPLIT_NUM * animetionSpeed;
+    animetionCountLimit[ATTACK] = ATTACK_SPLIT_NUM * animetionSpeed;
+    animetionCountLimit[DEAD]   = DEAD_SPLIT_NUM * animetionSpeed;
+    //ループさせるアニメーションかを入力
+    isRoopAnimetion[START]  = false;
+    isRoopAnimetion[RUN]    = true;
+    isRoopAnimetion[ATTACK] = false;
+    isRoopAnimetion[DEAD]   = false;
+    chipSize = Map::ONE_PIXEL_SIZE * DRAW_SIZE;
+    for (int i = 0; i < ANIMETION_NUM; i++)
+    {
+        animetionCouut[i] = 0;
+        isEndAnimetion[i] = false;
+    }
+    //BOSSエネミーだけ最初に右側を向かせる
+    isTurn = true;
+
+
+    //画像の読み込み
+    LoadDivGraph("img/Enemy/boss/start.png", START_SPLIT_NUM, START_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[START]);
+    LoadDivGraph("img/Enemy/boss/Run.png", RUN_SPLIT_NUM, RUN_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[RUN]);
+    LoadDivGraph("img/Enemy/boss/Attack.png", ATTACK_SPLIT_NUM, ATTACK_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[ATTACK]);
+    LoadDivGraph("img/Enemy/boss/dead.png", DEAD_SPLIT_NUM, DEAD_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[DEAD]);
+
+
 }
 
 /// <summary>
@@ -68,44 +114,81 @@ void BossEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotManager
         //画面内に入ったかのチェック
         isMoveStart = CanStartMove(cameraPosition);
     }
+
+    //行動を開始したら
     if (isMoveStart)
     {
-        
-        //ランダムで行動を決める
-        SelectAction();
-        //選択された行動を開始する
-        VECTOR velocity = StartAction(playerPosition, shotManager);
 
-        //ジャンプ中じゃなければ重力を落下速度に足す
-        if (!isInJump)
+        if (isEndAnimetion[START])
         {
-            fallSpeed -= Utility::GRAVITY;
+            isEndAnimetion[START] = false;
+            animetionState = RUN;
+            animetionCouut[START] = 0;
         }
-        else
+        if(animetionState!= START)
         {
-            fallSpeed = 0.0f;
+            //ランダムで行動を決める
+            SelectAction();
+            //選択された行動を開始する
+            VECTOR velocity = StartAction(playerPosition, shotManager);
+
+            //ジャンプ中じゃなければ重力を落下速度に足す
+            if (!isInJump)
+            {
+                fallSpeed -= Utility::GRAVITY;
+            }
+            else
+            {
+                fallSpeed = 0.0f;
+            }
+
+
+            //接地判定を行う
+            Colision::IsGround(map, position, width, height, fallSpeed);
+
+            // 落下速度を移動量に加える
+            VECTOR fallVelocity = VGet(0, fallSpeed, 0);        // 落下をベクトルに。y座標しか変化しないので最後にベクトルにする
+            velocity = VAdd(velocity, fallVelocity);
+
+            // 当たり判定をして、壁にめり込まないようにvelocityを操作する
+            velocity = Colision::IsHitMapAdjustmentVector(map, velocity, position, width, height);
+            //壁との当たり判定をとる
+            velocity = Colision::IsHitWallAdjustmentVector(cameraPosition, velocity, position, width, height);
+            // 移動
+            position = VAdd(position, velocity);
+
+            //向きを変える
+            if (velocity.x < 0)
+            {
+                isTurn = true;
+            }
+            else if (velocity.x > 0)
+            {
+                isTurn = false;
+            }
+
+            if (!isHIt)
+            {
+                //弾と当たっているかを判定して体力などを減らす処理
+                isHIt = Colision::ColisionShot(shotManager.GetShot(), position, width, height, life, kind);
+            }
+
+            //点滅描画
+            BlinkingDraw();
+
         }
 
 
-        //接地判定を行う
-        Colision::IsGround(map, position, width, height, fallSpeed);
+        //アニメーションの更新
+        UpdateAnimetion();
 
-        // 落下速度を移動量に加える
-        VECTOR fallVelocity = VGet(0, fallSpeed, 0);	// 落下をベクトルに。y座標しか変化しないので最後にベクトルにする
-        velocity = VAdd(velocity, fallVelocity);
+        //攻撃アニメーションが終了した際の処理
+        EndAttackAnimetion();
 
-        // 当たり判定をして、壁にめり込まないようにvelocityを操作する
-        velocity = Colision::IsHitMapAdjustmentVector(map, velocity, position, width, height);
-        //壁との当たり判定をとる
-        velocity = Colision::IsHitWallAdjustmentVector(cameraPosition, velocity, position, width, height);
-
-        // 移動
-        position = VAdd(position, velocity);
-        //弾と当たっているかを判定して体力などを減らす処理
-        Colision::ColisionShot(shotManager.GetShot(), position, width, height, life, kind);
+        //ボスの体力が0になった際の処理
+        DeadBoss();
 
     }
-
 
 }
 
@@ -216,7 +299,7 @@ VECTOR BossEnemy::MoveSide()
         direction = VGet(1, 0, 0);
     }
     // 正規化
-    direction = VNorm(direction);			//各成分のサイズを１にする
+    direction = VNorm(direction);            //各成分のサイズを１にする
 
     //移動量を出す
     VECTOR velocity = VScale(direction, SPEED);
@@ -245,6 +328,11 @@ void BossEnemy::ShootAtThePlayer(const VECTOR& playerPosition,ShotManager& shotM
         shooterEnemy->SetCanShot(false);
         //弾を撃った数を増やす
         shotCount++;
+        //弾を撃つアニメーションに変更
+        animetionState = ATTACK;
+        //アニメーション中に弾を撃ったらリセットされるように処理
+        isEndAnimetion[ATTACK] = false;
+        animetionCouut[ATTACK] = 0;
     }
 }
 
@@ -285,6 +373,88 @@ VECTOR BossEnemy::JumpTowadsPlayer(const VECTOR& playerPosition)
     return velocity;
 
 
+}
+
+/// <summary>
+/// 被弾時の点滅表示
+/// </summary>
+void BossEnemy::BlinkingDraw()
+{
+    //当たってなければ即return
+    if (!isHIt)
+    {
+        return;
+    }
+    else
+    {
+        if (life <= 0)
+        {
+            return;
+        }
+        else
+        {
+            //点滅処理
+            blinkingCount++;
+            if ((blinkingCount / BLINKING_SPEED) % 2 == 0)
+            {
+                isDraw = false;
+            }
+            else
+            {
+                isDraw = true;
+            }
+            //点滅させる時間を過ぎたら元の状態に戻す
+            if (blinkingCount >= BLINKING_COUNT_LIMIT)
+            {
+                isDraw = true;
+                isHIt = false;
+                blinkingCount = 0;
+            }
+        }
+    }
+}
+
+/// <summary>
+/// 攻撃アニメーションが終了した際の処理
+/// </summary>
+void BossEnemy::EndAttackAnimetion()
+{
+    if (isEndAnimetion[ATTACK])
+    {
+        isEndAnimetion[ATTACK] = false;
+        animetionCouut[ATTACK] = 0;
+        animetionState = RUN;
+    }
+}
+
+/// <summary>
+/// ボスのライフが0になった際の処理
+/// </summary>
+void BossEnemy::DeadBoss()
+{
+    //体力が0でないなら早期return
+    if (life > 0)
+    {
+        return;
+    }
+    else
+    {
+         animetionState = DEAD;
+        if (isEndAnimetion[DEAD])
+        {
+            isDead = true;
+        }
+    }
+}
+
+void BossEnemy::Draw()
+{
+    //描画する状態なら
+    if (isDraw)
+    {
+        //描画
+        DrawBillboard3D(position, 0.5f, 0.5f, chipSize, imageRotationRate, image[animetionState][animetionCouut[animetionState] / animetionSpeed], TRUE, isTurn);
+    }
 }
 
 

@@ -69,9 +69,6 @@
     <ClCompile Include="Main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>ソース ファイル\Player</Filter>
     </ClCompile>
@@ -132,12 +129,6 @@
     <ClCompile Include="OneWayShotEnemy.cpp">
       <Filter>ソース ファイル\Enemy\Sub</Filter>
     </ClCompile>
-    <ClCompile Include="FallingAttackEnemy.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="BlinkingDrawString.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="TitleUI.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
@@ -149,6 +140,15 @@
     </ClCompile>
     <ClCompile Include="BackGround.cpp">
       <Filter>ソース ファイル\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="FallingAttackEnemy.cpp">
+      <Filter>ソース ファイル\Enemy\Sub</Filter>
+    </ClCompile>
+    <ClCompile Include="BlinkingDrawString.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -178,9 +178,6 @@
     </ClInclude>
     <ClInclude Include="Utility.h">
       <Filter>ソース ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Shot.h">
       <Filter>ソース ファイル\Shot</Filter>
@@ -224,12 +221,6 @@
     <ClInclude Include="OneWayShotEnemy.h">
       <Filter>ソース ファイル\Enemy\Sub</Filter>
     </ClInclude>
-    <ClInclude Include="FallingAttackEnemy.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="BlinkingDrawString.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="TitleUI.h">
       <Filter>ソース ファイル\UI</Filter>
     </ClInclude>
@@ -241,6 +232,15 @@
     </ClInclude>
     <ClInclude Include="BackGround.h">
       <Filter>ソース ファイル\BG</Filter>
+    </ClInclude>
+    <ClInclude Include="FallingAttackEnemy.h">
+      <Filter>ソース ファイル\Enemy\Sub</Filter>
+    </ClInclude>
+    <ClInclude Include="BlinkingDrawString.h">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>ソース ファイル\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

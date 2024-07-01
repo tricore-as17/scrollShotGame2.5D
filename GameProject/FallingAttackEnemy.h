@@ -12,6 +12,12 @@ class ShotManager;
 class FallingAttackEnemy :public BaseEnemy
 {
 public:
+    //エネミーの状態
+    enum STATE
+    {
+        FLY = 0,
+        HIT = 1,
+    };
     //コンストラクタ
     FallingAttackEnemy(EnemyInformation* enemyInformation);
     //デストラクタ
@@ -22,6 +28,12 @@ public:
     static constexpr float HEIGHT            = 1.45;      //高さ
     static constexpr int   MAX_LIFE          = 1;         //体力
     static constexpr int   INITIALIZE_DAMAGE = 1;         //与えるダメージ
+    //アニメーション関連
+    static constexpr int CHIP_SIZE = 64;          //チップの大きさ
+    static constexpr int ANIMETION_NUM = 2;       //アニメーションの種類
+    //分割数
+    static constexpr int FLY_SPLIT_NUM = 9;       //飛行時
+    static constexpr int HIT_SPLIT_NUM = 5;       //被弾時
 
     /// <summary>
     /// 更新処理

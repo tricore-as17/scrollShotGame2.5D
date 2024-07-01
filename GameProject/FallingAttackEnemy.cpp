@@ -3,6 +3,7 @@
 #include"Colision.h"
 #include"EnemyInformation.h"
 #include"Player.h"
+#include"Map.h"
 #include"Utility.h"
 
 /// <summary>
@@ -22,6 +23,35 @@ FallingAttackEnemy::FallingAttackEnemy(EnemyInformation* enemyInformation)
     damage = INITIALIZE_DAMAGE;
     //初期座標を代入
     startPosition  = position;
+    //アニメーションの種類と種類ごとの分割数で確保する
+    image               = new int* [ANIMETION_NUM];
+    image[FLY]          = new int  [FLY_SPLIT_NUM];
+    image[HIT]          = new int  [HIT_SPLIT_NUM];
+    animetionCouut      = new int  [ANIMETION_NUM];
+    animetionCountLimit = new int  [ANIMETION_NUM];
+    isRoopAnimetion     = new bool [ANIMETION_NUM];
+    isEndAnimetion      = new bool [ANIMETION_NUM];
+    //アニメーション関連の初期化
+    animetionSpeed = 7;
+    animetionState = FLY;
+    imageRotationRate = 0;
+    //アニメーションカウントの限界値の設定
+    animetionCountLimit[FLY] = FLY_SPLIT_NUM * animetionSpeed;
+    animetionCountLimit[HIT] = HIT_SPLIT_NUM * animetionSpeed;
+    isRoopAnimetion[FLY] = true;
+    isRoopAnimetion[HIT] = false;
+    chipSize = Map::CHIP_SIZE * 2;
+    for (int i = 0; i < ANIMETION_NUM; i++)
+    {
+        animetionCouut[i] = 0;
+        isEndAnimetion[i] = false;
+    }
+
+    //画像の読み込み
+    LoadDivGraph("img/Enemy/fly/Flying (64x64).png", FLY_SPLIT_NUM, FLY_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[FLY]);
+    LoadDivGraph("img/Enemy/fly/Hit (64x64).png", HIT_SPLIT_NUM, HIT_SPLIT_NUM, 1, CHIP_SIZE, CHIP_SIZE, image[HIT]);
+
+
 }
 
 /// <summary>
@@ -47,7 +77,7 @@ void FallingAttackEnemy::Update(const Map& map, const VECTOR& cameraPosition, Sh
         isMoveStart = CanStartMove(cameraPosition);
     }
     //一度画面内に入ったら動き続ける
-    if (isMoveStart)
+    if (isMoveStart && animetionState == FLY)
     {
         //0.0fの処理は最初だけ行う
         if (endCount == 0.0f)
@@ -71,7 +101,13 @@ void FallingAttackEnemy::Update(const Map& map, const VECTOR& cameraPosition, Sh
         }
     }
 
-    //弾と当たっているかを判定して体力などを減らす処理
-    Colision::ColisionShot(shotManager.GetShot(), position, width, height, life, kind);
+    //被弾時のアニメーションの変更処理
+    ChangeHitAnimetion(HIT, shotManager);
+
+    //アニメーションの更新処理
+    UpdateAnimetion();
+
+    //ヒット時の処理
+    HitAnimetion(HIT, FLY);
 
 }

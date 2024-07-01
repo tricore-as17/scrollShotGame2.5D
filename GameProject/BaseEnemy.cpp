@@ -1,5 +1,6 @@
 ﻿#include"BaseEnemy.h"
 #include"EnemyInformation.h"
+#include"ShotManager.h"
 #include"Colision.h"
 #include"Utility.h"
 #include"Map.h"
@@ -11,6 +12,8 @@ BaseEnemy::BaseEnemy(EnemyInformation* enemyInformation, int adjustRightLimit )
     :isMoveStart(false)
     , adjustRightLimit(adjustRightLimit)
     ,kind(Utility::KIND_ENEMY)
+    ,isDead(false)
+    ,isTurn(false)
 {
     //エネミーのタイプを判断
     type = enemyInformation->type;
@@ -20,6 +23,8 @@ BaseEnemy::BaseEnemy(EnemyInformation* enemyInformation, int adjustRightLimit )
     position.z = 0;
     //落下速度の初期化
     fallSpeed = 0;
+
+
 }
 
 /// <summary>
@@ -36,9 +41,9 @@ BaseEnemy::~BaseEnemy() {/*処理なし*/ }
 void BaseEnemy::Move(const Map& map,const float& speed)
 {
     // 正規化
-    if (VSquareSize(direction) > 0)		//directionのサイズを2乗にして返す(二乗にすることでdirectionに値が入っていればifに入る
+    if (VSquareSize(direction) > 0)      //directionのサイズを2乗にして返す(二乗にすることでdirectionに値が入っていればifに入る
     {
-        direction = VNorm(direction);			//各成分のサイズを１にする
+        direction = VNorm(direction);    //各成分のサイズを１にする
     }
 
     //移動量を出す
@@ -54,7 +59,7 @@ void BaseEnemy::Move(const Map& map,const float& speed)
 
 
     // 落下速度を移動量に加える
-    VECTOR fallVelocity = VGet(0, fallSpeed, 0);	// 落下をベクトルに。y座標しか変化しないので最後にベクトルにする
+    VECTOR fallVelocity = VGet(0, fallSpeed, 0);       // 落下をベクトルに。y座標しか変化しないので最後にベクトルにする
     velocity = VAdd(velocity, fallVelocity);
 
     // 当たり判定をして、壁にめり込まないようにvelocityを操作する
@@ -96,10 +101,81 @@ bool BaseEnemy::CanStartMove(const VECTOR& cameraPosition)
 /// </summary>
 void BaseEnemy::Draw()
 {
-    //テスト用
-    //当たり判定の描画
-    Utility::DrawSquareCollisionDetection(position, width, height);
+    //NULLチェック
+    if (animetionCouut!=NULL && image[animetionState] != NULL && image!=NULL)
+    {
+        //描画
+        DrawBillboard3D(position, 0.5f, 0.5f, chipSize, imageRotationRate, image[animetionState][animetionCouut[animetionState] / animetionSpeed], TRUE,isTurn);
+    }
+}
+/// <summary>
+/// 弾が当たった際のアニメーション切り替え処理
+/// </summary>
+/// <param name="hitAnimetionState">ヒット時のアニメーションの添え字</param>
+/// <param name="shotManager">ショット管理クラス</param>
+void BaseEnemy::ChangeHitAnimetion(const int hitAnimetionState,const ShotManager& shotManager)
+{
+    bool isHit = false;
+    //弾と当たっているかを判定して体力などを減らす処理
+    isHit = Colision::ColisionShot(shotManager.GetShot(), position, width, height, life, kind);
+    if (isHit)
+    {
+        animetionState = hitAnimetionState;
+    }
+}
+
+/// <summary>
+/// アニメーションの更新処理
+/// </summary>
+void BaseEnemy::UpdateAnimetion()
+{
+    //NULLチェック
+    if (animetionCountLimit!=NULL && animetionCouut != NULL && isRoopAnimetion != NULL && isEndAnimetion != NULL)
+    {
+        //アニメーションのカウントを進める
+        animetionCouut[animetionState]++;
+        //ループアニメーションの処理
+        if (animetionCouut[animetionState] >= animetionCountLimit[animetionState] && isRoopAnimetion[animetionState])
+        {
+            animetionCouut[animetionState] = 0;
+        }
+        //ループしないアニメーションの処理
+        else if (animetionCouut[animetionState] >= animetionCountLimit[animetionState] && !isRoopAnimetion[animetionState])
+        {
+            animetionCouut[animetionState] = 0;
+            isEndAnimetion[animetionState] = true;
+        }
+    }
 
 }
+
+/// <summary>
+/// ヒット時のアニメーションの更新
+/// </summary>
+/// <param name="hitAnimetionState">ヒット時のアニメーションの添え字</param>
+/// <param name="roopAnimetionState">ループアニメーションの添え字</param>
+void BaseEnemy::HitAnimetion(const int hitAnimetionState, const int roopAnimetionState)
+{
+    //被弾時のアニメーションが終了した際の処理
+    if (isEndAnimetion[hitAnimetionState])
+    {
+        //体力が0になっていれば撃破フラグをたてる
+        if (life <= 0)
+        {
+            isDead = true;
+        }
+        //体力が余っていればアニメーションを変更
+        else
+        {
+            animetionState = roopAnimetionState;
+            animetionCouut[hitAnimetionState] = 0;
+            isEndAnimetion[hitAnimetionState] = false;
+        }
+    }
+}
+
+
+
+
 
 
