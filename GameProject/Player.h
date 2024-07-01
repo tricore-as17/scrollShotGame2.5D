@@ -93,7 +93,6 @@ private:
     VECTOR rotaVector;              //回転率を保存するためのベクトル
     float differencePositionY;      //モデル用の座標
     float rotaModelY;               //プレイヤーの向きの角度
-    bool hitFlag;
     bool isGround;                  //接地判定
     bool isHitTop;                  //天井に当たっているかの判定
     bool damageFlag;                //ダメージを受けた際のフラグ
