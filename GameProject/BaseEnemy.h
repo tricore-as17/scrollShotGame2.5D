@@ -67,14 +67,11 @@ public:
     void SetIsGround(const bool inIsGroound) { isGround = inIsGroound; }   //接地判定の設定
     bool GetIsHitTop()const { return isHitTop; }                           //頭上判定の取得
     void SetIsHitTop(const bool inIsHitTop) { isHitTop = inIsHitTop; }     //頭上判定の設定
-    int GetLife()const { return life; }                        //体力の値を返す
-    int GetDamage()const { return damage; }                    //ダメージの値を返す
-    const int GetType()const { return type; }                  //タイプを返す
-    const bool GetIsMoveStart()const { return isMoveStart; }   //移動を開始するかを返す
-    const bool GetIsDead()const { return isDead; }             //撃破されたかを返す
-    
-
-
+    int GetLife()const { return life; }                                    //体力の値を返す
+    int GetDamage()const { return damage; }                                //ダメージの値を返す
+    const int GetType()const { return type; }                              //タイプを返す
+    const bool GetIsMoveStart()const { return isMoveStart; }               //移動を開始するかを返す
+    const bool GetIsDead()const { return isDead; }                         //撃破されたかを返す
 
 protected:
     int   type;                  //自身のタイプ

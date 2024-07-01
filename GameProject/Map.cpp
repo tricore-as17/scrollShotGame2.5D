@@ -55,8 +55,9 @@ void Map::Initialize()
             sprite->Initialize(tileGraph, CHIP_PIXEL_SIZE, drawMapData[yIndex][xIndex]);
 
             
-            VECTOR chipPosition = VAdd(VGet(xIndex * CHIP_SIZE, (-yIndex - 1) * CHIP_SIZE, 0), chipHalfOffset);	// 真ん中ピボットなのでマップチップ半分サイズずらす+地面なので一つ下に
-            chipPosition = VAdd(chipPosition, chipLeftTopPosition);	//行の数だけ座標を上にもってくる
+            VECTOR chipPosition = VAdd(VGet(xIndex * CHIP_SIZE, (-yIndex - 1) * CHIP_SIZE, 0), chipHalfOffset); // 真ん中ピボットなのでマップチップ半分サイズずらす+地面なので一つ下に
+            chipPosition = VAdd(chipPosition, chipLeftTopPosition);       //行の数だけ座標を上にもってくる
+
             sprite->SetTransform(chipPosition, CHIP_SIZE);
             sprites.push_back(sprite);
         }

@@ -5,7 +5,9 @@
 #include"GameObject.h"
 
 
-const int PLAYER_STATE_NUM = 4;      //プレイヤーの状態の数
+
+const int PLAYER_STATE_NUM = 4;             //プレイヤーの状態の数
+
 
 //クラスのプロトタイプ宣言
 class Map;
@@ -27,9 +29,10 @@ public:
     Player();
     ~Player();
     //基本メソッド
-    void Initialize();        //初期化
-    void Update(const Map& map, ShotManager& shotManage,const VECTOR cameraPositionr);    //更新
-    void Draw();              //描画
+    void Initialize();                     //初期化
+    void Update(const Map& map, ShotManager& shotManage,const VECTOR cameraPositionr);  //更新
+    void Draw();                           //描画
+
 
     /// <summary>
     /// プレイヤーモデルの座標移動、拡大、YXZの順で回転させる
@@ -66,19 +69,20 @@ public:
     static constexpr int INTERVAL_RIMIT = 50;             //弾を撃てるようになるまでの間隔
 
 private:
-    int modelHandle;                //キャラのモデルハンドル
-    VECTOR velocity;                //移動量
-    VECTOR keepVelocity;            //プレイヤーの移動量の保存用
-    VECTOR rotaVector;              //回転率を保存するためのベクトル
-    float rotaModelY;               //プレイヤーの向きの角度
-    bool hitFlag;
-    bool isGround;                  //接地判定
-    bool isHitTop;                  //天井に当たっているかの判定
-    bool damageFlag;                //ダメージを受けた際のフラグ
-    int invincibleCount;            //無敵時間のカウント
-    int life;                       //体力
-    int shotIntervalCount;          //弾を撃つ間隔をカウントする変数
-    bool canShotFlag;               //弾を撃つ準備が出来たか確認フラグ
+
+    int modelHandle;                    //キャラのモデルハンドル
+    VECTOR velocity;                    //移動量
+    VECTOR keepVelocity;                //プレイヤーの移動量の保存用
+    VECTOR rotaVector;                  //回転率を保存するためのベクトル
+    float rotaModelY;                   //プレイヤーの向きの角度
+    bool hitFlag;                       //弾などに当たったか
+    bool isGround;                      //接地判定
+    bool isHitTop;                      //天井に当たっているかの判定
+    bool damageFlag;                    //ダメージを受けた際のフラグ
+    int invincibleCount;                //無敵時間のカウント
+    int life;                           //体力
+    int shotIntervalCount;              //弾を撃つ間隔をカウントする変数
+    bool canShotFlag;                   //弾を撃つ準備が出来たか確認フラグ
 
     //静的定数
     static constexpr float SCALE = 0.012f;  //プレイヤーの大きさ
