@@ -5,7 +5,8 @@
 #include"GameObject.h"
 
 
-const int PLAYER_STATE_NUM = 4;      //プレイヤーの状態の数
+
+const int PLAYER_STATE_NUM = 4;             //プレイヤーの状態の数
 
 //クラスのプロトタイプ宣言
 class Map;
@@ -27,9 +28,9 @@ public:
     Player();
     ~Player();
     //基本メソッド
-    void Initialize();        //初期化
-    void Update(const Map& map, ShotManager& shotManage,const VECTOR cameraPositionr);    //更新
-    void Draw();              //描画
+    void Initialize();                     //初期化
+    void Update(const Map& map, ShotManager& shotManage,const VECTOR cameraPositionr);  //更新
+    void Draw();                           //描画
 
     /// <summary>
     /// プレイヤーモデルの座標移動、拡大、YXZの順で回転させる
@@ -78,7 +79,7 @@ public:
     static constexpr float PLAYER_HEIGHT  = 1.2f;         //プレイヤーの縦サイズ
     static constexpr float JUMP_POWER     = 0.35f;        //キャラのジャンプ力
     static constexpr float ANIMETION_JUMP_POWER = 0.1f;
-    static const     MATRIX INITIAL_SCALE_MATRIX;                     //キャラの拡大率を設定するための行列
+    static const     MATRIX INITIAL_SCALE_MATRIX;         //キャラの拡大率を設定するための行列
     static constexpr int INITIALIZE_LIFE  = 5;            //ゲーム開始時の体力
     static constexpr int INVINCIBLE_TIME  = 50;           //無敵時間の長さ
     static constexpr int INTERVAL_RIMIT   = 50;           //弾を撃てるようになるまでの間隔
@@ -121,10 +122,6 @@ private:
     static constexpr float SHOT_GOAL_DIFFERENCE_SCALE  = 0.008f;   //撃つアニメーションのスケール差の到達値
     static constexpr int   BLINKING_SPEED = 6;                     //ヒット時に点滅させるスピード
     static const     float SPEED;                                  //プレイヤーの速度
-
-
-    
-
 
 };
 

@@ -72,8 +72,6 @@ public:
     const int GetType()const { return type; }                  //タイプを返す
     const bool GetIsMoveStart()const { return isMoveStart; }   //移動を開始するかを返す
     const bool GetIsDead()const { return isDead; }             //撃破されたかを返す
-    
-
 
 
 protected:
@@ -97,5 +95,6 @@ protected:
     int   animetionSpeed;        //アニメーションを切り替えるスピード
     bool  isTurn;                //ターンするかのフラグ
     bool  isDead;                //撃破フラグ
+
 };
 
