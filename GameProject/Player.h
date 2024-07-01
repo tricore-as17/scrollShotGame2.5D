@@ -8,6 +8,7 @@
 
 const int PLAYER_STATE_NUM = 4;             //プレイヤーの状態の数
 
+
 //クラスのプロトタイプ宣言
 class Map;
 class Gimmick;
@@ -31,6 +32,7 @@ public:
     void Initialize();                     //初期化
     void Update(const Map& map, ShotManager& shotManage,const VECTOR cameraPositionr);  //更新
     void Draw();                           //描画
+
 
     /// <summary>
     /// プレイヤーモデルの座標移動、拡大、YXZの順で回転させる
@@ -108,6 +110,7 @@ private:
     float shotModelScaleY;          //撃つアニメーションでモデルのYスケール
     float shotModelScaleZ;          //撃つアニメーションでモデルのZスケール
     bool isDraw;                    //描画するか
+
 
     //静的定数
     static constexpr float SCALE                       = 0.009f;   //プレイヤーの基本的な大きさ
