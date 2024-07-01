@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BaseEnemy.cpp" />
     <ClCompile Include="BlinkingDrawString.cpp" />
     <ClCompile Include="BossEnemy.cpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="WorldSprite.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BackGround.h" />
     <ClInclude Include="BaseEnemy.h" />
     <ClInclude Include="BlinkingDrawString.h" />
     <ClInclude Include="BossEnemy.h" />

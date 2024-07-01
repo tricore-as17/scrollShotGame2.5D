@@ -5,6 +5,7 @@
 #include"EnemyManager.h"
 #include"ShotManager.h"
 #include"InputManager.h"
+#include"BackGround.h"
 #include"GameSceneUI.h"
 #include"ResultScene.h"
 
@@ -18,15 +19,13 @@ GameScene::GameScene()
     enemyManager = new EnemyManager();
     shotManager  = new ShotManager();
     gameSceneUI  = new GameSceneUI();
+    backGround   = new BackGround();
 
     player->Initialize();
     camera->Initialize();
     map->Initialize();
 
-    //背景モデルのロード
-    backGroundModel = MV1LoadModel("mv1/NightDome.pmx");
-    //モデル位置の固定
-    MV1SetPosition(backGroundModel, VGet(0, -200, -100));
+
 
 }
 
@@ -46,8 +45,7 @@ GameScene::~GameScene()
     enemyManager = NULL;
     shotManager  = NULL;
     gameSceneUI  = NULL;
-    //背景モデルも削除
-    MV1DeleteModel(backGroundModel);
+
 }
 
 /// <summary>
@@ -85,8 +83,7 @@ void GameScene::Update(InputManager* inputManager)
 /// </summary>
 void GameScene::Draw()
 {
-    //背景モデルの描画
-    MV1DrawModel(backGroundModel);
+    backGround->Draw();
     //それぞれのクラスの描画処理
     map->Draw();
     player->Draw();

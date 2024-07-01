@@ -61,6 +61,9 @@
     <Filter Include="ソース ファイル\Enemy\Sub">
       <UniqueIdentifier>{0a5c6ece-71b9-4828-9ae1-0b7fd23346f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\BG">
+      <UniqueIdentifier>{eef4203a-dc3a-4008-ba36-6f0eb7085406}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -143,6 +146,9 @@
     </ClCompile>
     <ClCompile Include="BossEnemy.cpp">
       <Filter>ソース ファイル\Enemy\Sub</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>ソース ファイル\BG</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="BossEnemy.h">
       <Filter>ソース ファイル\Enemy\Sub</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>ソース ファイル\BG</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
