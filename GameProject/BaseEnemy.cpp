@@ -41,9 +41,9 @@ BaseEnemy::~BaseEnemy() {/*処理なし*/ }
 void BaseEnemy::Move(const Map& map,const float& speed)
 {
     // 正規化
-    if (VSquareSize(direction) > 0)		//directionのサイズを2乗にして返す(二乗にすることでdirectionに値が入っていればifに入る
+    if (VSquareSize(direction) > 0)      //directionのサイズを2乗にして返す(二乗にすることでdirectionに値が入っていればifに入る
     {
-        direction = VNorm(direction);			//各成分のサイズを１にする
+        direction = VNorm(direction);    //各成分のサイズを１にする
     }
 
     //移動量を出す
@@ -59,7 +59,7 @@ void BaseEnemy::Move(const Map& map,const float& speed)
 
 
     // 落下速度を移動量に加える
-    VECTOR fallVelocity = VGet(0, fallSpeed, 0);	// 落下をベクトルに。y座標しか変化しないので最後にベクトルにする
+    VECTOR fallVelocity = VGet(0, fallSpeed, 0);       // 落下をベクトルに。y座標しか変化しないので最後にベクトルにする
     velocity = VAdd(velocity, fallVelocity);
 
     // 当たり判定をして、壁にめり込まないようにvelocityを操作する

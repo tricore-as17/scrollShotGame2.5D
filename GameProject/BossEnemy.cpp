@@ -147,7 +147,7 @@ void BossEnemy::Update(const Map& map, const VECTOR& cameraPosition, ShotManager
             Colision::IsGround(map, position, width, height, fallSpeed);
 
             // 落下速度を移動量に加える
-            VECTOR fallVelocity = VGet(0, fallSpeed, 0);	// 落下をベクトルに。y座標しか変化しないので最後にベクトルにする
+            VECTOR fallVelocity = VGet(0, fallSpeed, 0);        // 落下をベクトルに。y座標しか変化しないので最後にベクトルにする
             velocity = VAdd(velocity, fallVelocity);
 
             // 当たり判定をして、壁にめり込まないようにvelocityを操作する
@@ -299,7 +299,7 @@ VECTOR BossEnemy::MoveSide()
         direction = VGet(1, 0, 0);
     }
     // 正規化
-    direction = VNorm(direction);			//各成分のサイズを１にする
+    direction = VNorm(direction);            //各成分のサイズを１にする
 
     //移動量を出す
     VECTOR velocity = VScale(direction, SPEED);
