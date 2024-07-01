@@ -25,7 +25,7 @@ public:
     static constexpr int MAX_LIFE = 1;              //体力の上限値
     static constexpr int INITIALIZE_DAMAGE = 1;     //当たった時のダメージ
     static constexpr int ANIMETION_NUM = 2;         //アニメーションの合計
-    static constexpr int CHIP_SIZE = 64;
+    static constexpr int CHIP_SIZE = 64;            //キャラの画像のチップサイズ
     static constexpr int RUN_SPLIT_NUM = 16;        //走りアニメーション時の分割数
     static constexpr int HIT_SPLIT_NUM = 5;         //ヒット時のアニメーション分割数
     //メソッド
