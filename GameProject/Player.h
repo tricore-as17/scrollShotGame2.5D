@@ -80,7 +80,6 @@ public:
     static constexpr float PLAYER_WIDTH   = 1.2f;         //プレイヤー横サイズ
     static constexpr float PLAYER_HEIGHT  = 1.2f;         //プレイヤーの縦サイズ
     static constexpr float JUMP_POWER     = 0.35f;        //キャラのジャンプ力
-    static constexpr float ANIMETION_JUMP_POWER = 0.1f;
     static const     MATRIX INITIAL_SCALE_MATRIX;         //キャラの拡大率を設定するための行列
     static constexpr int INITIALIZE_LIFE  = 5;            //ゲーム開始時の体力
     static constexpr int INVINCIBLE_TIME  = 50;           //無敵時間の長さ
