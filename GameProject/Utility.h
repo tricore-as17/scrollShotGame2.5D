@@ -30,12 +30,12 @@ class Utility
 {
 public:
     //定数群
-    static constexpr float GRAVITY = 0.012f;            //重力の値
-    static const float CONVERSION_RADIAN ;              //角度をラジアンに変換する際にしようする定数
-    static constexpr float WORLD_SCREEN_WIDTH_SIZE = 29.0f;     //ワールド座標に合わせたスクリーンの幅
-    static constexpr float WORLD_SCREEN_HEIGHT_SIZE = 18.125f;  //ワールド座標に合わせたスクリーンの高さ
-    static constexpr int KIND_PLAYER = 0;                  //プレイヤーを判断するための数字
-    static constexpr int KIND_ENEMY = 1;                   //エネミーを判断するための数字
+    static constexpr float GRAVITY = 0.012f;                   //重力の値
+    static const float CONVERSION_RADIAN ;                     //角度をラジアンに変換する際にしようする定数
+    static constexpr float WORLD_SCREEN_WIDTH_SIZE = 29.0f;    //ワールド座標に合わせたスクリーンの幅
+    static constexpr float WORLD_SCREEN_HEIGHT_SIZE = 18.125f; //ワールド座標に合わせたスクリーンの高さ
+    static constexpr int KIND_PLAYER = 0;                      //プレイヤーを判断するための数字
+    static constexpr int KIND_ENEMY = 1;                       //エネミーを判断するための数字
 
 
 

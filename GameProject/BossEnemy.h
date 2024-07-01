@@ -113,9 +113,9 @@ private:
     static constexpr int   SWITCH_DIRCTION_INTERVAL = 20;      //移動方向が変わるインターバル
     static const float SPEED;                                  //通常移動のスピード
     static const float REFERENCE_DISTANCE;
-    static const int   SINGLE_ACTION_SHOT_NUM = 3;             //１回の行動で撃つ弾の数
-    static const int   BLINKING_SPEED = 6;
-    static const int   BLINKING_COUNT_LIMIT = 40;
+    static const int   SINGLE_ACTION_SHOT_NUM = 3;        //１回の行動で撃つ弾の数
+    static const int   BLINKING_SPEED = 6;                //ダメージを受けた際の点滅のスピード
+    static const int   BLINKING_COUNT_LIMIT = 40;         //どれだけの間点滅させるか
 
     //アニメーション関連
     static constexpr int CHIP_SIZE     = 96;      //チップの大きさ
@@ -132,25 +132,25 @@ private:
 
     //横移動の行動に関する変数
     bool isInSideMove;           //横移動のアクション中か
-    int  switchDirectionCount;   //向きを切り替えるまでのカウント
-    int  switchDirection;        //向きを切り替えるための変数
-    int  sideMoveCount;          //横移動を辞めるまでのカウント
+    int switchDirectionCount;    //向きを切り替えるまでのカウント
+    int switchDirection;         //向きを切り替えるための変数
+    int sideMoveCount;           //横移動を辞めるまでのカウント
 
     //弾を撃つ行動に関する変数
     bool isInShoot;              //ショット中か
-    int  shotCount;              //ショットを撃った数
+    int shotCount;               //ショットを撃った数
 
     //プレイヤーに向かってジャンプする行動に関する変数
-    VECTOR startPlayerPosition;   //行動開始した時点でのプレイヤー座標
-    VECTOR jumpVertex;
-    VECTOR jumpStartPosition;     //ジャンプを開始した時の座標
-    bool   isInJump;              //ジャンプ中か
-    float  coefficient;           //放物線係数
-    float  jumpEndCount;          //ジャンプが終わるまでのカウント
+    bool isInJump;               //ジャンプ中か
+    VECTOR startPlayerPosition;  //行動開始した時点でのプレイヤー座標
+    VECTOR jumpVertex;           //ジャンプした際の放物線軌道の頂点
+    VECTOR jumpStartPosition;    //ジャンプを開始した時の座標
+    float coefficient;           //放物線係数
+    float jumpEndCount;          //ジャンプが終わるまでのカウント
 
     //弾に当たった際の点滅表示のための変数
-    bool isDraw;
-    int  blinkingCount;          //点滅表示用のカウント
+    bool isDraw;                //描画するか
+    int blinkingCount;          //点滅表示用のカウント
 
 
     //メンバクラス
